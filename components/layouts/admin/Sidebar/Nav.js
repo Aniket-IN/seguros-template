@@ -49,7 +49,7 @@ const Nav = () => {
               <Item isActive={isActive} key={item.id}>
                 <Link href={item.href} className={classNames("flex-grow flex gap-3 items-center py-5 px-4 text-white text-opacity-60", isActive ? 'bg-black text-opacity-100' : 'hover:text-opacity-80 text-opacity-60')}>
                   {item.icon}
-                  <span className="truncate whitespace-nowrap">{item.title}</span>
+                  <span className="truncate whitespace-nowrap text-sm">{item.title}</span>
                 </Link>
               </Item>
             )
