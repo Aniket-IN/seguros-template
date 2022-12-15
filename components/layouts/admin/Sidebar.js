@@ -1,5 +1,7 @@
-import Link from "next/link"
 import React from 'react'
+import Link from "next/link"
+import { RectangleGroupIcon } from "@heroicons/react/24/outline"
+import Nav from "./Sidebar/Nav"
 
 const Sidebar = () => {
   return (
@@ -12,14 +14,8 @@ const Sidebar = () => {
         </Link>
       </div>
 
-
-
       {/* Sidebar Navigation Buttons */}
-      <nav className="flex-grow overflow-auto">
-        <ul>
-
-        </ul>
-      </nav>
+      <Nav />
 
       {/* Sidebar footer */}
       <div>
