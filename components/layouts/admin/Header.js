@@ -4,13 +4,13 @@ import { ArrowLeftOnRectangleIcon, BellIcon, ChevronDownIcon } from '@heroicons/
 import { Menu, Transition } from "@headlessui/react"
 import Link from "next/link"
 
-const Header = () => {
+const Header = ({headerTitle = ''}) => {
   return (
     <header className="sticky top-0 bg-white z-10">
       <div className="conitaner-padding flex items-center">
 
         {/* Heading */}
-        <h1 className="font-bold text-2xl">Bienvenido, Lucas</h1>
+        <h1 className="font-bold text-2xl">{headerTitle}</h1>
 
         {/* Notifications Btn */}
         <HeaderBtn className="text-sm ml-auto">

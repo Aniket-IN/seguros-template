@@ -5,7 +5,7 @@ import { DocumentTextIcon } from "@heroicons/react/24/outline"
 
 const Home = () => {
   return (
-    <Admin>
+    <Admin headerTitle="Bienvenido, Lucas">
       <div className="bg-neutral">
         <div className="conitaner-padding py-2.5 flex items-center justify-end gap-3">
           <span className="text-secondary-3 text-sm">Visualizar información del mes</span>
