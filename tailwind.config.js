@@ -17,11 +17,17 @@ module.exports = {
       },
       colors: {
         'primary': '#1555ED',
+        'success': '#00A74F',
+
         'accent': '#F8F8F8',
+
         'neutral': '#F1F2F3',
         'neutral-2': '#212121',
+
         'secondary': '#636363',
         'secondary-2': '#F0EFF4',
+        'secondary-3': '#8E8E91',
+
         // 'brand-accent': '#F2F8E9',
         // 'secondary-accent': '#f4f6fa',
         // 'danger': '#f1416c',
