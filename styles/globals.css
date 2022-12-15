@@ -4,6 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.conitaner-padding {
+.container-padding {
  @apply px-4 sm:px-6 lg:px-8;
 }

@@ -4,10 +4,10 @@ import { ArrowLeftOnRectangleIcon, BellIcon, ChevronDownIcon } from '@heroicons/
 import { Menu, Transition } from "@headlessui/react"
 import Link from "next/link"
 
-const Header = ({headerTitle = ''}) => {
+const Header = ({ headerTitle = '' }) => {
   return (
     <header className="sticky top-0 bg-white z-10">
-      <div className="conitaner-padding flex items-center">
+      <div className="container-padding flex items-center">
 
         {/* Heading */}
         <h1 className="font-bold text-2xl">{headerTitle}</h1>
@@ -59,7 +59,7 @@ const Header = ({headerTitle = ''}) => {
                     href="#"
                     className={classNames(
                       active ? 'bg-[#E5E5E5]' : 'bg-accent',
-                      'flex items-center gap-2.5 px-4 py-3 text-sm text-gray-900'
+                      'flex items-center gap-2.5 px-4 py-3 text-sm text-a'
                     )}
                   >
                     <ArrowLeftOnRectangleIcon className="w-6 h-6" />
@@ -77,7 +77,7 @@ const Header = ({headerTitle = ''}) => {
   )
 }
 
-const HeaderBtn = ({ as = 'button', className, ...props }) => {
+const HeaderBtn = ({ as = 'button', className = '', ...props }) => {
   return createElement(as, {
     ...props,
     className: classNames('py-3 px-4 self-stretch flex items-center gap-2 hover:bg-secondary-2', className)
