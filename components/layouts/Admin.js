@@ -1,9 +1,10 @@
 import React from 'react'
 import Sidebar from "./admin/Sidebar"
 
+
 const Admin = ({ children }) => {
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden font-inter">
       {/* Sidebar */}
       <Sidebar />
 
