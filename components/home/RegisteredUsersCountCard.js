@@ -41,7 +41,7 @@ const RegisteredUsersCountCard = () => {
           {
             data.items.map((item) => {
               return (
-                <li className="py-2.5 px-4 text-sm flex justify-between bg-accent text-secondary-4">
+                <li key={item.id} className="py-2.5 px-4 text-sm flex justify-between bg-accent text-secondary-4">
                   <span>{item.title}</span>
                   <span>{item.count}</span>
                 </li>
