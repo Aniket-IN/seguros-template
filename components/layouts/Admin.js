@@ -1,4 +1,6 @@
 import React from 'react'
+import Footer from "./admin/Footer"
+import Header from "./admin/Header"
 import Sidebar from "./admin/Sidebar"
 
 
@@ -8,10 +10,18 @@ const Admin = ({ children }) => {
       {/* Sidebar */}
       <Sidebar />
 
-      {/* Main content section */}
-      <main>
-        {children}
-      </main>
+      <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+        <Header />
+
+        {/* Main content section */}
+        <main className="flex-grow bg-accent">
+          {children}
+        </main>
+
+        {/* Footer */}
+        <Footer />
+      </div>
+
     </div>
   )
 }
