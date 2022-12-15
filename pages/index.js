@@ -7,7 +7,7 @@ import RegisteredUsersCountCard from "@/components/home/RegisteredUsersCountCard
 
 const Home = () => {
   return (
-    <Admin headerTitle="Bienvenido, Lucas">
+    <Admin pageTitle="Dashboard" headerTitle="Bienvenido, Lucas">
       <div className="bg-neutral">
         <div className="container-padding py-2.5 flex items-center justify-end gap-3">
           <span className="text-secondary-3 text-sm">Visualizar información del mes</span>
