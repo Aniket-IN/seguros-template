@@ -38,6 +38,21 @@ const Nav = () => {
         "/users",
       ],
     },
+    {
+      id: 3,
+      icon: (
+        <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
+        <g transform="translate(18366 20509)">
+          <path d="M6.667,4V28h8V23.333h2.667V28h8V4H6.667M9.333,6.667H12V9.333H9.333V6.667m5.333,0h2.667V9.333H14.667V6.667m5.333,0h2.667V9.333H20V6.667M9.333,12H12v2.667H9.333V12m5.333,0h2.667v2.667H14.667V12M20,12h2.667v2.667H20V12M9.333,17.333H12V20H9.333V17.333m5.333,0h2.667V20H14.667V17.333m5.333,0h2.667V20H20V17.333M9.333,22.667H12v2.667H9.333V22.667m10.667,0h2.667v2.667H20Z" transform="translate(-18370 -20513)" fill="currentColor" />
+        </g>
+      </svg>
+      ),
+      title: "Empresas",
+      href: "/companies",
+      activePaths: [
+        "/companies",
+      ],
+    },
   ]
 
   const router = useRouter();
