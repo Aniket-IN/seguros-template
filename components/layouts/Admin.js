@@ -21,6 +21,11 @@ const Admin = ({ children, pageTitle = null, headerTitle = '' }) => {
         <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
           <Header headerTitle={headerTitle} />
 
+          {/* Heading */}
+          <div className="bg-neutral">
+            <h1 className="container-padding font-bold text-2xl block lg:hidden py-3">{headerTitle}</h1>
+          </div>
+
           {/* Main content section */}
           <main className="flex-grow bg-accent">
             {children}
