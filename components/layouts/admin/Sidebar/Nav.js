@@ -17,8 +17,8 @@ const Nav = () => {
         </svg>
 
       ),
-      href: "/",
       title: "Dashboard",
+      href: "/",
       activePaths: [
         "/",
       ],
@@ -32,8 +32,11 @@ const Nav = () => {
           </g>
         </svg>
       ),
-      href: "/users",
       title: "Usuarios",
+      href: "/users",
+      activePaths: [
+        "/users",
+      ],
     },
   ]
 
