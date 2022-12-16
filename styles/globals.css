@@ -7,3 +7,24 @@
 .container-padding {
  @apply px-4 sm:px-6 lg:px-8;
 }
+
+
+/* ===== Scrollbar CSS ===== */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1555ED #ffffff;
+}
+*::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar:horizontal {
+  height: 5px;
+}
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #1555ED;
+  border-radius: 0px;
+  border: 0px none #ffffff;
+}
