@@ -6,7 +6,7 @@ import Link from "next/link"
 
 const Header = ({ headerTitle = '' }) => {
   return (
-    <header className="sticky top-0 bg-white z-10">
+    <header className="sticky top-0 bg-white z-10 border-b">
       <div className="container-padding flex items-center">
 
         {/* Heading */}

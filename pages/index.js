@@ -31,7 +31,38 @@ const Home = () => {
         </div>
       </div>
 
-      <TopCardsSection />
+      <div className="space-y-2">
+        <TopCardsSection />
+
+        <div className="container-padding">
+          <SectionHeading className="py-5">Métricas de crecimiento</SectionHeading>
+          <div className="grid gap-5 grid-cols-1 md:grid-cols-2">
+            
+            <div className="bg-white p-4 flex flex-col gap-2 aspect-video">
+              <div className="font-semibold text-sm">
+                <h3>N°. de Usuarios registrados por mes</h3>
+                <h3 className="text-right">Total Usuarios: 20 541</h3>
+              </div>
+              <div className="bg-white flex-grow">
+
+              </div>
+            </div>
+
+            <div className="bg-white p-4 flex flex-col gap-2 aspect-video">
+              <div className="font-semibold text-sm">
+                <h3>N°. de Usuarios registrados por mes</h3>
+                <h3 className="text-right">Total Escudos: 2 541</h3>
+              </div>
+              <div className="bg-white flex-grow">
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
 
     </Admin>
   )
