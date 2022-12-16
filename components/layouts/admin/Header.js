@@ -1,21 +1,27 @@
 import React, { createElement, Fragment } from 'react'
 import classNames from "classnames"
-import { ArrowLeftOnRectangleIcon, BellIcon, ChevronDownIcon } from '@heroicons/react/24/outline'
+import { ArrowLeftOnRectangleIcon, Bars3Icon, Bars4Icon, BellIcon, ChevronDownIcon } from '@heroicons/react/24/outline'
 import { Menu, Transition } from "@headlessui/react"
 import Link from "next/link"
+import { toggle } from "./Sidebar"
 
 const Header = ({ headerTitle = '' }) => {
   return (
     <header className="sticky top-0 bg-white z-10 border-b">
-      <div className="container-padding flex items-center">
+      <div className="sm:px-6 lg:px-8 flex items-center">
 
         {/* Heading */}
-        <h1 className="font-bold text-2xl">{headerTitle}</h1>
+        <h1 className="font-bold text-2xl hidden lg:inline">{headerTitle}</h1>
+
+        {/* Burger Icon */}
+        <HeaderBtn onClick={toggle} className="text-sm md:hidden">
+          <Bars3Icon className="w-7 h-7 text-black text-opacity-80" />
+        </HeaderBtn>
 
         {/* Notifications Btn */}
         <HeaderBtn className="text-sm ml-auto">
           <BellIcon className="w-7 h-7 text-black text-opacity-80" />
-          <span>Notificaciones</span>
+          <span className="hidden xl:inline">Notificaciones</span>
           <span className="px-2.5 pr-3 py-1 rounded-full bg-primary text-white">+99</span>
         </HeaderBtn>
 
@@ -25,7 +31,7 @@ const Header = ({ headerTitle = '' }) => {
 
           <Menu.Button className="py-3 px-4 self-stretch flex items-center gap-2 hover:bg-secondary-2">
             <img src="/assets/img/sample/user-1.png" className="block w-9 h-9 rounded-full" alt="user-1" />
-            <span className="max-w-[150px] truncate">Lucas Rodrigue..</span>
+            <span className="max-w-[150px] truncate hidden lg:inline">Lucas Rodrigue..</span>
             <ChevronDownIcon className="w-5 h-5 text-black text-opacity-80" />
           </Menu.Button>
 
