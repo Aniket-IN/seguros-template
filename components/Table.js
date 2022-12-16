@@ -26,7 +26,7 @@ Table.Thead = ({ as = "thead", className = "", ...props }) =>
 
 Table.Th = ({ as = "th", className = "", ...props }) =>
   createElement(as, {
-    className: `px-3 py-3.5 text-left text-sm font-semibold text-gray-900 ${className}`,
+    className: `whitespace-nowrap px-3 py-3.5 text-left text-sm font-semibold text-gray-900 ${className}`,
     ...props,
   });
 
