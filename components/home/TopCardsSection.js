@@ -8,7 +8,7 @@ const TopCardsSection = () => {
   return (
     <div className="container-padding">
       <SectionHeading className="py-5">Métricas del mes</SectionHeading>
-      <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
+      <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4">
         <RegisteredUsersCountCard />
         <MembershipsCountCard />
         <div className="flex flex-col gap-4">
