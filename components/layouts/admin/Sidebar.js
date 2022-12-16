@@ -15,7 +15,7 @@ const Sidebar = () => {
         {/* Sidebar Header */}
         <div className="p-4">
           <Link href="/" className="mb-3 px-7 py-4 block">
-            <img className="w-full" src="/assets/img/logo.svg" alt="Company Logo" />
+            <img className="w-full" src="/assets/img/logo-white-text.svg" alt="Company Logo" />
           </Link>
         </div>
 
