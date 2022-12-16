@@ -1,5 +1,6 @@
 import Auth from "@/components/layouts/Auth"
 import InputGroup from "@/components/utility/InputGroup"
+import Link from "next/link"
 import React from 'react'
 
 const Login = () => {
@@ -43,9 +44,9 @@ const Login = () => {
         </button>
 
         <div className="mt-9 flex justify-center">
-          <a href="" className="inline-block mx-auto font-semibold underline hover:text-primary">
+          <Link href="/forgot-password" className="inline-block mx-auto font-semibold underline hover:text-primary">
             Olvide mi contraseña
-          </a>
+          </Link>
         </div>
         
 
