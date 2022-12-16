@@ -3,7 +3,6 @@ import Table from "../Table"
 import { Menu, Transition } from "@headlessui/react"
 import classNames from "classnames"
 import { ChevronDownIcon } from "@heroicons/react/20/solid"
-import { FunnelIcon } from "@heroicons/react/24/outline"
 
 const UsersTable = () => {
   const headers = [
