@@ -23,7 +23,7 @@ const InputGroup = ({
 InputGroup.Prepend = ({ as = "div", className = "", ...props }) => {
   return createElement(as, {
     className: `
-      rounded-l overflow-hidden flex-grow flex-shrink-0 border-[#e2e8f0] border border-r-0 
+      rounded-l-md overflow-hidden flex-grow flex-shrink-0 border-[#e2e8f0] border border-r-0 
       ${className}
     `,
     ...props,
@@ -32,7 +32,7 @@ InputGroup.Prepend = ({ as = "div", className = "", ...props }) => {
 
 InputGroup.Append = ({ as = "div", className = "", ...props }) =>
   createElement(as, {
-    className: `rounded-r overflow-hidden flex-grow flex-shrink-0 border-[#e2e8f0] border border-l-0 ${className}`,
+    className: `rounded-r-md overflow-hidden flex-grow flex-shrink-0 border-[#e2e8f0] border border-l-0 ${className}`,
     ...props,
   });
 
@@ -47,9 +47,9 @@ InputGroup.Input = ({
   return createElement(as, {
     className: `
       ${isInvalid ? "border-red-600" : ""}
-      ${prepend ? "rounded-r" : ""}
-      ${append ? "rounded-l" : ""}
-      ${!append && !prepend ? "rounded" : ""} 
+      ${prepend ? "rounded-r-md" : ""}
+      ${append ? "rounded-l-md" : ""}
+      ${!append && !prepend ? "rounded-md" : ""} 
       px-4 py-1.5 w-full border border-[#e2e8f0] 
       outline-none focus:ring-1
       focus:ring-primary focus:border-primary
