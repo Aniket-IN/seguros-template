@@ -5,6 +5,8 @@ import { DocumentTextIcon } from "@heroicons/react/24/outline"
 import SectionHeading from "@/components/SectionHeading"
 import RegisteredUsersCountCard from "@/components/home/RegisteredUsersCountCard"
 import MembershipsCountCard from "@/components/home/MembershipsCountCard"
+import SmallAnalyticsCard from "@/components/home/SmallAnalyticsCard"
+import TopCardsSection from "@/components/home/TopCardsSection"
 
 const Home = () => {
   return (
@@ -29,13 +31,8 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="container-padding">
-        <SectionHeading className="py-5">Métricas del mes</SectionHeading>
-        <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
-          <RegisteredUsersCountCard />
-          <MembershipsCountCard />
-        </div>
-      </div>
+      <TopCardsSection />
+
     </Admin>
   )
 }
