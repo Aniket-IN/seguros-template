@@ -1,11 +1,17 @@
 import Auth from "@/components/layouts/Auth"
 import InputGroup from "@/components/utility/InputGroup"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import React from 'react'
 
 const Login = () => {
+  const router = useRouter()
+
   const submit = (e) => {
     e.preventDefault()
+
+    // Redirect to dashboard
+    router.push('/');
   }
 
   return (

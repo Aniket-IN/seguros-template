@@ -7,7 +7,7 @@ import React from 'react'
 const ForgotPassword = () => {
 
   const submit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
   }
 
   return (
