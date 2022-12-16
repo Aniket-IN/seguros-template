@@ -1,4 +1,5 @@
 import { ChevronRightIcon } from "@heroicons/react/20/solid"
+import Link from "next/link"
 import React from 'react'
 
 const RegisteredUsersCountCard = () => {
@@ -25,8 +26,8 @@ const RegisteredUsersCountCard = () => {
   }
 
   return (
-    <div className="bg-white divide-y">
-      <div className="p-4">
+    <div className="bg-white divide-y flex flex-col">
+      <div className="p-4 flex-grow">
         <h3 className="font-semibold text-sm mb-2">Usuarios registrados</h3>
 
         <div className="flex justify-between items-center">
@@ -51,10 +52,10 @@ const RegisteredUsersCountCard = () => {
         </ul>
       </div>
 
-      <a className="flex justify-between items-center px-4 py-2.5 text-primary text-sm">
+      <Link href="/users" className="flex justify-between items-center px-4 py-2.5 text-primary text-sm">
         <span>Ver Usuarios</span>
         <ChevronRightIcon className="w-5 h-5" />
-      </a>
+      </Link>
     </div>
   )
 }
