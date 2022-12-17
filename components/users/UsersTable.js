@@ -3,6 +3,7 @@ import Table from "../Table"
 import { Menu, Transition } from "@headlessui/react"
 import classNames from "classnames"
 import { ChevronDownIcon } from "@heroicons/react/20/solid"
+import Link from "next/link"
 
 const UsersTable = () => {
   const headers = [
@@ -25,7 +26,7 @@ const UsersTable = () => {
               <Table.Th key={header}>{header}</Table.Th>
             ))
           }
-          </Table.Tr>
+        </Table.Tr>
       </Table.Thead>
       <Table.Tbody>
         {[...Array(20)].map((user, index) => {
@@ -91,15 +92,15 @@ const ActionBtn = () => {
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
-                <a
-                  href="#"
+                <Link
+                  href="/users/1"
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm'
                   )}
                 >
-                  Lorem Ipsum
-                </a>
+                  Ver detalles
+                </Link>
               )}
             </Menu.Item>
             <Menu.Item>
@@ -111,7 +112,7 @@ const ActionBtn = () => {
                     'block px-4 py-2 text-sm'
                   )}
                 >
-                  Lorem Ipsum
+                  Suspender cuenta
                 </a>
               )}
             </Menu.Item>
