@@ -1,5 +1,6 @@
 import { ChevronDownIcon } from "@heroicons/react/20/solid"
 import classNames from "classnames"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import React from 'react'
 
@@ -8,37 +9,42 @@ const UserTabNav = () => {
   const tabs = [
     {
       title: 'Historial de ubicaciones',
+      href: "/users/1",
       activePaths: [
-        "/users",
+        "/users/1",
         "/users/[user_id]",
       ],
     },
     {
       title: 'Escudos',
+      href: "/users/1/shields",
       activePaths: [
-        "/companies",
-        "/companies/[company_id]",
+        "/users/1/shields",
+        "/users/[user_id]/shields",
       ],
     },
     {
       title: 'Alertas y SOS',
+      href: "/users/1/sos",
       activePaths: [
-        "/companies",
-        "/companies/[company_id]",
+        "/users/1/sos",
+        "/users/[user_id]/sos",
       ],
     },
     {
       title: 'Membresía',
+      href: "/users/1/membership",
       activePaths: [
-        "/companies",
-        "/companies/[company_id]",
+        "/users/1/membership",
+        "/users/[user_id]/membership",
       ],
     },
     {
       title: 'Biométrico',
+      href: "/users/1/biometric",
       activePaths: [
-        "/companies",
-        "/companies/[company_id]",
+        "/users/1/biometric",
+        "/users/[user_id]/biometric",
       ],
     },
   ]
@@ -66,7 +72,8 @@ const Item = ({ tab }) => {
     <li
       key={tab.title}
     >
-      <button
+      <Link
+        href={tab.href}
         className={
           classNames(
             "font-semibold text-lg py-1.5",
@@ -75,7 +82,7 @@ const Item = ({ tab }) => {
         }
       >
         {tab.title}
-      </button>
+      </Link>
     </li>
   )
 }

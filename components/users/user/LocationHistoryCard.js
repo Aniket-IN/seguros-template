@@ -34,7 +34,7 @@ const LocationHistoryCard = () => {
             </Table.Thead>
             <Table.Tbody>
               {[...Array(10)].map((item, index) => (
-                <Table.Tr>
+                <Table.Tr key={index}>
                   <Table.Td className="!py-5 ">-12.091307, -77.042053</Table.Td>
                   <Table.Td className="!py-5 ">11/03/2022, 10:30 Hrs.</Table.Td>
                   <Table.Td className="!py-5 text-right">70km/h</Table.Td>

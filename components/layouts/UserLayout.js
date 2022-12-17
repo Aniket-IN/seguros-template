@@ -1,8 +1,9 @@
 import React from 'react'
-import Admin from "@/components/layouts/Admin"
-import { ChevronLeftIcon } from "@heroicons/react/20/solid"
-import UserCard from "@/components/users/user/UserCard"
 import Link from "next/link"
+import Admin from "@/components/layouts/Admin"
+import UserCard from "@/components/users/user/UserCard"
+import { ChevronLeftIcon } from "@heroicons/react/20/solid"
+import UserTabNav from "@/components/layouts/user/UserTabNav"
 
 const UserLayout = ({ children, pageTitle = null, headerTitle = '' }) => {
   return (
@@ -25,6 +26,8 @@ const UserLayout = ({ children, pageTitle = null, headerTitle = '' }) => {
           </div>
 
           <div className="flex-grow">
+            <UserTabNav />
+
             {children}
           </div>
 

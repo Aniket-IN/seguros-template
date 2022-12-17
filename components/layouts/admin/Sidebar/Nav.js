@@ -37,6 +37,10 @@ const Nav = () => {
       activePaths: [
         "/users",
         "/users/[user_id]",
+        "/users/[user_id]/shields",
+        "/users/[user_id]/sos",
+        "/users/[user_id]/membership",
+        "/users/[user_id]/biometric",
       ],
     },
     {
