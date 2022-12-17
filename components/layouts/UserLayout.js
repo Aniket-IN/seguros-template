@@ -4,9 +4,9 @@ import { ChevronLeftIcon } from "@heroicons/react/20/solid"
 import UserCard from "@/components/users/user/UserCard"
 import Link from "next/link"
 
-const UserLayout = ({ children }) => {
+const UserLayout = ({ children, pageTitle = null, headerTitle = '' }) => {
   return (
-    <Admin>
+    <Admin pageTitle={pageTitle} headerTitle={headerTitle}>
       <section className="container-padding space-y-5">
         <Link href="/users" className="inline-flex items-center pt-5 hover:underline hover:text-primary">
           <ChevronLeftIcon className="w-8 h-8" />
