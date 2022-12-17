@@ -45,6 +45,7 @@ InputGroup.Input = ({
   const { isInvalid, prepend, append } = useContext(InputGroupContext);
 
   return createElement(as, {
+    type: type,
     className: `
       ${isInvalid ? "border-red-600" : ""}
       ${prepend ? "rounded-r-md" : ""}

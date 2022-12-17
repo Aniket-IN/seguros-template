@@ -55,7 +55,7 @@ const UsersTable = () => {
                   <svg className="mr-1.5 h-2 w-2 text-green-600" fill="currentColor" viewBox="0 0 8 8">
                     <circle cx={5} cy={4} r={3} />
                   </svg>
-                  Badge
+                  Activo
                 </span>
               </Table.Td>
               <Table.Td>

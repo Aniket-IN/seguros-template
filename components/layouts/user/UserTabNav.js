@@ -1,3 +1,4 @@
+import { ChevronDownIcon } from "@heroicons/react/20/solid"
 import classNames from "classnames"
 import { useRouter } from "next/router"
 import React from 'react'
@@ -43,12 +44,16 @@ const UserTabNav = () => {
   ]
 
   return (
-    <nav>
+    <nav className="flex">
       <ul className="flex gap-5">
         {tabs.map((tab) => (
           <Item key={tab.title} tab={tab} />
         ))}
       </ul>
+      <button className="ml-auto inline-flex items-center justify-center text-sm">
+        <span>Acción</span>
+        <ChevronDownIcon className="w-5 h-5" />
+      </button>
     </nav>
   )
 }
