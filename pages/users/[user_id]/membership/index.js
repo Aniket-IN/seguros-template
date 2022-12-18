@@ -1,6 +1,7 @@
 import React from 'react'
 import UserLayout from "@/components/layouts/UserLayout"
 import Table from "@/components/Table"
+import Link from "next/link"
 
 const Membership = () => {
   return (
@@ -29,13 +30,13 @@ const Membership = () => {
                 <Table.Td className="font-semibold">Pago#123123</Table.Td>
                 <Table.Td>T-1231231231</Table.Td>
                 <Table.Td>
-                  <button className="text-primary font-semibold hover:underline">Ver detalles</button>
+                  <Link href="/memberships/1" className="text-primary font-semibold hover:underline">Ver detalles</Link>
                 </Table.Td>
               </Table.Tr>
             ))}
           </Table.Tbody>
         </Table>
-        
+
       </div>
     </UserLayout>
   )
