@@ -11,43 +11,31 @@ const CompanyTabNav = () => {
 
   const tabs = [
     {
-      title: 'Historial de ubicaciones',
-      href: "/users/1",
-      activePaths: [
-        "/users/1",
-        "/users/[user_id]",
-      ],
-    },
-    {
       title: 'Escudos',
-      href: "/users/1/shields",
+      href: "/companies/1",
       activePaths: [
-        "/users/1/shields",
-        "/users/[user_id]/shields",
+        "/companies/[company_id]",
       ],
     },
     {
-      title: 'Alertas y SOS',
-      href: "/users/1/sos",
+      title: 'Miembros',
+      href: "/companies/1/members",
       activePaths: [
-        "/users/1/sos",
-        "/users/[user_id]/sos",
+        "/companies/[company_id]/members",
+      ],
+    },
+    {
+      title: 'Códigos promo',
+      href: "/companies/1/promo-codes",
+      activePaths: [
+        "/companies/[company_id]/promo-codes",
       ],
     },
     {
       title: 'Membresía',
-      href: "/users/1/membership",
+      href: "/companies/1/memberships",
       activePaths: [
-        "/users/1/membership",
-        "/users/[user_id]/membership",
-      ],
-    },
-    {
-      title: 'Biométrico',
-      href: "/users/1/biometric",
-      activePaths: [
-        "/users/1/biometric",
-        "/users/[user_id]/biometric",
+        "/companies/[company_id]/memberships",
       ],
     },
   ]
@@ -72,7 +60,7 @@ const CompanyTabNav = () => {
 
       {/* Desktop Only */}
       <div className="hidden xl:block overflow-auto no-scrollbar">
-        <ul className="flex gap-5 whitespace-nowrap flex-nowrap">
+        <ul className="flex gap-9 whitespace-nowrap flex-nowrap">
           {tabs.map((tab) => (
             <Item key={tab.title} tab={tab} />
           ))}
@@ -92,6 +80,7 @@ const CompanyTabNav = () => {
 
 const Item = ({ tab }) => {
   const router = useRouter();
+  
   const isActive = tab.activePaths?.includes(router.pathname)
 
   return (

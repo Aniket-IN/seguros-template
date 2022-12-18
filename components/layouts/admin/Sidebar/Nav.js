@@ -57,6 +57,9 @@ const Nav = () => {
       activePaths: [
         "/companies",
         "/companies/[company_id]",
+        "/companies/[company_id]/members",
+        "/companies/[company_id]/promo-codes",
+        "/companies/[company_id]/memberships",
       ],
     },
     {

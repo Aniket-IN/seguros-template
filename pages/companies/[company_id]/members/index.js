@@ -3,19 +3,17 @@ import Table from "@/components/Table"
 import SamplePagination from "@/components/SamplePagination"
 import CompanyLayout from "@/components/layouts/CompanyLayout"
 
-export default function index() {
+export default function Members() {
   return (
     <CompanyLayout pageTitle="Empresas" headerTitle="Empresas">
       <div className="mt-5">
         <Table>
           <Table.Thead>
             <Table.Tr>
-              <Table.Th>Nombre</Table.Th>
-              <Table.Th>N° de miembros</Table.Th>
+              <Table.Th>Miembro</Table.Th>
               <Table.Th>Fecha de Creación</Table.Th>
+              <Table.Th>Nro de Escudos</Table.Th>
               <Table.Th>Membresía</Table.Th>
-              <Table.Th>Admin</Table.Th>
-              <Table.Th></Table.Th>
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
@@ -23,29 +21,18 @@ export default function index() {
               <Table.Tr key={index}>
                 <Table.Td >
                   <div className="flex items-center gap-4 min-w-fit">
-                    <div className="w-11 aspect-square rounded-full bg-warning text-2xl text-white flex items-center justify-center">
-                      T
-                    </div>
+                    <img src="/assets/img/sample/user-1.png" className="block w-11 aspect-square object-cover rounded-full" alt="" />
                     <div>
-                      <p className="font-semibold">Nombre de Escudo</p>
-                      <p>ESC123123</p>
+                      <p className="font-semibold">Carlos Pérez Guerrero</p>
+                      <p>UI123123</p>
                     </div>
                   </div>
                 </Table.Td>
                 <Table.Td>
-                  8
+                  23/09/2022
                 </Table.Td>
-                <Table.Td>23/09/2022</Table.Td>
-                <Table.Td>Nivel 1</Table.Td>
-                <Table.Td className="text-secondary">
-                  <p>Alexander Quiroz López</p>
-                  <p>ID UI 2457896</p>
-                </Table.Td>
-                <Table.Td>
-                  <button type="button" className="text-primary font-semibold hover:underline">
-                    Ver detalles
-                  </button>
-                </Table.Td>
+                <Table.Td>3</Table.Td>
+                <Table.Td>Nivel 4</Table.Td>
               </Table.Tr>
             ))}
           </Table.Tbody>

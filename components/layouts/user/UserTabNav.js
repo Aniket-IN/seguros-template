@@ -14,7 +14,6 @@ const UserTabNav = () => {
       title: 'Historial de ubicaciones',
       href: "/users/1",
       activePaths: [
-        "/users/1",
         "/users/[user_id]",
       ],
     },
@@ -22,7 +21,6 @@ const UserTabNav = () => {
       title: 'Escudos',
       href: "/users/1/shields",
       activePaths: [
-        "/users/1/shields",
         "/users/[user_id]/shields",
       ],
     },
@@ -30,7 +28,6 @@ const UserTabNav = () => {
       title: 'Alertas y SOS',
       href: "/users/1/sos",
       activePaths: [
-        "/users/1/sos",
         "/users/[user_id]/sos",
       ],
     },
@@ -38,7 +35,6 @@ const UserTabNav = () => {
       title: 'Membresía',
       href: "/users/1/membership",
       activePaths: [
-        "/users/1/membership",
         "/users/[user_id]/membership",
       ],
     },
@@ -46,7 +42,6 @@ const UserTabNav = () => {
       title: 'Biométrico',
       href: "/users/1/biometric",
       activePaths: [
-        "/users/1/biometric",
         "/users/[user_id]/biometric",
       ],
     },
@@ -72,7 +67,7 @@ const UserTabNav = () => {
 
       {/* Desktop Only */}
       <div className="hidden xl:block overflow-auto no-scrollbar">
-        <ul className="flex gap-5 whitespace-nowrap flex-nowrap">
+        <ul className="flex gap-9 whitespace-nowrap flex-nowrap">
           {tabs.map((tab) => (
             <Item key={tab.title} tab={tab} />
           ))}
