@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from "next/link"
 import Admin from "@/components/layouts/Admin"
-import UserCard from "@/components/users/user/UserCard"
+import UserCard from "@/components/layouts/user/UserCard"
 import { ChevronLeftIcon } from "@heroicons/react/20/solid"
 import UserTabNav from "@/components/layouts/user/UserTabNav"
 

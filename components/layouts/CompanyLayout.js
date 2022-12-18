@@ -1,9 +1,9 @@
 import React from 'react'
 import Link from "next/link"
 import Admin from "@/components/layouts/Admin"
-import UserCard from "@/components/users/user/UserCard"
 import { ChevronLeftIcon } from "@heroicons/react/20/solid"
-import UserTabNav from "@/components/layouts/user/UserTabNav"
+import CompanyTabNav from "./company/CompanyTabNav"
+import CompanyCard from "./company/CompanyCard"
 
 const CompanyLayout = ({ children, pageTitle = null, headerTitle = '' }) => {
   return (
@@ -22,11 +22,11 @@ const CompanyLayout = ({ children, pageTitle = null, headerTitle = '' }) => {
         <div className="2xl:flex gap-5">
 
           <div className="w-full 2xl:max-w-xs flex-shrink-0">
-            <UserCard />
+            <CompanyCard />
           </div>
 
           <div className="flex-grow">
-            <UserTabNav />
+            <CompanyTabNav />
 
             {children}
           </div>
