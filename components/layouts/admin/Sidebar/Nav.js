@@ -59,6 +59,22 @@ const Nav = () => {
         "/companies/[company_id]",
       ],
     },
+    {
+      id: 4,
+      icon: (
+        <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
+          <g transform="translate(18366 20450)">
+            <path d="M13.091,13.091h7.636c-.578,4.484-3.578,8.487-7.636,9.731V13.091H5.455V6.873L13.091,3.48m0-2.389L3.273,5.455V12c0,6.055,4.189,11.705,9.818,13.091C18.72,23.705,22.909,18.055,22.909,12V5.455Z" transform="translate(-18367.092 -20451.092)" fill="currentColor" />
+          </g>
+        </svg>
+      ),
+      title: "Escudos",
+      href: "/shields",
+      activePaths: [
+        "/shields",
+        "/shields/[shield_id]",
+      ],
+    },
   ]
 
   const router = useRouter();
