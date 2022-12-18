@@ -81,7 +81,7 @@ const TopBar = () => {
           </Menu>
 
 
-          <div className="text-gray-900 text-sm text-right ml-auto">34 Usuarios</div>
+          {/* <div className="text-gray-900 text-sm text-right ml-auto">34 Usuarios</div> */}
         </div>
       </div>
     </div>
