@@ -75,6 +75,34 @@ const Nav = () => {
         "/shields/[shield_id]",
       ],
     },
+    {
+      id: 5,
+      icon: (
+        <svg
+          className="w-6 h-6"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 24 24"
+        >
+          <g
+            transform="translate(18366 20390)"
+          >
+            <path
+              d="M18.7,20.16,14.4,17.4l-4.3,2.76,1.3-4.944L7.452,12l5.1-.312L14.4,6.96l1.848,4.728,5.1.312L17.4,15.216M24,14.4A2.4,2.4,0,0,1,26.4,12V7.2A2.4,2.4,0,0,0,24,4.8H4.8A2.4,2.4,0,0,0,2.4,7.2V12a2.4,2.4,0,0,1,0,4.8v4.8A2.4,2.4,0,0,0,4.8,24H24a2.4,2.4,0,0,0,2.4-2.4V16.8A2.4,2.4,0,0,1,24,14.4Z"
+              transform="translate(-18368.4 -20392.4)"
+              fill="currentColor"
+            />
+          </g>
+        </svg>
+
+      ),
+      title: "Códigos de Promo",
+      href: "/promo-codes",
+      activePaths: [
+        "/promo-codes",
+        "/promo-codes/[promocode_id]",
+      ],
+    },
   ]
 
   const router = useRouter();
