@@ -19,9 +19,9 @@ const UserLayout = ({ children, pageTitle = null, headerTitle = '' }) => {
 
       <section className="mt-6 container-padding">
 
-        <div className="flex gap-5">
+        <div className="2xl:flex gap-5">
 
-          <div className="w-full md:max-w-xs">
+          <div className="w-full 2xl:max-w-xs flex-shrink-0">
             <UserCard />
           </div>
 

@@ -21,11 +21,13 @@ const Shields = () => {
           <Table.Tbody>
             {[...Array(11)].map((item, index) => (
               <Table.Tr key={index}>
-                <Table.Td className="flex items-center gap-4">
-                  <img src="/assets/img/sample/companies/fanta.png" className="block w-11 aspect-square object-cover rounded-full" alt="" />
-                  <div>
-                    <p>Carlos Pérez Guerrero</p>
-                    <p>UI123123</p>
+                <Table.Td >
+                  <div className="flex items-center gap-4 min-w-fit">
+                    <img src="/assets/img/sample/companies/fanta.png" className="block w-11 aspect-square object-cover rounded-full" alt="" />
+                    <div>
+                      <p>Carlos Pérez Guerrero</p>
+                      <p>UI123123</p>
+                    </div>
                   </div>
                 </Table.Td>
                 <Table.Td>
@@ -42,11 +44,13 @@ const Shields = () => {
                     Colaborativo
                   </span>
                 </Table.Td>
-                <Table.Td className="flex gap-5 items-center justify-center">
-                  <span>7</span>
-                  <button type="button" className="text-primary font-semibold hover:underline">
-                    Ver detalles
-                  </button>
+                <Table.Td>
+                  <div className="flex gap-5 items-center justify-center">
+                    <span>7</span>
+                    <button type="button" className="text-primary font-semibold hover:underline">
+                      Ver detalles
+                    </button>
+                  </div>
                 </Table.Td>
               </Table.Tr>
             ))}

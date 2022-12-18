@@ -29,7 +29,7 @@ const UserCard = () => {
   ];
 
   return (
-    <div className="bg-white px-5 py-10">
+    <div className="bg-white px-5 py-10 gap-7 sm:flex items-center 2xl:block">
 
       <div className="text-center">
         <img className="mx-auto w-24 aspect-square rounded-full" src="/assets/img/sample/user-2.png" alt="User 2" />
@@ -45,9 +45,9 @@ const UserCard = () => {
         </span>
       </div>
 
-      <div className="mt-7">
+      <div className="flex-grow">
         <h5 className="text-lg font-semibold pb-2 border-b">Detalles</h5>
-        <div className="space-y-6 text-sm mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-1 gap-y-6 gap-x-5 text-sm mt-4">
           {
             data.map((item) => {
               return (
