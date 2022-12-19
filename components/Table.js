@@ -1,17 +1,16 @@
+import classNames from "classnames";
 import { createElement } from "react";
 
-const Table = ({ as = "table", className = "", ...props }) => {
+const Table = ({ as = "table", wrapperClassName = '', className = "", ...props }) => {
   return (
-    <div className="overflow-x-auto">
+    <div className={classNames("overflow-x-auto", wrapperClassName)}>
       <div className="inline-block min-w-full">
-        <div className="overflow-hidden">
-          {
-            createElement(as, {
-              className: `min-w-full ${className}`,
-              ...props,
-            })
-          }
-        </div>
+        {
+          createElement(as, {
+            className: `min-w-full ${className}`,
+            ...props,
+          })
+        }
       </div>
     </div>
   )

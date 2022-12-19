@@ -4,7 +4,7 @@ import React from 'react'
 
 const LocationHistoryCard = () => {
   return (
-    <div className="p-5 bg-white ">
+    <div className="p-5 bg-white  flex flex-col h-[800px] lg:h-full">
       <h2 className="font-bold text-lg">Ubicación actual</h2>
 
       <div className="flex items-center gap-2 justify-end text-sm">
@@ -22,29 +22,27 @@ const LocationHistoryCard = () => {
         </button>
       </div>
 
-      <div className="flex-grow-0">
-        <ul className="mt-5 px-2.5 bg-accent">
-          <Table>
-            <Table.Thead className="bg-accent">
-              <Table.Tr>
-                <Table.Th>Ubicación</Table.Th>
-                <Table.Th>Horario</Table.Th>
-                <Table.Th className="text-right">Velocidad</Table.Th>
-              </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>
-              {[...Array(10)].map((item, index) => (
-                <Table.Tr key={index}>
-                  <Table.Td className="!py-5 ">-12.091307, -77.042053</Table.Td>
-                  <Table.Td className="!py-5 ">11/03/2022, 10:30 Hrs.</Table.Td>
-                  <Table.Td className="!py-5 text-right">70km/h</Table.Td>
-                </Table.Tr>
-              ))}
-            </Table.Tbody>
-          </Table>
-        </ul>
-      </div>
 
+      <div className="relative flex-grow">
+        <Table wrapperClassName="mt-5 px-2.5 bg-accent absolute inset-0" className="relative">
+          <Table.Thead className="bg-accent sticky top-0">
+            <Table.Tr>
+              <Table.Th>Ubicación</Table.Th>
+              <Table.Th>Horario</Table.Th>
+              <Table.Th className="text-right">Velocidad</Table.Th>
+            </Table.Tr>
+          </Table.Thead>
+          <Table.Tbody>
+            {[...Array(50)].map((item, index) => (
+              <Table.Tr key={index}>
+                <Table.Td className="!py-5 ">-12.091307, -77.042053</Table.Td>
+                <Table.Td className="!py-5 ">11/03/2022, 10:30 Hrs.</Table.Td>
+                <Table.Td className="!py-5 text-right">70km/h</Table.Td>
+              </Table.Tr>
+            ))}
+          </Table.Tbody>
+        </Table>
+      </div>
 
     </div >
   )

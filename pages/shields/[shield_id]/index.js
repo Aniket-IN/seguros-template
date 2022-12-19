@@ -7,12 +7,8 @@ export default function index() {
   return (
     <ShieldLayout pageTitle="Escudos" headerTitle="Escudos">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-4">
-        <div>
-          <PointsOfInterestCard />
-        </div>
-        <div>
-          <PointHistoryCard />
-        </div>
+        <PointsOfInterestCard />
+        <PointHistoryCard />
       </div>
     </ShieldLayout>
   )

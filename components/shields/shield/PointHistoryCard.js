@@ -4,7 +4,7 @@ import React from 'react'
 
 const PointHistoryCard = () => {
   return (
-    <div className="bg-white p-5">
+    <div className="bg-white p-5 h-[800px] flex flex-col space-y-5">
       <h2 className="font-bold text-lg">Historial de Punto</h2>
 
       <div className="flex items-center gap-2 justify-end text-sm">
@@ -22,28 +22,27 @@ const PointHistoryCard = () => {
         </button>
       </div>
 
-      <div className="mt-5 px-3 bg-accent">
-        <Table>
-          <Table.Thead>
-            <Table.Tr className="font-semibold">
-              <Table.Td>Miembro</Table.Td>
-              <Table.Td>Fecha</Table.Td>
-              <Table.Td>Horario</Table.Td>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>
-            {[...Array(10)].map((item, index) => {
-              return (
-                <Table.Tr key={index}>
-                  <Table.Td>Juan Jesús Ledesma</Table.Td>
-                  <Table.Td>25/05/22</Table.Td>
-                  <Table.Td>10:30 Hrs.</Table.Td>
-                </Table.Tr>
-              )
-            })}
-          </Table.Tbody>
-        </Table>
-      </div>
+      <Table wrapperClassName="px-3 bg-accent flex-grow overflow-auto" className="relative">
+        <Table.Thead className="bg-accent sticky top-0">
+          <Table.Tr>
+            <Table.Th className="">Miembro</Table.Th>
+            <Table.Th className="">Fecha</Table.Th>
+            <Table.Th className="">Horario</Table.Th>
+          </Table.Tr>
+        </Table.Thead>
+        <Table.Tbody>
+          {[...Array(30)].map((item, index) => {
+            return (
+              <Table.Tr key={index}>
+                <Table.Td>Juan Jesús Ledesma</Table.Td>
+                <Table.Td>25/05/22</Table.Td>
+                <Table.Td>10:30 Hrs.</Table.Td>
+              </Table.Tr>
+            )
+          })}
+        </Table.Tbody>
+      </Table>
+
 
     </div>
   )
