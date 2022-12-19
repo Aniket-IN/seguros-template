@@ -2,8 +2,8 @@ import React from 'react'
 import Link from "next/link"
 import Admin from "@/components/layouts/Admin"
 import { ChevronLeftIcon } from "@heroicons/react/20/solid"
-import CompanyTabNav from "./company/CompanyTabNav"
-import CompanyCard from "./company/CompanyCard"
+import ShieldCard from "./shield/ShieldCard"
+import ShieldTabNav from "./shield/ShieldTabNav"
 
 const ShieldLayout = ({ children, pageTitle = null, headerTitle = '' }) => {
   return (
@@ -14,7 +14,7 @@ const ShieldLayout = ({ children, pageTitle = null, headerTitle = '' }) => {
           <span>Volver</span>
         </Link>
 
-        <h2 className="text-2xl font-medium">Carlos Pérez</h2>
+        <h2 className="text-2xl font-medium">Familia</h2>
       </section>
 
       <section className="mt-6 container-padding">
@@ -22,11 +22,11 @@ const ShieldLayout = ({ children, pageTitle = null, headerTitle = '' }) => {
         <div className="2xl:flex gap-5">
 
           <div className="w-full 2xl:max-w-xs flex-shrink-0">
-            <CompanyCard />
+            <ShieldCard />
           </div>
 
           <div className="flex-grow">
-            <CompanyTabNav />
+            <ShieldTabNav />
 
             {children}
           </div>
