@@ -76,6 +76,12 @@ const Nav = () => {
       activePaths: [
         "/shields",
         "/shields/[shield_id]",
+        "/shields/[shield_id]/members",
+        "/shields/[shield_id]/route-history",
+        "/shields/[shield_id]/sos",
+        "/shields/[shield_id]/membership",
+        "/shields/[shield_id]/chat",
+        "/shields/[shield_id]/biometric",
       ],
     },
     {

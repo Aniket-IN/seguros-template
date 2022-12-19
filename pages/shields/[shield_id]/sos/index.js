@@ -2,11 +2,30 @@ import React from 'react'
 import ShieldLayout from "@/components/layouts/ShieldLayout"
 import Table from "@/components/Table"
 import SamplePagination from "@/components/SamplePagination"
+import InputGroup from "@/components/utility/InputGroup"
 
 export default function index() {
   return (
     <ShieldLayout pageTitle="Escudos" headerTitle="Escudos">
-      <div className="mt-5">
+
+      <div className="mt-5 space-y-6">
+
+        <div className="flex items-center gap-2 text-sm">
+          <span>Buscar</span>
+          <div>
+            <InputGroup>
+              <InputGroup.Input
+                type="date"
+                className="bg-accent !border-none"
+              />
+            </InputGroup>
+          </div>
+          <button className="self-stretch px-3 font-medium bg-primary text-white rounded focus:ring-2 ring-offset-2">
+            Buscar
+          </button>
+        </div>
+
+
         <Table>
           <Table.Thead>
             <Table.Tr>
