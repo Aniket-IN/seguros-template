@@ -5,8 +5,8 @@ import React from 'react'
 const index = () => {
   return (
     <PaymentMembershipLayout pageTitle="Pagos Membresías" headerTitle="Pagos Membresías">
-      <div className="flex gap-5">
-        <div className="w-2/3 bg-white p-5 space-y-5">
+      <div className="flex-col lg:flex-row flex gap-5">
+        <div className="w-full lg:w-2/3 bg-white p-5 space-y-5">
           <h2 className="font-bold text-lg">Orden #154875</h2>
           <div className="bg-accent px-4 pb-4">
             <Table>
@@ -42,7 +42,7 @@ const index = () => {
           </div>
         </div>
 
-        <div className="w-1/3 bg-white p-5 space-y-7">
+        <div className="w-full lg:w-1/3 bg-white p-5 space-y-7">
           <h2 className="font-bold text-lg">Orden #154875</h2>
           <div className="grid grid-cols-2 gap-y-7 gap-x-5 text-sm">
             <div>

@@ -25,7 +25,7 @@ const PaymentMembershipLayout = ({ children, pageTitle = null, headerTitle = '' 
             <UserCard />
           </div>
 
-          <div className="flex-grow">
+          <div className="flex-grow mt-6 2xl:mt-0">
             {/* <UserTabNav /> */}
 
             {children}
