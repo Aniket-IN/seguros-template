@@ -112,6 +112,22 @@ const Nav = () => {
         "/promo-codes/[promocode_id]",
       ],
     },
+    {
+      id: 6,
+      icon: (
+        <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width={24} height={24} viewBox="0 0 24 24">
+          <g transform="translate(18366 20330)">
+            <path d="M14.182,15.273H12V9.818h2.182m0,9.818H12V17.455h2.182M1.091,22.909h24l-12-20.727Z" transform="translate(-18367.092 -20330.545)" fill="currentColor" />
+          </g>
+        </svg>
+      ),
+      title: "Alertas y SOS",
+      href: "/alerts-and-sos",
+      activePaths: [
+        "/alerts-and-sos",
+        "/alerts-and-sos/[alert_id]",
+      ],
+    },
   ]
 
   const router = useRouter();
