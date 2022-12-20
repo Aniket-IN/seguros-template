@@ -49,7 +49,7 @@ const NotificationsBtn = () => {
 
                     <div className="flex-grow p-5 overflow-auto space-y-3.5">
                       {[...Array(20)].map((item, index) => (
-                        <div className="flex text-sm odd:bg-primary even:bg-secondary-3 even:bg-opacity-40">
+                        <div key={index} className="flex text-sm odd:bg-primary even:bg-secondary-3 even:bg-opacity-40">
                           <div className="ml-1 flex gap-5 px-5 py-5 bg-white">
                             <div className="w-14 h-14 flex-shrink-0">
                               <img className="w-14 h-14" src="/assets/img/sample/user-1.png" />
