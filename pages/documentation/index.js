@@ -24,22 +24,26 @@ export default function index() {
               <li className="flex items-center justify-between px-5 py-2">
                 <span className="font-semibold">Título</span>
               </li>
-              <li className="flex items-center justify-between px-5 py-5 bg-white text-secondary">
-                <span>Término y condiciones</span>
-                <input
-                  checked
-                  name="account"
-                  type="radio"
-                  className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                />
+              <li>
+                <label className="cursor-pointer flex items-center justify-between px-5 py-5 bg-white text-secondary">
+                  <span>Término y condiciones</span>
+                  <input
+                    defaultChecked
+                    name="account"
+                    type="radio"
+                    className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  />
+                </label>
               </li>
-              <li className="flex items-center justify-between px-5 py-5 bg-white text-secondary">
-                <span>Política de privacidad</span>
-                <input
-                  name="account"
-                  type="radio"
-                  className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                />
+              <li>
+                <label className="cursor-pointer flex items-center justify-between px-5 py-5 bg-white text-secondary">
+                  <span>Política de privacidad</span>
+                  <input
+                    name="account"
+                    type="radio"
+                    className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                  />
+                </label>
               </li>
             </ul>
           </div>
