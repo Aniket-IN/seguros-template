@@ -79,7 +79,7 @@ InputGroup.Textarea = ({ as = "textarea", className = "", ...props }) => {
 
 InputGroup.Label = ({ as = "label", className = "", ...props }) =>
   createElement(as, {
-    className: `flex mb-3 text-opacity-70 text-black text-sm cursor-pointer leading-none font-normal ${className}`,
+    className: `text-sm font-semibold mb-2 flex text-black cursor-pointer leading-none ${className}`,
     ...props,
   });
 
