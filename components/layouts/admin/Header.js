@@ -4,6 +4,8 @@ import { ArrowLeftOnRectangleIcon, Bars3Icon, Bars4Icon, BellIcon, ChevronDownIc
 import { Menu, Transition } from "@headlessui/react"
 import Link from "next/link"
 import { toggle } from "./Sidebar"
+import HeaderBtn from "../HeaderBtn"
+import NotificationsBtn from "./NotificationsBtn"
 
 const Header = ({ headerTitle = '' }) => {
   return (
@@ -19,11 +21,7 @@ const Header = ({ headerTitle = '' }) => {
         </HeaderBtn>
 
         {/* Notifications Btn */}
-        <HeaderBtn className="text-sm ml-auto">
-          <BellIcon className="w-7 h-7 text-black text-opacity-80" />
-          <span className="hidden xl:inline">Notificaciones</span>
-          <span className="px-2.5 pr-3 py-1 rounded-full bg-primary text-white">+99</span>
-        </HeaderBtn>
+        <NotificationsBtn />
 
 
         {/* Account Dropdown Btn */}
@@ -83,11 +81,6 @@ const Header = ({ headerTitle = '' }) => {
   )
 }
 
-const HeaderBtn = ({ as = 'button', className = '', ...props }) => {
-  return createElement(as, {
-    ...props,
-    className: classNames('py-3 px-4 self-stretch flex items-center gap-2 hover:bg-secondary-2', className)
-  })
-}
+
 
 export default Header
