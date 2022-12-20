@@ -5,7 +5,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from "@heroicons/react/24/solid"
 
 const NotificationsBtn = () => {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
 
   const toggle = () => {
     setOpen(val => !val)
