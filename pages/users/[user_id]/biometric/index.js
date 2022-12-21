@@ -3,6 +3,7 @@ import UserLayout from "@/components/layouts/UserLayout"
 import InputGroup from "@/components/utility/InputGroup"
 import Table from "@/components/Table"
 import Link from "next/link"
+import ViewPhotoBtn from "@/components/ViewPhotoBtn"
 
 const Biometric = () => {
   return (
@@ -65,9 +66,9 @@ const Biometric = () => {
                   </span>
                 </Table.Td>
                 <Table.Td>
-                  <button className="text-primary font-semibold hover:underline">
+                  <ViewPhotoBtn className="text-primary font-semibold hover:underline">
                     Ver foto
-                  </button>
+                  </ViewPhotoBtn>
                 </Table.Td>
               </Table.Tr>
             ))}

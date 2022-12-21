@@ -30,7 +30,7 @@ const Membership = () => {
                 <Table.Td className="font-semibold">Pago#123123</Table.Td>
                 <Table.Td>T-1231231231</Table.Td>
                 <Table.Td>
-                  <Link href="/memberships/1" className="text-primary font-semibold hover:underline">Ver detalles</Link>
+                  <Link href="/payment-memberships/1" className="text-primary font-semibold hover:underline">Ver detalles</Link>
                 </Table.Td>
               </Table.Tr>
             ))}
