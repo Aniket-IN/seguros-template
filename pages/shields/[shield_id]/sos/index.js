@@ -3,6 +3,7 @@ import ShieldLayout from "@/components/layouts/ShieldLayout"
 import Table from "@/components/Table"
 import SamplePagination from "@/components/SamplePagination"
 import InputGroup from "@/components/utility/InputGroup"
+import EvidenceModalBtn from "@/components/shields/EvidenceModalBtn"
 
 export default function index() {
   return (
@@ -48,9 +49,9 @@ export default function index() {
                 <dd>10:30 Hrs</dd>
               </Table.Td>
               <Table.Td>
-                <button type="button" className="text-primary font-semibold hover:underline">
+                <EvidenceModalBtn>
                   Evidencia#123123
-                </button>
+                </EvidenceModalBtn>
               </Table.Td>
               <Table.Td>
                 Juan Jesús Ledesma

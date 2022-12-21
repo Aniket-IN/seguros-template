@@ -14,7 +14,7 @@ const EvidenceModalBtn = ({ as = 'button', className = '', ...props }) => {
       <Modal
         open={open}
         close={close}
-        className="w-full max-w-4xl shadow-xl overflow-hidden bg-white"
+        className="w-full max-w-2xl shadow-xl overflow-hidden bg-white"
       >
         <Modal.Wrapper>
           <Modal.Header className="bg-accent">
@@ -28,17 +28,24 @@ const EvidenceModalBtn = ({ as = 'button', className = '', ...props }) => {
                 <div className="aspect-video bg-neutral">
 
                 </div>
-                <div className="bg-neutral px-5 pt-4 pb-6">
-                  <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up.</p>
-                </div>
+
                 <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <dd className="font-semibold">Alerta - Policial</dd>
-                    <dd>Alerta#1231231</dd>
+                    <dd className="font-semibold text-danger">SOS</dd>
+                    <dd>SOS#1231231</dd>
                   </div>
                   <div>
                     <dd className="font-semibold">Ubicación</dd>
                     <dd>-12.091307, -77.042053</dd>
+                  </div>
+                  <div>
+                    <dd className="font-semibold">Usuario</dd>
+                    <dd>Juan Jesús Ledesma</dd>
+                    <dd>ID. 7584566</dd>
+                  </div>
+                  <div>
+                    <dd className="font-semibold">Teléfono</dd>
+                    <dd>+52987564123</dd>
                   </div>
                   <div>
                     <dd className="font-semibold">Fecha</dd>
