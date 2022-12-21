@@ -43,7 +43,7 @@ const SOS = () => {
                   <Table.Td>23/09/2022</Table.Td>
                   <Table.Td>10:30 Hrs.</Table.Td>
                   <Table.Td>
-                    <EvidenceModalBtn>
+                    <EvidenceModalBtn className="text-primary">
                       Evidencia#123123
                     </EvidenceModalBtn>
                   </Table.Td>

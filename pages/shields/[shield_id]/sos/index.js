@@ -49,7 +49,7 @@ export default function index() {
                 <dd>10:30 Hrs</dd>
               </Table.Td>
               <Table.Td>
-                <EvidenceModalBtn>
+                <EvidenceModalBtn className="text-primary">
                   Evidencia#123123
                 </EvidenceModalBtn>
               </Table.Td>

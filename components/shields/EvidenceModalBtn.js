@@ -73,7 +73,7 @@ const EvidenceModalBtn = ({ as = 'button', className = '', ...props }) => {
       {createElement(as, {
         type: "button",
         onClick: () => setOpen(true),
-        className: classNames(className, "text-primary font-semibold hover:underline"),
+        className: classNames(className, "font-semibold hover:underline"),
         ...props,
       })}
     </>

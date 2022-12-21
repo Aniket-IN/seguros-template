@@ -4,6 +4,7 @@ import { Menu, Transition } from "@headlessui/react"
 import classNames from "classnames"
 import { ChevronDownIcon, StarIcon } from "@heroicons/react/20/solid"
 import Link from "next/link"
+import EvidenceModalBtn from "../shields/EvidenceModalBtn"
 
 const AlertsSOSTable = () => {
   const headers = [
@@ -55,13 +56,19 @@ const AlertsSOSTable = () => {
             </span>
           </Table.Td>
           <Table.Td className="font-semibold">
-            Evidencia#123123
+            <EvidenceModalBtn className="hover:text-primary hover:underline">
+              Evidencia#123123
+            </EvidenceModalBtn>
           </Table.Td>
           <Table.Td className="font-semibold">
-            Ver comentarios
+            <button className="hover:text-primary hover:underline">
+              Ver comentarios
+            </button>
           </Table.Td>
           <Table.Td className="font-semibold">
-            Ver historial
+            <button className="hover:text-primary hover:underline">
+              Ver historial
+            </button>
           </Table.Td>
           <Table.Td className="font-semibold">
             <button className="flex gap-2 items-center group hover:text-primary hover:underline">
@@ -95,13 +102,19 @@ const AlertsSOSTable = () => {
             </span>
           </Table.Td>
           <Table.Td className="font-semibold">
-            Evidencia#123123
+            <EvidenceModalBtn className="hover:text-primary hover:underline">
+              Evidencia#123123
+            </EvidenceModalBtn>
           </Table.Td>
           <Table.Td className="font-semibold">
-            Ver comentarios
+            <button className="hover:text-primary hover:underline">
+              Ver comentarios
+            </button>
           </Table.Td>
           <Table.Td className="font-semibold">
-            Ver historial
+            <button className="hover:text-primary hover:underline">
+              Ver historial
+            </button>
           </Table.Td>
           <Table.Td className="font-semibold">
             <button className="flex gap-2 items-center group hover:text-primary hover:underline">
@@ -138,13 +151,19 @@ const AlertsSOSTable = () => {
                   </span>
                 </Table.Td>
                 <Table.Td className="font-semibold">
-                  Evidencia#123123
+                  <EvidenceModalBtn className="hover:text-primary hover:underline">
+                    Evidencia#123123
+                  </EvidenceModalBtn>
                 </Table.Td>
                 <Table.Td className="font-semibold">
-                  Ver comentarios
+                  <button className="hover:text-primary hover:underline">
+                    Ver comentarios
+                  </button>
                 </Table.Td>
                 <Table.Td className="font-semibold">
-                  Ver historial
+                  <button className="hover:text-primary hover:underline">
+                    Ver historial
+                  </button>
                 </Table.Td>
                 <Table.Td className="font-semibold">
                   <button className="flex gap-2 items-center group hover:text-primary hover:underline">
