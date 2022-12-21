@@ -6,6 +6,7 @@ import { ChevronDownIcon, StarIcon } from "@heroicons/react/20/solid"
 import Link from "next/link"
 import EvidenceModalBtn from "../shields/EvidenceModalBtn"
 import CommentsModalBtn from "./CommentsModalBtn"
+import ModificationHistoryModalBtn from "./ModificationHistoryModalBtn"
 
 const AlertsSOSTable = () => {
   const headers = [
@@ -67,9 +68,9 @@ const AlertsSOSTable = () => {
             </CommentsModalBtn>
           </Table.Td>
           <Table.Td className="font-semibold">
-            <button className="hover:text-primary hover:underline">
+            <ModificationHistoryModalBtn className="hover:text-primary">
               Ver historial
-            </button>
+            </ModificationHistoryModalBtn>
           </Table.Td>
           <Table.Td className="font-semibold">
             <button className="flex gap-2 items-center group hover:text-primary hover:underline">
@@ -113,9 +114,9 @@ const AlertsSOSTable = () => {
             </button>
           </Table.Td>
           <Table.Td className="font-semibold">
-            <button className="hover:text-primary hover:underline">
+            <ModificationHistoryModalBtn className="hover:text-primary">
               Ver historial
-            </button>
+            </ModificationHistoryModalBtn>
           </Table.Td>
           <Table.Td className="font-semibold">
             <button className="flex gap-2 items-center group hover:text-primary hover:underline">
@@ -157,9 +158,9 @@ const AlertsSOSTable = () => {
                   </EvidenceModalBtn>
                 </Table.Td>
                 <Table.Td className="font-semibold">
-                  <button className="hover:text-primary hover:underline">
-                    Ver comentarios
-                  </button>
+                  <ModificationHistoryModalBtn className="hover:text-primary">
+                    Ver historial
+                  </ModificationHistoryModalBtn>
                 </Table.Td>
                 <Table.Td className="font-semibold">
                   <button className="hover:text-primary hover:underline">
@@ -178,60 +179,6 @@ const AlertsSOSTable = () => {
         })}
       </Table.Tbody>
     </Table>
-  )
-}
-
-const ActionBtn = () => {
-  return (
-    <Menu as="div" className="relative inline-block text-left">
-      <div>
-        <Menu.Button className="inline-flex gap-2 items-center justify-center w-full rounded-md  px-4 py-2 bg-accent text-sm font-medium text-black hover:bg-gray-50 focus:outline-none focus:ring-2  focus:ring-primary">
-          Acción
-          <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
-        </Menu.Button>
-      </div>
-
-      <Transition
-        as={Fragment}
-        enter="transition ease-out duration-100"
-        enterFrom="transform opacity-0 scale-95"
-        enterTo="transform opacity-100 scale-100"
-        leave="transition ease-in duration-75"
-        leaveFrom="transform opacity-100 scale-100"
-        leaveTo="transform opacity-0 scale-95"
-      >
-        <Menu.Items className="origin-top-right right-0 z-[1]  absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  href="/users/1"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  Ver detalles
-                </Link>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  Suspender cuenta
-                </a>
-              )}
-            </Menu.Item>
-          </div>
-        </Menu.Items>
-      </Transition>
-    </Menu>
   )
 }
 
