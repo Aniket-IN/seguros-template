@@ -5,6 +5,7 @@ import classNames from "classnames"
 import { ChevronDownIcon, StarIcon } from "@heroicons/react/20/solid"
 import Link from "next/link"
 import EvidenceModalBtn from "../shields/EvidenceModalBtn"
+import CommentsModalBtn from "./CommentsModalBtn"
 
 const AlertsSOSTable = () => {
   const headers = [
@@ -61,9 +62,9 @@ const AlertsSOSTable = () => {
             </EvidenceModalBtn>
           </Table.Td>
           <Table.Td className="font-semibold">
-            <button className="hover:text-primary hover:underline">
+            <CommentsModalBtn className="hover:text-primary hover:underline">
               Ver comentarios
-            </button>
+            </CommentsModalBtn>
           </Table.Td>
           <Table.Td className="font-semibold">
             <button className="hover:text-primary hover:underline">
