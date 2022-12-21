@@ -7,6 +7,7 @@ import Link from "next/link"
 import EvidenceModalBtn from "../shields/EvidenceModalBtn"
 import CommentsModalBtn from "./CommentsModalBtn"
 import ModificationHistoryModalBtn from "./ModificationHistoryModalBtn"
+import QualificationModalBtn from "./QualificationModalBtn"
 
 const AlertsSOSTable = () => {
   const headers = [
@@ -73,10 +74,10 @@ const AlertsSOSTable = () => {
             </ModificationHistoryModalBtn>
           </Table.Td>
           <Table.Td className="font-semibold">
-            <button className="flex gap-2 items-center group hover:text-primary hover:underline">
+            <QualificationModalBtn className="flex gap-2 items-center group hover:text-primary hover:underline">
               <StarIcon className="w-6 h-6 text-warning group-hover:text-primary" />
               <span>4</span>
-            </button>
+            </QualificationModalBtn>
           </Table.Td>
         </Table.Tr>
         <Table.Tr>
@@ -119,10 +120,10 @@ const AlertsSOSTable = () => {
             </ModificationHistoryModalBtn>
           </Table.Td>
           <Table.Td className="font-semibold">
-            <button className="flex gap-2 items-center group hover:text-primary hover:underline">
+            <QualificationModalBtn className="flex gap-2 items-center group hover:text-primary hover:underline">
               <StarIcon className="w-6 h-6 text-warning group-hover:text-primary" />
               <span>4</span>
-            </button>
+            </QualificationModalBtn>
           </Table.Td>
         </Table.Tr>
         {[...Array(10)].map((user, index) => {
@@ -168,10 +169,10 @@ const AlertsSOSTable = () => {
                   </button>
                 </Table.Td>
                 <Table.Td className="font-semibold">
-                  <button className="flex gap-2 items-center group hover:text-primary hover:underline">
+                  <QualificationModalBtn className="flex gap-2 items-center group hover:text-primary hover:underline">
                     <StarIcon className="w-6 h-6 text-warning group-hover:text-primary" />
                     <span>4</span>
-                  </button>
+                  </QualificationModalBtn>
                 </Table.Td>
               </Table.Tr>
             </Fragment>
