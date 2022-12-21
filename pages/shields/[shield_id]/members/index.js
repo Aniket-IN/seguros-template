@@ -2,6 +2,7 @@ import React from 'react'
 import ShieldLayout from "@/components/layouts/ShieldLayout"
 import Table from "@/components/Table"
 import SamplePagination from "@/components/SamplePagination"
+import LocationHistoryBtn from "@/components/shields/shield/LocationHistoryBtn"
 
 export default function index() {
   return (
@@ -40,9 +41,9 @@ export default function index() {
                   </span>
                 </Table.Td>
                 <Table.Td>
-                  <button type="button" className="text-primary font-semibold hover:underline">
+                  <LocationHistoryBtn type="button" className="text-primary font-semibold hover:underline">
                     Historial de Ubicaciones
-                  </button>
+                  </LocationHistoryBtn>
                 </Table.Td>
               </Table.Tr>
             ))}
