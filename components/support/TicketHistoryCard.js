@@ -8,11 +8,6 @@ const TicketHistoryCard = () => {
         <li className={classNames("p-4 text-sm space-y-2.5", 'bg-white')}>
           <div className="flex justify-between gap-2">
             <dd>Ticket #123123</dd>
-            {!!(index == 0) && (
-              <dd className="text-xs w-5 h-5 flex items-center justify-center rounded-full bg-primary text-white">
-                <span>1</span>
-              </dd>
-            )}
           </div>
           <dd className="font-semibold">Objeto perdido por otros temas</dd>
           <div className="flex text-sm justify-between items-center">
