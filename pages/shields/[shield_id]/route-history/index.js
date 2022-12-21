@@ -4,6 +4,7 @@ import Table from "@/components/Table"
 import SectionHeading from "@/components/SectionHeading"
 import InputGroup from "@/components/utility/InputGroup"
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline"
+import DownloadRoutesBtn from "@/components/shields/shield/DownloadRoutesBtn"
 
 export default function index() {
   return (
@@ -76,10 +77,10 @@ export default function index() {
                   Buscar
                 </button>
               </div>
-              <button className="bg-accent px-4 py-2.5 inline-flex gap-2.5 text-sm rounded border">
+              <DownloadRoutesBtn className="bg-accent px-4 py-2.5 inline-flex gap-2.5 text-sm rounded border">
                 <ArrowDownTrayIcon className="w-4 h-4" />
                 <span className="font-medium">Descargar Rutas</span>
-              </button>
+              </DownloadRoutesBtn>
             </div>
             <div className="px-4 pb-4 bg-accent">
               <Table wrapperClassName="max-h-[750px] overflow-auto" className="relative">
