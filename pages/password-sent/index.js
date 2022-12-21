@@ -1,4 +1,5 @@
 import Auth from "@/components/layouts/Auth"
+import ResendBtn from "@/components/password-sent/ResendBtn"
 import Link from "next/link"
 import React from 'react'
 
@@ -7,6 +8,8 @@ const PasswordSent = () => {
   const submit = (e) => {
     e.preventDefault();
   }
+
+
 
   return (
     <Auth>
@@ -26,9 +29,7 @@ const PasswordSent = () => {
         </Link>
 
         <div className="mt-9 flex justify-center">
-          <button type="button" className="inline-block mx-auto font-semibold underline hover:text-primary">
-            Volver a Iniciar Sesión
-          </button>
+          <ResendBtn />
         </div>
 
       </form>
