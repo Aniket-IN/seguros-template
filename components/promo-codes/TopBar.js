@@ -1,10 +1,11 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import InputGroup from "@/components/utility/InputGroup"
 import { Menu, Transition } from "@headlessui/react"
 import classNames from "classnames"
 import { ChevronDownIcon } from "@heroicons/react/20/solid"
 import { FunnelIcon } from "@heroicons/react/24/outline"
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid"
+import PromoCodeFormModal from "./PromoCodeFormModal"
 
 
 const TopBar = () => {
@@ -82,12 +83,29 @@ const TopBar = () => {
 
 
           {/* <div className="text-gray-900 text-sm text-right ml-auto">34 Usuarios</div> */}
-          <button className="ml-auto bg-gray-900 text-white text-sm px-6 py-2 rounded">
-            Nuevo
-          </button>
+          <CreateBtn />
+
         </div>
       </div>
     </div>
+  )
+}
+
+
+const CreateBtn = () => {
+  const [open, setOpen] = useState(false)
+
+  const create = () => {
+    setOpen(false)
+  }
+
+  return (
+    <>
+      <PromoCodeFormModal mode="create" submit={create} open={open} setOpen={setOpen} />
+      <button onClick={() => setOpen(true)} className="ml-auto bg-gray-900 text-white text-sm px-6 py-2 rounded">
+        Nuevo
+      </button>
+    </>
   )
 }
 
