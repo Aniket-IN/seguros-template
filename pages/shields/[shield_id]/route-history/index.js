@@ -5,6 +5,7 @@ import SectionHeading from "@/components/SectionHeading"
 import InputGroup from "@/components/utility/InputGroup"
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline"
 import DownloadRoutesBtn from "@/components/shields/shield/DownloadRoutesBtn"
+import RouteDetailsModalBtn from "@/components/shields/shield/RouteDetailsModalBtn"
 
 export default function index() {
   return (
@@ -100,9 +101,9 @@ export default function index() {
                         <dd>11/03/2022</dd>
                       </Table.Td>
                       <Table.Td>
-                        <button className="text-primary hover:underline font-semibold">
+                        <RouteDetailsModalBtn className="text-primary hover:underline font-semibold">
                           Ver Detalles
-                        </button>
+                        </RouteDetailsModalBtn>
                       </Table.Td>
                     </Table.Tr>
                   ))}
