@@ -170,6 +170,8 @@ const Nav = () => {
       href: "/documentation",
       activePaths: [
         "/documentation",
+        "/documentation/tickets",
+        "/documentation/faqs",
       ],
     },
     {
