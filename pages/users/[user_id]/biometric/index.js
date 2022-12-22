@@ -37,7 +37,7 @@ const Biometric = () => {
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
-            {[...Array(2)].map((item, index) => (
+            {[...Array(10)].map((item, index) => (
               <Table.Tr key={index}>
                 <Table.Td className="font-semibold">
                   #E12341RF2
