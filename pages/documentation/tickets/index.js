@@ -1,3 +1,4 @@
+import CreateSubjectModalBtn from "@/components/documentation/tickets/CreateSubjectModalBtn"
 import DocumentationLayout from "@/components/layouts/DocumentationLayout"
 import SectionHeading from "@/components/SectionHeading"
 import InputGroup from "@/components/utility/InputGroup"
@@ -22,9 +23,9 @@ export default function index() {
         <div className="xl:max-w-md w-full bg-white p-5 space-y-5">
           <div className="flex justify-between">
             <SectionHeading>Ayuda</SectionHeading>
-            <button className="rounded bg-black text-white text-sm px-4 py-1.5">
+            <CreateSubjectModalBtn className="rounded bg-black text-white text-sm px-4 py-1.5">
               + Crear Asunto
-            </button>
+            </CreateSubjectModalBtn>
           </div>
           <div className="bg-accent px-2.5 pb-4 pt-1 text-sm">
             <div className="flex items-center justify-between px-5 py-2">
