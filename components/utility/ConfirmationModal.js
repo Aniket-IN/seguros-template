@@ -28,7 +28,7 @@ const ConfirmationModal = ({
   const confirmBtn = {
     show: true,
     text: 'CONTINUAR',
-    onClick: mode == 'alert' ? close : confirmBtn.onClick,
+    onClick: mode == 'alert' ? close : confirmBtnProps.onClick,
     ...confirmBtnProps,
   }
 

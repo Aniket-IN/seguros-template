@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import SectionHeading from "../SectionHeading"
 import { PencilIcon } from "@heroicons/react/24/solid"
 
@@ -70,10 +70,10 @@ const UserRoleCard = () => {
 
           <div className="grid grid-cols-2 gap-4 text-sm mt-4">
             {data.map((item) => (
-              <>
+              <Fragment key={item.key}>
                 <dd className="font-semibold">{item.key}</dd>
                 <dd>{item.value}</dd>
-              </>
+              </Fragment>
             ))}
           </div>
 

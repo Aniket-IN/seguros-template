@@ -3,8 +3,8 @@ import Table from "../Table"
 import { Menu, Transition } from "@headlessui/react"
 import classNames from "classnames"
 import { ChevronDownIcon } from "@heroicons/react/20/solid"
-import Link from "next/link"
 import PromoCodeFormModal from "./PromoCodeFormModal"
+import ConfirmationModal from "../utility/ConfirmationModal"
 
 const PromoCodesTable = () => {
   const headers = [
@@ -113,6 +113,8 @@ const PromoCodesTable = () => {
 
 const ActionBtn = () => {
   const [editOpen, setEditOpen] = useState(false)
+  const [activateOpen, setActivateOpen] = useState(false)
+  const [activateAlertOpen, setActivateAlertOpen] = useState(false)
 
   // const [data, setData] = useState()
 
@@ -120,8 +122,43 @@ const ActionBtn = () => {
     setEditOpen(false)
   }
 
+  const activate = () => {
+    setActivateOpen(false)
+    setTimeout(() => {
+      setActivateAlertOpen(true)
+    }, 300);
+  }
+
   return (
     <>
+      <ConfirmationModal
+        open={activateOpen}
+        close={() => setActivateOpen(false)}
+        type="success"
+        caption="¿Desea activar este cupón?"
+        confirmBtn={{
+          show: true,
+          text: "CONTINUAR",
+          onClick: activate,
+        }}
+        closeBtn={{
+          show: false,
+        }}
+      />
+      <ConfirmationModal
+        open={activateAlertOpen}
+        close={() => setActivateAlertOpen(false)}
+        type="success"
+        caption="Cupón activado"
+        confirmBtn={{
+          show: true,
+          text: "CONTINUAR",
+          onClick: () => setActivateAlertOpen(false),
+        }}
+        closeBtn={{
+          show: false,
+        }}
+      />
       <PromoCodeFormModal mode="edit" submit={edit} open={editOpen} setOpen={setEditOpen} />
       <Menu as="div" className="relative inline-block text-left">
         <div>
@@ -148,7 +185,7 @@ const ActionBtn = () => {
                     onClick={() => setEditOpen(true)}
                     className={classNames(
                       active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'w-full text-left px-4 py-2 text-sm'
+                      'w-full block text-left px-4 py-2 text-sm'
                     )}
                   >
                     Ver detalles
@@ -157,15 +194,15 @@ const ActionBtn = () => {
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <a
-                    href="#"
+                  <button
+                    onClick={() => setActivateOpen(true)}
                     className={classNames(
                       active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block px-4 py-2 text-sm'
+                      'w-full block text-left px-4 py-2 text-sm'
                     )}
                   >
-                    Suspender cuenta
-                  </a>
+                    Activar
+                  </button>
                 )}
               </Menu.Item>
             </div>

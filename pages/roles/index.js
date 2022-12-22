@@ -7,6 +7,7 @@ import { Menu, Transition } from "@headlessui/react"
 import classNames from "classnames"
 import { ChevronDownIcon } from "@heroicons/react/20/solid"
 import Link from "next/link"
+import AdminCreateModalBtn from "@/components/roles/AdminCreateModalBtn"
 
 
 function index() {
@@ -22,7 +23,7 @@ function index() {
           <div className="p-5 bg-white space-y-5">
             <div className="flex flex-col md:flex-row gap-4 justify-between">
               <SectionHeading>Roles de Administradores</SectionHeading>
-              <button className="px-4 py-2 bg-primary text-white rounded text-sm ml-auto">+ Crear Admin</button>
+              <AdminCreateModalBtn className="px-4 py-2 bg-primary text-white rounded text-sm ml-auto">+ Crear Admin</AdminCreateModalBtn>
             </div>
             <Table wrapperClassName="bg-accent px-3 flex-grow overflow-auto max-h-[1024px]" className="relative">
               <Table.Thead className="bg-accent sticky top-0 z-[10]">
