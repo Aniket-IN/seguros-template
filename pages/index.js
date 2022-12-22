@@ -4,7 +4,8 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid"
 import { DocumentTextIcon } from "@heroicons/react/24/outline"
 import SectionHeading from "@/components/SectionHeading"
 import TopCardsSection from "@/components/home/TopCardsSection"
-import UserCountChart from "@/components/home/charts/UserCountChart"
+import UserCountLineChart from "@/components/home/charts/UserCountLineChart"
+import UserCountBarChart from "@/components/home/charts/UserCountBarChart"
 
 const Home = () => {
   return (
@@ -44,7 +45,7 @@ const Home = () => {
                 <h3 className="text-right">Total Usuarios: 20 541</h3>
               </div>
               <div className="bg-white flex-grow aspect-video">
-                <UserCountChart />
+                <UserCountLineChart />
               </div>
             </div>
 
@@ -54,7 +55,7 @@ const Home = () => {
                 <h3 className="text-right">Total Escudos: 2 541</h3>
               </div>
               <div className="bg-white flex-grow aspect-video">
-
+                <UserCountBarChart />
               </div>
             </div>
 

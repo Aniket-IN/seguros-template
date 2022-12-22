@@ -46,9 +46,6 @@ const options = {
   },
   plugins: {
     legend: {
-      display: true,
-    },
-    title: {
       display: false,
     },
   },
@@ -61,7 +58,7 @@ export const data = {
   labels,
   datasets: [
     {
-      label: 'Dataset 1',
+      label: 'Users',
       data: labels.map(() => faker.datatype.number({ min: 0, max: 250 })),
       borderColor: '#1555ED',
       backgroundColor: '#fff',
@@ -72,7 +69,7 @@ export const data = {
   ],
 };
 
-const UserCountChart = () => {
+const UserCountLineChart = () => {
   return (
     <div>
       <Line options={options} data={data} />
@@ -80,4 +77,4 @@ const UserCountChart = () => {
   )
 }
 
-export default UserCountChart
+export default UserCountLineChart
