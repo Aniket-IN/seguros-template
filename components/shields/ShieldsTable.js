@@ -195,7 +195,7 @@ const ActionBtn = () => {
                     'block px-4 py-2 text-sm'
                   )}
                 >
-                  Lorem Ipsum
+                  Suspender escudo
                 </a>
               )}
             </Menu.Item>
