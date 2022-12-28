@@ -14,10 +14,10 @@ const CurrentLocationCard = () => {
       <div className="mt-6 grid grid-cols-3 text-sm">
         <dd className="font-semibold">Hora</dd>
         <dd className="font-semibold">Velocidad Actual</dd>
-        <dd className="font-semibold text-right">Estado</dd>
+        <dd className="font-semibold text-left">Estado</dd>
         <dl className="text-secondary">Desde 9:10 a.m.</dl>
         <dl className="text-secondary">70km/h</dl>
-        <dl className="font-semibold text-primary text-right">En ruta</dl>
+        <dl className="font-semibold text-primary text-left">En ruta</dl>
       </div>
 
       <div className="mt-5">

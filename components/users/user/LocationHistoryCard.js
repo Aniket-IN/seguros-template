@@ -27,9 +27,9 @@ const LocationHistoryCard = () => {
         <Table wrapperClassName="mt-5 px-2.5 bg-accent absolute inset-0" className="relative">
           <Table.Thead className="bg-accent sticky top-0">
             <Table.Tr>
-              <Table.Th>Ubicación</Table.Th>
-              <Table.Th>Horario</Table.Th>
-              <Table.Th className="text-right">Velocidad</Table.Th>
+              <Table.Th className="w-1/2 ">Ubicación</Table.Th>
+              <Table.Th className="w-1/2 ">Horario</Table.Th>
+              <Table.Th className="w-1/2 text-right">Velocidad</Table.Th>
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
