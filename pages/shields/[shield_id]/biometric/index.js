@@ -3,6 +3,7 @@ import ShieldLayout from "@/components/layouts/ShieldLayout"
 import Table from "@/components/Table"
 import SamplePagination from "@/components/SamplePagination"
 import InputGroup from "@/components/utility/InputGroup"
+import ViewPhotoBtn from "@/components/ViewPhotoBtn"
 
 export default function index() {
   return (
@@ -68,9 +69,17 @@ export default function index() {
                   </span>
                 </Table.Td>
                 <Table.Td>
-                  <button type="button" className="text-primary font-semibold hover:underline">
+                  <ViewPhotoBtn
+                    headerTitle="Biométrico #E12341RF212"
+                    user={{
+                      id: "UI123123",
+                      name: "Carlos Pérez Guerrero",
+                      avatar: "/assets/img/sample/user-3.png",
+                    }}
+                    className="text-primary font-semibold hover:underline"
+                  >
                     Ver foto
-                  </button>
+                  </ViewPhotoBtn>
                 </Table.Td>
               </Table.Tr>
             ))}

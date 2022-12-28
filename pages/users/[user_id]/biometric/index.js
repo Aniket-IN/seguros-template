@@ -66,7 +66,15 @@ const Biometric = () => {
                   </span>
                 </Table.Td>
                 <Table.Td>
-                  <ViewPhotoBtn className="text-primary font-semibold hover:underline">
+                  <ViewPhotoBtn
+                    headerTitle="Ruta #E12341RF212"
+                    user={{
+                      id: "UI123123",
+                      name: "Carlos Pérez Guerrero",
+                      avatar: "/assets/img/sample/user-3.png",
+                    }}
+                    className="text-primary font-semibold hover:underline"
+                  >
                     Ver foto
                   </ViewPhotoBtn>
                 </Table.Td>
