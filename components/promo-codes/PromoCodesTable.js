@@ -205,6 +205,45 @@ const ActionBtn = () => {
                   </button>
                 )}
               </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    // onClick={() => setActivateOpen(true)}
+                    className={classNames(
+                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                      'w-full block text-left px-4 py-2 text-sm'
+                    )}
+                  >
+                    Suspender
+                  </button>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    // onClick={() => setActivateOpen(true)}
+                    className={classNames(
+                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                      'w-full block text-left px-4 py-2 text-sm'
+                    )}
+                  >
+                    Editar
+                  </button>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    // onClick={() => setActivateOpen(true)}
+                    className={classNames(
+                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                      'w-full block text-left px-4 py-2 text-sm'
+                    )}
+                  >
+                    Eliminar
+                  </button>
+                )}
+              </Menu.Item>
             </div>
           </Menu.Items>
         </Transition>

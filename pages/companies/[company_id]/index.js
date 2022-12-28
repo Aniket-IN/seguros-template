@@ -2,6 +2,7 @@ import React from 'react'
 import Table from "@/components/Table"
 import SamplePagination from "@/components/SamplePagination"
 import CompanyLayout from "@/components/layouts/CompanyLayout"
+import Link from "next/link"
 
 export default function index() {
   return (
@@ -42,9 +43,9 @@ export default function index() {
                   <p>ID UI 2457896</p>
                 </Table.Td>
                 <Table.Td>
-                  <button type="button" className="text-primary font-semibold hover:underline">
+                  <Link href="/shields/1" className="text-primary font-semibold hover:underline">
                     Ver detalles
-                  </button>
+                  </Link>
                 </Table.Td>
               </Table.Tr>
             ))}
