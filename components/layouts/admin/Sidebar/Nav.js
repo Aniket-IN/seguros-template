@@ -123,6 +123,7 @@ const Nav = () => {
       ),
       title: "Alertas y SOS",
       href: "/alerts-and-sos",
+      unreadCount: 1,
       activePaths: [
         "/alerts-and-sos",
         "/alerts-and-sos/[alert_id]",
@@ -211,28 +212,33 @@ const Nav = () => {
   return (
     <nav className="flex-grow overflow-auto">
       <ul>
-        {
-          items.map((item) => {
-            const isActive = item.activePaths?.includes(router.pathname)
-            return (
-              <Item isActive={isActive} key={item.id}>
-                <Link href={item.href} className={classNames("flex-grow flex gap-3 items-center py-5 px-4 text-white text-opacity-60", isActive ? 'bg-black text-opacity-100' : 'hover:text-opacity-80 text-opacity-60')}>
-                  {item.icon}
-                  <span className="truncate whitespace-nowrap text-sm">{item.title}</span>
-                </Link>
-              </Item>
-            )
-          })
-        }
+        {items.map((item) => {
+          return (
+            <Item item={item} key={item.id} />
+          )
+        })}
       </ul>
     </nav>
   )
 }
 
-const Item = ({ isActive, children }) => {
+const Item = ({ item, children }) => {
+  const router = useRouter();
+
+  const isActive = item.activePaths?.includes(router.pathname)
+
   return (
-    <li className="flex">
-      {children}
+    <li className="flex relative">
+      <Link href={item.href} className={classNames(" flex-grow flex gap-3 items-center py-5 px-4 text-white text-opacity-60", isActive ? 'bg-black text-opacity-100' : 'hover:text-opacity-80 text-opacity-60')}>
+        {item.icon}
+        <span className="truncate whitespace-nowrap text-sm">{item.title}</span>
+
+        {!!item.unreadCount && (
+          <div className="absolute inset-y-0 right-4 flex items-center">
+            <span className="w-5 h-5 rounded-full inline-flex justify-center items-center bg-danger text-white text-sm  ">{item.unreadCount}</span>
+          </div>
+        )}
+      </Link>
       {!!isActive && (
         <div className="self-stretch w-2 bg-primary"></div>
       )}
