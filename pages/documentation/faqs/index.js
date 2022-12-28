@@ -1,20 +1,13 @@
 import DocumentationLayout from "@/components/layouts/DocumentationLayout"
 import SectionHeading from "@/components/SectionHeading"
 import InputGroup from "@/components/utility/InputGroup"
-import useTinyMCE from "@/hooks/useTinyMCE"
 import { ChevronDownIcon, PencilIcon } from "@heroicons/react/24/solid"
-import { Editor } from "@tinymce/tinymce-react"
 import classNames from "classnames"
+import Link from "next/link"
 import React, { useState } from 'react'
 import AnimateHeight from "react-animate-height"
 
 export default function index() {
-
-  const { config, apiKey } = useTinyMCE();
-
-  const handleEditorChange = () => {
-
-  }
 
 
   return (
@@ -94,9 +87,11 @@ const Category = () => {
       >
         <div className="bg-black">
           <ul className="space-y-2.5 py-3 bg-accent ml-1">
-            <li className="flex items-center justify-between gap-4 px-4 py-2 bg-accent cursor-pointer font-semibold">
-              <span>Pregunta</span>
-              <span className="text-primary">+Crear Pregunta</span>
+            <li>
+              <Link href="/documentation/faqs/categories/1/question/create" className="flex items-center justify-between gap-4 px-4 py-2 bg-accent cursor-pointer font-semibold">
+                <span>Pregunta</span>
+                <span className="text-primary">+Crear Pregunta</span>
+              </Link>
             </li>
             {[...Array(5)].map((item, index) => (
               <li key={index}>

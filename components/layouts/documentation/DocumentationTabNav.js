@@ -29,6 +29,7 @@ const DocumentationTabNav = () => {
       href: "/documentation/faqs",
       activePaths: [
         "/documentation/faqs",
+        "/documentation/faqs/categories/[category_id]/question/create",
       ],
     },
   ]
