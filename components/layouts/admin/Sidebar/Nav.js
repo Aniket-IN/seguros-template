@@ -18,9 +18,9 @@ const Nav = () => {
 
       ),
       title: "Dashboard",
-      href: "/",
+      href: "/dashboard",
       activePaths: [
-        "/",
+        "/dashboard",
       ],
     },
     {
@@ -251,7 +251,7 @@ const Item = ({ item, children }) => {
 Nav.Li = () => {
   return (
     <li className="flex">
-      <Link href="/" className="flex-grow flex gap-3 items-center py-3 px-4 text-white text-opacity-60 hover:text-opacity-80">
+      <Link href="/dashboard" className="flex-grow flex gap-3 items-center py-3 px-4 text-white text-opacity-60 hover:text-opacity-80">
         <svg className="w-7 h-7" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
           <g transform="translate(18366 20569)">
             <path d="M19.2,20.4v2.4H2.4V20.4s0-4.8,8.4-4.8,8.4,4.8,8.4,4.8M15,9a4.2,4.2,0,1,0-4.2,4.2A4.2,4.2,0,0,0,15,9m4.128,6.6A6.384,6.384,0,0,1,21.6,20.4v2.4h4.8V20.4s0-4.356-7.272-4.8M18,4.8a4.068,4.068,0,0,0-2.316.708,6,6,0,0,1,0,6.984A4.068,4.068,0,0,0,18,13.2a4.2,4.2,0,0,0,0-8.4Z" transform="translate(-18368.4 -20570.801)" fill="currentColor" />

@@ -26,7 +26,7 @@ const TopCardsSection = () => {
             ]}
             footer={{
               title: "Ver escudos",
-              href: "/",
+              href: "/dashboard",
             }}
           />
           <SmallAnalyticsCard
@@ -43,7 +43,7 @@ const TopCardsSection = () => {
             ]}
             footer={{
               title: "Ver soporte",
-              href: "/",
+              href: "/dashboard",
             }}
           />
         </div>
@@ -62,7 +62,7 @@ const TopCardsSection = () => {
             ]}
             footer={{
               title: "Ver Alertas",
-              href: "/",
+              href: "/dashboard",
             }}
           />
           <SmallAnalyticsCard
@@ -79,7 +79,7 @@ const TopCardsSection = () => {
             ]}
             footer={{
               title: "Ver códigos",
-              href: "/",
+              href: "/dashboard",
             }}
           />
         </div>
