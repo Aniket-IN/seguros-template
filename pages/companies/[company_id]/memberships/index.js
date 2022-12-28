@@ -2,6 +2,7 @@ import React from 'react'
 import Table from "@/components/Table"
 import SamplePagination from "@/components/SamplePagination"
 import CompanyLayout from "@/components/layouts/CompanyLayout"
+import Link from "next/link"
 
 export default function Memberships() {
   return (
@@ -27,9 +28,9 @@ export default function Memberships() {
                 <Table.Td className="font-semibold">Pago#123123</Table.Td>
                 <Table.Td>T-1231231231</Table.Td>
                 <Table.Td>
-                  <button type="button" className="text-primary font-semibold hover:underline">
+                  <Link href="/payment-memberships/1" className="text-primary font-semibold hover:underline">
                     Ver detalles
-                  </button>
+                  </Link>
                 </Table.Td>
               </Table.Tr>
             ))}

@@ -6,6 +6,7 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid"
 import { FunnelIcon } from "@heroicons/react/24/outline"
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid"
 import PromoCodeFormModal from "./PromoCodeFormModal"
+import ConfirmationModal from "../utility/ConfirmationModal"
 
 
 const TopBar = () => {
@@ -94,13 +95,31 @@ const TopBar = () => {
 
 const CreateBtn = () => {
   const [open, setOpen] = useState(false)
+  const [activateAlertOpen, setActivateAlertOpen] = useState(false)
 
   const create = () => {
     setOpen(false)
+    setTimeout(() => {
+      setActivateAlertOpen(true)
+    }, 300);
   }
 
   return (
     <>
+      <ConfirmationModal
+        open={activateAlertOpen}
+        close={() => setActivateAlertOpen(false)}
+        type="success"
+        caption="Cupón creado con éxito"
+        confirmBtn={{
+          show: true,
+          text: "CONTINUAR",
+          onClick: () => setActivateAlertOpen(false),
+        }}
+        closeBtn={{
+          show: false,
+        }}
+      />
       <PromoCodeFormModal mode="create" submit={create} open={open} setOpen={setOpen} />
       <button onClick={() => setOpen(true)} className="ml-auto bg-gray-900 text-white text-sm px-6 py-2 rounded">
         Nuevo
