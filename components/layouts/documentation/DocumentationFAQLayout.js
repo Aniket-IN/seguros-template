@@ -6,6 +6,7 @@ import { ChevronDownIcon, PencilIcon } from "@heroicons/react/24/solid"
 import classNames from "classnames"
 import Link from "next/link"
 import AnimateHeight from "react-animate-height"
+import { useRouter } from "next/router"
 
 
 const DocumentationFAQLayout = ({ children, pageTitle = null, headerTitle = '' }) => {
@@ -18,9 +19,9 @@ const DocumentationFAQLayout = ({ children, pageTitle = null, headerTitle = '' }
           <div className=" bg-white p-5 space-y-5">
             <div className="flex justify-between">
               <SectionHeading>Preguntas Frecuentes</SectionHeading>
-              <button className="rounded bg-black text-white text-sm px-4 py-1.5">
+              <Link href="/documentation/faqs" className="rounded bg-black text-white text-sm px-4 py-1.5">
                 + Crear Categ.
-              </button>
+              </Link>
             </div>
             <div className="bg-accent px-2.5 pb-4 pt-1 text-sm">
               <div className="flex items-center justify-between px-5 py-2">
@@ -46,16 +47,35 @@ const DocumentationFAQLayout = ({ children, pageTitle = null, headerTitle = '' }
 
 
 const Category = () => {
+  const router = useRouter()
   const [open, setOpen] = useState(false)
+
+  const handleCategoryToggle = (e) => {
+    if (e.target.checked) {
+      router.push('/documentation/faqs/categories/1')
+    }
+  }
+
+  const handleQuestionToggle = (e) => {
+    if (e.target.checked) {
+      router.push('/documentation/faqs/categories/1/questions/1')
+    }
+  }
 
   return (
     <li>
-      <button onClick={() => setOpen(val => !val)} className="cursor-pointer flex w-full gap-2.5 items-center  bg-white text-sm">
-        <dd className={classNames("px-3.5 self-stretch flex justify-center items-center duration-300", open ? "bg-black text-white" : '')}>
-          <ChevronDownIcon className={classNames("w-4 h-4 transition-transform duration-300", open ? 'rotate-180' : '')} />
-        </dd>
-        <dd className="pr-5 py-5">Categoría 1</dd>
-      </button>
+      <div className="flex items-stretch cursor-pointer bg-white text-sm">
+        <button onClick={() => setOpen(val => !val)} className=" flex gap-2.5 items-center  ">
+          <dd className={classNames("px-3.5 self-stretch flex justify-center items-center duration-300", open ? "bg-black text-white" : '')}>
+            <ChevronDownIcon className={classNames("w-4 h-4 transition-transform duration-300", open ? 'rotate-180' : '')} />
+          </dd>
+        </button>
+        <label className="cursor-pointer flex-grow flex gap-2.5 px-4 items-center justify-between" >
+          <dd className="pr-5 py-5">Categoría 1</dd>
+          <input onChange={handleCategoryToggle} readOnly type="radio" name="category" />
+        </label>
+      </div>
+
       <AnimateHeight
         duration={350}
         height={open ? 'auto' : 0} // see props documentation below
@@ -63,7 +83,7 @@ const Category = () => {
         <div className="bg-black">
           <ul className="space-y-2.5 py-3 bg-accent ml-1">
             <li>
-              <Link href="/documentation/faqs/categories/1/question/create" className="flex items-center justify-between gap-4 px-4 py-2 bg-accent cursor-pointer font-semibold">
+              <Link href="/documentation/faqs/categories/1/questions/create" className="flex items-center justify-between gap-4 px-4 py-2 bg-accent cursor-pointer font-semibold">
                 <span>Pregunta</span>
                 <span className="text-primary">+Crear Pregunta</span>
               </Link>
@@ -75,8 +95,8 @@ const Category = () => {
                     ¿Ejemplo de pregunta frecuente de la plataforma más seguros?
                   </p>
                   <input
-                    defaultChecked
-                    name="account"
+                    onChange={handleQuestionToggle}
+                    name="question_radio"
                     type="radio"
                     className="flex-shrink-0 focus:ring-indigo-500 h-5 w-5 text-indigo-600 border-gray-300"
                   />
