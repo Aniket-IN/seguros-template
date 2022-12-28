@@ -26,7 +26,7 @@ function index() {
               <AdminCreateModalBtn className="px-4 py-2 bg-primary text-white rounded text-sm ml-auto">+ Crear Admin</AdminCreateModalBtn>
             </div>
             <Table wrapperClassName="bg-accent px-3 flex-grow overflow-auto max-h-[1024px]" className="relative">
-              <Table.Thead className="bg-accent sticky top-0 z-[10]">
+              <Table.Thead className="bg-accent sticky top-0 z-[2]">
                 <Table.Tr>
                   <Table.Th>Usuario</Table.Th>
                   <Table.Th>Tipo</Table.Th>
@@ -110,6 +110,32 @@ const ActionBtn = () => {
                   )}
                 >
                   Suspender cuenta
+                </a>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  href="#"
+                  className={classNames(
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                    'block px-4 py-2 text-sm'
+                  )}
+                >
+                  Editar
+                </a>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  href="#"
+                  className={classNames(
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                    'block px-4 py-2 text-sm'
+                  )}
+                >
+                  Eliminar
                 </a>
               )}
             </Menu.Item>
