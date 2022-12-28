@@ -37,3 +37,7 @@
 .no-scrollbar::-webkit-scrollbar:horizontal {
   height: 0px;
 }
+
+input[type="radio"] {
+  @apply !h-5 !w-5;
+}
