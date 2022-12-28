@@ -22,30 +22,31 @@ const LocationHistoryBtn = ({ as = 'button', ...props }) => {
             <h2 className="text-lg font-medium">Historial de Ubicaciones</h2>
             <Modal.XBtn onClick={close} />
           </Modal.Header>
-          <Modal.Body className="space-y-7 py-5">
-            <div className="flex gap-3 justify-between">
-              <div className="flex gap-3 text-sm">
-                <img src="/assets/img/sample/user-2.png" className="inline-block rounded-full w-11 h-11" />
-                <div>
-                  <dd>Carlos Pérez Guerrero</dd>
-                  <dd>UI123123</dd>
-                </div>
-              </div>
-              <div className="flex items-center gap-2 text-sm">
-                <span>Buscar</span>
-                <div>
-                  <InputGroup>
-                    <InputGroup.Input
-                      type="date"
-                      className="bg-accent !border-none"
-                    />
-                  </InputGroup>
-                </div>
-                <button className="py-1.5 px-3 font-medium bg-primary text-white rounded focus:ring-2 ring-offset-2">
-                  Buscar
-                </button>
+          <div className="flex gap-3 p-5 justify-between">
+            <div className="flex gap-3 text-sm">
+              <img src="/assets/img/sample/user-2.png" className="inline-block rounded-full w-11 h-11" />
+              <div>
+                <dd>Carlos Pérez Guerrero</dd>
+                <dd>UI123123</dd>
               </div>
             </div>
+            <div className="flex items-center gap-2 text-sm">
+              <span>Buscar</span>
+              <div>
+                <InputGroup>
+                  <InputGroup.Input
+                    type="date"
+                    className="bg-accent !border-none"
+                  />
+                </InputGroup>
+              </div>
+              <button className="py-1.5 px-3 font-medium bg-primary text-white rounded focus:ring-2 ring-offset-2">
+                Buscar
+              </button>
+            </div>
+          </div>
+          <Modal.Body className="space-y-7 py-5">
+
 
             <Table wrapperClassName="bg-accent px-4">
               <Table.Thead>
@@ -56,7 +57,7 @@ const LocationHistoryBtn = ({ as = 'button', ...props }) => {
                 </Table.Tr>
               </Table.Thead>
               <Table.Tbody>
-                {[...Array(8)].map((item, index) => (
+                {[...Array(20)].map((item, index) => (
                   <Table.Tr key={index}>
                     <Table.Td>
                       <dd>10:00 hrs</dd>

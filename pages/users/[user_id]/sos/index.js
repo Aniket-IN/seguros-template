@@ -26,6 +26,7 @@ const SOS = () => {
               <Table.Tr>
                 <Table.Td>
                   <p className="text-danger font-semibold">SOS</p>
+                  <p>SOS#1231231</p>
                 </Table.Td>
                 <Table.Td>-12.091307, -77.042053</Table.Td>
                 <Table.Td>23/09/2022</Table.Td>

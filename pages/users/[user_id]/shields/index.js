@@ -2,6 +2,7 @@ import React from 'react'
 import UserLayout from "@/components/layouts/UserLayout"
 import Table from "@/components/Table"
 import SamplePagination from "@/components/SamplePagination"
+import Link from "next/link"
 
 const Shields = () => {
   return (
@@ -45,11 +46,11 @@ const Shields = () => {
                   </span>
                 </Table.Td>
                 <Table.Td>
-                  <div className="flex gap-5 items-center justify-center">
+                  <div className="flex gap-5 items-center">
                     <span>7</span>
-                    <button type="button" className="text-primary font-semibold hover:underline">
+                    <Link href="/shields/1" className="text-primary font-semibold hover:underline">
                       Ver detalles
-                    </button>
+                    </Link>
                   </div>
                 </Table.Td>
               </Table.Tr>
