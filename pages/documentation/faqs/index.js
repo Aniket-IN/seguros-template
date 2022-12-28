@@ -18,7 +18,7 @@ export default function index() {
 
 
   return (
-    <DocumentationLayout>
+    <DocumentationLayout pageTitle="Documentación" headerTitle="Documentación">
       <div className="flex flex-col xl:flex-row gap-5">
 
         <div className="xl:max-w-md w-full">
@@ -108,7 +108,7 @@ const Category = () => {
                     defaultChecked
                     name="account"
                     type="radio"
-                    className="focus:ring-indigo-500 h-5 w-5 text-indigo-600 border-gray-300"
+                    className="flex-shrink-0 focus:ring-indigo-500 h-5 w-5 text-indigo-600 border-gray-300"
                   />
                 </label>
               </li>
