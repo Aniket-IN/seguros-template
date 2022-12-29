@@ -37,7 +37,7 @@ const FilterDropDownBtn = ({ className = '', groups = [], ...props }) => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Popover.Panel className="origin-top-right absolute right-0 mt-2 bg-white rounded-md shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Popover.Panel className="absolute origin-top-left lg:origin-top-right left-0 lg:left-auto lg:right-0 mt-2 bg-white rounded-md shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
             {({ close }) => (
               <div className="divide-y pt-1 min-w-[200px]">
 
