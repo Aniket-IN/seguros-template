@@ -18,7 +18,7 @@ const Login = () => {
     <Auth>
       <form onSubmit={submit} className="block w-full max-w-md bg-white shadow-md rounded border px-10 py-12">
         <div>
-          <img src="/assets/img/logo-black-text.svg" className="block mx-auto max-w-[254px] w-full" alt="Company Logo" />
+          <img src="/assets/img/logo-black-text.svg" className="block mx-auto max-w-[230px] w-full" alt="Company Logo" />
         </div>
         <h1 className="mt-8 text-2xl font-semibold">Bienvenido administrador</h1>
         <p className="mt-4 text-secondary">Ingresa los datos para continuar.</p>
