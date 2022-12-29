@@ -52,7 +52,7 @@ const options = {
 };
 
 
-const labels = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
+const labels = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC', 'ENE'];
 
 export const data = {
   labels,
@@ -61,7 +61,7 @@ export const data = {
       label: 'Users',
       data: labels.map(() => faker.datatype.number({ min: 0, max: 250 })),
       borderColor: '#1555ED',
-      backgroundColor: '#fff',
+      backgroundColor: labels.map(() => '#fff') ,
       pointRadius: 3,
       pointHoverRadius: 4,
       pointBorderWidth: 3,
