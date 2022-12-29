@@ -53,6 +53,7 @@ const ConfirmationModal = ({
                 "w-20 h-w-20 inline-block",
                 !!(type == 'success') && "text-primary",
                 !!(type == 'danger') && "text-danger",
+                !!(type == 'warning') && "text-warning",
               )}
             />
             {!!caption && <p>{caption}</p>}
@@ -61,17 +62,17 @@ const ConfirmationModal = ({
 
         {(buttonsCount > 0) && (
           <div
-            className={classNames("mt-6 flex items-center px-4 py-3 text-sm",
+            className={classNames("mt-6 flex items-center px-4 gap-4 py-3 text-sm",
               (buttonsCount > 1) ? 'bg-accent' : '',
               (buttonsCount < 2) ? 'justify-center' : '',
             )}>
             {!!closeBtn.show && (
-              <button onClick={closeBtn.onClick} className={classNames("px-4 py-2 bg-neutral text-black rounded")}>
+              <button onClick={closeBtn.onClick} className={classNames("px-4 py-2 bg-white text-black rounded", closeBtn.className)}>
                 {closeBtn.text}
               </button>
             )}
             {!!confirmBtn.show && (
-              <button onClick={confirmBtn.onClick} className={classNames("px-4 py-2 bg-black text-white rounded")}>
+              <button onClick={confirmBtn.onClick} className={classNames("px-4 py-2 bg-black text-white rounded", confirmBtn.className)}>
                 {confirmBtn.text}
               </button>
             )}

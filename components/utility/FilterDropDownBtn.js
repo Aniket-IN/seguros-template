@@ -17,7 +17,7 @@ const FilterDropDownBtn = ({ className = '', groups = [], ...props }) => {
 
   return (
     <>
-      <Popover as="div" id="desktop-menu" className="relative z-10 inline-block text-left">
+      <Popover as="div" id="desktop-menu" className="relative inline-block text-left">
         <div>
           {/* <Popover.Button>
             {children}
