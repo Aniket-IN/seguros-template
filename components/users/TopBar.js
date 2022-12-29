@@ -5,6 +5,7 @@ import classNames from "classnames"
 import { ChevronDownIcon } from "@heroicons/react/20/solid"
 import { FunnelIcon } from "@heroicons/react/24/outline"
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid"
+import FilterDropDownBtn from "../utility/FilterDropDownBtn"
 
 
 const TopBar = () => {
@@ -29,7 +30,7 @@ const TopBar = () => {
         <div className="flex items-center gap-3 flex-grow">
 
 
-          <Menu as="div" className="relative inline-block text-left">
+          {/* <Menu as="div" className="relative inline-block text-left">
             <div>
               <Menu.Button className="inline-flex gap-2 items-center justify-center w-full rounded-md  px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2  focus:ring-primary">
                 <FunnelIcon className="w-5 h-5" />
@@ -78,13 +79,120 @@ const TopBar = () => {
                 </div>
               </Menu.Items>
             </Transition>
-          </Menu>
+          </Menu> */}
+
+
+          {/* groups={{
+              status: {
+                id: "status",
+                title: "Membership Nivel",
+              },
+              user_type: {
+                id: "user_type",
+                title: "Type of user",
+              },
+            }} */}
+          <FilterDropDownBtn
+            className="inline-flex gap-2 items-center justify-center w-full rounded-md  px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2  focus:ring-primary"
+            groups={[
+              {
+                id: 1,
+                title: "Type of user",
+                options: [
+                  {
+                    id: 1,
+                    label: 'Corporate',
+                    value: 'corporate',
+                  },
+                  {
+                    id: 2,
+                    label: 'Individual',
+                    value: 'individual',
+                  },
+                  {
+                    id: 3,
+                    label: 'Suspended',
+                    value: 'suspended',
+                  },
+                ],
+              },
+              {
+                id: 2,
+                title: "Status",
+                options: [
+                  {
+                    id: 1,
+                    label: 'Active',
+                    value: 'active',
+                  },
+                  {
+                    id: 2,
+                    label: 'Inactive',
+                    value: 'inactive',
+                  },
+                  {
+                    id: 3,
+                    label: 'Suspended',
+                    value: 'suspended',
+                  },
+                ],
+              },
+            ]}
+          >
+            <FunnelIcon className="w-5 h-5" />
+            Filtros
+            <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
+          </FilterDropDownBtn>
+
+
+
+
+          {/* <FilterDropDownBtn
+            className="inline-flex gap-2 items-center justify-center w-full rounded-md  px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2  focus:ring-primary"
+            groups={{
+              status: {
+                id: "status",
+                title: "Membership Nivel",
+              },
+              user_type: {
+                id: "user_type",
+                title: "Type of user",
+              },
+            }}
+            options={[
+              {
+                id: "status_1",
+                name: "status",
+                title: "Active",
+                value: "activee",
+                group_id: "user_type"
+              },
+              {
+                id: "status_2",
+                name: "status",
+                title: "Inactive",
+                value: "inactive",
+                group_id: "user_type"
+              },
+              {
+                id: "status_3",
+                name: "status",
+                title: "Suspended",
+                value: "suspended",
+                group_id: "user_type"
+              },
+            ]}
+          >
+            <FunnelIcon className="w-5 h-5" />
+            Filtros
+            <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
+          </FilterDropDownBtn> */}
 
 
           <div className="text-gray-900 text-sm text-right ml-auto">34 Usuarios</div>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 

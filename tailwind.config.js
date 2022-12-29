@@ -40,6 +40,9 @@ module.exports = {
     },
   },
   plugins: [
+    
+    require('@tailwindcss/forms'),
+
     plugin(({ addVariant, e }) => {
       addVariant("sidebar-expanded", ({ modifySelectors, separator }) => {
         modifySelectors(
@@ -50,5 +53,6 @@ module.exports = {
         );
       });
     }),
+
   ],
 }
