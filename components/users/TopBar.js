@@ -41,11 +41,6 @@ const TopBar = () => {
                     label: 'Individual',
                     value: 'individual',
                   },
-                  {
-                    id: 3,
-                    label: 'Suspended',
-                    value: 'suspended',
-                  },
                 ],
               },
               {
