@@ -56,7 +56,7 @@ const FilterDropDownBtn = ({ className = '', groups = [], ...props }) => {
                             name={option.name}
                             defaultValue={option.value}
                             type="checkbox"
-                            className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                            className="h-4 w-4 border-gray-300 rounded text-primary focus:ring-primary"
                           />
                           <dd
                             className="ml-3 pr-6 text-sm font-medium text-gray-900 whitespace-nowrap"
@@ -86,7 +86,7 @@ const FilterDropDownBtn = ({ className = '', groups = [], ...props }) => {
                       onClick={() => {
                         applyFilters({ close })
                       }}
-                      className="rounded font-medium text-sm py-0.5 px-4 bg-indigo-500 hover:bg-indigo-600 text-white"
+                      className="rounded font-medium text-sm py-0.5 px-4 bg-primary hover:bg-primary text-white"
                     >
                       Apply
                     </button>

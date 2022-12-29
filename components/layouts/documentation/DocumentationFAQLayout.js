@@ -98,7 +98,7 @@ const Category = () => {
                     onChange={handleQuestionToggle}
                     name="question_radio"
                     type="radio"
-                    className="flex-shrink-0 focus:ring-indigo-500 h-5 w-5 text-indigo-600 border-gray-300"
+                    className="flex-shrink-0 focus:ring-primary h-5 w-5 text-primary border-gray-300"
                   />
                 </label>
               </li>

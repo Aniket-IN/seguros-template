@@ -41,7 +41,7 @@ export default function index() {
                       defaultChecked
                       name="account"
                       type="radio"
-                      className="focus:ring-indigo-500 h-5 w-5 text-indigo-600 border-gray-300"
+                      className="focus:ring-primary h-5 w-5 text-primary border-gray-300"
                     />
                   </label>
                 </li>
@@ -54,7 +54,7 @@ export default function index() {
                   <input
                     name="account"
                     type="radio"
-                    className="focus:ring-indigo-500 h-5 w-5 text-indigo-600 border-gray-300"
+                    className="focus:ring-primary h-5 w-5 text-primary border-gray-300"
                   />
                 </label>
               </li> */}

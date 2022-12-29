@@ -2,30 +2,25 @@ import React, { Fragment } from 'react'
 import Table from "../Table"
 import { Menu, Transition } from "@headlessui/react"
 import classNames from "classnames"
-import { ChevronDownIcon } from "@heroicons/react/20/solid"
+import { ChevronDownIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid"
 import Link from "next/link"
 
 const UsersTable = () => {
-  const headers = [
-    'ID Usuario',
-    'Nombre',
-    'Teléfono',
-    'Correo',
-    'Fecha de Creación',
-    'Tipo',
-    'Estado',
-    'Acción',
-  ];
-
   return (
     <Table>
       <Table.Thead>
         <Table.Tr>
-          {
-            headers.map((header) => (
-              <Table.Th key={header}>{header}</Table.Th>
-            ))
-          }
+          <Table.Th>ID Usuario</Table.Th>
+          <Table.Th>Nombre</Table.Th>
+          <Table.Th>Teléfono</Table.Th>
+          <Table.Th>Correo</Table.Th>
+          <Table.Th className="flex items-center justify-between gap-4 cursor-pointer">
+            <span>Fecha de Creación</span>
+            <ChevronDownIcon className="w-5 h-5" />
+          </Table.Th>
+          <Table.Th>Tipo</Table.Th>
+          <Table.Th>Estado</Table.Th>
+          <Table.Th>Acción</Table.Th>
         </Table.Tr>
       </Table.Thead>
       <Table.Tbody>
