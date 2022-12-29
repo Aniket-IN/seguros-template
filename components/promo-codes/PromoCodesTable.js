@@ -113,11 +113,15 @@ const PromoCodesTable = () => {
 
 const ActionBtn = () => {
   const [editOpen, setEditOpen] = useState(false)
+
   const [activateOpen, setActivateOpen] = useState(false)
   const [activateAlertOpen, setActivateAlertOpen] = useState(false)
 
   const [suspendOpen, setSuspendOpen] = useState(false)
   const [suspendAlertOpen, setSuspendAlertOpen] = useState(false)
+
+  const [deleteOpen, setDeleteOpen] = useState(false)
+  const [deleteAlertOpen, setDeleteAlertOpen] = useState(false)
 
   // const [data, setData] = useState()
 
@@ -136,6 +140,13 @@ const ActionBtn = () => {
     setSuspendOpen(false)
     setTimeout(() => {
       setSuspendAlertOpen(true)
+    }, 300);
+  }
+
+  const deleteCode = () => {
+    setDeleteOpen(false)
+    setTimeout(() => {
+      setDeleteAlertOpen(true)
     }, 300);
   }
 
@@ -197,6 +208,36 @@ const ActionBtn = () => {
           show: true,
           text: "CONTINUAR",
           onClick: () => setSuspendAlertOpen(false),
+        }}
+        closeBtn={{
+          show: false,
+        }}
+      />
+
+      {/* Delete Modals */}
+      <ConfirmationModal
+        open={deleteOpen}
+        close={() => setDeleteOpen(false)}
+        type="danger"
+        caption="¿Desea eliminar este cupón?"
+        confirmBtn={{
+          show: true,
+          text: "CONTINUAR",
+          onClick: deleteCode,
+        }}
+        closeBtn={{
+          show: false,
+        }}
+      />
+      <ConfirmationModal
+        open={deleteAlertOpen}
+        close={() => setDeleteAlertOpen(false)}
+        type="success"
+        caption="Cupón eliminado"
+        confirmBtn={{
+          show: true,
+          text: "CONTINUAR",
+          onClick: () => setDeleteAlertOpen(false),
         }}
         closeBtn={{
           show: false,
@@ -278,7 +319,7 @@ const ActionBtn = () => {
               <Menu.Item>
                 {({ active }) => (
                   <button
-                    // onClick={() => setActivateOpen(true)}
+                    onClick={() => setDeleteOpen(true)}
                     className={classNames(
                       active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                       'w-full block text-left px-4 py-2 text-sm'
