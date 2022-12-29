@@ -1,7 +1,7 @@
 import React, { createElement, useState } from 'react'
 import AdminFormModal from "../admin/AdminFormModal"
 
-const AdminCreateModalBtn = ({ as = 'button', className = '', ...props }) => {
+const AdminEditModalBtn = ({ as = 'button', className = '', ...props }) => {
   const [open, setOpen] = useState(false)
 
   const close = () => {
@@ -13,7 +13,7 @@ const AdminCreateModalBtn = ({ as = 'button', className = '', ...props }) => {
       <AdminFormModal
       open={open}
       close={close}
-      mode="create"
+      mode="edit"
       />
       {createElement(as, {
         type: "button",
@@ -25,4 +25,4 @@ const AdminCreateModalBtn = ({ as = 'button', className = '', ...props }) => {
   )
 }
 
-export default AdminCreateModalBtn
+export default AdminEditModalBtn

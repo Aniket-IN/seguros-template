@@ -54,6 +54,7 @@ InputGroup.Input = ({
       px-4 py-1.5 w-full border border-[#e2e8f0] 
       outline-none focus:ring-1
       focus:ring-primary focus:border-primary
+      disabled:bg-gray-100
       ${className}`,
     ...props,
   });

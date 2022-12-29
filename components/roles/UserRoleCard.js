@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import SectionHeading from "../SectionHeading"
 import { PencilIcon } from "@heroicons/react/24/solid"
+import AdminEditModalBtn from "./AdminEditModalBtn"
 
 const UserRoleCard = () => {
   const data = [
@@ -61,10 +62,11 @@ const UserRoleCard = () => {
         <div>
           <div className="flex justify-between items-center">
             <SectionHeading>Datos de Administrador</SectionHeading>
-            <button className="bg-accent rounded-full px-4 py-2 font-medium inline-flex justify-center items-center gap-2">
+            <AdminEditModalBtn className="bg-accent rounded-full px-4 py-2 font-medium inline-flex justify-center items-center gap-2">
               <PencilIcon className="w-4 h-4" />
               <span>Editar</span>
-            </button>
+            </AdminEditModalBtn>
+
           </div>
           <hr className="my-2" />
 
