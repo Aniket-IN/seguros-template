@@ -25,7 +25,7 @@ const PasswordSent = () => {
 
 
         <Link href="/" className="block text-center mt-44 py-5 px-4 w-full text-base text-white bg-primary rounded-xl focus:outline-none ring-primary focus:ring-2 focus:ring-offset-2">
-          Iniciar Sesión
+          Volver a Iniciar Sesión
         </Link>
 
         <div className="mt-9 flex justify-center">

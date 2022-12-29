@@ -26,7 +26,7 @@ const ResendBtn = () => {
       />
 
       <button onClick={resend} type="button" className="inline-block mx-auto font-semibold underline hover:text-primary">
-        Volver a Iniciar Sesión
+        Reenviar contraseña
       </button>
     </>
   )
