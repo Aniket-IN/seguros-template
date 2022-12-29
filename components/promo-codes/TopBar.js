@@ -1,9 +1,5 @@
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 import InputGroup from "@/components/utility/InputGroup"
-import { Menu, Transition } from "@headlessui/react"
-import classNames from "classnames"
-import { ChevronDownIcon } from "@heroicons/react/20/solid"
-import { FunnelIcon } from "@heroicons/react/24/outline"
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid"
 import PromoCodeFormModal from "./PromoCodeFormModal"
 import ConfirmationModal from "../utility/ConfirmationModal"

@@ -52,6 +52,7 @@ const ConfirmationModal = ({
               className={classNames(
                 "w-20 h-w-20 inline-block",
                 !!(type == 'success') && "text-primary",
+                !!(type == 'danger') && "text-danger",
               )}
             />
             {!!caption && <p>{caption}</p>}
