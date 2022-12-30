@@ -3,12 +3,13 @@ import React from 'react'
 import Footer from "./admin/Footer"
 import Header from "./admin/Header"
 import Sidebar from "./admin/Sidebar"
+import AppLayout from "./AppLayout"
 
 
 const Admin = ({ children, pageTitle = null, headerTitle = '' }) => {
   const APP_NAME = "Seguros"
   return (
-    <>
+    <AppLayout>
       <Head>
         <title>{pageTitle ? `${pageTitle} - ${APP_NAME}` : `${APP_NAME}`}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -36,7 +37,7 @@ const Admin = ({ children, pageTitle = null, headerTitle = '' }) => {
         </div>
 
       </div>
-    </>
+    </AppLayout>
 
   )
 }
