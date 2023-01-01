@@ -106,7 +106,7 @@ const Home = () => {
 
             <div className="bg-white p-4 flex flex-col gap-2">
               <div className="font-semibold text-sm">
-                <h3>N°. de Usuarios registrados por mes</h3>
+                <h3>N°. de Escudos creados por mes</h3>
                 <h3 className="text-right">Total Escudos: 2 541</h3>
               </div>
               <div className="bg-white flex-grow aspect-video">
