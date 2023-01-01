@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: 'auth',
   initialState: {
-    name: "Lucas Rodriguez",
-    email: "ejemplo@gmail.com",
+    user: {
+      name: "Lucas Rodriguez",
+      email: "ejemplo@gmail.com",
+    },
   },
   reducers: {
     update: (state, action) => {
