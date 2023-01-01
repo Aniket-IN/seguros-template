@@ -1,21 +1,48 @@
 import Auth from "@/components/layouts/Auth"
 import InputGroup from "@/components/utility/InputGroup"
+import useAxios from "@/hooks/useAxios"
+import { ArrowPathIcon } from "@heroicons/react/24/outline"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import React from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useForm } from "react-hook-form"
+import { toast } from "react-hot-toast"
+import { useLocalStorage } from "react-use"
 
 
 const Login = () => {
   const router = useRouter()
-  const { register } = useForm()
+  const { register, handleSubmit } = useForm()
+  const [token, setToken] = useLocalStorage('access_token', null)
+  const [isLoggedIn, setIsLoggedIn] = useLocalStorage('is_logged_in', false)
 
-  const submit = (e) => {
-    e.preventDefault()
+  const { axios } = useAxios()
+  const [processing, setProcessing] = useState(false)
 
-    // Redirect to dashboard
-    router.push('/dashboard');
-  }
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push('/dashboard')
+    }
+  }, [])
+
+
+  const submit = handleSubmit((data) => {
+    setProcessing(true)
+    axios.post('/api/account/adminlogin/', data)
+      .then((response) => {
+        setToken(response.data.data.token)
+        setIsLoggedIn(true)
+        toast.success("Logged in succssfully!")
+        router.push('/dashboard')
+      })
+      .catch((error) => {
+        toast.error(error?.response?.data?.message ?? `Oops! Internal server error!`)
+      })
+      .then(() => {
+        setProcessing(false)
+      })
+  })
+
 
   return (
     <Auth>
@@ -50,8 +77,9 @@ const Login = () => {
           </div>
         </div>
 
-        <button type="submit" className="mt-16 py-5 px-4 w-full text-base text-white bg-primary rounded-xl focus:outline-none ring-primary focus:ring-2 focus:ring-offset-2">
-          Iniciar Sesión
+        <button disabled={isLoggedIn || processing} type="submit" className="inline-flex justify-center items-center gap-2.5 whitespace-nowrap mt-16 py-5 px-4 w-full text-base text-white bg-primary rounded-xl focus:outline-none ring-primary focus:ring-2 focus:ring-offset-2">
+          Iniciar Sesións
+          {processing ? <ArrowPathIcon className="w-5 h-5 animate-spin" /> : null}
         </button>
 
         <div className="mt-9 flex justify-center">
