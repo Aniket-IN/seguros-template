@@ -17,7 +17,7 @@ const ForgotPassword = () => {
       <form onSubmit={submit} className="block w-full max-w-md bg-white shadow-md rounded border px-10 pt-8 pb-40">
 
         {/* Back Btn */}
-        <Link href="/login">
+        <Link href="/">
           <ArrowLeftIcon className="w-6 h-6" />
         </Link>
 
@@ -36,7 +36,7 @@ const ForgotPassword = () => {
         </div>
 
         <button type="submit" className="mt-16 py-5 px-4 w-full text-base text-white bg-primary rounded-xl focus:outline-none ring-primary focus:ring-2 focus:ring-offset-2">
-          Iniciar Sesión
+          Enviar
         </button>
 
       </form>

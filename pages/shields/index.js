@@ -1,7 +1,7 @@
 import React from 'react'
 import Admin from "@/components/layouts/Admin"
 import SamplePagination from "@/components/SamplePagination"
-import TopBar from "@/components/companies/TopBar"
+import TopBar from "@/components/shields/TopBar"
 import ShieldsTable from "@/components/shields/ShieldsTable"
 
 

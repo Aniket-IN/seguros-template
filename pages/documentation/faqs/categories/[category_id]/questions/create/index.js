@@ -6,14 +6,22 @@ import classNames from "classnames"
 import Link from "next/link"
 import React, { useState } from 'react'
 import AnimateHeight from "react-animate-height"
+import { Editor } from "@tinymce/tinymce-react";
+import useTinyMCE from "@/hooks/useTinyMCE"
 
-export default function index() {
+const CreateQuestionForm = () => {
+  const { config, apiKey } = useTinyMCE();
+
+  const handleEditorChange = () => {
+
+  }
+  
   return (
     <DocumentationFAQLayout pageTitle="Documentación" headerTitle="Documentación">
       <div className="flex-grow">
         <div className="bg-white p-5 space-y-6">
           <div className="flex flex-col lg:flex-row justify-between lg:items-center gap-5">
-            <SectionHeading>Crear Categ.</SectionHeading>
+            <SectionHeading>Pregunta</SectionHeading>
             <div className="flex gap-4 text-sm">
               {/* <button className="bg-accent rounded px-4 py-2 font-medium inline-flex justify-center items-center gap-3">
                 <PencilIcon className="w-5 h-5" />
@@ -29,12 +37,21 @@ export default function index() {
             <span>12/12/12</span>
           </div> */}
           <div className="max-w-md">
-            <InputGroup.Label>Título</InputGroup.Label>
+            <InputGroup.Label>Pregunta</InputGroup.Label>
             <InputGroup>
               <InputGroup.Input
                 type="text"
               />
             </InputGroup>
+          </div>
+          <div>
+            <InputGroup.Label>Respuesta</InputGroup.Label>
+            <Editor
+              apiKey={apiKey}
+              initialValue=""
+              init={config.minimal}
+              onChange={handleEditorChange}
+            />
           </div>
         </div>
       </div>
@@ -42,3 +59,4 @@ export default function index() {
   )
 }
 
+export default CreateQuestionForm

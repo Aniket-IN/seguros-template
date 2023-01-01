@@ -12,7 +12,7 @@ import AdminCreateModalBtn from "@/components/roles/AdminCreateModalBtn"
 
 function index() {
   return (
-    <Admin>
+    <Admin headerTitle="Roles" pageTitle="Roles">
       <div className="container-padding py-7 flex flex-col lg:flex-row gap-5">
 
         <div className="w-full lg:max-w-lg">

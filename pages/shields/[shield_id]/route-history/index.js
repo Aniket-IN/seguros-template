@@ -20,18 +20,15 @@ export default function index() {
           <Table wrapperClassName="h-full no-scrollbar" className="relative">
             <Table.Thead className="sticky top-0 bg-accent">
               <Table.Tr>
-                <Table.Th>Nombre</Table.Th>
-                <Table.Th>Jerarquía</Table.Th>
+                <Table.Th className="pl-5">Nombre</Table.Th>
+                <Table.Th className="pr-5">Jerarquía</Table.Th>
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>
               {[...Array(20)].map((item, index) => (
                 <Table.Tr key={index}>
-                  <Table.Td >
+                  <Table.Td className="pl-5">
                     <div className="flex gap-3">
-                      <div className="shrink-0">
-                        <img src="" className="" alt="" />
-                      </div>
                       <dl>
                         <dd>Juan Jesús Ledesma</dd>
                         <dd>ID-U1231231</dd>
@@ -39,7 +36,7 @@ export default function index() {
                     </div>
 
                   </Table.Td>
-                  <Table.Td>
+                  <Table.Td className="pr-5">
                     <div className="flex gap-4 items-center justify-between">
                       <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-warning bg-opacity-20 text-warning">
                         <svg className="mr-1.5 h-2 w-2 text-warning" fill="currentColor" viewBox="0 0 8 8">

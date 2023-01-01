@@ -33,7 +33,7 @@ const SamplePagination = () => {
               <span className="sr-only">Previous</span>
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
             </a>
-            {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white  text-gray-500 hover:bg-gray-50" */}
+            {/* Current: "z-10 bg-indigo-50 border-primary text-primary", Default: "bg-white  text-gray-500 hover:bg-gray-50" */}
             <a
               href="#"
               aria-current="page"

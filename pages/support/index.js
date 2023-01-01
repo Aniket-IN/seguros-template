@@ -95,7 +95,7 @@ export default function index() {
               </div>
               <div className="flex border pt-5 px-5 border-t-black border-t-2">
                 <div className="flex-grow flex-shrink-0">
-                  <textarea className="focus:outline-none" name="message" id="message" rows="6" placeholder="Escribe tu mensaje" />
+                  <textarea className="border-none focus:ring-0 w-full" name="message" id="message" rows="6" placeholder="Escribe tu mensaje" />
                 </div>
                 <div>
                   <button className="bg-black text-white px-4 py-2.5 rounded">

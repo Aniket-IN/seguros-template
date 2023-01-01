@@ -24,8 +24,8 @@ const PasswordSent = () => {
         <p className="mt-4 text-secondary">No olvides de revisar tu carpeta de Correos no deseados o Spam.</p>
 
 
-        <Link href="/login" className="block text-center mt-44 py-5 px-4 w-full text-base text-white bg-primary rounded-xl focus:outline-none ring-primary focus:ring-2 focus:ring-offset-2">
-          Iniciar Sesión
+        <Link href="/" className="block text-center mt-44 py-5 px-4 w-full text-base text-white bg-primary rounded-xl focus:outline-none ring-primary focus:ring-2 focus:ring-offset-2">
+          Volver a Iniciar Sesión
         </Link>
 
         <div className="mt-9 flex justify-center">
