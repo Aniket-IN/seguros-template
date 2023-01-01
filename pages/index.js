@@ -3,9 +3,12 @@ import InputGroup from "@/components/utility/InputGroup"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import React from 'react'
+import { useForm } from "react-hook-form"
+
 
 const Login = () => {
   const router = useRouter()
+  const { register } = useForm()
 
   const submit = (e) => {
     e.preventDefault()
@@ -28,8 +31,9 @@ const Login = () => {
             <InputGroup.Label className="!text-base !font-semibold !mb-2 !text-opacity-100">Correo</InputGroup.Label>
             <InputGroup>
               <InputGroup.Input
-              className="!py-2"
-              placeholder="yourname@example.com"
+                {...register("email")}
+                className="!py-2"
+                placeholder="yourname@example.com"
               />
             </InputGroup>
           </div>
@@ -37,6 +41,7 @@ const Login = () => {
             <InputGroup.Label className="!text-base !font-semibold !mb-2 !text-opacity-100">Contraseña</InputGroup.Label>
             <InputGroup>
               <InputGroup.Input
+                {...register("password")}
                 type="password"
                 className="!py-2"
                 placeholder="*********"
@@ -45,7 +50,7 @@ const Login = () => {
           </div>
         </div>
 
-        <button className="mt-16 py-5 px-4 w-full text-base text-white bg-primary rounded-xl focus:outline-none ring-primary focus:ring-2 focus:ring-offset-2">
+        <button type="submit" className="mt-16 py-5 px-4 w-full text-base text-white bg-primary rounded-xl focus:outline-none ring-primary focus:ring-2 focus:ring-offset-2">
           Iniciar Sesión
         </button>
 
@@ -54,7 +59,7 @@ const Login = () => {
             Olvide mi contraseña
           </Link>
         </div>
-        
+
 
       </form>
     </Auth>

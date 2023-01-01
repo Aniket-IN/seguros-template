@@ -1,34 +1,37 @@
-import { createContext, createElement, useContext } from "react";
+import { createContext, createElement, forwardRef, useContext } from "react";
 
 const InputGroupContext = createContext();
 
-const InputGroup = ({
+const InputGroup = forwardRef(({
   as = "div",
   isInvalid = false,
   prepend = false,
   append = false,
   className = "",
   ...props
-}) => {
+}, ref) => {
   return (
     <InputGroupContext.Provider value={{ isInvalid, prepend, append }}>
       {createElement(as, {
+        ref,
         className: `w-full flex-row flex items-stretch ${className}`,
         ...props,
       })}
     </InputGroupContext.Provider>
   );
-};
+})
 
-InputGroup.Prepend = ({ as = "div", className = "", ...props }) => {
-  return createElement(as, {
+
+InputGroup.Prepend = forwardRef(() => (
+  createElement(as, {
     className: `
       rounded-l-md overflow-hidden flex-grow flex-shrink-0 border-[#e2e8f0] border border-r-0 
       ${className}
     `,
     ...props,
-  });
-};
+  })
+))
+
 
 InputGroup.Append = ({ as = "div", className = "", ...props }) =>
   createElement(as, {
@@ -36,15 +39,17 @@ InputGroup.Append = ({ as = "div", className = "", ...props }) =>
     ...props,
   });
 
-InputGroup.Input = ({
+
+InputGroup.Input = forwardRef(({
   as = "input",
   className = "",
   type = "text",
   ...props
-}) => {
+}, ref) => {
   const { isInvalid, prepend, append } = useContext(InputGroupContext);
 
   return createElement(as, {
+    ref,
     type: type,
     className: `
       ${isInvalid ? "border-red-600" : ""}
@@ -58,7 +63,31 @@ InputGroup.Input = ({
       ${className}`,
     ...props,
   });
-};
+})
+
+// InputGroup.Input = ({
+//   as = "input",
+//   className = "",
+//   type = "text",
+//   ...props
+// }) => {
+//   const { isInvalid, prepend, append } = useContext(InputGroupContext);
+
+//   return createElement(as, {
+//     type: type,
+//     className: `
+//       ${isInvalid ? "border-red-600" : ""}
+//       ${prepend ? "rounded-r-md" : ""}
+//       ${append ? "rounded-l-md" : ""}
+//       ${!append && !prepend ? "rounded-md" : ""} 
+//       px-4 py-1.5 w-full border border-[#e2e8f0] 
+//       outline-none focus:ring-1
+//       focus:ring-primary focus:border-primary
+//       disabled:bg-gray-100
+//       ${className}`,
+//     ...props,
+//   });
+// };
 
 InputGroup.Textarea = ({ as = "textarea", className = "", ...props }) => {
   const { isInvalid, prepend, append } = useContext(InputGroupContext);
