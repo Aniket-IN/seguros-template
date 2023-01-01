@@ -6,16 +6,14 @@ import Link from "next/link"
 import { useSelector } from "react-redux"
 
 const AccountDropdown = () => {
-  const user = useSelector((state) => state.auth.user)
+  const user = useSelector((state) => state.user)
 
   return (
     <Menu as="div" className="relative inline-block text-left">
 
       <Menu.Button className="py-3 px-4 self-stretch flex items-center gap-2 hover:bg-secondary-2">
         <img src="/assets/img/sample/user-1.png" className="block w-9 h-9 rounded-full" alt="user-1" />
-        <span className="max-w-[150px] truncate hidden lg:inline">
-          {user.name}
-        </span>
+        <span className="max-w-[150px] truncate hidden lg:inline">{user.name}</span>
         <ChevronDownIcon className="w-5 h-5 text-black text-opacity-80" />
       </Menu.Button>
 
@@ -34,12 +32,8 @@ const AccountDropdown = () => {
               <img src="/assets/img/sample/user-1.png" className="block aspect-square rounded-full" alt="user-1" />
             </div>
             <div className="flex-grow">
-              <h4 className="text-lg">
-                {user.name}
-              </h4>
-              <p className=" text-secondary text-sm">
-                {user.email}
-              </p>
+              <h4 className="text-lg">{user.name}</h4>
+              <p className=" text-secondary text-sm">{user.email}</p>
               <div className="mt-2.5 text-sm font-semibold">
                 <Link href="/account" className="underline">Ver mi perfil</Link>
               </div>
