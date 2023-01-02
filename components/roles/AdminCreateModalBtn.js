@@ -21,7 +21,6 @@ const AdminCreateModalBtn = ({ as = 'button', className = '', ...props }) => {
       user_type: "preveliged user",
     })
       .then((response) => {
-        console.log(response.data);
         setOpen(false);
         toast.success("Admin user created successfully!")
       })

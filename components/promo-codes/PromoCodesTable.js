@@ -5,8 +5,11 @@ import classNames from "classnames"
 import { ChevronDownIcon } from "@heroicons/react/20/solid"
 import PromoCodeFormModal from "./PromoCodeFormModal"
 import ConfirmationModal from "../utility/ConfirmationModal"
+import Badge from "../Badge"
+import { ImSpinner2 } from "react-icons/im"
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline"
 
-const PromoCodesTable = ({ promoCodes = [] }) => {
+const PromoCodesTable = ({ promoCodes = [], isLoading, isError, error }) => {
   const headers = [
     'ID de código',
     'Código de promo',
@@ -20,96 +23,74 @@ const PromoCodesTable = ({ promoCodes = [] }) => {
   ];
 
   return (
-    <Table>
-      <Table.Thead>
-        <Table.Tr>
-          {
-            headers.map((header) => (
+    <div>
+      <Table>
+        <Table.Thead>
+          <Table.Tr>
+            {headers.map((header) => (
               <Table.Th key={header}>{header}</Table.Th>
-            ))
-          }
-        </Table.Tr>
-      </Table.Thead>
-      <Table.Tbody>
-        {[...Array(10)].map((user, index) => {
-          return (
-            <Fragment key={index}>
-              <Table.Tr>
-                <Table.Td>
-                  XYZ123123
-                </Table.Td>
-                <Table.Td>
-                  FANTA2000
-                </Table.Td>
-                <Table.Td>
-                  25/06/22 - 25/07/22
-                </Table.Td>
-                <Table.Td>
-                  Nivel 1
-                </Table.Td>
-                <Table.Td>
-                  20%
-                </Table.Td>
-                <Table.Td>
-                  125
-                </Table.Td>
-                <Table.Td>
-                  Código para Fanta - Lorem Ipsum
-                </Table.Td>
-                <Table.Td>
-                  <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-green-100 text-green-600">
-                    <svg className="mr-1.5 h-2 w-2 text-green-600" fill="currentColor" viewBox="0 0 8 8">
-                      <circle cx={5} cy={4} r={3} />
-                    </svg>
-                    Activo
-                  </span>
-                </Table.Td>
-                <Table.Td>
-                  <ActionBtn />
-                </Table.Td>
-              </Table.Tr>
-              <Table.Tr>
-                <Table.Td>
-                  XYZ123123
-                </Table.Td>
-                <Table.Td>
-                  FANTA2000
-                </Table.Td>
-                <Table.Td>
-                  25/06/22 - 25/07/22
-                </Table.Td>
-                <Table.Td>
-                  Nivel 1
-                </Table.Td>
-                <Table.Td>
-                  20%
-                </Table.Td>
-                <Table.Td>
-                  125
-                </Table.Td>
-                <Table.Td>
-                  Código para Fanta - Lorem Ipsum
-                </Table.Td>
-                <Table.Td>
-                  <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-gray-200 text-black">
-                    <svg className="mr-1.5 h-2 w-2" fill="currentColor" viewBox="0 0 8 8">
-                      <circle cx={5} cy={4} r={3} />
-                    </svg>
-                    Vencido
-                  </span>
-                </Table.Td>
-                <Table.Td>
-                  <ActionBtn />
-                </Table.Td>
-              </Table.Tr>
-            </Fragment>
+            ))}
+          </Table.Tr>
+        </Table.Thead>
+        <Table.Tbody>
+          {isLoading && (
+            <Table.Tr>
+              <Table.Td colSpan="9">
+                <div className="flex justify-center items-center min-h-[200px] ">
+                  <div className="text-center text-slate-500">
+                    <ImSpinner2 className="w-9 h-9 mx-auto animate-spin" />
+                    <p className="mt-5">
+                      &nbsp;&nbsp;&nbsp;Loading...
+                    </p>
+                  </div>
+                </div>
+              </Table.Td>
+            </Table.Tr>
+          )}
 
-          )
-        })}
-      </Table.Tbody>
-    </Table>
+          {isError && (
+            <Table.Tr>
+              <Table.Td colSpan="9">
+                <div className="flex justify-center items-center min-h-[200px] ">
+                  <div className="text-center text-red-500">
+                    <ExclamationTriangleIcon className="w-9 h-9 mx-auto" />
+                    <p className="mt-5">
+                      {error.message}
+                    </p>
+                  </div>
+                </div>
+              </Table.Td>
+            </Table.Tr>
+          )}
+
+          {!isLoading && !isError && promoCodes?.map((promoCode) => <Row promoCode={promoCode} key={promoCode.id} />)}
+        </Table.Tbody>
+      </Table>
+    </div>
+
   )
 }
+
+const Row = ({ promoCode }) => {
+  return (
+    <Table.Tr>
+      <Table.Td>{promoCode.code_id}</Table.Td>
+      <Table.Td>{promoCode.promo_code}</Table.Td>
+      <Table.Td>{promoCode.start_duration} - {promoCode.end_duration}</Table.Td>
+      <Table.Td>{promoCode.membership}</Table.Td>
+      <Table.Td>{promoCode.discount}%</Table.Td>
+      <Table.Td>125</Table.Td>
+      <Table.Td>{promoCode.Etiquette}</Table.Td>
+      <Table.Td>
+        <Badge.Md text={promoCode.state ? "Activo" : 'Vencido'} className={promoCode.state ? "bg-green-100 text-green-600" : 'bg-gray-200 text-black'} />
+      </Table.Td>
+      <Table.Td>
+        <ActionBtn />
+      </Table.Td>
+    </Table.Tr>
+  )
+}
+
 
 const ActionBtn = () => {
   const [editOpen, setEditOpen] = useState(false)
