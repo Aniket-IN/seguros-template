@@ -1,25 +1,31 @@
+import { setLoaded } from "@/redux/pageSlice"
 import { useRouter } from "next/router"
 import React, { useEffect, useState } from 'react'
 import { Toaster } from "react-hot-toast"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import FullPageLoader from "../FullPageLoader"
 
 const AppLayout = ({ pageMode = 'public', children }) => {
   const loggedIn = useSelector(state => state.user.logged_in)
-  const [isLoading, setIsLoading] = useState(true);
+  const isLoaded = useSelector(state => state.page.loaded)
   const router = useRouter();
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(() => {
+    return !isLoaded
+  });
 
 
-  const handleRedirects = async () => {
+  const handleRedirects = () => {
 
-    if (isLoading && pageMode == 'guest' && loggedIn) {
+    if (pageMode == 'guest' && loggedIn) {
       return router.push('/dashboard')
     }
 
-    if (isLoading && pageMode == 'protected' && !loggedIn) {
+    if (pageMode == 'protected' && !loggedIn) {
       return router.push('/')
     }
 
+    dispatch(setLoaded(true))
     setIsLoading(false)
   }
 
@@ -28,16 +34,21 @@ const AppLayout = ({ pageMode = 'public', children }) => {
   }, [isLoading, loggedIn, pageMode])
 
 
+  // if (isLoading) {
+  //   return null
+  // }
+
+  if (isLoading) {
+    return <FullPageLoader />
+  }
+
   return (
     <>
       <Toaster
         position="bottom-right"
         reverseOrder={true}
       />
-      {isLoading
-        ? <FullPageLoader />
-        : children
-      }
+      {children}
     </>
   )
 }
