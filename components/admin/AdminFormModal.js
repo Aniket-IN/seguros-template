@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Modal from "../utility/Modal"
 import InputGroup from "../utility/InputGroup";
 import { useForm } from "react-hook-form";
@@ -11,11 +11,18 @@ const AdminFormModal = ({
   submit,
   close,
   mode = 'create',
+  wasRecentlySuccessful = false,
 }) => {
   const isCreateMode = !!(mode == 'create')
   const isEditMode = !!(mode == 'edit')
 
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, reset } = useForm()
+
+  useEffect(() => {
+    if (wasRecentlySuccessful) {
+      reset()
+    }
+  }, [wasRecentlySuccessful])
 
 
   return (

@@ -6,6 +6,7 @@ import AdminFormModal from "../admin/AdminFormModal"
 const AdminCreateModalBtn = ({ as = 'button', className = '', ...props }) => {
   const [open, setOpen] = useState(false)
   const { axios } = useAxios()
+  const [wasRecentlySuccessful, setwasRecentlySuccessful] = useState(false)
 
   const close = () => {
     setOpen(false);
@@ -23,6 +24,7 @@ const AdminCreateModalBtn = ({ as = 'button', className = '', ...props }) => {
       .then((response) => {
         setOpen(false);
         toast.success(response.data.message)
+        setwasRecentlySuccessful(true)
       })
       .catch((error) => {
         toast.error(error?.response?.data?.message ?? `Oops! Internal server error!`)
@@ -36,6 +38,7 @@ const AdminCreateModalBtn = ({ as = 'button', className = '', ...props }) => {
         open={open}
         close={close}
         mode="create"
+        wasRecentlySuccessful={wasRecentlySuccessful}
       />
       {createElement(as, {
         type: "button",
