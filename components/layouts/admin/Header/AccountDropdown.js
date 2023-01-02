@@ -4,9 +4,22 @@ import { ArrowLeftOnRectangleIcon, ChevronDownIcon } from '@heroicons/react/24/o
 import { Menu, Transition } from "@headlessui/react"
 import Link from "next/link"
 import { useSelector } from "react-redux"
+import { useLocalStorage } from "react-use"
+import { toast } from "react-hot-toast"
+import { useRouter } from "next/router"
 
 const AccountDropdown = () => {
   const user = useSelector((state) => state.auth.user)
+  const [token, setToken, remove] = useLocalStorage('access_token', null)
+  const [isLoggedIn, setIsLoggedIn, removeIsloggedIn] = useLocalStorage('is_logged_in', null)
+  const router = useRouter()
+
+  const logout = () => {
+    remove()
+    removeIsloggedIn()
+    toast.success("Logout sucessful!")
+    router.push('/')
+  }
 
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -49,16 +62,20 @@ const AccountDropdown = () => {
 
           <Menu.Item>
             {({ active }) => (
-              <a
-                href="#"
-                className={classNames(
-                  active ? 'bg-[#E5E5E5]' : 'bg-accent',
-                  'flex items-center gap-2.5 px-4 py-3 text-sm text-a'
-                )}
-              >
-                <ArrowLeftOnRectangleIcon className="w-6 h-6" />
-                <span>Cerrar Sesión</span>
-              </a>
+              <div>
+                <button
+                  onClick={logout}
+                  type="button"
+                  className={classNames(
+                    active ? 'bg-[#E5E5E5]' : 'bg-accent',
+                    'flex w-full items-center gap-2.5 px-4 py-3 text-sm text-a'
+                  )}
+                >
+                  <ArrowLeftOnRectangleIcon className="w-6 h-6" />
+                  <span>Cerrar Sesión</span>
+                </button>
+              </div>
+
             )}
           </Menu.Item>
 

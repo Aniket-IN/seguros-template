@@ -77,7 +77,7 @@ const Login = () => {
           </div>
         </div>
 
-        <button disabled={isLoggedIn || processing} type="submit" className="inline-flex justify-center items-center gap-2.5 whitespace-nowrap mt-16 py-5 px-4 w-full text-base text-white bg-primary rounded-xl focus:outline-none ring-primary focus:ring-2 focus:ring-offset-2">
+        <button disabled={!!(isLoggedIn || processing)} type="submit" className="inline-flex justify-center items-center gap-2.5 whitespace-nowrap mt-16 py-5 px-4 w-full text-base text-white bg-primary rounded-xl focus:outline-none ring-primary focus:ring-2 focus:ring-offset-2">
           Iniciar Sesións
           {processing ? <ArrowPathIcon className="w-5 h-5 animate-spin" /> : null}
         </button>
