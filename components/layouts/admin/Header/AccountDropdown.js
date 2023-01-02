@@ -3,7 +3,7 @@ import classNames from "classnames"
 import { ArrowLeftOnRectangleIcon, ChevronDownIcon } from '@heroicons/react/24/outline'
 import { Menu, Transition } from "@headlessui/react"
 import Link from "next/link"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useLocalStorage } from "react-use"
 import { toast } from "react-hot-toast"
 import { useRouter } from "next/router"
