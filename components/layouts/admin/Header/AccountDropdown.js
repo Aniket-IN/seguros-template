@@ -7,27 +7,37 @@ import { useSelector } from "react-redux"
 import { useLocalStorage } from "react-use"
 import { toast } from "react-hot-toast"
 import { useRouter } from "next/router"
+import useAxios from "@/hooks/useAxios"
+import ProfilePicture from "@/components/ProfilePicture"
 
 const AccountDropdown = () => {
-  const user = useSelector((state) => state.auth.user)
+  const user = useSelector((state) => state.user)
   const [token, setToken, remove] = useLocalStorage('access_token', null)
   const [isLoggedIn, setIsLoggedIn, removeIsloggedIn] = useLocalStorage('is_logged_in', null)
   const router = useRouter()
+  const { axios } = useAxios()
 
   const logout = () => {
-    remove()
-    removeIsloggedIn()
-    toast.success("Logout sucessful!")
-    router.push('/')
+
+    axios.post('/api/account/logout')
+      .catch(() => {
+
+      })
+      .then(() => {
+        remove()
+        removeIsloggedIn()
+        toast.success("Logout sucessful!")
+        router.push('/')
+      })
   }
 
   return (
     <Menu as="div" className="relative inline-block text-left">
 
       <Menu.Button className="py-3 px-4 self-stretch flex items-center gap-2 hover:bg-secondary-2">
-        <img src="/assets/img/sample/user-1.png" className="block w-9 h-9 rounded-full" alt="user-1" />
+        <ProfilePicture src={user.image} className="block w-9 h-9 rounded-full" alt="user-1" />
         <span className="max-w-[150px] truncate hidden lg:inline">
-          {user.name}
+          {user.first_name}{' '}{user.last_name}
         </span>
         <ChevronDownIcon className="w-5 h-5 text-black text-opacity-80" />
       </Menu.Button>
@@ -41,14 +51,15 @@ const AccountDropdown = () => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
+
         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-72 rounded-md overflow-hidden shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="px-4 py-3 flex items-center">
+          <div className="px-4 py-3 gap-3 flex items-center">
             <div className="w-1/3">
-              <img src="/assets/img/sample/user-1.png" className="block aspect-square rounded-full" alt="user-1" />
+              <ProfilePicture src={user.image} className="block aspect-square rounded-full" alt="user-1" />
             </div>
             <div className="flex-grow">
               <h4 className="text-lg">
-                {user.name}
+                {user.first_name}{' '}{user.last_name}
               </h4>
               <p className=" text-secondary text-sm">
                 {user.email}
@@ -58,7 +69,6 @@ const AccountDropdown = () => {
               </div>
             </div>
           </div>
-
 
           <Menu.Item>
             {({ active }) => (
