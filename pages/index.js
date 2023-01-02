@@ -5,28 +5,19 @@ import { setLoggedIn, setToken, update } from "@/redux/userSlice"
 import { ArrowPathIcon } from "@heroicons/react/24/outline"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
-import { useDispatch, useSelector } from "react-redux"
-import { useLocalStorage } from "react-use"
+import { useDispatch } from "react-redux"
+
 
 const Login = () => {
   const router = useRouter()
-  const { register, handleSubmit } = useForm()
-  const loggedIn = useSelector(state => state.user.logged_in)
-
   const { axios } = useAxios()
-  const [processing, setProcessing] = useState(false)
   const dispatch = useDispatch();
+  const { register, handleSubmit } = useForm()
 
-  useEffect(() => {
-    console.log(loggedIn);
-    if (loggedIn) {
-      router.push('/dashboard')
-    }
-  }, [])
-
+  const [processing, setProcessing] = useState(false)
 
   const submit = handleSubmit((data) => {
     setProcessing(true)
@@ -53,10 +44,6 @@ const Login = () => {
         setProcessing(false)
       })
   })
-
-  const click = () => {
-    console.log(loggedIn);
-  }
 
   return (
     <Auth>
@@ -103,10 +90,6 @@ const Login = () => {
             Olvide mi contraseña
           </Link>
         </div>
-
-        <button type="button" onClick={click}>
-          Clik me
-        </button>
       </form>
     </Auth>
   )

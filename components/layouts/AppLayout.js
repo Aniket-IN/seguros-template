@@ -1,22 +1,44 @@
-import React from 'react'
-import store from "@/redux/store"
-import { Provider } from "react-redux"
+import { useRouter } from "next/router"
+import React, { useEffect, useState } from 'react'
 import { Toaster } from "react-hot-toast"
-import { PersistGate } from "redux-persist/integration/react"
-import { persistStore } from "redux-persist"
+import { useSelector } from "react-redux"
+import FullPageLoader from "../FullPageLoader"
 
-const AppLayout = ({ children }) => {
-  const persistor = persistStore(store)
+const AppLayout = ({ pageMode = 'public', children }) => {
+  const loggedIn = useSelector(state => state.user.logged_in)
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+
+
+  const handleRedirects = async () => {
+
+    if (isLoading && pageMode == 'guest' && loggedIn) {
+      return router.push('/dashboard')
+    }
+
+    if (isLoading && pageMode == 'protected' && !loggedIn) {
+      return router.push('/')
+    }
+
+    setIsLoading(false)
+  }
+
+  useEffect(() => {
+    handleRedirects()
+  }, [isLoading, loggedIn, pageMode])
+
+
   return (
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <Toaster
-          position="bottom-right"
-          reverseOrder={true}
-        />
-        {children}
-      </PersistGate>
-    </Provider>
+    <>
+      <Toaster
+        position="bottom-right"
+        reverseOrder={true}
+      />
+      {isLoading
+        ? <FullPageLoader />
+        : children
+      }
+    </>
   )
 }
 
