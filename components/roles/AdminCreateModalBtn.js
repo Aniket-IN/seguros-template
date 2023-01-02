@@ -8,12 +8,17 @@ const AdminCreateModalBtn = ({ as = 'button', className = '', ...props }) => {
     setOpen(false);
   };
 
+  const submit = (data) => {
+    console.log(data);
+  }
+
   return (
     <>
       <AdminFormModal
-      open={open}
-      close={close}
-      mode="create"
+        submit={submit}
+        open={open}
+        close={close}
+        mode="create"
       />
       {createElement(as, {
         type: "button",

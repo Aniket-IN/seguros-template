@@ -1,6 +1,7 @@
 import React from 'react'
 import Modal from "../utility/Modal"
 import InputGroup from "../utility/InputGroup";
+import { useForm } from "react-hook-form";
 
 const AdminFormModal = ({
   open,
@@ -14,13 +15,16 @@ const AdminFormModal = ({
   const isCreateMode = !!(mode == 'create')
   const isEditMode = !!(mode == 'edit')
 
+  const { register, handleSubmit } = useForm()
+
+
   return (
     <Modal
       open={open}
       close={close}
       className="w-full max-w-screen-md shadow-xl overflow-hidden bg-white"
     >
-      <Modal.Wrapper>
+      <Modal.Wrapper as="form" onSubmit={handleSubmit(submit)}>
 
         {/* Header */}
         <Modal.Header className="bg-accent">
@@ -49,31 +53,33 @@ const AdminFormModal = ({
                 <div>
                   <InputGroup.Label>Nombre</InputGroup.Label>
                   <InputGroup>
-                    <InputGroup.Input />
+                    <InputGroup.Input {...register('first_name', { required: true })} />
                   </InputGroup>
                 </div>
                 <div>
                   <InputGroup.Label>Apellido</InputGroup.Label>
                   <InputGroup>
-                    <InputGroup.Input />
+                    <InputGroup.Input {...register('last_name', { required: true })} />
                   </InputGroup>
                 </div>
                 <div>
                   <InputGroup.Label>Correo</InputGroup.Label>
                   <InputGroup>
-                    <InputGroup.Input disabled={isEditMode} />
+                    <InputGroup.Input {...register('email', { required: true, disabled: isEditMode })} />
                   </InputGroup>
                 </div>
-                <div>
-                  <InputGroup.Label>Contraseña</InputGroup.Label>
-                  <InputGroup>
-                    <InputGroup.Input />
-                  </InputGroup>
-                </div>
+                {!isEditMode && (
+                  <div>
+                    <InputGroup.Label>Contraseña</InputGroup.Label>
+                    <InputGroup>
+                      <InputGroup.Input {...register('password', { required: true })} />
+                    </InputGroup>
+                  </div>
+                )}
                 <div>
                   <InputGroup.Label>Teléfono</InputGroup.Label>
                   <InputGroup>
-                    <InputGroup.Input />
+                    <InputGroup.Input {...register('phone', { required: true })} />
                   </InputGroup>
                 </div>
               </div>
@@ -83,10 +89,10 @@ const AdminFormModal = ({
 
         {/* Footer */}
         <Modal.Footer className="bg-accent">
-          <Modal.FooterBtn onClick={close} className="text-black bg-white">
+          <Modal.FooterBtn type="button" onClick={close} className="text-black bg-white">
             Cancelar
           </Modal.FooterBtn>
-          <Modal.FooterBtn onClick={close} className="text-white bg-black">
+          <Modal.FooterBtn type="submit" className="text-white bg-black">
             Guardar
           </Modal.FooterBtn>
         </Modal.Footer>
