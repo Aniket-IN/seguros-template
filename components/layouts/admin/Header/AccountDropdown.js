@@ -4,16 +4,16 @@ import { ArrowLeftOnRectangleIcon, ChevronDownIcon } from '@heroicons/react/24/o
 import { Menu, Transition } from "@headlessui/react"
 import Link from "next/link"
 import { useDispatch, useSelector } from "react-redux"
-import { useLocalStorage } from "react-use"
 import { toast } from "react-hot-toast"
 import { useRouter } from "next/router"
 import useAxios from "@/hooks/useAxios"
 import ProfilePicture from "@/components/ProfilePicture"
+import { setLoggedIn, setToken } from "@/redux/userSlice"
 
 const AccountDropdown = () => {
   const user = useSelector((state) => state.user)
-  const [token, setToken, remove] = useLocalStorage('access_token', null)
-  const [isLoggedIn, setIsLoggedIn, removeIsloggedIn] = useLocalStorage('is_logged_in', null)
+
+  const dispatch = useDispatch()
   const router = useRouter()
   const { axios } = useAxios()
 
@@ -24,8 +24,8 @@ const AccountDropdown = () => {
 
       })
       .then(() => {
-        remove()
-        removeIsloggedIn()
+        dispatch(setToken(null))
+        dispatch(setLoggedIn(false))
         toast.success("Logout sucessful!")
         router.push('/')
       })

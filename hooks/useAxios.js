@@ -2,13 +2,15 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocalStorage } from "react-use";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoggedIn, setToken } from "@/redux/userSlice";
 
 
 const useAxios = () => {
   const router = useRouter()
-  const [token, setToken, removeToken] = useLocalStorage('access_token', null)
-  const [isLoggedIn, setIsLoggedIn, removeIsloggedIn] = useLocalStorage('is_logged_in', null)
 
+  const token = useSelector(state => state.user.token)
+  const dispatch = useDispatch()
 
   // Create axios instance
   const instance = axios.create({
@@ -46,8 +48,8 @@ const useAxios = () => {
       // Do something with response error
       const isUnauthorized = [401].includes(error?.response?.status);
       if (isUnauthorized) {
-        removeToken();
-        removeIsloggedIn();
+        dispatch(setToken(null))
+        dispatch(setLoggedIn(false))
         router.push('/')
       }
 
