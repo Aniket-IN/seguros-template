@@ -22,7 +22,7 @@ const AdminCreateModalBtn = ({ as = 'button', className = '', ...props }) => {
     })
       .then((response) => {
         setOpen(false);
-        toast.success("Admin user created successfully!")
+        toast.success(response.data.message)
       })
       .catch((error) => {
         toast.error(error?.response?.data?.message ?? `Oops! Internal server error!`)
