@@ -41,7 +41,7 @@ const AppLayout = ({ pageMode = 'public', children }) => {
   return (
     <>
       <Toaster
-        position="bottom-right"
+        position="bottom-center"
         reverseOrder={true}
       />
       {children}
