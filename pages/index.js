@@ -24,7 +24,7 @@ const Login = () => {
     axios.post('/api/account/adminlogin/', data)
       .then((response) => {
         const data = response.data.data
-        console.log('succ', data.token);
+
         dispatch(setToken(data.token))
         dispatch(update({
           first_name: data.user_profile.user.first_name,

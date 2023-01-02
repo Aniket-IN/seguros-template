@@ -66,7 +66,7 @@ const TopCardsSection = () => {
             }}
           />
           <SmallAnalyticsCard
-            title="Alertas generadas"
+            title="Código de promoción"
             items={[
               {
                 title: "Total",
