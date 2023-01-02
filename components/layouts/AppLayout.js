@@ -34,10 +34,6 @@ const AppLayout = ({ pageMode = 'public', children }) => {
   }, [isLoading, loggedIn, pageMode])
 
 
-  // if (isLoading) {
-  //   return null
-  // }
-
   if (isLoading) {
     return <FullPageLoader />
   }
