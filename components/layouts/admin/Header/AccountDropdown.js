@@ -19,7 +19,7 @@ const AccountDropdown = () => {
 
   const logout = () => {
 
-    axios.post('/api/account/logout')
+    axios.post('/api/account/logout/')
       .catch(() => {
 
       })

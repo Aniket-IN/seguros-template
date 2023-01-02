@@ -13,7 +13,7 @@ const AdminCreateModalBtn = ({ as = 'button', className = '', ...props }) => {
 
   // TODO: Handle submit :)
   const submit = (data) => {
-    axios.post('/api/account/adminregister', {
+    axios.post('/api/account/adminregister/', {
       full_name: `${data.first_name} ${data.last_name}`,
       phone: data.phone,
       email: data.email,

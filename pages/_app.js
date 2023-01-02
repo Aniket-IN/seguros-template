@@ -1,11 +1,12 @@
-import ReduxWrapper from "@/components/layouts/ReduxWrapper"
+
+import Wrapper from "@/components/layouts/Wrapper"
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ReduxWrapper>
+    <Wrapper>
       <Component {...pageProps} />
-    </ReduxWrapper>
+    </Wrapper>
   )
 }
 

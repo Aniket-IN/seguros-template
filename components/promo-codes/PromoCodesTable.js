@@ -6,7 +6,7 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid"
 import PromoCodeFormModal from "./PromoCodeFormModal"
 import ConfirmationModal from "../utility/ConfirmationModal"
 
-const PromoCodesTable = () => {
+const PromoCodesTable = ({ promoCodes = [] }) => {
   const headers = [
     'ID de código',
     'Código de promo',
