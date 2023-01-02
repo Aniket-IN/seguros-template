@@ -79,7 +79,7 @@ const AdminFormModal = ({
                 <div>
                   <InputGroup.Label>Teléfono</InputGroup.Label>
                   <InputGroup>
-                    <InputGroup.Input {...register('phone', { required: true })} />
+                    <InputGroup.Input type="number" {...register('phone', { required: true })} />
                   </InputGroup>
                 </div>
               </div>
