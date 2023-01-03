@@ -1,6 +1,5 @@
 import SectionHeading from "@/components/SectionHeading"
 import Table from "@/components/Table"
-import InputGroup from "@/components/utility/InputGroup"
 import Modal from "@/components/utility/Modal"
 import React, { createElement, useState } from 'react'
 

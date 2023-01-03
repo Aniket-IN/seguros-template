@@ -58,7 +58,7 @@ const RegisteredUsersCountCard = ({ selectedMonth }) => {
       {
         id: 3,
         title: "Suspendidos",
-        count: 0,
+        count: currentMonthData.suspended,
       },
     ],
   }
