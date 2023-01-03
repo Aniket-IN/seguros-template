@@ -1,8 +1,5 @@
 import React, { Fragment } from 'react'
 import Table from "../Table"
-import { Menu, Transition } from "@headlessui/react"
-import classNames from "classnames"
-import { ChevronDownIcon, StarIcon } from "@heroicons/react/20/solid"
 import Link from "next/link"
 import { format } from "date-fns"
 
@@ -19,7 +16,7 @@ const PaymentMembershipsTable = ({ memberships = [], isLoading, isError, error }
   ];
 
   return (
-    <Table isLoading={isLoading} isError={isError} error={error}>
+    <Table dataCount={memberships.length} isLoading={isLoading} isError={isError} error={error}>
       <Table.Thead>
         <Table.Tr>
           {headers.map((header) => <Table.Th key={header}>{header}</Table.Th>)}

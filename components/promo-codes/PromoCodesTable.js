@@ -22,7 +22,7 @@ const PromoCodesTable = ({ promoCodes = [], isLoading, isError, error }) => {
 
   return (
     <div>
-      <Table isLoading={isLoading} isError={isError} error={error}>
+      <Table dataCount={promoCodes.length} isLoading={isLoading} isError={isError} error={error}>
         <Table.Thead>
           <Table.Tr>
             {headers.map((header) => <Table.Th key={header}>{header}</Table.Th>)}

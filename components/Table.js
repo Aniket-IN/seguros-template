@@ -3,7 +3,7 @@ import { createElement } from "react";
 import { ImSpinner2 } from "react-icons/im"
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline"
 
-const Table = ({ as = "table", wrapperClassName = '', className = "", isError = false, isLoading = false, error = null, ...props }) => {
+const Table = ({ as = "table", wrapperClassName = '', className = "", isError = false, isLoading = false, error = null, dataCount = 0, ...props }) => {
   return (
     <>
       <div className={classNames("overflow-x-auto", wrapperClassName)}>
@@ -18,6 +18,7 @@ const Table = ({ as = "table", wrapperClassName = '', className = "", isError = 
       </div>
       <Table.Loading isLoading={isLoading} />
       <Table.Error isError={isError} error={error ?? null} />
+      {!isLoading && !isError && (dataCount < 1) && <Table.NoData />}
     </>
 
   )
@@ -79,6 +80,19 @@ Table.Error = ({ isError, error }) => {
       </div>
     </div>
   ) : null
+}
+
+Table.NoData = () => {
+  return (
+    <div className="flex justify-center items-center min-h-[200px] bg-white">
+      <div className="text-center text-warning">
+        <ExclamationTriangleIcon className="w-9 h-9 mx-auto" />
+        <p className="mt-5">
+          No date to show.
+        </p>
+      </div>
+    </div>
+  )
 }
 
 export default Table
