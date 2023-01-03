@@ -1,20 +1,24 @@
-import { createElement, useState } from 'react'
-import Modal from "./utility/Modal"
+import { createElement, useState } from "react";
+import Modal from "./utility/Modal";
 
-
-const ViewPhotoBtn = ({ as = 'button', headerTitle = '', user = {}, ...props }) => {
-  const [open, setOpen] = useState(false)
+const ViewPhotoBtn = ({
+  as = "button",
+  headerTitle = "",
+  user = {},
+  ...props
+}) => {
+  const [open, setOpen] = useState(false);
 
   const close = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   return (
     <>
       <Modal
         open={open}
         close={close}
-        className="w-full max-w-md shadow-xl overflow-hidden bg-white rounded"
+        className="w-full max-w-md overflow-hidden rounded bg-white shadow-xl"
       >
         <Modal.Wrapper>
           <Modal.Header className="bg-accent">
@@ -23,18 +27,21 @@ const ViewPhotoBtn = ({ as = 'button', headerTitle = '', user = {}, ...props }) 
           </Modal.Header>
           <Modal.Body className="space-y-7 py-5">
             <div className="flex gap-3 text-sm">
-              <img src="/assets/img/sample/user-2.png" className="inline-block rounded-full w-11 h-11" />
+              <img
+                src="/assets/img/sample/user-2.png"
+                className="inline-block h-11 w-11 rounded-full"
+              />
               <div>
                 <dd>{user.name}</dd>
                 <dd>{user.id}</dd>
               </div>
             </div>
             <div>
-              <img src={user.avatar} className="block w-full aspect-square" />
+              <img src={user.avatar} className="block aspect-square w-full" />
             </div>
           </Modal.Body>
           <Modal.Footer className="bg-accent">
-            <Modal.FooterBtn onClick={close} className="text-white bg-black">
+            <Modal.FooterBtn onClick={close} className="bg-black text-white">
               Cerrar
             </Modal.FooterBtn>
           </Modal.Footer>
@@ -42,10 +49,10 @@ const ViewPhotoBtn = ({ as = 'button', headerTitle = '', user = {}, ...props }) 
       </Modal>
       {createElement(as, {
         ...props,
-        onClick: () => setOpen(true)
+        onClick: () => setOpen(true),
       })}
     </>
-  )
-}
+  );
+};
 
-export default ViewPhotoBtn
+export default ViewPhotoBtn;

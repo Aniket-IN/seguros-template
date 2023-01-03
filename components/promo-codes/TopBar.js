@@ -1,19 +1,18 @@
-import React, { useState } from 'react'
-import InputGroup from "@/components/utility/InputGroup"
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid"
-import PromoCodeFormModal from "./PromoCodeFormModal"
-import ConfirmationModal from "../utility/ConfirmationModal"
-import FilterDropDownBtn from "../utility/FilterDropDownBtn"
-
+import React, { useState } from "react";
+import InputGroup from "@/components/utility/InputGroup";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import PromoCodeFormModal from "./PromoCodeFormModal";
+import ConfirmationModal from "../utility/ConfirmationModal";
+import FilterDropDownBtn from "../utility/FilterDropDownBtn";
 
 const TopBar = () => {
   return (
     <div className="bg-neutral">
-      <div className="container-padding py-2.5 space-y-2 lg:space-y-0 lg:flex items-center gap-3">
-        <div className="flex-shrink-0 sm:w-auto w-full">
+      <div className="container-padding items-center gap-3 space-y-2 py-2.5 lg:flex lg:space-y-0">
+        <div className="w-full flex-shrink-0 sm:w-auto">
           <InputGroup className=" relative">
-            <div className="w-9 p-1 px-1.5 text-secondary pl-3 absolute inset-y-0 left-0 flex items-center justify-center">
-              <MagnifyingGlassIcon className="w-full aspect-square" />
+            <div className="absolute inset-y-0 left-0 flex w-9 items-center justify-center p-1 px-1.5 pl-3 text-secondary">
+              <MagnifyingGlassIcon className="aspect-square w-full" />
             </div>
             <InputGroup.Input
               id="search"
@@ -25,9 +24,7 @@ const TopBar = () => {
           </InputGroup>
         </div>
 
-        <div className="flex items-center gap-3 flex-grow">
-
-
+        <div className="flex flex-grow items-center gap-3">
           <FilterDropDownBtn.Primary
             groups={[
               {
@@ -36,17 +33,17 @@ const TopBar = () => {
                 options: [
                   {
                     id: 1,
-                    label: 'Nivel 1',
+                    label: "Nivel 1",
                     value: 1,
                   },
                   {
                     id: 2,
-                    label: 'Nivel 2',
+                    label: "Nivel 2",
                     value: 2,
                   },
                   {
                     id: 3,
-                    label: 'Nivel 3',
+                    label: "Nivel 3",
                     value: 3,
                   },
                 ],
@@ -57,45 +54,42 @@ const TopBar = () => {
                 options: [
                   {
                     id: 1,
-                    label: 'Active',
-                    value: 'Active',
+                    label: "Active",
+                    value: "Active",
                   },
                   {
                     id: 2,
-                    label: 'Inactive',
-                    value: 'Inactive',
+                    label: "Inactive",
+                    value: "Inactive",
                   },
                   {
                     id: 3,
-                    label: 'Suspended',
-                    value: 'Suspended',
+                    label: "Suspended",
+                    value: "Suspended",
                   },
                 ],
               },
             ]}
           />
 
-
           {/* <div className="text-gray-900 text-sm text-right ml-auto">34 Usuarios</div> */}
           <CreateBtn />
-
         </div>
       </div>
     </div>
-  )
-}
-
+  );
+};
 
 const CreateBtn = () => {
-  const [open, setOpen] = useState(false)
-  const [activateAlertOpen, setActivateAlertOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+  const [activateAlertOpen, setActivateAlertOpen] = useState(false);
 
   const create = () => {
-    setOpen(false)
+    setOpen(false);
     setTimeout(() => {
-      setActivateAlertOpen(true)
+      setActivateAlertOpen(true);
     }, 300);
-  }
+  };
 
   return (
     <>
@@ -113,12 +107,20 @@ const CreateBtn = () => {
           show: false,
         }}
       />
-      <PromoCodeFormModal mode="create" submit={create} open={open} setOpen={setOpen} />
-      <button onClick={() => setOpen(true)} className="ml-auto bg-gray-900 text-white text-sm px-6 py-2 rounded">
+      <PromoCodeFormModal
+        mode="create"
+        submit={create}
+        open={open}
+        setOpen={setOpen}
+      />
+      <button
+        onClick={() => setOpen(true)}
+        className="ml-auto rounded bg-gray-900 px-6 py-2 text-sm text-white"
+      >
         Nuevo
       </button>
     </>
-  )
-}
+  );
+};
 
-export default TopBar
+export default TopBar;

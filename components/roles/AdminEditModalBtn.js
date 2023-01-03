@@ -1,8 +1,8 @@
-import React, { createElement, useState } from 'react'
-import AdminFormModal from "../admin/AdminFormModal"
+import React, { createElement, useState } from "react";
+import AdminFormModal from "../admin/AdminFormModal";
 
-const AdminEditModalBtn = ({ as = 'button', className = '', ...props }) => {
-  const [open, setOpen] = useState(false)
+const AdminEditModalBtn = ({ as = "button", className = "", ...props }) => {
+  const [open, setOpen] = useState(false);
 
   const close = () => {
     setOpen(false);
@@ -10,11 +10,7 @@ const AdminEditModalBtn = ({ as = 'button', className = '', ...props }) => {
 
   return (
     <>
-      <AdminFormModal
-      open={open}
-      close={close}
-      mode="edit"
-      />
+      <AdminFormModal open={open} close={close} mode="edit" />
       {createElement(as, {
         type: "button",
         onClick: () => setOpen(true),
@@ -22,7 +18,7 @@ const AdminEditModalBtn = ({ as = 'button', className = '', ...props }) => {
         ...props,
       })}
     </>
-  )
-}
+  );
+};
 
-export default AdminEditModalBtn
+export default AdminEditModalBtn;

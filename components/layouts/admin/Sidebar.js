@@ -1,21 +1,23 @@
-import React from 'react'
-import Link from "next/link"
-import Nav from "./Sidebar/Nav"
+import React from "react";
+import Link from "next/link";
+import Nav from "./Sidebar/Nav";
 
 const toggle = () => {
-  document.documentElement.classList.toggle('sidebar-expanded')
-}
+  document.documentElement.classList.toggle("sidebar-expanded");
+};
 
 const Sidebar = () => {
-
   return (
     <>
-      <div className="z-20 w-64 fixed md:static -translate-x-full sidebar-expanded:translate-x-0 md:translate-x-0 bg-neutral-2 overflow-auto flex flex-col h-screen duration-300 ease-in-out">
-
+      <div className="fixed z-20 flex h-screen w-64 -translate-x-full flex-col overflow-auto bg-neutral-2 duration-300 ease-in-out sidebar-expanded:translate-x-0 md:static md:translate-x-0">
         {/* Sidebar Header */}
         <div className="p-4">
-          <Link href="/dashboard" className="mb-3 px-7 py-4 block">
-            <img className="w-full" src="/assets/img/logo-white-text.svg" alt="Company Logo" />
+          <Link href="/dashboard" className="mb-3 block px-7 py-4">
+            <img
+              className="w-full"
+              src="/assets/img/logo-white-text.svg"
+              alt="Company Logo"
+            />
           </Link>
         </div>
 
@@ -23,17 +25,17 @@ const Sidebar = () => {
         <Nav />
 
         {/* Sidebar footer */}
-        <div>
-
-        </div>
-
+        <div></div>
       </div>
 
       {/* Sidebar Backdrop */}
-      <div onClick={toggle} className="sidebar-backdrop fixed inset-0 bg-black bg-opacity-40 z-[11] md:hidden invisible sidebar-expanded:visible opacity-0 sidebar-expanded:opacity-100" />
+      <div
+        onClick={toggle}
+        className="sidebar-backdrop invisible fixed inset-0 z-[11] bg-black bg-opacity-40 opacity-0 sidebar-expanded:visible sidebar-expanded:opacity-100 md:hidden"
+      />
     </>
-  )
-}
+  );
+};
 
-export { toggle }
-export default Sidebar
+export { toggle };
+export default Sidebar;

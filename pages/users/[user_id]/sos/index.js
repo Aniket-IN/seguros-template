@@ -1,14 +1,12 @@
-import React from 'react'
-import UserLayout from "@/components/layouts/UserLayout"
-import Table from "@/components/Table"
-import EvidenceModal from "@/components/users/user/SOS/EvidenceModalBtn"
-import EvidenceModalBtn from "@/components/users/user/SOS/EvidenceModalBtn"
+import React from "react";
+import UserLayout from "@/components/layouts/UserLayout";
+import Table from "@/components/Table";
+import EvidenceModal from "@/components/users/user/SOS/EvidenceModalBtn";
+import EvidenceModalBtn from "@/components/users/user/SOS/EvidenceModalBtn";
 
 const SOS = () => {
   return (
     <>
-
-
       <UserLayout pageTitle="Usuarios" headerTitle="Usuarios">
         <div className="mt-5">
           <Table>
@@ -25,7 +23,7 @@ const SOS = () => {
             <Table.Tbody>
               <Table.Tr>
                 <Table.Td>
-                  <p className="text-danger font-semibold">SOS</p>
+                  <p className="font-semibold text-danger">SOS</p>
                   <p>SOS#1231231</p>
                 </Table.Td>
                 <Table.Td>-12.091307, -77.042053</Table.Td>
@@ -53,11 +51,10 @@ const SOS = () => {
               ))}
             </Table.Tbody>
           </Table>
-
         </div>
       </UserLayout>
     </>
-  )
-}
+  );
+};
 
-export default SOS
+export default SOS;

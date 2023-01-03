@@ -1,35 +1,36 @@
-import React, { useEffect } from 'react'
-import Admin from "@/components/layouts/Admin"
-import SamplePagination from "@/components/SamplePagination"
-import TopBar from "@/components/promo-codes/TopBar"
-import PromoCodesTable from "@/components/promo-codes/PromoCodesTable"
-import { useQuery } from "react-query"
-import useAxios from "@/hooks/useAxios"
-import { toast } from "react-hot-toast"
-
+import React, { useEffect } from "react";
+import Admin from "@/components/layouts/Admin";
+import SamplePagination from "@/components/SamplePagination";
+import TopBar from "@/components/promo-codes/TopBar";
+import PromoCodesTable from "@/components/promo-codes/PromoCodesTable";
+import { useQuery } from "react-query";
+import useAxios from "@/hooks/useAxios";
+import { toast } from "react-hot-toast";
 
 export default function PromoCodes() {
-  const { axios } = useAxios()
+  const { axios } = useAxios();
   const fetchData = () => {
-    return axios.get('/api/admin/promo-code/')
+    return axios.get("/api/admin/promo-code/");
   };
 
-  const { isLoading, data, isError, error } = useQuery(['promo-codes'], fetchData, {
-    refetchOnWindowFocus: false
-  })
+  const { isLoading, data, isError, error } = useQuery(
+    ["promo-codes"],
+    fetchData,
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
 
   useEffect(() => {
     if (isError) {
-      toast.error(error.message)
+      toast.error(error.message);
     }
-  }, [isError])
+  }, [isError]);
 
-
-  const promoCodes = data?.data ?? []
+  const promoCodes = data?.data ?? [];
 
   return (
     <Admin pageTitle="Códigos de Promo" headerTitle="Códigos de Promo">
-
       <TopBar />
 
       <div className="container-padding">
@@ -42,7 +43,5 @@ export default function PromoCodes() {
         <SamplePagination />
       </div>
     </Admin>
-  )
+  );
 }
-
-

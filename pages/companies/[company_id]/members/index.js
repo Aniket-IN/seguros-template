@@ -1,7 +1,7 @@
-import React from 'react'
-import Table from "@/components/Table"
-import SamplePagination from "@/components/SamplePagination"
-import CompanyLayout from "@/components/layouts/CompanyLayout"
+import React from "react";
+import Table from "@/components/Table";
+import SamplePagination from "@/components/SamplePagination";
+import CompanyLayout from "@/components/layouts/CompanyLayout";
 
 export default function Members() {
   return (
@@ -19,18 +19,20 @@ export default function Members() {
           <Table.Tbody>
             {[...Array(11)].map((item, index) => (
               <Table.Tr key={index}>
-                <Table.Td >
-                  <div className="flex items-center gap-4 min-w-fit">
-                    <img src="/assets/img/sample/user-1.png" className="block w-11 aspect-square object-cover rounded-full" alt="" />
+                <Table.Td>
+                  <div className="flex min-w-fit items-center gap-4">
+                    <img
+                      src="/assets/img/sample/user-1.png"
+                      className="block aspect-square w-11 rounded-full object-cover"
+                      alt=""
+                    />
                     <div>
                       <p className="font-semibold">Carlos Pérez Guerrero</p>
                       <p>UI123123</p>
                     </div>
                   </div>
                 </Table.Td>
-                <Table.Td>
-                  23/09/2022
-                </Table.Td>
+                <Table.Td>23/09/2022</Table.Td>
                 <Table.Td>3</Table.Td>
                 <Table.Td>Nivel 4</Table.Td>
               </Table.Tr>
@@ -40,5 +42,5 @@ export default function Members() {
         <SamplePagination />
       </div>
     </CompanyLayout>
-  )
+  );
 }

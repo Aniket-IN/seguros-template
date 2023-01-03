@@ -1,5 +1,5 @@
-import React from 'react'
-import Modal from "@/components/utility/Modal"
+import React from "react";
+import Modal from "@/components/utility/Modal";
 import InputGroup from "../utility/InputGroup";
 
 const PromoCodeFormModal = ({
@@ -8,9 +8,8 @@ const PromoCodeFormModal = ({
   data,
   setData,
   submit,
-  mode = 'create',
+  mode = "create",
 }) => {
-
   const close = () => {
     setOpen(false);
   };
@@ -19,7 +18,7 @@ const PromoCodeFormModal = ({
     <Modal
       open={open}
       close={close}
-      className="w-full max-w-xl shadow-xl overflow-hidden bg-white"
+      className="w-full max-w-xl overflow-hidden bg-white shadow-xl"
     >
       <Modal.Wrapper>
         <Modal.Header className="bg-accent">
@@ -59,7 +58,7 @@ const PromoCodeFormModal = ({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
             <div>
               <InputGroup.Label>Duración</InputGroup.Label>
               <div className="flex gap-3">
@@ -68,9 +67,7 @@ const PromoCodeFormModal = ({
                     <InputGroup.Input />
                   </InputGroup>
                 </div>
-                <div className="flex-shrink-0  flex items-center">
-                  -
-                </div>
+                <div className="flex  flex-shrink-0 items-center">-</div>
                 <div className="flex-grow">
                   <InputGroup>
                     <InputGroup.Input />
@@ -95,20 +92,19 @@ const PromoCodeFormModal = ({
                 </div>
               </div>
             </div>
-
           </div>
         </Modal.Body>
         <Modal.Footer className="bg-accent">
           <Modal.FooterBtn onClick={close} className="bg-white">
-            {mode == 'create' ? 'Cancelar' : 'Cerrar'}
+            {mode == "create" ? "Cancelar" : "Cerrar"}
           </Modal.FooterBtn>
-          <Modal.FooterBtn onClick={submit} className="text-white bg-black">
-            {mode == 'create' ? 'Crear cupón' : 'Editar Cupón'}
+          <Modal.FooterBtn onClick={submit} className="bg-black text-white">
+            {mode == "create" ? "Crear cupón" : "Editar Cupón"}
           </Modal.FooterBtn>
         </Modal.Footer>
       </Modal.Wrapper>
     </Modal>
-  )
-}
+  );
+};
 
-export default PromoCodeFormModal
+export default PromoCodeFormModal;

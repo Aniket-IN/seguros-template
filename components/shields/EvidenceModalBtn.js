@@ -1,9 +1,9 @@
-import Modal from "@/components/utility/Modal"
-import classNames from "classnames"
-import React, { createElement, useState } from 'react'
+import Modal from "@/components/utility/Modal";
+import classNames from "classnames";
+import React, { createElement, useState } from "react";
 
-const EvidenceModalBtn = ({ as = 'button', className = '', ...props }) => {
-  const [open, setOpen] = useState(false)
+const EvidenceModalBtn = ({ as = "button", className = "", ...props }) => {
+  const [open, setOpen] = useState(false);
 
   const close = () => {
     setOpen(false);
@@ -14,7 +14,7 @@ const EvidenceModalBtn = ({ as = 'button', className = '', ...props }) => {
       <Modal
         open={open}
         close={close}
-        className="w-full max-w-2xl shadow-xl overflow-hidden bg-white"
+        className="w-full max-w-2xl overflow-hidden bg-white shadow-xl"
       >
         <Modal.Wrapper>
           <Modal.Header className="bg-accent">
@@ -23,11 +23,13 @@ const EvidenceModalBtn = ({ as = 'button', className = '', ...props }) => {
           </Modal.Header>
           <Modal.Body>
             <div className="flex gap-5">
-              <img src="/assets/img/sample/evidence-1.png" className="block w-1/3 aspect-[9/16] object-cover" alt="evidence-1" />
+              <img
+                src="/assets/img/sample/evidence-1.png"
+                className="block aspect-[9/16] w-1/3 object-cover"
+                alt="evidence-1"
+              />
               <div className="flex-grow space-y-5 text-sm">
-                <div className="aspect-video bg-neutral">
-
-                </div>
+                <div className="aspect-video bg-neutral"></div>
 
                 <div className="grid grid-cols-2 gap-6">
                   <div>
@@ -57,14 +59,13 @@ const EvidenceModalBtn = ({ as = 'button', className = '', ...props }) => {
                   </div>
                 </div>
               </div>
-
             </div>
           </Modal.Body>
           <Modal.Footer className="bg-accent">
             <Modal.FooterBtn onClick={close} className="bg-white">
               Cancelar
             </Modal.FooterBtn>
-            <Modal.FooterBtn onClick={close} className="text-white bg-black">
+            <Modal.FooterBtn onClick={close} className="bg-black text-white">
               Descargar Evidencia
             </Modal.FooterBtn>
           </Modal.Footer>
@@ -77,7 +78,7 @@ const EvidenceModalBtn = ({ as = 'button', className = '', ...props }) => {
         ...props,
       })}
     </>
-  )
-}
+  );
+};
 
-export default EvidenceModalBtn
+export default EvidenceModalBtn;

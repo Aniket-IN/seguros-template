@@ -1,8 +1,8 @@
-import React from 'react'
-import Table from "@/components/Table"
-import SamplePagination from "@/components/SamplePagination"
-import CompanyLayout from "@/components/layouts/CompanyLayout"
-import Link from "next/link"
+import React from "react";
+import Table from "@/components/Table";
+import SamplePagination from "@/components/SamplePagination";
+import CompanyLayout from "@/components/layouts/CompanyLayout";
+import Link from "next/link";
 
 export default function index() {
   return (
@@ -22,9 +22,9 @@ export default function index() {
           <Table.Tbody>
             {[...Array(11)].map((item, index) => (
               <Table.Tr key={index}>
-                <Table.Td >
-                  <div className="flex items-center gap-4 min-w-fit">
-                    <div className="w-11 aspect-square rounded-full bg-warning text-2xl text-white flex items-center justify-center">
+                <Table.Td>
+                  <div className="flex min-w-fit items-center gap-4">
+                    <div className="flex aspect-square w-11 items-center justify-center rounded-full bg-warning text-2xl text-white">
                       T
                     </div>
                     <div>
@@ -33,9 +33,7 @@ export default function index() {
                     </div>
                   </div>
                 </Table.Td>
-                <Table.Td>
-                  8
-                </Table.Td>
+                <Table.Td>8</Table.Td>
                 <Table.Td>23/09/2022</Table.Td>
                 <Table.Td>Nivel 1</Table.Td>
                 <Table.Td className="text-secondary">
@@ -43,7 +41,10 @@ export default function index() {
                   <p>ID UI 2457896</p>
                 </Table.Td>
                 <Table.Td>
-                  <Link href="/shields/1" className="text-primary font-semibold hover:underline">
+                  <Link
+                    href="/shields/1"
+                    className="font-semibold text-primary hover:underline"
+                  >
                     Ver detalles
                   </Link>
                 </Table.Td>
@@ -54,5 +55,5 @@ export default function index() {
         <SamplePagination />
       </div>
     </CompanyLayout>
-  )
+  );
 }

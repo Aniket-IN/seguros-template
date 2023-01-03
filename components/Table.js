@@ -1,28 +1,34 @@
 import classNames from "classnames";
 import { createElement } from "react";
-import { ImSpinner2 } from "react-icons/im"
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline"
+import { ImSpinner2 } from "react-icons/im";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
-const Table = ({ as = "table", wrapperClassName = '', className = "", isError = false, isLoading = false, error = null, dataCount, ...props }) => {
+const Table = ({
+  as = "table",
+  wrapperClassName = "",
+  className = "",
+  isError = false,
+  isLoading = false,
+  error = null,
+  dataCount,
+  ...props
+}) => {
   return (
     <>
       <div className={classNames("overflow-x-auto", wrapperClassName)}>
         <div className="inline-block min-w-full">
-          {
-            createElement(as, {
-              className: `min-w-full ${className}`,
-              ...props,
-            })
-          }
+          {createElement(as, {
+            className: `min-w-full ${className}`,
+            ...props,
+          })}
         </div>
       </div>
       <Table.Loading isLoading={isLoading} />
       <Table.Error isError={isError} error={error ?? null} />
-      {!isLoading && !isError && (dataCount < 1) && <Table.NoData />}
+      {!isLoading && !isError && dataCount < 1 && <Table.NoData />}
     </>
-  )
-}
-
+  );
+};
 
 Table.Thead = ({ as = "thead", className = "", ...props }) =>
   createElement(as, {
@@ -54,44 +60,37 @@ Table.Td = ({ as = "td", className = "", ...props }) =>
     ...props,
   });
 
-
 Table.Loading = ({ isLoading }) => {
   return isLoading ? (
-    <div className="flex justify-center items-center min-h-[200px] w-full bg-white">
+    <div className="flex min-h-[200px] w-full items-center justify-center bg-white">
       <div className="text-center text-slate-500">
-        <ImSpinner2 className="w-9 h-9 mx-auto animate-spin" />
-        <p className="mt-5">
-          &nbsp;&nbsp;&nbsp;Loading...
-        </p>
+        <ImSpinner2 className="mx-auto h-9 w-9 animate-spin" />
+        <p className="mt-5">&nbsp;&nbsp;&nbsp;Loading...</p>
       </div>
     </div>
-  ) : null
-}
+  ) : null;
+};
 
 Table.Error = ({ isError, error }) => {
   return isError ? (
-    <div className="flex justify-center items-center min-h-[200px] bg-white">
+    <div className="flex min-h-[200px] items-center justify-center bg-white">
       <div className="text-center text-red-500">
-        <ExclamationTriangleIcon className="w-9 h-9 mx-auto" />
-        <p className="mt-5">
-          {error.message}
-        </p>
+        <ExclamationTriangleIcon className="mx-auto h-9 w-9" />
+        <p className="mt-5">{error.message}</p>
       </div>
     </div>
-  ) : null
-}
+  ) : null;
+};
 
 Table.NoData = () => {
   return (
-    <div className="flex justify-center items-center min-h-[200px] bg-white">
+    <div className="flex min-h-[200px] items-center justify-center bg-white">
       <div className="text-center text-warning">
-        <ExclamationTriangleIcon className="w-9 h-9 mx-auto" />
-        <p className="mt-5">
-          No date to show.
-        </p>
+        <ExclamationTriangleIcon className="mx-auto h-9 w-9" />
+        <p className="mt-5">No date to show.</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Table
+export default Table;

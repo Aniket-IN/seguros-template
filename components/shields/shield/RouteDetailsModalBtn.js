@@ -1,49 +1,50 @@
-import SectionHeading from "@/components/SectionHeading"
-import Table from "@/components/Table"
-import Modal from "@/components/utility/Modal"
-import React, { createElement, useState } from 'react'
+import SectionHeading from "@/components/SectionHeading";
+import Table from "@/components/Table";
+import Modal from "@/components/utility/Modal";
+import React, { createElement, useState } from "react";
 
-const RouteDetailsModalBtn = ({ as = 'button', ...props }) => {
-  const [open, setOpen] = useState(false)
+const RouteDetailsModalBtn = ({ as = "button", ...props }) => {
+  const [open, setOpen] = useState(false);
 
   const close = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   return (
     <>
       <Modal
         open={open}
         close={close}
-        className="w-full max-w-screen-lg shadow-xl overflow-hidden bg-white rounded"
+        className="w-full max-w-screen-lg overflow-hidden rounded bg-white shadow-xl"
       >
         <Modal.Wrapper>
           <Modal.Header className="bg-accent">
             <h2 className="text-lg font-medium">Ruta #E12341RF212</h2>
             <Modal.XBtn onClick={close} />
           </Modal.Header>
-          <Modal.Body className="grid grid-cols-1 lg:grid-cols-2 gap-4 py-6">
+          <Modal.Body className="grid grid-cols-1 gap-4 py-6 lg:grid-cols-2">
             <div className="space-y-5">
               <div className="flex gap-4 text-sm">
-                <img src="/assets/img/sample/user-2.png" className="inline-block rounded-full w-11 h-11" />
+                <img
+                  src="/assets/img/sample/user-2.png"
+                  className="inline-block h-11 w-11 rounded-full"
+                />
                 <div>
                   <dd>Carlos Pérez Guerrero</dd>
                   <dd>UI123123</dd>
                 </div>
               </div>
-              <div className="bg-accent w-full aspect-video">
-
-              </div>
+              <div className="aspect-video w-full bg-accent"></div>
               <div>
                 <SectionHeading>10:00 hrs - 19:20 hrs</SectionHeading>
                 <dd className="mt-1">11/03/2022</dd>
               </div>
 
               <div>
-                <div className="flex items-center relative">
+                <div className="relative flex items-center">
                   <div className="w-4">
                     <div className="absolute inset-y-0 flex items-center">
-                      <span className="inline-block z-[1] w-2 h-2 bg-black rounded-full " />
+                      <span className="z-[1] inline-block h-2 w-2 rounded-full bg-black " />
                       <span
                         className="absolute top-4 left-[3px] h-[calc(100%+4px)] w-0.5 bg-black"
                         aria-hidden="true"
@@ -51,19 +52,15 @@ const RouteDetailsModalBtn = ({ as = 'button', ...props }) => {
                     </div>
                   </div>
 
-                  <div className="py-2">
-                    Casa
-                  </div>
+                  <div className="py-2">Casa</div>
                 </div>
-                <div className="flex items-center relative">
+                <div className="relative flex items-center">
                   <div className="w-4">
                     <div className="absolute inset-y-0 flex items-center">
-                      <span className="inline-block z-[1] w-2 h-2 bg-primary rounded-full " />
+                      <span className="z-[1] inline-block h-2 w-2 rounded-full bg-primary " />
                     </div>
                   </div>
-                  <div className="py-2">
-                    Oficina
-                  </div>
+                  <div className="py-2">Oficina</div>
                 </div>
               </div>
 
@@ -73,9 +70,7 @@ const RouteDetailsModalBtn = ({ as = 'button', ...props }) => {
                 <dd>70 km/h</dd>
                 <dd>34%</dd>
               </div>
-
             </div>
-
 
             <Table wrapperClassName="bg-accent px-4 h-full lg:max-h-full h-fit lg:h-auto lg:overflow-auto">
               <Table.Thead>
@@ -92,20 +87,19 @@ const RouteDetailsModalBtn = ({ as = 'button', ...props }) => {
                       <dd>11/03/2022</dd>
                     </Table.Td>
                     <Table.Td className="!whitespace-normal">
-                      P.º de las Jacarandas 375, Col del Gas, Azcapotzalco, Ciudad de México.
+                      P.º de las Jacarandas 375, Col del Gas, Azcapotzalco,
+                      Ciudad de México.
                     </Table.Td>
                   </Table.Tr>
                 ))}
               </Table.Tbody>
             </Table>
-
-
           </Modal.Body>
           <Modal.Footer className="bg-accent">
-            <Modal.FooterBtn onClick={close} className="text-black bg-white">
+            <Modal.FooterBtn onClick={close} className="bg-white text-black">
               Cancelar
             </Modal.FooterBtn>
-            <Modal.FooterBtn onClick={close} className="text-white bg-black">
+            <Modal.FooterBtn onClick={close} className="bg-black text-white">
               Descargar Ruta
             </Modal.FooterBtn>
           </Modal.Footer>
@@ -113,10 +107,10 @@ const RouteDetailsModalBtn = ({ as = 'button', ...props }) => {
       </Modal>
       {createElement(as, {
         ...props,
-        onClick: () => setOpen(true)
+        onClick: () => setOpen(true),
       })}
     </>
-  )
-}
+  );
+};
 
-export default RouteDetailsModalBtn
+export default RouteDetailsModalBtn;

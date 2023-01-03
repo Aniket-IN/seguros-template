@@ -1,15 +1,13 @@
-import React from 'react'
-import ShieldLayout from "@/components/layouts/ShieldLayout"
-import Table from "@/components/Table"
-import SamplePagination from "@/components/SamplePagination"
-import Link from "next/link"
+import React from "react";
+import ShieldLayout from "@/components/layouts/ShieldLayout";
+import Table from "@/components/Table";
+import SamplePagination from "@/components/SamplePagination";
+import Link from "next/link";
 
 export default function index() {
   return (
     <ShieldLayout pageTitle="Escudos" headerTitle="Escudos">
-
       <div className="mt-5">
-
         <Table>
           <Table.Thead>
             <Table.Tr>
@@ -30,7 +28,10 @@ export default function index() {
                 <Table.Td>Pago#123123</Table.Td>
                 <Table.Td>T-1231231231</Table.Td>
                 <Table.Td>
-                  <Link href="/payment-memberships/1" className="text-primary font-semibold hover:underline">
+                  <Link
+                    href="/payment-memberships/1"
+                    className="font-semibold text-primary hover:underline"
+                  >
                     Ver detalles
                   </Link>
                 </Table.Td>
@@ -41,6 +42,5 @@ export default function index() {
         <SamplePagination />
       </div>
     </ShieldLayout>
-  )
+  );
 }
-

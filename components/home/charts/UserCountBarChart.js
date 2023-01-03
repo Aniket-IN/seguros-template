@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -7,9 +7,9 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
-import faker from 'faker';
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+import faker from "faker";
 
 ChartJS.register(
   CategoryScale,
@@ -34,7 +34,7 @@ const options = {
         font: {
           size: 14,
           weight: 700,
-          color: 'black',
+          color: "black",
         },
       },
       grid: {
@@ -49,15 +49,31 @@ const options = {
   },
 };
 
-const labels = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC', 'ENE'];
+const labels = [
+  "ENE",
+  "FEB",
+  "MAR",
+  "ABR",
+  "MAY",
+  "JUN",
+  "JUL",
+  "AGO",
+  "SEP",
+  "OCT",
+  "NOV",
+  "DIC",
+  "ENE",
+];
 
 export const data = {
   labels,
   datasets: [
     {
-      label: 'Users',
+      label: "Users",
       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: labels.map((label, index, row) => (index + 1 === row.length) ? 'black' : '#1555ED'),
+      backgroundColor: labels.map((label, index, row) =>
+        index + 1 === row.length ? "black" : "#1555ED"
+      ),
     },
   ],
 };
@@ -67,7 +83,7 @@ const UserCountBarChart = () => {
     <div>
       <Bar options={options} data={data} />
     </div>
-  )
-}
+  );
+};
 
-export default UserCountBarChart
+export default UserCountBarChart;

@@ -1,20 +1,20 @@
-import InputGroup from "@/components/utility/InputGroup"
-import Modal from "@/components/utility/Modal"
-import React, { createElement, useState } from 'react'
+import InputGroup from "@/components/utility/InputGroup";
+import Modal from "@/components/utility/Modal";
+import React, { createElement, useState } from "react";
 
-const DownloadRoutesBtn = ({ as = 'button', ...props }) => {
-  const [open, setOpen] = useState(false)
+const DownloadRoutesBtn = ({ as = "button", ...props }) => {
+  const [open, setOpen] = useState(false);
 
   const close = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   return (
     <>
       <Modal
         open={open}
         close={close}
-        className="w-full max-w-2xl shadow-xl overflow-hidden bg-white rounded"
+        className="w-full max-w-2xl overflow-hidden rounded bg-white shadow-xl"
       >
         <Modal.Wrapper>
           <Modal.Header className="bg-accent">
@@ -26,9 +26,7 @@ const DownloadRoutesBtn = ({ as = 'button', ...props }) => {
               <div className="flex-grow">
                 <InputGroup.Label>Etiqueta</InputGroup.Label>
                 <InputGroup>
-                  <InputGroup.Input
-                    placeholder="Carlos Pérez Guerrero"
-                  />
+                  <InputGroup.Input placeholder="Carlos Pérez Guerrero" />
                 </InputGroup>
               </div>
               <div>
@@ -36,19 +34,15 @@ const DownloadRoutesBtn = ({ as = 'button', ...props }) => {
                 <div className="flex">
                   <div>
                     <InputGroup>
-                      <InputGroup.Input
-                        type="date"
-                      />
+                      <InputGroup.Input type="date" />
                     </InputGroup>
                   </div>
-                  <div className="flex-shrink-0 px-2 flex items-center justify-center self-stretch">
+                  <div className="flex flex-shrink-0 items-center justify-center self-stretch px-2">
                     -
                   </div>
                   <div>
                     <InputGroup>
-                      <InputGroup.Input
-                        type="date"
-                      />
+                      <InputGroup.Input type="date" />
                     </InputGroup>
                   </div>
                 </div>
@@ -57,21 +51,21 @@ const DownloadRoutesBtn = ({ as = 'button', ...props }) => {
             <div>
               <InputGroup.Label>Formato</InputGroup.Label>
               <div className="flex gap-7 text-sm font-medium">
-                <label className="inline-flex gap-1.5 items-center">
+                <label className="inline-flex items-center gap-1.5">
                   <input
                     defaultChecked
                     name="format"
                     type="radio"
-                    className="focus:ring-primary h-4 w-4 text-primary border-gray-300"
+                    className="h-4 w-4 border-gray-300 text-primary focus:ring-primary"
                   />
                   .PDF
                 </label>
-                <label className="inline-flex gap-1.5 items-center">
+                <label className="inline-flex items-center gap-1.5">
                   <input
                     defaultChecked
                     name="format"
                     type="radio"
-                    className="focus:ring-primary h-4 w-4 text-primary border-gray-300"
+                    className="h-4 w-4 border-gray-300 text-primary focus:ring-primary"
                   />
                   .XLSX
                 </label>
@@ -79,7 +73,7 @@ const DownloadRoutesBtn = ({ as = 'button', ...props }) => {
             </div>
           </Modal.Body>
           <Modal.Footer className="bg-accent">
-            <Modal.FooterBtn onClick={close} className="text-white bg-black">
+            <Modal.FooterBtn onClick={close} className="bg-black text-white">
               Descargar
             </Modal.FooterBtn>
           </Modal.Footer>
@@ -87,10 +81,10 @@ const DownloadRoutesBtn = ({ as = 'button', ...props }) => {
       </Modal>
       {createElement(as, {
         ...props,
-        onClick: () => setOpen(true)
+        onClick: () => setOpen(true),
       })}
     </>
-  )
-}
+  );
+};
 
-export default DownloadRoutesBtn
+export default DownloadRoutesBtn;

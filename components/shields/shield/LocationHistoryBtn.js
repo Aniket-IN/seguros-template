@@ -1,30 +1,33 @@
-import Table from "@/components/Table"
-import InputGroup from "@/components/utility/InputGroup"
-import Modal from "@/components/utility/Modal"
-import React, { createElement, useState } from 'react'
+import Table from "@/components/Table";
+import InputGroup from "@/components/utility/InputGroup";
+import Modal from "@/components/utility/Modal";
+import React, { createElement, useState } from "react";
 
-const LocationHistoryBtn = ({ as = 'button', ...props }) => {
-  const [open, setOpen] = useState(false)
+const LocationHistoryBtn = ({ as = "button", ...props }) => {
+  const [open, setOpen] = useState(false);
 
   const close = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   return (
     <>
       <Modal
         open={open}
         close={close}
-        className="w-full max-w-2xl shadow-xl overflow-hidden bg-white rounded"
+        className="w-full max-w-2xl overflow-hidden rounded bg-white shadow-xl"
       >
         <Modal.Wrapper>
           <Modal.Header className="bg-accent">
             <h2 className="text-lg font-medium">Historial de Ubicaciones</h2>
             <Modal.XBtn onClick={close} />
           </Modal.Header>
-          <div className="flex gap-3 p-5 justify-between">
+          <div className="flex justify-between gap-3 p-5">
             <div className="flex gap-3 text-sm">
-              <img src="/assets/img/sample/user-2.png" className="inline-block rounded-full w-11 h-11" />
+              <img
+                src="/assets/img/sample/user-2.png"
+                className="inline-block h-11 w-11 rounded-full"
+              />
               <div>
                 <dd>Carlos Pérez Guerrero</dd>
                 <dd>UI123123</dd>
@@ -36,18 +39,16 @@ const LocationHistoryBtn = ({ as = 'button', ...props }) => {
                 <InputGroup>
                   <InputGroup.Input
                     type="date"
-                    className="bg-accent !border-none"
+                    className="!border-none bg-accent"
                   />
                 </InputGroup>
               </div>
-              <button className="py-1.5 px-3 font-medium bg-primary text-white rounded focus:ring-2 ring-offset-2">
+              <button className="rounded bg-primary py-1.5 px-3 font-medium text-white ring-offset-2 focus:ring-2">
                 Buscar
               </button>
             </div>
           </div>
           <Modal.Body className="space-y-7 py-5">
-
-
             <Table wrapperClassName="bg-accent px-4">
               <Table.Thead>
                 <Table.Tr>
@@ -64,7 +65,8 @@ const LocationHistoryBtn = ({ as = 'button', ...props }) => {
                       <dd>11/03/2022</dd>
                     </Table.Td>
                     <Table.Td className="!whitespace-normal">
-                      P.º de las Jacarandas 375, Col del Gas, Azcapotzalco, Ciudad de México.
+                      P.º de las Jacarandas 375, Col del Gas, Azcapotzalco,
+                      Ciudad de México.
                     </Table.Td>
                     <Table.Td className="font-semibold">
                       -12.091307, -77.042053
@@ -75,7 +77,7 @@ const LocationHistoryBtn = ({ as = 'button', ...props }) => {
             </Table>
           </Modal.Body>
           <Modal.Footer className="bg-accent">
-            <Modal.FooterBtn onClick={close} className="text-white bg-black">
+            <Modal.FooterBtn onClick={close} className="bg-black text-white">
               Aceptar
             </Modal.FooterBtn>
           </Modal.Footer>
@@ -83,10 +85,10 @@ const LocationHistoryBtn = ({ as = 'button', ...props }) => {
       </Modal>
       {createElement(as, {
         ...props,
-        onClick: () => setOpen(true)
+        onClick: () => setOpen(true),
       })}
     </>
-  )
-}
+  );
+};
 
-export default LocationHistoryBtn
+export default LocationHistoryBtn;

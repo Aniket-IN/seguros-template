@@ -1,10 +1,10 @@
-import Modal from "@/components/utility/Modal"
-import { StarIcon } from "@heroicons/react/20/solid"
-import classNames from "classnames"
-import React, { createElement, useState } from 'react'
+import Modal from "@/components/utility/Modal";
+import { StarIcon } from "@heroicons/react/20/solid";
+import classNames from "classnames";
+import React, { createElement, useState } from "react";
 
-const QualificationModalBtn = ({ as = 'button', className = '', ...props }) => {
-  const [open, setOpen] = useState(false)
+const QualificationModalBtn = ({ as = "button", className = "", ...props }) => {
+  const [open, setOpen] = useState(false);
 
   const close = () => {
     setOpen(false);
@@ -15,7 +15,7 @@ const QualificationModalBtn = ({ as = 'button', className = '', ...props }) => {
       <Modal
         open={open}
         close={close}
-        className="w-full max-w-md shadow-xl overflow-hidden bg-white"
+        className="w-full max-w-md overflow-hidden bg-white shadow-xl"
       >
         <Modal.Wrapper>
           <Modal.Header className="bg-accent">
@@ -24,19 +24,19 @@ const QualificationModalBtn = ({ as = 'button', className = '', ...props }) => {
           </Modal.Header>
           <Modal.Body>
             <div className="bg-accent p-2.5 text-sm">
-              <div className="bg-white p-2.5 space-y-2">
-                <dl className="flex gap-2.5 items-center">
+              <div className="space-y-2 bg-white p-2.5">
+                <dl className="flex items-center gap-2.5">
                   <dd>
-                    <StarIcon className="w-5 h-5 text-warning" />
+                    <StarIcon className="h-5 w-5 text-warning" />
                   </dd>
-                  <dd className="font-semibold">
-                    4
-                  </dd>
+                  <dd className="font-semibold">4</dd>
                 </dl>
                 <p>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.
+                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+                  diam nonumy eirmod tempor invidunt ut labore et dolore magna
+                  aliquyam erat.
                 </p>
-                <div className="flex justify-between items-center text-secondary">
+                <div className="flex items-center justify-between text-secondary">
                   <span>Juan Jesús Ledesma</span>
                   <span>25/05/22, 12:00 Hrs</span>
                 </div>
@@ -44,7 +44,7 @@ const QualificationModalBtn = ({ as = 'button', className = '', ...props }) => {
             </div>
           </Modal.Body>
           <Modal.Footer className="bg-accent">
-            <Modal.FooterBtn onClick={close} className="text-white bg-black">
+            <Modal.FooterBtn onClick={close} className="bg-black text-white">
               Cerrar
             </Modal.FooterBtn>
           </Modal.Footer>
@@ -57,7 +57,7 @@ const QualificationModalBtn = ({ as = 'button', className = '', ...props }) => {
         ...props,
       })}
     </>
-  )
-}
+  );
+};
 
-export default QualificationModalBtn
+export default QualificationModalBtn;

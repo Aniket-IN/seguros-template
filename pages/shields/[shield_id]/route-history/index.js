@@ -1,11 +1,11 @@
-import React from 'react'
-import ShieldLayout from "@/components/layouts/ShieldLayout"
-import Table from "@/components/Table"
-import SectionHeading from "@/components/SectionHeading"
-import InputGroup from "@/components/utility/InputGroup"
-import { ArrowDownTrayIcon } from "@heroicons/react/24/outline"
-import DownloadRoutesBtn from "@/components/shields/shield/DownloadRoutesBtn"
-import RouteDetailsModalBtn from "@/components/shields/shield/RouteDetailsModalBtn"
+import React from "react";
+import ShieldLayout from "@/components/layouts/ShieldLayout";
+import Table from "@/components/Table";
+import SectionHeading from "@/components/SectionHeading";
+import InputGroup from "@/components/utility/InputGroup";
+import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
+import DownloadRoutesBtn from "@/components/shields/shield/DownloadRoutesBtn";
+import RouteDetailsModalBtn from "@/components/shields/shield/RouteDetailsModalBtn";
 
 export default function index() {
   return (
@@ -13,10 +13,8 @@ export default function index() {
       {/* TODO: Design page (shields/1/route-history)
       XD Link: https://xd.adobe.com/view/258a5967-33a7-4223-b884-a052f322a683-70d9/screen/cf3baed5-8183-4510-8037-d7828fe0d793/specs/
       */}
-      <div className="flex flex-col xl:flex-row gap-5 mt-4">
-
-
-        <div className="xl:max-w-md w-full h-[800px]">
+      <div className="mt-4 flex flex-col gap-5 xl:flex-row">
+        <div className="h-[800px] w-full xl:max-w-md">
           <Table wrapperClassName="h-full no-scrollbar" className="relative">
             <Table.Thead className="sticky top-0 bg-accent">
               <Table.Tr>
@@ -34,22 +32,21 @@ export default function index() {
                         <dd>ID-U1231231</dd>
                       </dl>
                     </div>
-
                   </Table.Td>
                   <Table.Td className="pr-5">
-                    <div className="flex gap-4 items-center justify-between">
-                      <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-warning bg-opacity-20 text-warning">
-                        <svg className="mr-1.5 h-2 w-2 text-warning" fill="currentColor" viewBox="0 0 8 8">
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="inline-flex items-center rounded-full bg-warning bg-opacity-20 px-3 py-1.5 text-sm font-semibold text-warning">
+                        <svg
+                          className="mr-1.5 h-2 w-2 text-warning"
+                          fill="currentColor"
+                          viewBox="0 0 8 8"
+                        >
                           <circle cx={5} cy={4} r={3} />
                         </svg>
                         Colaborativo
                       </span>
                       <label>
-                        <input
-                          type="radio"
-                          name="radio"
-                          className="w-4 h-4"
-                        />
+                        <input type="radio" name="radio" className="h-4 w-4" />
                       </label>
                     </div>
                   </Table.Td>
@@ -59,30 +56,30 @@ export default function index() {
           </Table>
         </div>
 
-        <div className="flex-grow flex flex-col h-[800px] bg-white p-5 space-y-3">
+        <div className="flex h-[800px] flex-grow flex-col space-y-3 bg-white p-5">
           <SectionHeading>Historial de Rutas</SectionHeading>
-          <div className="flex items-center gap-4 justify-end">
-            <div className="flex items-center gap-2 justify-end text-sm">
+          <div className="flex items-center justify-end gap-4">
+            <div className="flex items-center justify-end gap-2 text-sm">
               <span>Buscar</span>
               <div>
                 <InputGroup>
-                  <InputGroup.Input
-                    type="date"
-                    className="bg-accent"
-                  />
+                  <InputGroup.Input type="date" className="bg-accent" />
                 </InputGroup>
               </div>
-              <button className="self-stretch px-3 font-medium bg-primary text-white rounded focus:ring-2 ring-offset-2">
+              <button className="self-stretch rounded bg-primary px-3 font-medium text-white ring-offset-2 focus:ring-2">
                 Buscar
               </button>
             </div>
-            <DownloadRoutesBtn className="bg-accent px-4 py-2.5 inline-flex gap-2.5 text-sm rounded border">
-              <ArrowDownTrayIcon className="w-4 h-4" />
+            <DownloadRoutesBtn className="inline-flex gap-2.5 rounded border bg-accent px-4 py-2.5 text-sm">
+              <ArrowDownTrayIcon className="h-4 w-4" />
               <span className="font-medium">Descargar Rutas</span>
             </DownloadRoutesBtn>
           </div>
-          <div className="relative bg-accent flex-grow">
-            <Table wrapperClassName="absolute inset-0 w-full h-full px-4 pb-4 overflow-auto" className="relative">
+          <div className="relative flex-grow bg-accent">
+            <Table
+              wrapperClassName="absolute inset-0 w-full h-full px-4 pb-4 overflow-auto"
+              className="relative"
+            >
               <Table.Thead className="sticky top-0 bg-accent">
                 <Table.Tr>
                   <Table.Th>ID Ruta</Table.Th>
@@ -93,13 +90,15 @@ export default function index() {
               <Table.Tbody>
                 {[...Array(20)].map((item, index) => (
                   <Table.Tr key={index}>
-                    <Table.Td className="font-semibold">Ruta #E12341RF212</Table.Td>
+                    <Table.Td className="font-semibold">
+                      Ruta #E12341RF212
+                    </Table.Td>
                     <Table.Td>
                       <dd>10:00 hrs - 19:20 hrs</dd>
                       <dd>11/03/2022</dd>
                     </Table.Td>
                     <Table.Td>
-                      <RouteDetailsModalBtn className="text-primary hover:underline font-semibold">
+                      <RouteDetailsModalBtn className="font-semibold text-primary hover:underline">
                         Ver Detalles
                       </RouteDetailsModalBtn>
                     </Table.Td>
@@ -109,9 +108,7 @@ export default function index() {
             </Table>
           </div>
         </div>
-
       </div>
     </ShieldLayout>
-  )
+  );
 }
-

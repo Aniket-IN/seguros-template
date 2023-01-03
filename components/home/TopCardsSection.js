@@ -1,14 +1,14 @@
-import React from 'react'
-import SectionHeading from "../SectionHeading"
-import MembershipsCountCard from "./MembershipsCountCard"
-import RegisteredUsersCountCard from "./RegisteredUsersCountCard"
-import SmallAnalyticsCard from "./SmallAnalyticsCard"
+import React from "react";
+import SectionHeading from "../SectionHeading";
+import MembershipsCountCard from "./MembershipsCountCard";
+import RegisteredUsersCountCard from "./RegisteredUsersCountCard";
+import SmallAnalyticsCard from "./SmallAnalyticsCard";
 
 const TopCardsSection = ({ selectedMonth }) => {
   return (
     <div className="container-padding">
       <SectionHeading className="py-5">Métricas del mes</SectionHeading>
-      <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4">
         <RegisteredUsersCountCard selectedMonth={selectedMonth} />
         <MembershipsCountCard selectedMonth={selectedMonth} />
         <div className="flex flex-col gap-4">
@@ -85,7 +85,7 @@ const TopCardsSection = ({ selectedMonth }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TopCardsSection
+export default TopCardsSection;

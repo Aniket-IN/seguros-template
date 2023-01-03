@@ -1,115 +1,99 @@
-import InputGroup from "@/components/utility/InputGroup"
-import { ChevronDownIcon } from "@heroicons/react/20/solid"
-import classNames from "classnames"
-import Link from "next/link"
-import { useRouter } from "next/router"
-import React, { Fragment } from 'react'
-import { Menu, Transition } from "@headlessui/react"
+import InputGroup from "@/components/utility/InputGroup";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import classNames from "classnames";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
 
 const UserTabNav = () => {
-
   const router = useRouter();
 
   const tabs = [
     {
-      title: 'Historial de ubicaciones',
+      title: "Historial de ubicaciones",
       href: "/users/1",
-      activePaths: [
-        "/users/[user_id]",
-      ],
+      activePaths: ["/users/[user_id]"],
     },
     {
-      title: 'Escudos',
+      title: "Escudos",
       href: "/users/1/shields",
-      activePaths: [
-        "/users/[user_id]/shields",
-      ],
+      activePaths: ["/users/[user_id]/shields"],
     },
     {
-      title: 'Alertas y SOS',
+      title: "Alertas y SOS",
       href: "/users/1/sos",
-      activePaths: [
-        "/users/[user_id]/sos",
-      ],
+      activePaths: ["/users/[user_id]/sos"],
     },
     {
-      title: 'Membresía',
+      title: "Membresía",
       href: "/users/1/membership",
-      activePaths: [
-        "/users/[user_id]/membership",
-      ],
+      activePaths: ["/users/[user_id]/membership"],
     },
     {
-      title: 'Biométrico',
+      title: "Biométrico",
       href: "/users/1/biometric",
-      activePaths: [
-        "/users/[user_id]/biometric",
-      ],
+      activePaths: ["/users/[user_id]/biometric"],
     },
-  ]
+  ];
 
   const handleChange = (e) => {
-    router.push(e.target.value)
-  }
+    router.push(e.target.value);
+  };
 
   return (
-    <nav className="flex gap-5 items-center mt-6 2xl:mt-0">
-
+    <nav className="mt-6 flex items-center gap-5 2xl:mt-0">
       {/* Mobile Only */}
       <div className="flex-grow xl:hidden">
         <InputGroup>
           <InputGroup.Input as="select" onChange={handleChange}>
             {tabs.map((tab) => (
-              <option key={tab.title} value={tab.href}>{tab.title}</option>
+              <option key={tab.title} value={tab.href}>
+                {tab.title}
+              </option>
             ))}
           </InputGroup.Input>
         </InputGroup>
       </div>
 
       {/* Desktop Only */}
-      <div className="hidden xl:block overflow-auto no-scrollbar">
-        <ul className="flex gap-9 whitespace-nowrap flex-nowrap">
+      <div className="no-scrollbar hidden overflow-auto xl:block">
+        <ul className="flex flex-nowrap gap-9 whitespace-nowrap">
           {tabs.map((tab) => (
             <Item key={tab.title} tab={tab} />
           ))}
         </ul>
       </div>
 
-      <div className="text-right ml-auto">
+      <div className="ml-auto text-right">
         {/* <button className="inline-flex items-center justify-center text-sm">
           <span>Acción</span>
           <ChevronDownIcon className="w-5 h-5" />
         </button> */}
         <ActionBtn />
       </div>
-
     </nav>
-  )
-}
-
+  );
+};
 
 const Item = ({ tab }) => {
   const router = useRouter();
-  const isActive = tab.activePaths?.includes(router.pathname)
+  const isActive = tab.activePaths?.includes(router.pathname);
 
   return (
-    <li
-      key={tab.title}
-    >
+    <li key={tab.title}>
       <Link
         href={tab.href}
-        className={
-          classNames(
-            "font-semibold text-lg py-1.5 block",
-            isActive ? "text-black border-b-2 border-b-black" : "text-secondary"
-          )
-        }
+        className={classNames(
+          "block py-1.5 text-lg font-semibold",
+          isActive ? "border-b-2 border-b-black text-black" : "text-secondary"
+        )}
       >
         {tab.title}
       </Link>
     </li>
-  )
-}
+  );
+};
 
 const ActionBtn = () => {
   return (
@@ -118,17 +102,19 @@ const ActionBtn = () => {
         <>
           <Menu.Button
             className={classNames(
-              "w-full capitalize gap-2 inline-flex justify-between items-center px-2 sm:px-4 py-2 border border-transparent text-sm leading-4 font-normal rounded-md focus:outline-none",
-              open ? "text-white bg-primary" : "text-black",
+              "inline-flex w-full items-center justify-between gap-2 rounded-md border border-transparent px-2 py-2 text-sm font-normal capitalize leading-4 focus:outline-none sm:px-4",
+              open ? "bg-primary text-white" : "text-black"
             )}
           >
             Acción
             <ChevronDownIcon
-              className={classNames("-mr-1 ml-2 h-5 w-5 duration-300 transition-transform", open ? 'rotate-180' : '')}
+              className={classNames(
+                "-mr-1 ml-2 h-5 w-5 transition-transform duration-300",
+                open ? "rotate-180" : ""
+              )}
               aria-hidden="true"
             />
           </Menu.Button>
-
 
           <Transition
             as={Fragment}
@@ -139,15 +125,15 @@ const ActionBtn = () => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute origin-top-left left-0 lg:left-auto lg:origin-top-right lg:right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <Menu.Items className="absolute left-0 mt-2 w-56 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none lg:left-auto lg:right-0 lg:origin-top-right">
               <div className="py-1">
                 <Menu.Item>
                   {({ active }) => (
                     <a
                       href="#"
                       className={classNames(
-                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                        'block px-4 py-2 text-sm capitalize'
+                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                        "block px-4 py-2 text-sm capitalize"
                       )}
                     >
                       Ver detalles
@@ -159,8 +145,8 @@ const ActionBtn = () => {
                     <a
                       href="#"
                       className={classNames(
-                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                        'block px-4 py-2 text-sm capitalize'
+                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                        "block px-4 py-2 text-sm capitalize"
                       )}
                     >
                       Suspender cuenta
@@ -173,7 +159,7 @@ const ActionBtn = () => {
         </>
       )}
     </Menu>
-  )
-}
+  );
+};
 
-export default UserTabNav
+export default UserTabNav;

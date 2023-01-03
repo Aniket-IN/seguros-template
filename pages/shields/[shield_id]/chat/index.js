@@ -1,18 +1,17 @@
-import React, { createElement } from 'react'
-import ShieldLayout from "@/components/layouts/ShieldLayout"
-import Table from "@/components/Table"
-import SamplePagination from "@/components/SamplePagination"
-import DividerText from "@/components/utility/DividerText"
-import classNames from "classnames"
-import ChatBoxWrapper from "@/components/shields/shield/chat/ChatBoxWrapper"
-import ChatBox from "@/components/shields/shield/chat/ChatBox"
-import InputGroup from "@/components/utility/InputGroup"
+import React, { createElement } from "react";
+import ShieldLayout from "@/components/layouts/ShieldLayout";
+import Table from "@/components/Table";
+import SamplePagination from "@/components/SamplePagination";
+import DividerText from "@/components/utility/DividerText";
+import classNames from "classnames";
+import ChatBoxWrapper from "@/components/shields/shield/chat/ChatBoxWrapper";
+import ChatBox from "@/components/shields/shield/chat/ChatBox";
+import InputGroup from "@/components/utility/InputGroup";
 
 export default function index() {
   return (
     <ShieldLayout pageTitle="Escudos" headerTitle="Escudos">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-4">
-
+      <div className="mt-4 grid grid-cols-1 gap-5 lg:grid-cols-2">
         {/* Left side */}
         <ChatBoxWrapper>
           <h3 className="text-lg font-semibold">Chat</h3>
@@ -33,11 +32,11 @@ export default function index() {
               <InputGroup>
                 <InputGroup.Input
                   type="date"
-                  className="bg-accent !border-none"
+                  className="!border-none bg-accent"
                 />
               </InputGroup>
             </div>
-            <button className="self-stretch px-3 font-medium bg-primary text-white rounded focus:ring-2 ring-offset-2">
+            <button className="self-stretch rounded bg-primary px-3 font-medium text-white ring-offset-2 focus:ring-2">
               Buscar
             </button>
           </div>
@@ -48,9 +47,7 @@ export default function index() {
             </div> */}
           </ChatBox>
         </ChatBoxWrapper>
-
       </div>
     </ShieldLayout>
-  )
+  );
 }
-

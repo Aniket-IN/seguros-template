@@ -1,31 +1,30 @@
-import Table from "@/components/Table"
-import InputGroup from "@/components/utility/InputGroup"
-import React from 'react'
+import Table from "@/components/Table";
+import InputGroup from "@/components/utility/InputGroup";
+import React from "react";
 
 const LocationHistoryCard = () => {
   return (
-    <div className="p-5 bg-white  flex flex-col h-[800px] lg:h-full">
-      <h2 className="font-bold text-lg">Ubicación actual</h2>
+    <div className="flex h-[800px]  flex-col bg-white p-5 lg:h-full">
+      <h2 className="text-lg font-bold">Ubicación actual</h2>
 
-      <div className="flex items-center gap-2 justify-end text-sm">
+      <div className="flex items-center justify-end gap-2 text-sm">
         <span>Buscar</span>
         <div>
           <InputGroup>
-            <InputGroup.Input
-              type="date"
-              className="bg-accent"
-            />
+            <InputGroup.Input type="date" className="bg-accent" />
           </InputGroup>
         </div>
-        <button className="self-stretch px-3 font-medium bg-primary text-white rounded focus:ring-2 ring-offset-2">
+        <button className="self-stretch rounded bg-primary px-3 font-medium text-white ring-offset-2 focus:ring-2">
           Buscar
         </button>
       </div>
 
-
       <div className="relative flex-grow">
-        <Table wrapperClassName="mt-5 px-2.5 bg-accent absolute inset-0" className="relative">
-          <Table.Thead className="bg-accent sticky top-0">
+        <Table
+          wrapperClassName="mt-5 px-2.5 bg-accent absolute inset-0"
+          className="relative"
+        >
+          <Table.Thead className="sticky top-0 bg-accent">
             <Table.Tr>
               <Table.Th className="w-1/2 ">Ubicación</Table.Th>
               <Table.Th className="w-1/2 ">Horario</Table.Th>
@@ -43,9 +42,8 @@ const LocationHistoryCard = () => {
           </Table.Tbody>
         </Table>
       </div>
+    </div>
+  );
+};
 
-    </div >
-  )
-}
-
-export default LocationHistoryCard
+export default LocationHistoryCard;

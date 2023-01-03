@@ -1,8 +1,8 @@
-import { CheckCircleIcon } from "@heroicons/react/24/outline"
-import { XMarkIcon } from "@heroicons/react/24/solid"
-import classNames from "classnames"
-import React from 'react'
-import Modal from "./Modal"
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/solid";
+import classNames from "classnames";
+import React from "react";
+import Modal from "./Modal";
 
 // mode: confirmation, alert
 // type: success, danger, warning, info
@@ -12,76 +12,94 @@ const ConfirmationModal = ({
   close,
   title = null,
   caption = null,
-  type = 'danger',
-  mode = 'confirmation',
+  type = "danger",
+  mode = "confirmation",
   closeBtn: closeBtnProps = {},
   confirmBtn: confirmBtnProps = {},
 }) => {
-
   const closeBtn = {
     show: true,
-    text: 'Cancelar',
+    text: "Cancelar",
     onClick: close,
     ...closeBtnProps,
-  }
+  };
 
   const confirmBtn = {
     show: true,
-    text: 'CONTINUAR',
-    onClick: mode == 'alert' ? close : confirmBtnProps.onClick,
+    text: "CONTINUAR",
+    onClick: mode == "alert" ? close : confirmBtnProps.onClick,
     ...confirmBtnProps,
-  }
+  };
 
-  const buttonsCount = [closeBtn.show, confirmBtn.show].filter((item) => !!item).length;
+  const buttonsCount = [closeBtn.show, confirmBtn.show].filter(
+    (item) => !!item
+  ).length;
 
   return (
-    <Modal open={open} close={close} className="w-full max-w-xs bg-white rounded-md">
+    <Modal
+      open={open}
+      close={close}
+      className="w-full max-w-xs rounded-md bg-white"
+    >
       <Modal.Wrapper>
         <div className="p-4">
           <div className="flex justify-end">
             <button
               type="button"
-              className="hover:bg-slate-100 text-secondary rounded-full w-8 h-8 flex justify-center items-center flex-none"
+              className="flex h-8 w-8 flex-none items-center justify-center rounded-full text-secondary hover:bg-slate-100"
               onClick={close}
             >
-              <XMarkIcon className="w-6 h-6" />
+              <XMarkIcon className="h-6 w-6" />
             </button>
           </div>
-          <div className="text-center space-y-3">
+          <div className="space-y-3 text-center">
             <CheckCircleIcon
               className={classNames(
-                "w-20 h-w-20 inline-block",
-                !!(type == 'success') && "text-primary",
-                !!(type == 'danger') && "text-danger",
-                !!(type == 'warning') && "text-warning",
+                "h-w-20 inline-block w-20",
+                !!(type == "success") && "text-primary",
+                !!(type == "danger") && "text-danger",
+                !!(type == "warning") && "text-warning"
               )}
             />
             {!!caption && <p>{caption}</p>}
           </div>
         </div>
 
-        {(buttonsCount > 0) && (
+        {buttonsCount > 0 && (
           <div
-            className={classNames("mt-6 flex items-center px-4 gap-4 py-3 text-sm",
-              (buttonsCount > 1) ? 'bg-accent' : '',
-              (buttonsCount < 2) ? 'justify-center' : '',
-            )}>
+            className={classNames(
+              "mt-6 flex items-center gap-4 px-4 py-3 text-sm",
+              buttonsCount > 1 ? "bg-accent" : "",
+              buttonsCount < 2 ? "justify-center" : ""
+            )}
+          >
             {!!closeBtn.show && (
-              <button onClick={closeBtn.onClick} className={classNames("px-4 py-2 bg-white text-black rounded", closeBtn.className)}>
+              <button
+                onClick={closeBtn.onClick}
+                className={classNames(
+                  "rounded bg-white px-4 py-2 text-black",
+                  closeBtn.className
+                )}
+              >
                 {closeBtn.text}
               </button>
             )}
             {!!confirmBtn.show && (
-              <button onClick={confirmBtn.onClick} className={classNames("px-4 py-2 bg-black text-white rounded", confirmBtn.className)}>
+              <button
+                onClick={confirmBtn.onClick}
+                className={classNames(
+                  "rounded bg-black px-4 py-2 text-white",
+                  confirmBtn.className
+                )}
+              >
                 {confirmBtn.text}
               </button>
             )}
           </div>
         )}
-
       </Modal.Wrapper>
     </Modal>
-  )
-}
+  );
+};
 
-export default ConfirmationModal
+export default ConfirmationModal;

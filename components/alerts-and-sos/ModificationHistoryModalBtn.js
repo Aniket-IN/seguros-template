@@ -1,10 +1,14 @@
-import Modal from "@/components/utility/Modal"
-import classNames from "classnames"
-import React, { createElement, useState } from 'react'
-import Table from "../Table"
+import Modal from "@/components/utility/Modal";
+import classNames from "classnames";
+import React, { createElement, useState } from "react";
+import Table from "../Table";
 
-const ModificationHistoryModalBtn = ({ as = 'button', className = '', ...props }) => {
-  const [open, setOpen] = useState(false)
+const ModificationHistoryModalBtn = ({
+  as = "button",
+  className = "",
+  ...props
+}) => {
+  const [open, setOpen] = useState(false);
 
   const close = () => {
     setOpen(false);
@@ -15,7 +19,7 @@ const ModificationHistoryModalBtn = ({ as = 'button', className = '', ...props }
       <Modal
         open={open}
         close={close}
-        className="w-full max-w-2xl shadow-xl overflow-hidden bg-white"
+        className="w-full max-w-2xl overflow-hidden bg-white shadow-xl"
       >
         <Modal.Wrapper>
           <Modal.Header className="bg-accent">
@@ -23,7 +27,7 @@ const ModificationHistoryModalBtn = ({ as = 'button', className = '', ...props }
             <Modal.XBtn onClick={close} />
           </Modal.Header>
           <Modal.Body className="!p-0">
-            <div className="p-5 grid grid-cols-3 gap-5 text-sm">
+            <div className="grid grid-cols-3 gap-5 p-5 text-sm">
               <div>
                 <dd className="font-semibold">ID Alerta</dd>
                 <dd className="font-semibold text-danger">SOS</dd>
@@ -52,8 +56,12 @@ const ModificationHistoryModalBtn = ({ as = 'button', className = '', ...props }
                 <Table.Tbody>
                   <Table.Tr>
                     <Table.Td>
-                      <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-warning bg-opacity-20 text-warning">
-                        <svg className="mr-1.5 h-2 w-2 text-warning" fill="currentColor" viewBox="0 0 8 8">
+                      <span className="inline-flex items-center rounded-full bg-warning bg-opacity-20 px-3 py-1.5 text-sm font-semibold text-warning">
+                        <svg
+                          className="mr-1.5 h-2 w-2 text-warning"
+                          fill="currentColor"
+                          viewBox="0 0 8 8"
+                        >
                           <circle cx={5} cy={4} r={3} />
                         </svg>
                         Ayuda enviada
@@ -61,8 +69,12 @@ const ModificationHistoryModalBtn = ({ as = 'button', className = '', ...props }
                     </Table.Td>
                     <Table.Td>
                       <div className="inline-flex items-center gap-3.5">
-                        <div className="w-11 h-11">
-                          <img src="/assets/img/sample/user-2.png" className="w-11 h-11 rounded-full" alt="" />
+                        <div className="h-11 w-11">
+                          <img
+                            src="/assets/img/sample/user-2.png"
+                            className="h-11 w-11 rounded-full"
+                            alt=""
+                          />
                         </div>
                         <div>
                           <dd>Mario Lopez</dd>
@@ -77,8 +89,12 @@ const ModificationHistoryModalBtn = ({ as = 'button', className = '', ...props }
                   </Table.Tr>
                   <Table.Tr>
                     <Table.Td>
-                      <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-primary bg-opacity-20 text-primary">
-                        <svg className="mr-1.5 h-2 w-2 text-primary" fill="currentColor" viewBox="0 0 8 8">
+                      <span className="inline-flex items-center rounded-full bg-primary bg-opacity-20 px-3 py-1.5 text-sm font-semibold text-primary">
+                        <svg
+                          className="mr-1.5 h-2 w-2 text-primary"
+                          fill="currentColor"
+                          viewBox="0 0 8 8"
+                        >
                           <circle cx={5} cy={4} r={3} />
                         </svg>
                         Resuelto
@@ -86,8 +102,12 @@ const ModificationHistoryModalBtn = ({ as = 'button', className = '', ...props }
                     </Table.Td>
                     <Table.Td>
                       <div className="inline-flex items-center gap-3.5">
-                        <div className="w-11 h-11">
-                          <img src="/assets/img/sample/user-2.png" className="w-11 h-11 rounded-full" alt="" />
+                        <div className="h-11 w-11">
+                          <img
+                            src="/assets/img/sample/user-2.png"
+                            className="h-11 w-11 rounded-full"
+                            alt=""
+                          />
                         </div>
                         <div>
                           <dd>Mario Lopez</dd>
@@ -105,7 +125,7 @@ const ModificationHistoryModalBtn = ({ as = 'button', className = '', ...props }
             </div>
           </Modal.Body>
           <Modal.Footer className="bg-accent">
-            <Modal.FooterBtn onClick={close} className="text-white bg-black">
+            <Modal.FooterBtn onClick={close} className="bg-black text-white">
               Cerrar
             </Modal.FooterBtn>
           </Modal.Footer>
@@ -118,7 +138,7 @@ const ModificationHistoryModalBtn = ({ as = 'button', className = '', ...props }
         ...props,
       })}
     </>
-  )
-}
+  );
+};
 
-export default ModificationHistoryModalBtn
+export default ModificationHistoryModalBtn;

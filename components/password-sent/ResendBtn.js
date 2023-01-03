@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
-import ConfirmationModal from "../utility/ConfirmationModal"
+import React, { useState } from "react";
+import ConfirmationModal from "../utility/ConfirmationModal";
 
 const ResendBtn = () => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const close = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   const resend = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   return (
     <>
@@ -21,15 +21,19 @@ const ResendBtn = () => {
         close={close}
         caption="Contraseña reenviada"
         closeBtn={{
-          show: false
+          show: false,
         }}
       />
 
-      <button onClick={resend} type="button" className="inline-block mx-auto font-semibold underline hover:text-primary">
+      <button
+        onClick={resend}
+        type="button"
+        className="mx-auto inline-block font-semibold underline hover:text-primary"
+      >
         Reenviar contraseña
       </button>
     </>
-  )
-}
+  );
+};
 
-export default ResendBtn
+export default ResendBtn;

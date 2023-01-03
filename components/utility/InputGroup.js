@@ -2,27 +2,31 @@ import { createContext, createElement, forwardRef, useContext } from "react";
 
 const InputGroupContext = createContext();
 
-const InputGroup = forwardRef(({
-  as = "div",
-  isInvalid = false,
-  prepend = false,
-  append = false,
-  className = "",
-  ...props
-}, ref) => {
-  return (
-    <InputGroupContext.Provider value={{ isInvalid, prepend, append }}>
-      {createElement(as, {
-        ref,
-        className: `w-full flex-row flex items-stretch ${className}`,
-        ...props,
-      })}
-    </InputGroupContext.Provider>
-  );
-})
+const InputGroup = forwardRef(
+  (
+    {
+      as = "div",
+      isInvalid = false,
+      prepend = false,
+      append = false,
+      className = "",
+      ...props
+    },
+    ref
+  ) => {
+    return (
+      <InputGroupContext.Provider value={{ isInvalid, prepend, append }}>
+        {createElement(as, {
+          ref,
+          className: `w-full flex-row flex items-stretch ${className}`,
+          ...props,
+        })}
+      </InputGroupContext.Provider>
+    );
+  }
+);
 
-
-InputGroup.Prepend = forwardRef(() => (
+InputGroup.Prepend = forwardRef(() =>
   createElement(as, {
     className: `
       rounded-l-md overflow-hidden flex-grow flex-shrink-0 border-[#e2e8f0] border border-r-0 
@@ -30,8 +34,7 @@ InputGroup.Prepend = forwardRef(() => (
     `,
     ...props,
   })
-))
-
+);
 
 InputGroup.Append = ({ as = "div", className = "", ...props }) =>
   createElement(as, {
@@ -39,19 +42,14 @@ InputGroup.Append = ({ as = "div", className = "", ...props }) =>
     ...props,
   });
 
+InputGroup.Input = forwardRef(
+  ({ as = "input", className = "", type = "text", ...props }, ref) => {
+    const { isInvalid, prepend, append } = useContext(InputGroupContext);
 
-InputGroup.Input = forwardRef(({
-  as = "input",
-  className = "",
-  type = "text",
-  ...props
-}, ref) => {
-  const { isInvalid, prepend, append } = useContext(InputGroupContext);
-
-  return createElement(as, {
-    ref,
-    type: type,
-    className: `
+    return createElement(as, {
+      ref,
+      type: type,
+      className: `
       ${isInvalid ? "border-red-600" : ""}
       ${prepend ? "rounded-r-md" : ""}
       ${append ? "rounded-l-md" : ""}
@@ -61,9 +59,10 @@ InputGroup.Input = forwardRef(({
       focus:ring-primary focus:border-primary
       disabled:bg-gray-100
       ${className}`,
-    ...props,
-  });
-})
+      ...props,
+    });
+  }
+);
 
 // InputGroup.Input = ({
 //   as = "input",
@@ -79,8 +78,8 @@ InputGroup.Input = forwardRef(({
 //       ${isInvalid ? "border-red-600" : ""}
 //       ${prepend ? "rounded-r-md" : ""}
 //       ${append ? "rounded-l-md" : ""}
-//       ${!append && !prepend ? "rounded-md" : ""} 
-//       px-4 py-1.5 w-full border border-[#e2e8f0] 
+//       ${!append && !prepend ? "rounded-md" : ""}
+//       px-4 py-1.5 w-full border border-[#e2e8f0]
 //       outline-none focus:ring-1
 //       focus:ring-primary focus:border-primary
 //       disabled:bg-gray-100
@@ -116,10 +115,10 @@ InputGroup.Label = ({ as = "label", className = "", ...props }) =>
 InputGroup.Error = ({ as = "div", error = null, className = "", ...props }) =>
   error
     ? createElement(as, {
-      className: `text-sm text-red-600 mt-1 ${className}`,
-      children: error,
-      ...props,
-    })
+        className: `text-sm text-red-600 mt-1 ${className}`,
+        children: error,
+        ...props,
+      })
     : null;
 
 export { InputGroup };

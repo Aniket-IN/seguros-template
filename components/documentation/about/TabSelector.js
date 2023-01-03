@@ -1,14 +1,13 @@
 import SectionHeading from "@/components/SectionHeading";
-import React from 'react'
+import React from "react";
 
 const TabSelector = ({ tabName, tabs, setTab }) => {
-
   const handleRadioChange = (e) => {
-    setTab(e.target.value)
-  }
+    setTab(e.target.value);
+  };
 
   return (
-    <div className="xl:max-w-md w-full bg-white p-5 space-y-5">
+    <div className="w-full space-y-5 bg-white p-5 xl:max-w-md">
       <SectionHeading>Acerca De</SectionHeading>
       <div className="bg-accent px-2.5 pb-4 pt-1 text-sm">
         <ul className="space-y-1">
@@ -17,7 +16,7 @@ const TabSelector = ({ tabName, tabs, setTab }) => {
           </li>
           {tabs.map((tab) => (
             <li key={tab.value}>
-              <label className="cursor-pointer flex items-center justify-between px-5 py-5 bg-white text-secondary">
+              <label className="flex cursor-pointer items-center justify-between bg-white px-5 py-5 text-secondary">
                 <span>{tab.title}</span>
                 <input
                   checked={tabName === tab.value}
@@ -25,16 +24,15 @@ const TabSelector = ({ tabName, tabs, setTab }) => {
                   name="account"
                   onChange={handleRadioChange}
                   type="radio"
-                  className="focus:ring-primary h-5 w-5 text-primary border-gray-300"
+                  className="h-5 w-5 border-gray-300 text-primary focus:ring-primary"
                 />
               </label>
             </li>
           ))}
-
         </ul>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TabSelector
+export default TabSelector;

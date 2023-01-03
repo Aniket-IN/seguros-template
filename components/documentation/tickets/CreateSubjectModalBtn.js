@@ -1,10 +1,10 @@
-import InputGroup from "@/components/utility/InputGroup"
-import Modal from "@/components/utility/Modal"
-import { StarIcon } from "@heroicons/react/20/solid"
-import React, { createElement, useState } from 'react'
+import InputGroup from "@/components/utility/InputGroup";
+import Modal from "@/components/utility/Modal";
+import { StarIcon } from "@heroicons/react/20/solid";
+import React, { createElement, useState } from "react";
 
-const CreateSubjectModalBtn = ({ as = 'button', className = '', ...props }) => {
-  const [open, setOpen] = useState(false)
+const CreateSubjectModalBtn = ({ as = "button", className = "", ...props }) => {
+  const [open, setOpen] = useState(false);
 
   const close = () => {
     setOpen(false);
@@ -15,7 +15,7 @@ const CreateSubjectModalBtn = ({ as = 'button', className = '', ...props }) => {
       <Modal
         open={open}
         close={close}
-        className="w-full max-w-md shadow-xl overflow-hidden bg-white"
+        className="w-full max-w-md overflow-hidden bg-white shadow-xl"
       >
         <Modal.Wrapper>
           <Modal.Header className="bg-accent">
@@ -34,10 +34,10 @@ const CreateSubjectModalBtn = ({ as = 'button', className = '', ...props }) => {
             </div>
           </Modal.Body>
           <Modal.Footer className="bg-accent">
-            <Modal.FooterBtn onClick={close} className="text-black bg-white">
+            <Modal.FooterBtn onClick={close} className="bg-white text-black">
               Cancelar
             </Modal.FooterBtn>
-            <Modal.FooterBtn onClick={close} className="text-white bg-black">
+            <Modal.FooterBtn onClick={close} className="bg-black text-white">
               Cerrar
             </Modal.FooterBtn>
           </Modal.Footer>
@@ -50,7 +50,7 @@ const CreateSubjectModalBtn = ({ as = 'button', className = '', ...props }) => {
         ...props,
       })}
     </>
-  )
-}
+  );
+};
 
-export default CreateSubjectModalBtn
+export default CreateSubjectModalBtn;

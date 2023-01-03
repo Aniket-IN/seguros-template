@@ -1,8 +1,8 @@
-import React from 'react'
-import UserLayout from "@/components/layouts/UserLayout"
-import Table from "@/components/Table"
-import SamplePagination from "@/components/SamplePagination"
-import Link from "next/link"
+import React from "react";
+import UserLayout from "@/components/layouts/UserLayout";
+import Table from "@/components/Table";
+import SamplePagination from "@/components/SamplePagination";
+import Link from "next/link";
 
 const Shields = () => {
   return (
@@ -22,9 +22,13 @@ const Shields = () => {
           <Table.Tbody>
             {[...Array(11)].map((item, index) => (
               <Table.Tr key={index}>
-                <Table.Td >
-                  <div className="flex items-center gap-4 min-w-fit">
-                    <img src="/assets/img/sample/companies/fanta.png" className="block w-11 aspect-square object-cover rounded-full" alt="" />
+                <Table.Td>
+                  <div className="flex min-w-fit items-center gap-4">
+                    <img
+                      src="/assets/img/sample/companies/fanta.png"
+                      className="block aspect-square w-11 rounded-full object-cover"
+                      alt=""
+                    />
                     <div>
                       <p>Carlos Pérez Guerrero</p>
                       <p>UI123123</p>
@@ -38,17 +42,24 @@ const Shields = () => {
                 <Table.Td>25/05/22</Table.Td>
                 <Table.Td>Estandar</Table.Td>
                 <Table.Td>
-                  <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-warning bg-opacity-20 text-warning">
-                    <svg className="mr-1.5 h-2 w-2 text-warning" fill="currentColor" viewBox="0 0 8 8">
+                  <span className="inline-flex items-center rounded-full bg-warning bg-opacity-20 px-3 py-1.5 text-sm font-semibold text-warning">
+                    <svg
+                      className="mr-1.5 h-2 w-2 text-warning"
+                      fill="currentColor"
+                      viewBox="0 0 8 8"
+                    >
                       <circle cx={5} cy={4} r={3} />
                     </svg>
                     Colaborativo
                   </span>
                 </Table.Td>
                 <Table.Td>
-                  <div className="flex gap-5 items-center">
+                  <div className="flex items-center gap-5">
                     <span>7</span>
-                    <Link href="/shields/1" className="text-primary font-semibold hover:underline">
+                    <Link
+                      href="/shields/1"
+                      className="font-semibold text-primary hover:underline"
+                    >
                       Ver detalles
                     </Link>
                   </div>
@@ -60,7 +71,7 @@ const Shields = () => {
         <SamplePagination />
       </div>
     </UserLayout>
-  )
-}
+  );
+};
 
-export default Shields
+export default Shields;

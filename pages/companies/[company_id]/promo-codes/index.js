@@ -1,7 +1,7 @@
-import React from 'react'
-import Table from "@/components/Table"
-import SamplePagination from "@/components/SamplePagination"
-import CompanyLayout from "@/components/layouts/CompanyLayout"
+import React from "react";
+import Table from "@/components/Table";
+import SamplePagination from "@/components/SamplePagination";
+import CompanyLayout from "@/components/layouts/CompanyLayout";
 
 export default function PromoCodes() {
   return (
@@ -22,19 +22,19 @@ export default function PromoCodes() {
           <Table.Tbody>
             {[...Array(1)].map((item, index) => (
               <Table.Tr key={index}>
-                <Table.Td >
-                  XYZ123123
-                </Table.Td>
-                <Table.Td>
-                  FANTA2000
-                </Table.Td>
+                <Table.Td>XYZ123123</Table.Td>
+                <Table.Td>FANTA2000</Table.Td>
                 <Table.Td>Nivel 1</Table.Td>
                 <Table.Td>20%</Table.Td>
                 <Table.Td>125</Table.Td>
                 <Table.Td>Código para Fanta - Lorem Ipsum</Table.Td>
                 <Table.Td>
-                  <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-green-100 text-green-600">
-                    <svg className="mr-1.5 h-2 w-2 text-green-600" fill="currentColor" viewBox="0 0 8 8">
+                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1.5 text-sm font-semibold text-green-600">
+                    <svg
+                      className="mr-1.5 h-2 w-2 text-green-600"
+                      fill="currentColor"
+                      viewBox="0 0 8 8"
+                    >
                       <circle cx={5} cy={4} r={3} />
                     </svg>
                     Activo
@@ -47,5 +47,5 @@ export default function PromoCodes() {
         <SamplePagination />
       </div>
     </CompanyLayout>
-  )
+  );
 }

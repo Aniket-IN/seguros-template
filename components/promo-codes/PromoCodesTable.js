@@ -1,102 +1,120 @@
-import React, { Fragment, useState } from 'react'
-import Table from "../Table"
-import { Menu, Transition } from "@headlessui/react"
-import classNames from "classnames"
-import { ChevronDownIcon } from "@heroicons/react/20/solid"
-import PromoCodeFormModal from "./PromoCodeFormModal"
-import ConfirmationModal from "../utility/ConfirmationModal"
-import Badge from "../Badge"
+import React, { Fragment, useState } from "react";
+import Table from "../Table";
+import { Menu, Transition } from "@headlessui/react";
+import classNames from "classnames";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import PromoCodeFormModal from "./PromoCodeFormModal";
+import ConfirmationModal from "../utility/ConfirmationModal";
+import Badge from "../Badge";
 
 const PromoCodesTable = ({ promoCodes = [], isLoading, isError, error }) => {
   const headers = [
-    'ID de código',
-    'Código de promo',
-    'Duración',
-    'Membresia',
-    '% de descuento',
-    'Stock total',
-    'Etiqueta',
-    'Estado',
-    'Acción',
+    "ID de código",
+    "Código de promo",
+    "Duración",
+    "Membresia",
+    "% de descuento",
+    "Stock total",
+    "Etiqueta",
+    "Estado",
+    "Acción",
   ];
 
   return (
     <div>
-      <Table dataCount={promoCodes.length} isLoading={isLoading} isError={isError} error={error}>
+      <Table
+        dataCount={promoCodes.length}
+        isLoading={isLoading}
+        isError={isError}
+        error={error}
+      >
         <Table.Thead>
           <Table.Tr>
-            {headers.map((header) => <Table.Th key={header}>{header}</Table.Th>)}
+            {headers.map((header) => (
+              <Table.Th key={header}>{header}</Table.Th>
+            ))}
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>
-          {!isLoading && !isError && promoCodes?.map((promoCode) => <Row promoCode={promoCode} key={promoCode.id} />)}
+          {!isLoading &&
+            !isError &&
+            promoCodes?.map((promoCode) => (
+              <Row promoCode={promoCode} key={promoCode.id} />
+            ))}
         </Table.Tbody>
       </Table>
     </div>
-  )
-}
+  );
+};
 
 const Row = ({ promoCode }) => {
   return (
     <Table.Tr>
       <Table.Td>{promoCode.code_id}</Table.Td>
       <Table.Td>{promoCode.promo_code}</Table.Td>
-      <Table.Td>{promoCode.start_duration} - {promoCode.end_duration}</Table.Td>
+      <Table.Td>
+        {promoCode.start_duration} - {promoCode.end_duration}
+      </Table.Td>
       <Table.Td>{promoCode.membership}</Table.Td>
       <Table.Td>{promoCode.discount}%</Table.Td>
       <Table.Td>125</Table.Td>
       <Table.Td>{promoCode.Etiquette}</Table.Td>
       <Table.Td>
-        <Badge.Md text={promoCode.state ? "Activo" : 'Vencido'} className={promoCode.state ? "bg-green-100 text-green-600" : 'bg-gray-200 text-black'} />
+        <Badge.Md
+          text={promoCode.state ? "Activo" : "Vencido"}
+          className={
+            promoCode.state
+              ? "bg-green-100 text-green-600"
+              : "bg-gray-200 text-black"
+          }
+        />
       </Table.Td>
       <Table.Td>
         <ActionBtn />
       </Table.Td>
     </Table.Tr>
-  )
-}
-
+  );
+};
 
 const ActionBtn = () => {
-  const [editOpen, setEditOpen] = useState(false)
+  const [editOpen, setEditOpen] = useState(false);
 
-  const [activateOpen, setActivateOpen] = useState(false)
-  const [activateAlertOpen, setActivateAlertOpen] = useState(false)
+  const [activateOpen, setActivateOpen] = useState(false);
+  const [activateAlertOpen, setActivateAlertOpen] = useState(false);
 
-  const [suspendOpen, setSuspendOpen] = useState(false)
-  const [suspendAlertOpen, setSuspendAlertOpen] = useState(false)
+  const [suspendOpen, setSuspendOpen] = useState(false);
+  const [suspendAlertOpen, setSuspendAlertOpen] = useState(false);
 
-  const [deleteOpen, setDeleteOpen] = useState(false)
-  const [deleteAlertOpen, setDeleteAlertOpen] = useState(false)
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleteAlertOpen, setDeleteAlertOpen] = useState(false);
 
   const edit = () => {
-    setEditOpen(false)
-  }
+    setEditOpen(false);
+  };
 
   const activate = () => {
-    setActivateOpen(false)
+    setActivateOpen(false);
     setTimeout(() => {
-      setActivateAlertOpen(true)
+      setActivateAlertOpen(true);
     }, 300);
-  }
+  };
 
   const suspend = () => {
-    setSuspendOpen(false)
+    setSuspendOpen(false);
     setTimeout(() => {
-      setSuspendAlertOpen(true)
+      setSuspendAlertOpen(true);
     }, 300);
-  }
+  };
 
   const deleteCode = () => {
-    setDeleteOpen(false)
+    setDeleteOpen(false);
     setTimeout(() => {
-      setDeleteAlertOpen(true)
+      setDeleteAlertOpen(true);
     }, 300);
-  }
+  };
 
   return (
     <>
-
       {/* Activation Modals */}
       <ConfirmationModal
         open={activateOpen}
@@ -126,7 +144,6 @@ const ActionBtn = () => {
           show: false,
         }}
       />
-
 
       {/* Suspend Modals */}
       <ConfirmationModal
@@ -188,12 +205,20 @@ const ActionBtn = () => {
         }}
       />
 
-      <PromoCodeFormModal mode="edit" submit={edit} open={editOpen} setOpen={setEditOpen} />
+      <PromoCodeFormModal
+        mode="edit"
+        submit={edit}
+        open={editOpen}
+        setOpen={setEditOpen}
+      />
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button className="inline-flex gap-2 items-center justify-center w-full rounded-md  px-4 py-2 bg-accent text-sm font-medium text-black hover:bg-gray-50 focus:outline-none focus:ring-2  focus:ring-primary">
+          <Menu.Button className="inline-flex w-full items-center justify-center gap-2 rounded-md  bg-accent px-4 py-2 text-sm font-medium text-black hover:bg-gray-50 focus:outline-none focus:ring-2  focus:ring-primary">
             Acción
-            <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
+            <ChevronDownIcon
+              className="-mr-1 ml-2 h-5 w-5"
+              aria-hidden="true"
+            />
           </Menu.Button>
         </div>
 
@@ -206,15 +231,15 @@ const ActionBtn = () => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="origin-top-right right-0 z-[1]  absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0 z-[1]  mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="py-1">
               <Menu.Item>
                 {({ active }) => (
                   <button
                     onClick={() => setEditOpen(true)}
                     className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'w-full block text-left px-4 py-2 text-sm'
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block w-full px-4 py-2 text-left text-sm"
                     )}
                   >
                     Ver detalles
@@ -226,8 +251,8 @@ const ActionBtn = () => {
                   <button
                     onClick={() => setActivateOpen(true)}
                     className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'w-full block text-left px-4 py-2 text-sm'
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block w-full px-4 py-2 text-left text-sm"
                     )}
                   >
                     Activar
@@ -239,8 +264,8 @@ const ActionBtn = () => {
                   <button
                     onClick={() => setSuspendOpen(true)}
                     className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'w-full block text-left px-4 py-2 text-sm'
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block w-full px-4 py-2 text-left text-sm"
                     )}
                   >
                     Suspender
@@ -252,8 +277,8 @@ const ActionBtn = () => {
                   <button
                     onClick={() => setEditOpen(true)}
                     className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'w-full block text-left px-4 py-2 text-sm'
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block w-full px-4 py-2 text-left text-sm"
                     )}
                   >
                     Editar
@@ -265,8 +290,8 @@ const ActionBtn = () => {
                   <button
                     onClick={() => setDeleteOpen(true)}
                     className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'w-full block text-left px-4 py-2 text-sm'
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block w-full px-4 py-2 text-left text-sm"
                     )}
                   >
                     Eliminar
@@ -278,7 +303,7 @@ const ActionBtn = () => {
         </Transition>
       </Menu>
     </>
-  )
-}
+  );
+};
 
-export default PromoCodesTable
+export default PromoCodesTable;

@@ -1,31 +1,28 @@
-import React from 'react'
-import ShieldLayout from "@/components/layouts/ShieldLayout"
-import Table from "@/components/Table"
-import SamplePagination from "@/components/SamplePagination"
-import InputGroup from "@/components/utility/InputGroup"
-import ViewPhotoBtn from "@/components/ViewPhotoBtn"
+import React from "react";
+import ShieldLayout from "@/components/layouts/ShieldLayout";
+import Table from "@/components/Table";
+import SamplePagination from "@/components/SamplePagination";
+import InputGroup from "@/components/utility/InputGroup";
+import ViewPhotoBtn from "@/components/ViewPhotoBtn";
 
 export default function index() {
   return (
     <ShieldLayout pageTitle="Escudos" headerTitle="Escudos">
-
       <div className="mt-5 space-y-6">
-
         <div className="flex items-center gap-2 text-sm">
           <span>Buscar</span>
           <div>
             <InputGroup>
               <InputGroup.Input
                 type="date"
-                className="bg-accent !border-none"
+                className="!border-none bg-accent"
               />
             </InputGroup>
           </div>
-          <button className="self-stretch px-3 font-medium bg-primary text-white rounded focus:ring-2 ring-offset-2">
+          <button className="self-stretch rounded bg-primary px-3 font-medium text-white ring-offset-2 focus:ring-2">
             Buscar
           </button>
         </div>
-
 
         <Table>
           <Table.Thead>
@@ -39,13 +36,16 @@ export default function index() {
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
-
             {[...Array(9)].map((item, index) => (
               <Table.Tr key={index}>
                 <Table.Td className="font-semibold">#E12341RF2</Table.Td>
                 <Table.Td>
-                  <div className="flex items-center gap-4 min-w-fit">
-                    <img src="/assets/img/sample/user-1.png" className="block w-11 aspect-square object-cover rounded-full" alt="" />
+                  <div className="flex min-w-fit items-center gap-4">
+                    <img
+                      src="/assets/img/sample/user-1.png"
+                      className="block aspect-square w-11 rounded-full object-cover"
+                      alt=""
+                    />
                     <div>
                       <p>Carlos Pérez Guerrero</p>
                       <p>UI123123</p>
@@ -61,8 +61,12 @@ export default function index() {
                   <dd className="font-semibold">-12.091307, -77.042053</dd>
                 </Table.Td>
                 <Table.Td>
-                  <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-gray-200 text-black">
-                    <svg className="mr-1.5 h-2 w-2" fill="currentColor" viewBox="0 0 8 8">
+                  <span className="inline-flex items-center rounded-full bg-gray-200 px-3 py-1.5 text-sm font-semibold text-black">
+                    <svg
+                      className="mr-1.5 h-2 w-2"
+                      fill="currentColor"
+                      viewBox="0 0 8 8"
+                    >
                       <circle cx={5} cy={4} r={3} />
                     </svg>
                     SALIDA
@@ -76,7 +80,7 @@ export default function index() {
                       name: "Carlos Pérez Guerrero",
                       avatar: "/assets/img/sample/user-3.png",
                     }}
-                    className="text-primary font-semibold hover:underline"
+                    className="font-semibold text-primary hover:underline"
                   >
                     Ver foto
                   </ViewPhotoBtn>
@@ -88,6 +92,5 @@ export default function index() {
         <SamplePagination />
       </div>
     </ShieldLayout>
-  )
+  );
 }
-

@@ -1,16 +1,22 @@
-import React from 'react'
-import SectionHeading from "../SectionHeading"
+import React from "react";
+import SectionHeading from "../SectionHeading";
 
 const UserCard = () => {
   return (
-    <div className="p-5 bg-white">
+    <div className="bg-white p-5">
       <div className="text-center">
-        <img src="/assets/img/sample/user-2.png" className="inline-block w-24 h-24 mb-2" alt="User" />
+        <img
+          src="/assets/img/sample/user-2.png"
+          className="mb-2 inline-block h-24 w-24"
+          alt="User"
+        />
         <SectionHeading>Carlos Pérez</SectionHeading>
         <dd className="text-secondary">ID UI123123</dd>
-        <dd className="text-[15px] text-danger font-semibold">Ticket Pendiente</dd>
+        <dd className="text-[15px] font-semibold text-danger">
+          Ticket Pendiente
+        </dd>
       </div>
-      <div className="text-sm space-y-5 mt-5">
+      <div className="mt-5 space-y-5 text-sm">
         <dl>
           <dd className="font-semibold">Ticket</dd>
           <dd className="text-secondary">ID-UI123123</dd>
@@ -33,7 +39,7 @@ const UserCard = () => {
         </dl>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserCard
+export default UserCard;

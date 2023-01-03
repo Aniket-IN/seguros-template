@@ -1,31 +1,28 @@
-import React from 'react'
-import ShieldLayout from "@/components/layouts/ShieldLayout"
-import Table from "@/components/Table"
-import SamplePagination from "@/components/SamplePagination"
-import InputGroup from "@/components/utility/InputGroup"
-import EvidenceModalBtn from "@/components/shields/EvidenceModalBtn"
+import React from "react";
+import ShieldLayout from "@/components/layouts/ShieldLayout";
+import Table from "@/components/Table";
+import SamplePagination from "@/components/SamplePagination";
+import InputGroup from "@/components/utility/InputGroup";
+import EvidenceModalBtn from "@/components/shields/EvidenceModalBtn";
 
 export default function index() {
   return (
     <ShieldLayout pageTitle="Escudos" headerTitle="Escudos">
-
       <div className="mt-5 space-y-6">
-
         <div className="flex items-center gap-2 text-sm">
           <span>Buscar</span>
           <div>
             <InputGroup>
               <InputGroup.Input
                 type="date"
-                className="bg-accent !border-none"
+                className="!border-none bg-accent"
               />
             </InputGroup>
           </div>
-          <button className="self-stretch px-3 font-medium bg-primary text-white rounded focus:ring-2 ring-offset-2">
+          <button className="self-stretch rounded bg-primary px-3 font-medium text-white ring-offset-2 focus:ring-2">
             Buscar
           </button>
         </div>
-
 
         <Table>
           <Table.Thead>
@@ -39,11 +36,13 @@ export default function index() {
           </Table.Thead>
           <Table.Tbody>
             <Table.Tr>
-              <Table.Td >
+              <Table.Td>
                 <p className="font-semibold text-danger">SOS</p>
                 <p>SOS#1231231</p>
               </Table.Td>
-              <Table.Td className="font-semibold">-12.091307, -77.042053</Table.Td>
+              <Table.Td className="font-semibold">
+                -12.091307, -77.042053
+              </Table.Td>
               <Table.Td>
                 <dd>23/09/2022</dd>
                 <dd>10:30 Hrs</dd>
@@ -53,29 +52,30 @@ export default function index() {
                   Evidencia#123123
                 </EvidenceModalBtn>
               </Table.Td>
-              <Table.Td>
-                Juan Jesús Ledesma
-              </Table.Td>
+              <Table.Td>Juan Jesús Ledesma</Table.Td>
             </Table.Tr>
             {[...Array(9)].map((item, index) => (
               <Table.Tr key={index}>
-                <Table.Td >
+                <Table.Td>
                   <p className="font-semibold">Alerta - Policial</p>
                   <p>Alerta#1231231</p>
                 </Table.Td>
-                <Table.Td className="font-semibold">-12.091307, -77.042053</Table.Td>
+                <Table.Td className="font-semibold">
+                  -12.091307, -77.042053
+                </Table.Td>
                 <Table.Td>
                   <dd>23/09/2022</dd>
                   <dd>10:30 Hrs</dd>
                 </Table.Td>
                 <Table.Td>
-                  <button type="button" className="text-primary font-semibold hover:underline">
+                  <button
+                    type="button"
+                    className="font-semibold text-primary hover:underline"
+                  >
                     Evidencia#123123
                   </button>
                 </Table.Td>
-                <Table.Td>
-                  Fiorella Gaspar Iparraguirre
-                </Table.Td>
+                <Table.Td>Fiorella Gaspar Iparraguirre</Table.Td>
               </Table.Tr>
             ))}
           </Table.Tbody>
@@ -83,6 +83,5 @@ export default function index() {
         <SamplePagination />
       </div>
     </ShieldLayout>
-  )
+  );
 }
-

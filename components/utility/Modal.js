@@ -6,12 +6,8 @@ import { XMarkIcon } from "@heroicons/react/20/solid";
 const Modal = ({ open, close, className, as = "div", ...props }) => {
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog
-        as="div"
-        className="fixed z-20 inset-0"
-        onClose={close}
-      >
-        <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <Dialog as="div" className="fixed inset-0 z-20" onClose={close}>
+        <div className="flex min-h-screen items-center justify-center px-4 pt-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -26,7 +22,7 @@ const Modal = ({ open, close, className, as = "div", ...props }) => {
 
           {/* This element is to trick the browser into centering the modal contents. */}
           <span
-            className="hidden sm:inline-block sm:align-middle sm:h-screen"
+            className="hidden sm:inline-block sm:h-screen sm:align-middle"
             // className="sm:inline-block sm:align-middle h-screen"
             aria-hidden="true"
           >
@@ -60,44 +56,50 @@ Modal.Wrapper = ({ as = "div", className, ...props }) => {
   });
 };
 
-Modal.XBtn = ({ className = '', ...props }) => {
+Modal.XBtn = ({ className = "", ...props }) => {
   return (
     <button
       type="button"
-      className={`hover:bg-slate-100 rounded-full w-7 h-7 flex justify-center items-center flex-none ${className}`}
+      className={`flex h-7 w-7 flex-none items-center justify-center rounded-full hover:bg-slate-100 ${className}`}
       {...props}
     >
-      <XMarkIcon className="w-5 h-5" />
+      <XMarkIcon className="h-5 w-5" />
     </button>
   );
 };
 
-Modal.Header = ({ as = 'div', className = '', ...props }) => {
+Modal.Header = ({ as = "div", className = "", ...props }) => {
   return createElement(as, {
     ...props,
-    className: classNames(className, "px-4 py-2 flex justify-between items-center flex-none")
-  })
+    className: classNames(
+      className,
+      "px-4 py-2 flex justify-between items-center flex-none"
+    ),
+  });
 };
 
-Modal.Body = ({ as = 'div', className = '', ...props }) => {
+Modal.Body = ({ as = "div", className = "", ...props }) => {
   return createElement(as, {
     ...props,
-    className: classNames(className, "p-4 flex-grow overflow-auto")
-  })
+    className: classNames(className, "p-4 flex-grow overflow-auto"),
+  });
 };
 
-Modal.Footer = ({ as = 'div', className = '', ...props }) => {
+Modal.Footer = ({ as = "div", className = "", ...props }) => {
   return createElement(as, {
     ...props,
-    className: classNames(className, "px-4 py-2 gap-3.5 flex justify-end items-center flex-none")
-  })
+    className: classNames(
+      className,
+      "px-4 py-2 gap-3.5 flex justify-end items-center flex-none"
+    ),
+  });
 };
 
-Modal.FooterBtn = ({ as = 'button', className = '', ...props }) => {
+Modal.FooterBtn = ({ as = "button", className = "", ...props }) => {
   return createElement(as, {
     ...props,
-    className: classNames(className, "px-4 py-1.5 text-sm rounded")
-  })
+    className: classNames(className, "px-4 py-1.5 text-sm rounded"),
+  });
 };
 
 export default Modal;

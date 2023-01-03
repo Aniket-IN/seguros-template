@@ -1,27 +1,25 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { useLocalStorage } from "react-use";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoggedIn, setToken } from "@/redux/userSlice";
 
-
 const useAxios = () => {
-  const router = useRouter()
+  const router = useRouter();
 
-  const token = useSelector(state => state.user.token)
-  const dispatch = useDispatch()
+  const token = useSelector((state) => state.user.token);
+  const dispatch = useDispatch();
 
   // Create axios instance
   const instance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     headers: {
       "Content-Type": "application/json",
-      "Authorization": token ? `token ${token}` : null,
+      Authorization: token ? `token ${token}` : null,
     },
     withCredentials: true,
-  })
-
+  });
 
   // Add a request interceptor
   axios.interceptors.request.use(
@@ -35,7 +33,6 @@ const useAxios = () => {
     }
   );
 
-
   // Add a response interceptor
   instance.interceptors.response.use(
     function (response) {
@@ -48,16 +45,16 @@ const useAxios = () => {
       // Do something with response error
       const isUnauthorized = [401].includes(error?.response?.status);
       if (isUnauthorized) {
-        dispatch(setToken(null))
-        dispatch(setLoggedIn(false))
-        router.push('/')
+        dispatch(setToken(null));
+        dispatch(setLoggedIn(false));
+        router.push("/");
       }
 
       return Promise.reject(error);
-    },
+    }
   );
 
-  return { axios: instance }
-}
+  return { axios: instance };
+};
 
-export default useAxios
+export default useAxios;

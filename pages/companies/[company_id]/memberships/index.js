@@ -1,8 +1,8 @@
-import React from 'react'
-import Table from "@/components/Table"
-import SamplePagination from "@/components/SamplePagination"
-import CompanyLayout from "@/components/layouts/CompanyLayout"
-import Link from "next/link"
+import React from "react";
+import Table from "@/components/Table";
+import SamplePagination from "@/components/SamplePagination";
+import CompanyLayout from "@/components/layouts/CompanyLayout";
+import Link from "next/link";
 
 export default function Memberships() {
   return (
@@ -28,7 +28,10 @@ export default function Memberships() {
                 <Table.Td className="font-semibold">Pago#123123</Table.Td>
                 <Table.Td>T-1231231231</Table.Td>
                 <Table.Td>
-                  <Link href="/payment-memberships/1" className="text-primary font-semibold hover:underline">
+                  <Link
+                    href="/payment-memberships/1"
+                    className="font-semibold text-primary hover:underline"
+                  >
                     Ver detalles
                   </Link>
                 </Table.Td>
@@ -39,5 +42,5 @@ export default function Memberships() {
         <SamplePagination />
       </div>
     </CompanyLayout>
-  )
+  );
 }

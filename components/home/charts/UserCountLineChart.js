@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,9 +8,9 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
-import faker from 'faker';
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+import faker from "faker";
 
 ChartJS.register(
   CategoryScale,
@@ -36,7 +36,7 @@ const options = {
         font: {
           size: 14,
           weight: 700,
-          color: 'black',
+          color: "black",
         },
       },
       grid: {
@@ -51,17 +51,30 @@ const options = {
   },
 };
 
-
-const labels = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC', 'ENE'];
+const labels = [
+  "ENE",
+  "FEB",
+  "MAR",
+  "ABR",
+  "MAY",
+  "JUN",
+  "JUL",
+  "AGO",
+  "SEP",
+  "OCT",
+  "NOV",
+  "DIC",
+  "ENE",
+];
 
 export const data = {
   labels,
   datasets: [
     {
-      label: 'Users',
+      label: "Users",
       data: labels.map(() => faker.datatype.number({ min: 0, max: 250 })),
-      borderColor: '#1555ED',
-      backgroundColor: labels.map(() => '#fff') ,
+      borderColor: "#1555ED",
+      backgroundColor: labels.map(() => "#fff"),
       pointRadius: 3,
       pointHoverRadius: 4,
       pointBorderWidth: 3,
@@ -74,7 +87,7 @@ const UserCountLineChart = () => {
     <div>
       <Line options={options} data={data} />
     </div>
-  )
-}
+  );
+};
 
-export default UserCountLineChart
+export default UserCountLineChart;
