@@ -22,7 +22,7 @@ const UserCard = ({ data }) => {
     },
     {
       key: "Fecha de creación",
-      value: format(new Date(data.userprofile.created_at), "dd/MM/yy"),
+      value: !!data?.userprofile?.created_at && format(new Date(data.userprofile.created_at), "dd/MM/yy"),
     },
     {
       key: "Tipo de Usuario",

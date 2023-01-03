@@ -84,8 +84,7 @@ const PaymentMembershipPage = () => {
             <div>
               <dd className="font-semibold">Fecha</dd>
               <dd>
-                {/* 23/09/2022 - 20:00hrs. */}
-                {format(new Date(data.date), "dd/MM/yyyy - p")}
+                {!!data.date && format(new Date(data.date), "dd/MM/yyyy - p")}
               </dd>
             </div>
             <div>
