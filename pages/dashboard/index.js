@@ -1,15 +1,10 @@
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 import Admin from "@/components/layouts/Admin"
-import { ChevronDownIcon } from "@heroicons/react/20/solid"
 import { DocumentTextIcon } from "@heroicons/react/24/outline"
 import SectionHeading from "@/components/SectionHeading"
 import TopCardsSection from "@/components/home/TopCardsSection"
 import UserCountLineChart from "@/components/home/charts/UserCountLineChart"
 import UserCountBarChart from "@/components/home/charts/UserCountBarChart"
-import classNames from "classnames"
-import { Menu, Transition } from "@headlessui/react"
-import useAxios from "@/hooks/useAxios"
-import { useQuery } from "react-query"
 import MonthSelector from "@/components/dashboard/MonthSelector"
 
 const Home = () => {
