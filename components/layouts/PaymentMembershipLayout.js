@@ -5,7 +5,7 @@ import UserCard from "@/components/layouts/user/UserCard"
 import { ChevronLeftIcon } from "@heroicons/react/20/solid"
 
 
-const PaymentMembershipLayout = ({ children, pageTitle = null, headerTitle = '' }) => {
+const PaymentMembershipLayout = ({ data = {}, children, pageTitle = null, headerTitle = '' }) => {
   return (
     <Admin pageTitle={pageTitle} headerTitle={headerTitle}>
       <section className="container-padding space-y-5">
@@ -14,7 +14,7 @@ const PaymentMembershipLayout = ({ children, pageTitle = null, headerTitle = '' 
           <span>Volver</span>
         </Link>
 
-        <h2 className="text-2xl font-medium">Orden #154875</h2>
+        <h2 className="text-2xl font-medium">Orden #{data.order_id}</h2>
       </section>
 
       <section className="mt-6 container-padding">
@@ -22,7 +22,7 @@ const PaymentMembershipLayout = ({ children, pageTitle = null, headerTitle = '' 
         <div className="2xl:flex gap-5">
 
           <div className="w-full 2xl:max-w-xs flex-shrink-0">
-            <UserCard />
+            <UserCard data={data} />
           </div>
 
           <div className="flex-grow mt-6 2xl:mt-0">
