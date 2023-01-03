@@ -4,13 +4,13 @@ import MembershipsCountCard from "./MembershipsCountCard"
 import RegisteredUsersCountCard from "./RegisteredUsersCountCard"
 import SmallAnalyticsCard from "./SmallAnalyticsCard"
 
-const TopCardsSection = () => {
+const TopCardsSection = ({ selectedMonth }) => {
   return (
     <div className="container-padding">
       <SectionHeading className="py-5">Métricas del mes</SectionHeading>
       <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4">
-        <RegisteredUsersCountCard />
-        <MembershipsCountCard />
+        <RegisteredUsersCountCard selectedMonth={selectedMonth} />
+        <MembershipsCountCard selectedMonth={selectedMonth} />
         <div className="flex flex-col gap-4">
           <SmallAnalyticsCard
             title="Escudos creados"

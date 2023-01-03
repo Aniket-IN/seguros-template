@@ -1,8 +1,25 @@
+import useAxios from "@/hooks/useAxios"
 import { ChevronRightIcon } from "@heroicons/react/20/solid"
 import Link from "next/link"
 import React from 'react'
+import { useQuery } from "react-query"
 
-const RegisteredUsersCountCard = () => {
+const RegisteredUsersCountCard = ({ selectedMonth }) => {
+
+  const { axios } = useAxios()
+
+  const fetchData = () => {
+    return axios.get('/api/dashboard/registered-users/', {
+      params: {
+        month: selectedMonth.value,
+      },
+    })
+  };
+
+  const { isLoading, data: response, isError, error } = useQuery(['registered-users-count', selectedMonth.value], fetchData, {
+    refetchOnWindowFocus: false
+  })
+
   const data = {
     total_users: 2750,
     last_month: 2500,
