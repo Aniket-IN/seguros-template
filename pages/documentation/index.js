@@ -2,13 +2,16 @@ import DocumentationLayout from "@/components/layouts/DocumentationLayout"
 import SectionHeading from "@/components/SectionHeading"
 import InputGroup from "@/components/utility/InputGroup"
 import { PencilIcon } from "@heroicons/react/24/solid"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Editor } from "@tinymce/tinymce-react";
 import useTinyMCE from "@/hooks/useTinyMCE"
 import TabSelector from "@/components/documentation/about/TabSelector"
+import useAxios from "@/hooks/useAxios"
+import { useQuery } from "react-query"
+import { format } from "date-fns"
+import { toast } from "react-hot-toast"
 
 export default function index() {
-
 
   const [tabName, setTabName] = useState('terms-and-conditions')
 
@@ -17,11 +20,13 @@ export default function index() {
       title: "Término y condiciones",
       value: 'terms-and-conditions',
       getUrl: '/api/about/termsandcondition',
+      submitUrl: '/api/about/termsandcondition/1',
     },
     {
       title: "Política de privacidad",
       value: 'privacy-policy',
-      getUrl: '/api/about/termsandcondition',
+      getUrl: '/api/about/datapolicy',
+      submitUrl: '/api/about/datapolicy/1',
     },
   ]
 
@@ -44,34 +49,86 @@ export default function index() {
 
 
 const TabSection = ({ tab }) => {
+  const { axios } = useAxios()
   const { config, apiKey } = useTinyMCE();
+  const [isEditing, setIsEditing] = useState(false)
+  const [isProcessing, setIsProcessing] = useState(false)
 
-  const handleEditorChange = (e) => {
-    console.log(e);
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+  })
+
+  const fetchData = () => {
+    return axios.get(tab.getUrl)
+  };
+
+  const { isLoading, data, isError, error } = useQuery([`documentation-tab-${tab.value}`], fetchData, {
+    refetchOnWindowFocus: false
+  })
+
+  useEffect(() => {
+    if (!isLoading && !isError) {
+      setFormData({
+        title: data?.data?.data?.title,
+        description: data?.data?.data?.description,
+      })
+    }
+  }, [isLoading])
+
+  const setData = (key, value) => {
+    setFormData((val) => ({
+      ...val,
+      [key]: value
+    }))
+  }
+  const onHandleChange = (e) => {
+    setData(e.target.name, e.target.value)
+  }
+
+
+  const submit = (e) => {
+    e.preventDefault()
+    setIsProcessing(true)
+    axios.put(tab.submitUrl, formData)
+      .then((response) => {
+        setIsEditing(false)
+        toast.success("Data updated successfully!")
+      })
+      .catch((error) => {
+        toast.error(error?.response?.data?.message ?? `Oops! Internal server error!`)
+      })
+      .then(() => {
+        setIsProcessing(false)
+      })
   }
 
   return (
-    <div className="flex-grow bg-white p-5 space-y-6">
+    <form onSubmit={submit} className="block flex-grow bg-white p-5 space-y-6">
       <div className="flex flex-col lg:flex-row justify-between lg:items-center gap-5">
         <SectionHeading>{tab.title}</SectionHeading>
         <div className="flex gap-4 text-sm">
-          <button className="bg-accent rounded px-4 py-2 font-medium inline-flex justify-center items-center gap-3">
+          <button onClick={() => setIsEditing(val => !val)} type="button" className="bg-accent rounded px-4 py-2 font-medium inline-flex justify-center items-center gap-3">
             <PencilIcon className="w-5 h-5" />
             <span>Editar</span>
           </button>
-          <button className="bg-black text-white rounded px-4 py-2 inline-flex justify-center items-center gap-3">
+          <button type="submit" className="bg-black text-white rounded px-4 py-2 inline-flex justify-center items-center gap-3">
             <span>Guardar</span>
           </button>
         </div>
       </div>
       <div className="flex gap-5 text-sm">
         <span className="font-semibold">Última Modificación</span>
-        <span>12/12/12</span>
+        <span>{!!data?.data?.data?.updated_at && format(new Date(data?.data?.data?.updated_at), 'dd/MM/yy')}</span>
       </div>
       <div className="max-w-md">
         <InputGroup.Label>Título</InputGroup.Label>
         <InputGroup>
           <InputGroup.Input
+            name="title"
+            disabled={(!isEditing || isProcessing)}
+            onChange={onHandleChange}
+            value={formData.title}
             type="text"
           />
         </InputGroup>
@@ -79,12 +136,13 @@ const TabSection = ({ tab }) => {
       <div aria-labelledby="WYSIWYG Editor">
         <InputGroup.Label>Descripción</InputGroup.Label>
         <Editor
+          disabled={!isEditing || isProcessing}
+          value={formData.description}
           apiKey={apiKey}
-          initialValue=""
           init={config.minimal}
-          onChange={handleEditorChange}
+          onEditorChange={(content) => setData('description', content)}
         />
       </div>
-    </div>
+    </form>
   )
 }

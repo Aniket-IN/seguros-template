@@ -26,8 +26,6 @@ export default function PaymentMemberships() {
     setFilterString(flatFilters.join('+'))
   }
 
-  console.log(filterString);
-
   const fullSearchString = search + (filterString ? ((search ? '+' : '') + filterString) : '')
   const fetchData = () => {
     return axios.get('/api/Membership/payments/', {
