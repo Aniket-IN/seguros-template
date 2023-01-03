@@ -27,6 +27,14 @@ const PaymentMembershipPage = () => {
 
   const data = response?.data?.data ?? {};
 
+  if (isLoading) {
+    return;
+  }
+
+  if (isError) {
+    return;
+  }
+
   return (
     <PaymentMembershipLayout
       data={data}
