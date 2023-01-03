@@ -3,7 +3,7 @@ import { createElement } from "react";
 import { ImSpinner2 } from "react-icons/im"
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline"
 
-const Table = ({ as = "table", wrapperClassName = '', className = "", isError = false, isLoading = false, error = null, dataCount = 0, ...props }) => {
+const Table = ({ as = "table", wrapperClassName = '', className = "", isError = false, isLoading = false, error = null, dataCount, ...props }) => {
   return (
     <>
       <div className={classNames("overflow-x-auto", wrapperClassName)}>
@@ -20,7 +20,6 @@ const Table = ({ as = "table", wrapperClassName = '', className = "", isError = 
       <Table.Error isError={isError} error={error ?? null} />
       {!isLoading && !isError && (dataCount < 1) && <Table.NoData />}
     </>
-
   )
 }
 
