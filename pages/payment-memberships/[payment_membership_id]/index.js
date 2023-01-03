@@ -1,8 +1,26 @@
 import PaymentMembershipLayout from "@/components/layouts/PaymentMembershipLayout"
 import Table from "@/components/Table"
+import useAxios from "@/hooks/useAxios"
+import { useRouter } from "next/router"
 import React from 'react'
+import { useQuery } from "react-query"
 
-const index = () => {
+const PaymentMembershipPage = () => {
+  const router = useRouter()
+  const { payment_membership_id } = router.query
+
+  console.log(payment_membership_id);
+
+  const { axios } = useAxios()
+
+  const fetchData = () => {
+    return axios.get(`/api/Membership/payments/${payment_membership_id}`)
+  };
+
+  const { isLoading, data, isError, error } = useQuery(['registered-users-count'], fetchData, {
+    refetchOnWindowFocus: false
+  })
+
   return (
     <PaymentMembershipLayout pageTitle="Pagos Membresías" headerTitle="Pagos Membresías">
       <div className="flex-col lg:flex-row flex gap-5">
@@ -76,4 +94,4 @@ const index = () => {
   )
 }
 
-export default index
+export default PaymentMembershipPage

@@ -1,15 +1,7 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import { ChevronDownIcon } from "@heroicons/react/20/solid"
-import { DocumentTextIcon } from "@heroicons/react/24/outline"
-import SectionHeading from "@/components/SectionHeading"
-import TopCardsSection from "@/components/home/TopCardsSection"
-import UserCountLineChart from "@/components/home/charts/UserCountLineChart"
-import UserCountBarChart from "@/components/home/charts/UserCountBarChart"
 import classNames from "classnames"
 import { Menu, Transition } from "@headlessui/react"
-import useAxios from "@/hooks/useAxios"
-import { useQuery } from "react-query"
-
 const MonthSelector = ({ selectedMonth, setSelectedMonth }) => {
   const months = [
     'enero',
@@ -25,20 +17,6 @@ const MonthSelector = ({ selectedMonth, setSelectedMonth }) => {
     'noviembre',
     'diciembre',
   ];
-
-
-  const { axios } = useAxios()
-
-  const fetchData = () => {
-    return axios.get('/api/dashboard/registered-users/', {
-      data: selectedMonth.value
-    })
-  };
-
-  const { isLoading, data, isError, error } = useQuery(['registered-users-count'], fetchData, {
-    refetchOnWindowFocus: false
-  })
-
 
   return (
     <Menu as="div" className="sm:w-auto sm:min-w-[150px] relative inline-block text-left">
