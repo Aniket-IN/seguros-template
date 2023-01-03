@@ -1,20 +1,10 @@
 import SectionHeading from "@/components/SectionHeading";
 import React from 'react'
 
-const TabSelector = ({ tab, setTab }) => {
-  const tabs = [
-    {
-      title: "Término y condiciones",
-      value: 'terms-and-conditions',
-    },
-    {
-      title: "Política de privacidad",
-      value: 'privacy-policy',
-    },
-  ]
+const TabSelector = ({ tabName, tabs, setTab }) => {
 
   const handleRadioChange = (e) => {
-    console.log(e);
+    setTab(e.target.value)
   }
 
   return (
@@ -30,7 +20,8 @@ const TabSelector = ({ tab, setTab }) => {
               <label className="cursor-pointer flex items-center justify-between px-5 py-5 bg-white text-secondary">
                 <span>{tab.title}</span>
                 <input
-                  defaultChecked
+                  checked={tabName === tab.value}
+                  value={tab.value}
                   name="account"
                   onChange={handleRadioChange}
                   type="radio"
