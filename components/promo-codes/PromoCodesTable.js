@@ -6,8 +6,6 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid"
 import PromoCodeFormModal from "./PromoCodeFormModal"
 import ConfirmationModal from "../utility/ConfirmationModal"
 import Badge from "../Badge"
-import { ImSpinner2 } from "react-icons/im"
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline"
 
 const PromoCodesTable = ({ promoCodes = [], isLoading, isError, error }) => {
   const headers = [
@@ -24,50 +22,17 @@ const PromoCodesTable = ({ promoCodes = [], isLoading, isError, error }) => {
 
   return (
     <div>
-      <Table>
+      <Table isLoading={isLoading} isError={isError} error={error}>
         <Table.Thead>
           <Table.Tr>
-            {headers.map((header) => (
-              <Table.Th key={header}>{header}</Table.Th>
-            ))}
+            {headers.map((header) => <Table.Th key={header}>{header}</Table.Th>)}
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>
-          {isLoading && (
-            <Table.Tr>
-              <Table.Td colSpan="9">
-                <div className="flex justify-center items-center min-h-[200px] ">
-                  <div className="text-center text-slate-500">
-                    <ImSpinner2 className="w-9 h-9 mx-auto animate-spin" />
-                    <p className="mt-5">
-                      &nbsp;&nbsp;&nbsp;Loading...
-                    </p>
-                  </div>
-                </div>
-              </Table.Td>
-            </Table.Tr>
-          )}
-
-          {isError && (
-            <Table.Tr>
-              <Table.Td colSpan="9">
-                <div className="flex justify-center items-center min-h-[200px] ">
-                  <div className="text-center text-red-500">
-                    <ExclamationTriangleIcon className="w-9 h-9 mx-auto" />
-                    <p className="mt-5">
-                      {error.message}
-                    </p>
-                  </div>
-                </div>
-              </Table.Td>
-            </Table.Tr>
-          )}
-
           {!isLoading && !isError && promoCodes?.map((promoCode) => <Row promoCode={promoCode} key={promoCode.id} />)}
         </Table.Tbody>
       </Table>
     </div>
-
   )
 }
 
@@ -103,8 +68,6 @@ const ActionBtn = () => {
 
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [deleteAlertOpen, setDeleteAlertOpen] = useState(false)
-
-  // const [data, setData] = useState()
 
   const edit = () => {
     setEditOpen(false)

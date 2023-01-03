@@ -16,10 +16,12 @@ export default function index() {
     {
       title: "Término y condiciones",
       value: 'terms-and-conditions',
+      getUrl: '/api/about/termsandcondition',
     },
     {
       title: "Política de privacidad",
       value: 'privacy-policy',
+      getUrl: '/api/about/termsandcondition',
     },
   ]
 

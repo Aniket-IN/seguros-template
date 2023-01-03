@@ -71,11 +71,6 @@ const TopBar = () => {
               },
             ]}
           />
-
-
-          {/* <div className="text-gray-900 text-sm text-right ml-auto">34 Usuarios</div> */}
-          {/* <CreateBtn /> */}
-
         </div>
       </div>
     </div>

@@ -1,17 +1,41 @@
-import React, { createElement, Fragment } from 'react'
+import React, { createElement, Fragment, useState } from 'react'
 import classNames from "classnames"
 import { Popover, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from "@heroicons/react/20/solid"
 import { FunnelIcon } from "@heroicons/react/24/outline"
 
 
-const FilterDropDownBtn = ({ className = '', groups = [], ...props }) => {
+const FilterDropDownBtn = ({ className = '', groups = [], filters = {}, setFilters = () => { }, onApply = () => { }, ...props }) => {
+
+  const handleChange = (e) => {
+    let filtersByKey = filters[e.target.name] ?? []
+
+    // Checked
+    if (e.target.checked) {
+      filtersByKey = [
+        ...filtersByKey,
+        e.target.value
+      ]
+    }
+
+    // Un-Checked
+    if (!e.target.checked) {
+      filtersByKey = filtersByKey.filter(item => item != e.target.value)
+    }
+
+    setFilters((vals) => ({
+      ...vals,
+      [e.target.name]: filtersByKey,
+    }))
+  }
 
   const resetFilters = ({ close }) => {
+    setFilters([])
     close()
   }
 
   const applyFilters = ({ close }) => {
+    onApply()
     close()
   }
 
@@ -19,9 +43,6 @@ const FilterDropDownBtn = ({ className = '', groups = [], ...props }) => {
     <>
       <Popover as="div" id="desktop-menu" className="relative inline-block text-left">
         <div>
-          {/* <Popover.Button>
-            {children}
-          </Popover.Button> */}
           {createElement(Popover.Button, {
             ...props,
             className: classNames("", className),
@@ -54,7 +75,9 @@ const FilterDropDownBtn = ({ className = '', groups = [], ...props }) => {
                           <input
                             id={`filter-${group.id}-${option.id}`}
                             name={option.name}
-                            defaultValue={option.value}
+                            onChange={handleChange}
+                            value={option.value}
+                            defaultChecked={filters[option.name]?.includes(option.value)}
                             type="checkbox"
                             className="h-4 w-4 border-gray-300 rounded text-primary focus:ring-primary"
                           />
