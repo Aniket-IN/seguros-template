@@ -10,11 +10,11 @@ import { toast } from "react-hot-toast"
 
 export default function PromoCodes() {
   const { axios } = useAxios()
-  const fetchPromoCodes = () => {
+  const fetchData = () => {
     return axios.get('/api/admin/promo-code/')
   };
 
-  const { isLoading, data, isError, error } = useQuery('promo-codes', fetchPromoCodes, {
+  const { isLoading, data, isError, error } = useQuery(['promo-codes'], fetchData, {
     refetchOnWindowFocus: false
   })
 

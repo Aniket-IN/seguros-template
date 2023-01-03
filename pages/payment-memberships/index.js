@@ -29,7 +29,7 @@ export default function PaymentMemberships() {
   console.log(filterString);
 
   const fullSearchString = search + (filterString ? ((search ? '+' : '') + filterString) : '')
-  const fetchPromoCodes = () => {
+  const fetchData = () => {
     return axios.get('/api/Membership/payments/', {
       params: {
         limit: perPage,
@@ -38,7 +38,7 @@ export default function PaymentMemberships() {
     })
   };
 
-  const { isLoading, data, isError, error } = useQuery(['promo-codes', fullSearchString], fetchPromoCodes, {
+  const { isLoading, data, isError, error } = useQuery(['payment-memberships', fullSearchString], fetchData, {
     refetchOnWindowFocus: false,
     cacheTime: 0,
   })

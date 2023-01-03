@@ -8,8 +8,14 @@ import UserCountLineChart from "@/components/home/charts/UserCountLineChart"
 import UserCountBarChart from "@/components/home/charts/UserCountBarChart"
 import classNames from "classnames"
 import { Menu, Transition } from "@headlessui/react"
+import useAxios from "@/hooks/useAxios"
+import { useQuery } from "react-query"
 
 const Home = () => {
+
+
+
+  const [selectedMonth, setSelectedMonth] = useState({ month: 'enero', value: 1 })
 
   const months = [
     'enero',
@@ -26,7 +32,20 @@ const Home = () => {
     'diciembre',
   ];
 
-  const [SelectedMonth, setSelectedMonth] = useState('febrero')
+
+  const { axios } = useAxios()
+
+  const fetchData = () => {
+    return axios.get('/api/dashboard/registered-users/', {
+      data: selectedMonth.value
+    })
+  };
+
+  const { isLoading, data, isError, error } = useQuery('registered-users-count', fetchData, {
+    refetchOnWindowFocus: false
+  })
+
+  console.log(data);
 
   return (
     <Admin pageTitle="Dashboard" headerTitle="Bienvenido, Lucas">
@@ -38,7 +57,7 @@ const Home = () => {
             <Menu as="div" className="sm:w-auto sm:min-w-[150px] relative inline-block text-left">
               <div>
                 <Menu.Button className="w-full capitalize gap-2 inline-flex justify-between items-center px-2 sm:px-4 py-2 border border-transparent text-sm leading-4 font-normal rounded-md focus:outline-none bg-white text-black ">
-                  {SelectedMonth}
+                  {selectedMonth.month}
                   <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
                 </Menu.Button>
               </div>
@@ -54,11 +73,11 @@ const Home = () => {
               >
                 <Menu.Items className="absolute origin-top-left left-0 lg:left-auto lg:origin-top-right lg:right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
-                    {months.map((month) => (
+                    {months.map((month, index) => (
                       <Menu.Item key={month}>
                         {({ active }) => (
                           <a
-                            onClick={() => setSelectedMonth(month)}
+                            onClick={() => setSelectedMonth({ month: month, value: index + 1 })}
                             href="#"
                             className={classNames(
                               active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
@@ -75,6 +94,7 @@ const Home = () => {
               </Transition>
             </Menu>
 
+            
 
             <button
               type="button"
