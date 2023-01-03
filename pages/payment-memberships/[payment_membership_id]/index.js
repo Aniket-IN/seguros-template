@@ -13,7 +13,9 @@ const PaymentMembershipPage = () => {
   const { axios } = useAxios();
 
   const fetchData = () => {
-    return axios.get(`/api/Membership/ship/${payment_membership_id}`);
+    if (router.isReady) {
+      return axios.get(`/api/Membership/ship/${payment_membership_id}`);
+    }
   };
 
   const {
