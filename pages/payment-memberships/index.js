@@ -48,7 +48,7 @@ export default function PaymentMemberships() {
   }, [isError])
 
   const count = data?.count
-  const memberships = data?.data.results ?? []
+  const memberships = data?.data.data ?? []
 
   return (
     <Admin pageTitle="Pagos Membresías" headerTitle="Pagos Membresías">
