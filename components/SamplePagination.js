@@ -47,7 +47,7 @@ const SamplePagination = () => {
             </a>
             <a
               href="#"
-              className="relative  inline-flex items-center bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50"
+              className="relative inline-flex items-center bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50"
             >
               2
             </a>

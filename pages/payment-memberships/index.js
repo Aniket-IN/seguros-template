@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Admin from "@/components/layouts/Admin";
 import SamplePagination from "@/components/SamplePagination";
 import PaymentMembershipsTable from "@/components/payment-memberships/PaymentMembershipsTable";
@@ -8,36 +8,24 @@ import { toast } from "react-hot-toast";
 import InputGroup from "@/components/utility/InputGroup";
 import FilterDropDownBtn from "@/components/utility/FilterDropDownBtn";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import Fuse from "fuse.js";
+import keyify from "@/helpers/keyify";
+import Pagination from "@/components/Pagination";
+
+const PageSize = 10
 
 export default function PaymentMemberships() {
   const { axios } = useAxios();
-  const [search, setSearch] = useState("");
-  const [filterString, setFilterString] = useState("");
   const [filters, setFilters] = useState({});
+  const [search, setSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const perPage = 10;
-
-  const onFiltersApply = () => {
-    let flatFilters = [];
-    Object.keys(filters).forEach(function (key, index) {
-      flatFilters = flatFilters.concat(filters[key]);
-    });
-    setFilterString(flatFilters.join("+"));
-  };
-
-  const fullSearchString =
-    search + (filterString ? (search ? "+" : "") + filterString : "");
   const fetchData = () => {
-    return axios.get("/api/Membership/payments/", {
-      params: {
-        limit: perPage,
-        search: fullSearchString,
-      },
-    });
+    return axios.get("/api/Membership/payments/");
   };
 
-  const { isLoading, data, isError, error } = useQuery(
-    ["payment-memberships", fullSearchString],
+  const { isLoading, data, isError, isSuccess, error } = useQuery(
+    ["payment-memberships"],
     fetchData,
     {
       refetchOnWindowFocus: false,
@@ -51,8 +39,21 @@ export default function PaymentMemberships() {
     }
   }, [isError]);
 
-  const count = data?.count;
-  const memberships = data?.data.results ?? [];
+
+
+  const allMemberships = data?.data;
+
+  const fuse = new Fuse(allMemberships ?? [], {
+    keys: keyify(allMemberships ? allMemberships[0] : {}),
+  });
+
+  const memberships = (search ? fuse.search(search).map(membership => membership.item) : allMemberships) ?? [];
+
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return memberships.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage]);
 
   return (
     <Admin pageTitle="Pagos Membresías" headerTitle="Pagos Membresías">
@@ -64,6 +65,8 @@ export default function PaymentMemberships() {
                 <MagnifyingGlassIcon className="aspect-square w-full" />
               </div>
               <InputGroup.Input
+                value={search}
+                onChange={e => setSearch(e.target.value)}
                 id="search"
                 type="search"
                 name="search"
@@ -77,7 +80,6 @@ export default function PaymentMemberships() {
             <FilterDropDownBtn.Primary
               filters={filters}
               setFilters={setFilters}
-              onApply={onFiltersApply}
               groups={[
                 {
                   id: 1,
@@ -134,7 +136,17 @@ export default function PaymentMemberships() {
           error={error}
           memberships={memberships}
         />
-        <SamplePagination />
+        {/* <SamplePagination /> */}
+        {isSuccess && (
+          <Pagination
+            totalCount={1000}
+            currentPage={currentPage}
+            pageSize={10}
+            onPageChange={(e) => { setCurrentPage(e); console.log(e) }}
+            siblingCount={1}
+          />
+        )}
+
       </div>
     </Admin>
   );
