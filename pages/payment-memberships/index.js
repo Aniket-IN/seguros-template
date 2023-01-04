@@ -12,7 +12,7 @@ import Fuse from "fuse.js";
 import keyify from "@/helpers/keyify";
 import Pagination from "@/components/Pagination";
 
-const PageSize = 10
+const PageSize = 1
 
 export default function PaymentMemberships() {
   const { axios } = useAxios();
@@ -53,7 +53,7 @@ export default function PaymentMemberships() {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
     return memberships.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage]);
+  }, [currentPage, isLoading, search]);
 
   return (
     <Admin pageTitle="Pagos Membresías" headerTitle="Pagos Membresías">
@@ -134,16 +134,16 @@ export default function PaymentMemberships() {
           isLoading={isLoading}
           isError={isError}
           error={error}
-          memberships={memberships}
+          memberships={currentTableData}
         />
-        {/* <SamplePagination /> */}
+
         {isSuccess && (
           <Pagination
-            totalCount={1000}
+            className="mt-3.5"
+            totalCount={memberships.length}
             currentPage={currentPage}
-            pageSize={10}
-            onPageChange={(e) => { setCurrentPage(e); console.log(e) }}
-            siblingCount={1}
+            pageSize={PageSize}
+            onPageChange={setCurrentPage}
           />
         )}
 

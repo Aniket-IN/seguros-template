@@ -6,6 +6,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 
 
 const PaginationItemClassNames = "relative inline-flex items-center bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50"
+const ActiveItemClassNames = "bg-primary !text-white hover:!bg-primary";
 
 const Pagination = props => {
   const {
@@ -29,7 +30,7 @@ const Pagination = props => {
   }
 
   const onNext = () => {
-    onPageChange(currentPage + 1);
+    onPageChange(Math.min(paginationRange.length, currentPage + 1));
   };
 
   const onPrevious = () => {
@@ -62,7 +63,7 @@ const Pagination = props => {
             return (
               <button
                 key={`${pageNumber}-${index}`}
-                className={classnames(PaginationItemClassNames, 'pagination-item', { selected: pageNumber === currentPage })}
+                className={classnames(PaginationItemClassNames, pageNumber === currentPage && ActiveItemClassNames)}
                 onClick={() => onPageChange(pageNumber)}
               >
                 {pageNumber}
