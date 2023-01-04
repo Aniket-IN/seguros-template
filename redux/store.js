@@ -8,9 +8,12 @@ import {
   PURGE,
   REGISTER,
   REHYDRATE,
+  persistStore
 } from "redux-persist";
+import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import { userReducer } from "./userSlice";
 import { pageReducer } from "./pageSlice";
+
 
 const persistConfig = {
   key: "redux-persist-root",
@@ -24,7 +27,7 @@ const reducer = combineReducers({
   page: pageReducer,
 });
 
-export default configureStore({
+const store = configureStore({
   reducer: persistReducer(persistConfig, reducer),
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -32,4 +35,13 @@ export default configureStore({
         ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
+});
+
+export default store
+
+
+setupListeners(store.dispatch);
+
+export const persistor = persistStore(store, {}, () => {
+  persistor.persist();
 });

@@ -3,12 +3,12 @@ import React from "react";
 import Footer from "./admin/Footer";
 import Header from "./admin/Header";
 import Sidebar from "./admin/Sidebar";
-import AppLayout from "./AppLayout";
+import DefaultLayout from "./DefaultLayout";
 
 const Admin = ({ children, pageTitle = null, headerTitle = "" }) => {
   const APP_NAME = "Seguros";
   return (
-    <AppLayout pageMode="protected">
+    <DefaultLayout pageMode="protected">
       <Head>
         <title>
           {pageTitle ? `${pageTitle} - ${APP_NAME}` : `${APP_NAME}`}
@@ -37,7 +37,7 @@ const Admin = ({ children, pageTitle = null, headerTitle = "" }) => {
           <Footer />
         </div>
       </div>
-    </AppLayout>
+    </DefaultLayout>
   );
 };
 
