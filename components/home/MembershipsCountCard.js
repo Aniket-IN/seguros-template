@@ -1,8 +1,74 @@
+import React from "react";
+import useAxios from "@/hooks/useAxios";
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
-import React from "react";
+import { useQuery } from "react-query";
 
-const MembershipsCountCard = () => {
+
+const MembershipsCountCard = ({ selectedMonth }) => {
+
+  const { axios } = useAxios();
+
+  const fetchData = ({ month, year }) => {
+    return axios.get("/api/dashboard/registered-users/", {
+      params: {
+        month,
+        year,
+      },
+    });
+  };
+
+  const now = new Date();
+
+  function padWithZero(num, targetLength) {
+    return String(num).padStart(targetLength, "0");
+  }
+
+  const selectedDate = new Date(
+    `${now.getFullYear()}-${padWithZero(
+      selectedMonth.value,
+      2
+    )}-15T14:10:28.570073Z`
+  );
+
+  const previousDate = new Date(
+    selectedDate.setMonth(selectedDate.getMonth() - 1)
+  );
+  const currentDate = new Date(
+    `${now.getFullYear()}-${padWithZero(
+      selectedMonth.value,
+      2
+    )}-15T14:10:28.570073Z`
+  );
+
+  const currentMonthQuery = useQuery(
+    [`memberships-count-this-month-${selectedMonth.value}`],
+    () =>
+      fetchData({
+        month: currentDate.getMonth() + 1,
+        year: currentDate.getFullYear(),
+      }),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  const prevMonthQuery = useQuery(
+    [`memberships-count-prev-month-${selectedMonth.value}`],
+    () =>
+      fetchData({
+        month: previousDate.getMonth() + 1,
+        year: previousDate.getFullYear(),
+      }),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  const currentMonthData = currentMonthQuery?.data?.data?.data ?? {};
+  const prevMonthData = prevMonthQuery?.data?.data?.data ?? {};
+
+
   const data = {
     items: [
       {

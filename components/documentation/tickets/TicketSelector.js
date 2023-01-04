@@ -8,7 +8,7 @@ const TicketSelector = ({ tickets, ticketId, setTicketId }) => {
         <span className="font-semibold">Asunto</span>
         <span className="font-semibold">Contenido</span>
       </div>
-      <ul className="max-h-[750px] space-y-1 overflow-auto">
+      <ul className="max-h-[750px] space-y-1 overflow-auto no-scrollbar">
         {tickets.map((ticket) => (
           <li key={ticket.id}>
             <label className="flex cursor-pointer items-center justify-between bg-white px-5 py-5 text-secondary">

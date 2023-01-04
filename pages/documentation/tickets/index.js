@@ -19,7 +19,7 @@ export default function index() {
     return axios.get("/api/ticket/alltickets/");
   };
 
-  const { isSuccess, isLoading, data: response, isError, error } = useQuery(
+  const { isSuccess, isLoading, data: response, isError, error, refetch } = useQuery(
     ["documentation-tickets"],
     fetchData,
     {
@@ -45,7 +45,7 @@ export default function index() {
         <div className="w-full space-y-5 bg-white p-5 xl:max-w-md">
           <div className="flex justify-between">
             <SectionHeading>Ayuda</SectionHeading>
-            <CreateSubjectModalBtn className="rounded bg-black px-4 py-1.5 text-sm text-white">
+            <CreateSubjectModalBtn refetch={refetch} className="rounded bg-black px-4 py-1.5 text-sm text-white">
               + Crear Asunto
             </CreateSubjectModalBtn>
           </div>
@@ -56,8 +56,8 @@ export default function index() {
           />
         </div>
 
-        <div className="flex-grow space-y-6 bg-white p-5">
-          {tickets.map((ticket) => ticket.id == ticketId ? <TicketEditForm key={ticket.id} ticketId={ticket.id} /> : null)}
+        <div className="flex-grow p-5 bg-white">
+          {tickets.map((ticket) => ticket.id == ticketId ? <TicketEditForm refetch={refetch} key={ticket.id} ticketId={ticket.id} /> : null)}
         </div>
       </div>
     </DocumentationLayout>
