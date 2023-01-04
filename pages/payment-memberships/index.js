@@ -66,7 +66,7 @@ export default function PaymentMemberships() {
               </div>
               <InputGroup.Input
                 value={search}
-                onChange={e => setSearch(e.target.value)}
+                onChange={e => { setSearch(e.target.value); setCurrentPage(1) }}
                 id="search"
                 type="search"
                 name="search"
