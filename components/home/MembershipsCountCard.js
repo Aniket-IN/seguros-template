@@ -10,7 +10,7 @@ const MembershipsCountCard = ({ selectedMonth }) => {
   const { axios } = useAxios();
 
   const fetchData = ({ month, year }) => {
-    return axios.get("/api/dashboard/registered-users/", {
+    return axios.get("/api/dashboard/purchased-memberships-according-months/", {
       params: {
         month,
         year,
@@ -68,33 +68,34 @@ const MembershipsCountCard = ({ selectedMonth }) => {
   const currentMonthData = currentMonthQuery?.data?.data?.data ?? {};
   const prevMonthData = prevMonthQuery?.data?.data?.data ?? {};
 
+  // console.log(currentMonthData);
+  console.log(prevMonthData);
 
   const data = {
     items: [
       {
         id: 1,
         title: "Gratuito",
-        count: 100,
-        this_month_count: 100,
-        last_month_count: 100,
+        this_month_count: currentMonthData.level_1 ?? 0,
+        last_month_count: prevMonthData.level_1 ?? 0,
       },
       {
         id: 2,
         title: "Básico",
-        this_month_count: 100,
-        last_month_count: 100,
+        this_month_count: currentMonthData.level_1 ?? 0,
+        last_month_count: prevMonthData.level_1 ?? 0,
       },
       {
         id: 3,
         title: "Profesional",
-        this_month_count: 100,
-        last_month_count: 100,
+        this_month_count: currentMonthData.level_1 ?? 0,
+        last_month_count: prevMonthData.level_1 ?? 0,
       },
       {
         id: 4,
         title: "Empresarial",
-        this_month_count: 100,
-        last_month_count: 100,
+        this_month_count: currentMonthData.level_1 ?? 0,
+        last_month_count: prevMonthData.level_1 ?? 0,
       },
     ],
   };
