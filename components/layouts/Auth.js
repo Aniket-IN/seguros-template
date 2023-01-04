@@ -1,11 +1,11 @@
 import Head from "next/head";
 import React from "react";
-import DefaultLayout from "./DefaultLayout";
+import AppLayout from "./AppLayout";
 
 const Auth = ({ children, pageTitle = null, pageMode = "guest" }) => {
   const APP_NAME = "Seguros";
   return (
-    <DefaultLayout pageMode={pageMode}>
+    <AppLayout pageMode={pageMode}>
       <Head>
         <title>
           {pageTitle ? `${pageTitle} - ${APP_NAME}` : `${APP_NAME}`}
@@ -16,7 +16,7 @@ const Auth = ({ children, pageTitle = null, pageMode = "guest" }) => {
       <div className="flex h-screen items-center justify-center overflow-hidden bg-neutral font-inter">
         {children}
       </div>
-    </DefaultLayout>
+    </AppLayout>
   );
 };
 

@@ -13,9 +13,7 @@ const PaymentMembershipPage = () => {
   const { axios } = useAxios();
 
   const fetchData = () => {
-    if (router.isReady) {
-      return axios.get(`/api/Membership/ship/${payment_membership_id}`);
-    }
+    return axios.get(`/api/Membership/ship/${payment_membership_id}`);
   };
 
   const {
@@ -29,16 +27,10 @@ const PaymentMembershipPage = () => {
 
   const data = response?.data?.data ?? {};
 
-  if (isLoading) {
-    return;
-  }
-
-  if (isError) {
-    return;
-  }
-
   return (
     <PaymentMembershipLayout
+      isLoading={isLoading}
+      isError={isError}
       data={data}
       pageTitle="Pagos Membresías"
       headerTitle="Pagos Membresías"
