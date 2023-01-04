@@ -9,6 +9,8 @@ const PaymentMembershipLayout = ({
   children,
   pageTitle = null,
   headerTitle = "",
+  isLoading,
+  isError
 }) => {
   return (
     <Admin pageTitle={pageTitle} headerTitle={headerTitle}>
@@ -27,7 +29,13 @@ const PaymentMembershipLayout = ({
       <section className="container-padding mt-6">
         <div className="gap-5 2xl:flex">
           <div className="w-full flex-shrink-0 2xl:max-w-xs">
-            <UserCard data={data} />
+            {!isLoading && !isError && (
+              <UserCard
+                isLoading={isLoading}
+                isError={isError}
+                data={data}
+              />
+            )}
           </div>
 
           <div className="mt-6 flex-grow 2xl:mt-0">

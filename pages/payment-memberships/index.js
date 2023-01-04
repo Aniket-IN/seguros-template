@@ -15,7 +15,7 @@ export default function PaymentMemberships() {
   const [filterString, setFilterString] = useState("");
   const [filters, setFilters] = useState({});
 
-  const perPage = 1;
+  const perPage = 10;
 
   const onFiltersApply = () => {
     let flatFilters = [];
@@ -52,7 +52,7 @@ export default function PaymentMemberships() {
   }, [isError]);
 
   const count = data?.count;
-  const memberships = data?.data.data ?? [];
+  const memberships = data?.data.results ?? [];
 
   return (
     <Admin pageTitle="Pagos Membresías" headerTitle="Pagos Membresías">

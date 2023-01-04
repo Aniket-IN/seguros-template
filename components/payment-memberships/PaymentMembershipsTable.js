@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import Table from "../Table";
 import Link from "next/link";
 import { format } from "date-fns";
+import classNames from "classnames";
 
 const PaymentMembershipsTable = ({
   memberships = [],
@@ -53,7 +54,7 @@ const Row = ({ membership }) => {
       <Table.Td>{membership.membership}</Table.Td>
       <Table.Td>$ {membership.total_amount}</Table.Td>
       <Table.Td>{membership.userprofile.id}</Table.Td>
-      <Table.Td className="font-semibold text-success">
+      <Table.Td className={classNames("font-semibold", membership.conditions == 'Effected' && "text-success", membership.conditions == 'Failed' && 'text-danger')}>
         {membership.conditions}
       </Table.Td>
       <Table.Td className="font-semibold">
