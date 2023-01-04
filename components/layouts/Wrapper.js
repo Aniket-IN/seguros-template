@@ -6,9 +6,7 @@ const queryClient = new QueryClient();
 const Wrapper = ({ children }) => {
   return (
     <ReduxWrapper>
-      <QueryClientProvider client={queryClient}>
-        {children}
-      </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </ReduxWrapper>
   );
 };

@@ -18,11 +18,13 @@ const PaymentMembershipPage = () => {
 
   const {
     isLoading,
+    isSuccess,
     data: response,
     isError,
     error,
   } = useQuery([`payment-membersip-${payment_membership_id}`], fetchData, {
     refetchOnWindowFocus: false,
+    enabled: !!payment_membership_id,
   });
 
   const data = response?.data?.data ?? {};
@@ -31,6 +33,7 @@ const PaymentMembershipPage = () => {
     <PaymentMembershipLayout
       isLoading={isLoading}
       isError={isError}
+      isSuccess={isSuccess}
       data={data}
       pageTitle="Pagos Membresías"
       headerTitle="Pagos Membresías"

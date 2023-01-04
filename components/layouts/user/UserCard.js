@@ -2,7 +2,7 @@ import ProfilePicture from "@/components/ProfilePicture";
 import { format } from "date-fns";
 import React from "react";
 
-const UserCard = ({ data }) => {
+const UserCard = ({ data, isSuccess }) => {
   const items = [
     {
       key: "ID Usuario",
