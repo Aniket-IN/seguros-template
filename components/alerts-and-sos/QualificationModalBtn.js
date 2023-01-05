@@ -1,9 +1,10 @@
 import Modal from "@/components/utility/Modal";
 import { StarIcon } from "@heroicons/react/20/solid";
 import classNames from "classnames";
+import { format } from "date-fns";
 import React, { createElement, useState } from "react";
 
-const QualificationModalBtn = ({ as = "button", className = "", ...props }) => {
+const QualificationModalBtn = ({ as = "button", alert = {}, className = "", ...props }) => {
   const [open, setOpen] = useState(false);
 
   const close = () => {
@@ -29,16 +30,16 @@ const QualificationModalBtn = ({ as = "button", className = "", ...props }) => {
                   <dd>
                     <StarIcon className="h-5 w-5 text-warning" />
                   </dd>
-                  <dd className="font-semibold">4</dd>
+                  <dd className="font-semibold">{alert.rating}</dd>
                 </dl>
                 <p>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                  aliquyam erat.
+                  {alert.rating_description}
                 </p>
                 <div className="flex items-center justify-between text-secondary">
-                  <span>Juan Jesús Ledesma</span>
-                  <span>25/05/22, 12:00 Hrs</span>
+                  <span>{alert.userprofile.full_name}</span>
+                  <span>
+                    {format(new Date(alert.userprofile.updated_at), 'dd/MM/yy, p')}
+                  </span>
                 </div>
               </div>
             </div>

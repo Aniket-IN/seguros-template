@@ -9,9 +9,13 @@ import QualificationModalBtn from "./QualificationModalBtn";
 import { Popover, Transition } from "@headlessui/react";
 import ConfirmationModal from "../utility/ConfirmationModal";
 
-const AlertsSOSTable = () => {
+const AlertsSOSTable = ({ alerts = [], isLoading, isSuccess, isError, error, sort, setSort }) => {
   return (
-    <Table>
+    <Table
+      dataCount={alerts.length}
+      isLoading={isLoading}
+      isError={isError}
+      error={error}>
       <Table.Thead>
         <Table.Tr>
           <Table.Th>ID Alerta</Table.Th>
@@ -26,89 +30,94 @@ const AlertsSOSTable = () => {
         </Table.Tr>
       </Table.Thead>
       <Table.Tbody>
-        {[...Array(20)].map((user, index) => {
-          return (
-            <Fragment key={index}>
-              <Table.Tr>
-                <Table.Td>
-                  {index == 0 ? (
-                    <div>
-                      <dd className="font-semibold text-danger">SOS</dd>
-                      <dd>SOS#1231231</dd>
-                    </div>
-                  ) : (
-                    <div>
-                      <dd className="font-semibold">Alerta - Policial</dd>
-                      <dd>Alerta#1231231</dd>
-                    </div>
-                  )}
-                </Table.Td>
-                <Table.Td>
-                  <dd>Juan Jesús Alvarez</dd>
-                  <dd>U54872256</dd>
-                </Table.Td>
-                <Table.Td>-12.091307, -77.042053</Table.Td>
-                <Table.Td>
-                  <dd>25/05/22</dd>
-                  <dd>12:00 Hrs</dd>
-                </Table.Td>
-                <Table.Td>
-                  {!!(index == 0) && (
-                    <StatusToggleBtn
-                      className="bg-danger text-danger"
-                      text="Pendiente"
-                    />
-                  )}
-                  {!!(index == 1) && (
-                    <StatusToggleBtn
-                      className="bg-warning text-warning"
-                      text="Ayuda enviada"
-                    />
-                  )}
-                  {![0, 1].includes(index) && (
-                    <StatusToggleBtn
-                      className="bg-primary text-primary"
-                      text="Resuelto"
-                    />
-                  )}
-                </Table.Td>
-                <Table.Td className="font-semibold">
-                  <EvidenceModalBtn className="hover:text-primary hover:underline">
-                    Evidencia#123123
-                  </EvidenceModalBtn>
-                </Table.Td>
-                <Table.Td className="font-semibold">
-                  <CommentsModalBtn className="hover:text-primary hover:underline">
-                    Ver comentarios
-                  </CommentsModalBtn>
-                </Table.Td>
-                <Table.Td className="font-semibold">
-                  <ModificationHistoryModalBtn className="hover:text-primary">
-                    Ver historial
-                  </ModificationHistoryModalBtn>
-                </Table.Td>
-                <Table.Td className="font-semibold">
-                  <QualificationModalBtn className="group flex items-center gap-2 hover:text-primary hover:underline">
-                    <StarIcon className="h-6 w-6 text-warning group-hover:text-primary" />
-                    <span>4</span>
-                  </QualificationModalBtn>
-                </Table.Td>
-              </Table.Tr>
-            </Fragment>
-          );
-        })}
+        {isSuccess && alerts?.map((alert, index) => <Row alert={alert} key={alert.id} />)}
       </Table.Tbody>
     </Table>
   );
 };
 
+const Row = ({ alert }) => {
+  const type = alert?.category?.startsWith('alert') ? 'alert' : 'sos'
+
+  return (
+    <Table.Tr>
+      <Table.Td>
+        {!!(type == 'alert') && (
+          <div>
+            <dd className="font-semibold capitalize">{alert.category}</dd>
+            <dd>Alert#{alert.id}</dd>
+          </div>
+        )}
+
+        {!!(type == 'sos') && (
+          <div>
+            <dd className="font-semibold text-danger">SOS</dd>
+            <dd>SOS#{alert.id}</dd>
+          </div>
+        )}
+      </Table.Td >
+      <Table.Td>
+        <dd className="capitalize">{alert.userprofile.full_name}</dd>
+        <dd>{alert.userprofile.id}</dd>
+      </Table.Td>
+      <Table.Td>{alert.userprofile.lat}, {alert.userprofile.long}</Table.Td>
+      <Table.Td>
+        <dd>{alert.alert_date}</dd>
+        <dd>{alert.alert_time}</dd>
+      </Table.Td>
+      <Table.Td>
+        <StatusToggleBtn
+          status={alert.status}
+          text="Pendiente"
+        />
+      </Table.Td>
+      <Table.Td className="font-semibold">
+        <EvidenceModalBtn alert={alert} className="hover:text-primary hover:underline">
+          Evidencia#{alert.evidence_number}
+        </EvidenceModalBtn>
+      </Table.Td>
+      <Table.Td className="font-semibold">
+        <CommentsModalBtn alert={alert} className="hover:text-primary hover:underline">
+          Ver comentarios
+        </CommentsModalBtn>
+      </Table.Td>
+      <Table.Td className="font-semibold">
+        <ModificationHistoryModalBtn alert={alert} className="hover:text-primary">
+          Ver historial
+        </ModificationHistoryModalBtn>
+      </Table.Td>
+      <Table.Td className="font-semibold">
+        <QualificationModalBtn alert={alert} className="group flex items-center gap-2 hover:text-primary hover:underline">
+          <StarIcon className="h-6 w-6 text-warning group-hover:text-primary" />
+          <span>{alert.rating}</span>
+        </QualificationModalBtn>
+      </Table.Td>
+    </Table.Tr >
+  )
+}
+
 const StatusToggleBtn = ({
   as = "button",
   className = "",
-  text = "",
+  status,
   ...props
 }) => {
   const [open, setOpen] = useState(false);
+
+  const statusesMapping = {
+    "resolve": {
+      text: "Resuelto",
+      className: "text-primary bg-primary",
+    },
+    "help sent": {
+      text: "Ayuda enviada",
+      className: "text-warning bg-warning",
+    },
+    "earning": {
+      text: "Pendiente",
+      className: "text-danger bg-danger",
+    },
+  }
 
   const initChangeStatus = ({ close }) => {
     setOpen(true);
@@ -146,6 +155,7 @@ const StatusToggleBtn = ({
           as: as,
           className: classNames(
             className,
+            statusesMapping[status]?.className,
             "inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-opacity-20"
           ),
           children: (
@@ -157,7 +167,7 @@ const StatusToggleBtn = ({
               >
                 <circle cx={5} cy={4} r={3} />
               </svg>
-              {text}
+              {statusesMapping[status]?.text ?? status}
             </>
           ),
         })}
