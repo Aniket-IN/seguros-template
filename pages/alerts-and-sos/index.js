@@ -45,6 +45,8 @@ export default function AlertsAndSOS() {
                 <MagnifyingGlassIcon className="aspect-square w-full" />
               </div>
               <InputGroup.Input
+                value={search}
+                onChange={e => { setSearch(e.target.value); resetPage() }}
                 id="search"
                 type="search"
                 name="search"
@@ -56,6 +58,9 @@ export default function AlertsAndSOS() {
 
           <div className="flex flex-grow items-center gap-3">
             <FilterDropDownBtn.Primary
+              filters={tempFilters}
+              setFilters={setTempFilters}
+              onApply={applyFilters}
               groups={[
                 {
                   id: 1,
@@ -64,12 +69,20 @@ export default function AlertsAndSOS() {
                     {
                       id: 1,
                       label: "SOS",
-                      value: 1,
+                      name: "category",
+                      value: "sos",
                     },
                     {
                       id: 2,
                       label: "Alert",
-                      value: 2,
+                      name: "category",
+                      value: "alert-police",
+                    },
+                    {
+                      id: 3,
+                      label: "Alert - Police",
+                      name: "category",
+                      value: "alert",
                     },
                   ],
                 },
@@ -80,17 +93,20 @@ export default function AlertsAndSOS() {
                     {
                       id: 1,
                       label: "Pendent",
-                      value: "Pendent",
+                      name: "status",
+                      value: "earning",
                     },
                     {
                       id: 2,
                       label: "Help sent",
-                      value: "Help sent",
+                      name: "status",
+                      value: "help sent",
                     },
                     {
-                      id: 2,
+                      id: 3,
                       label: "Solved",
-                      value: "Solved",
+                      name: "status",
+                      value: "resolve",
                     },
                   ],
                 },

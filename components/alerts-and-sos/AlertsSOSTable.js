@@ -18,15 +18,15 @@ const AlertsSOSTable = ({ alerts = [], isLoading, isSuccess, isError, error, sor
       error={error}>
       <Table.Thead>
         <Table.Tr>
-          <Table.Th>ID Alerta</Table.Th>
+          <Table.Th sortable sort={sort} setSort={setSort} name="id">ID Alerta</Table.Th>
           <Table.Th>Usuario</Table.Th>
           <Table.Th>Ubicación</Table.Th>
-          <Table.Th>Horario</Table.Th>
+          <Table.Th sortable sort={sort} setSort={setSort} name="alert_date">Horario</Table.Th>
           <Table.Th>Estado</Table.Th>
           <Table.Th>Evidencia</Table.Th>
           <Table.Th>Comentario</Table.Th>
           <Table.Th>Historial modif.</Table.Th>
-          <Table.Th>Calificación</Table.Th>
+          <Table.Th sortable sort={sort} setSort={setSort} name="rating">Calificación</Table.Th>
         </Table.Tr>
       </Table.Thead>
       <Table.Tbody>
