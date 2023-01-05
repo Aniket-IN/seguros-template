@@ -5,7 +5,7 @@ import PromoCodeFormModal from "./PromoCodeFormModal";
 import ConfirmationModal from "../utility/ConfirmationModal";
 import FilterDropDownBtn from "../utility/FilterDropDownBtn";
 
-const TopBar = () => {
+const TopBar = ({ search, setSearch, tempFilters, setTempFilters, applyFilters, resetPage }) => {
   return (
     <div className="bg-neutral">
       <div className="container-padding items-center gap-3 space-y-2 py-2.5 lg:flex lg:space-y-0">
@@ -15,6 +15,8 @@ const TopBar = () => {
               <MagnifyingGlassIcon className="aspect-square w-full" />
             </div>
             <InputGroup.Input
+              value={search}
+              onChange={e => { setSearch(e.target.value); resetPage() }}
               id="search"
               type="search"
               name="search"
@@ -26,6 +28,9 @@ const TopBar = () => {
 
         <div className="flex flex-grow items-center gap-3">
           <FilterDropDownBtn.Primary
+            onApply={applyFilters}
+            filters={tempFilters}
+            setFilters={setTempFilters}
             groups={[
               {
                 id: 1,

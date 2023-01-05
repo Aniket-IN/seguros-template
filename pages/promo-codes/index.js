@@ -1,46 +1,67 @@
-import React, { useEffect } from "react";
-import Admin from "@/components/layouts/Admin";
-import SamplePagination from "@/components/SamplePagination";
-import TopBar from "@/components/promo-codes/TopBar";
 import PromoCodesTable from "@/components/promo-codes/PromoCodesTable";
-import { useQuery } from "react-query";
-import useAxios from "@/hooks/useAxios";
-import { toast } from "react-hot-toast";
+import TopBar from "@/components/promo-codes/TopBar";
+import useTableData from "@/hooks/useTableData";
+import Admin from "@/components/layouts/Admin";
+import Pagination from "@/components/Pagination";
+
+
+const pageSize = 4;
 
 export default function PromoCodes() {
-  const { axios } = useAxios();
-  const fetchData = () => {
-    return axios.get("/api/admin/promo-code/");
-  };
 
-  const { isLoading, data, isError, error } = useQuery(
-    ["promo-codes"],
-    fetchData,
-    {
-      refetchOnWindowFocus: false,
-    }
-  );
-
-  useEffect(() => {
-    if (isError) {
-      toast.error(error.message);
-    }
-  }, [isError]);
-
-  const promoCodes = data?.data ?? [];
+  const {
+    search,
+    setSearch,
+    currentTableData,
+    tempFilters,
+    setTempFilters,
+    applyFilters,
+    isLoading,
+    isError,
+    error,
+    sort,
+    setSort,
+    allData,
+    currentPage,
+    setCurrentPage,
+    isSuccess,
+    resetPage
+  } = useTableData({
+    dataUrl: "/api/admin/promo-code/",
+    pageSize: pageSize,
+    queryKeys: ["promo-codes-table-data"]
+  })
 
   return (
     <Admin pageTitle="Códigos de Promo" headerTitle="Códigos de Promo">
-      <TopBar />
+      <TopBar
+        search={search}
+        setSearch={setSearch}
+        tempFilters={tempFilters}
+        setTempFilters={setTempFilters}
+        applyFilters={applyFilters}
+        resetPage={resetPage}
+      />
 
       <div className="container-padding">
         <PromoCodesTable
-          promoCodes={promoCodes}
+          promoCodes={currentTableData}
           isLoading={isLoading}
           isError={isError}
           error={error}
+          sort={sort}
+          setSort={setSort}
         />
-        <SamplePagination />
+        {/* <SamplePagination /> */}
+        {isSuccess && (
+          <Pagination
+            className="mt-3.5"
+            totalCount={allData.length}
+            currentPage={currentPage}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+          />
+        )}
       </div>
     </Admin>
   );

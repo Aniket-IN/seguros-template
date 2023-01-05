@@ -7,19 +7,7 @@ import PromoCodeFormModal from "./PromoCodeFormModal";
 import ConfirmationModal from "../utility/ConfirmationModal";
 import Badge from "../Badge";
 
-const PromoCodesTable = ({ promoCodes = [], isLoading, isError, error }) => {
-  const headers = [
-    "ID de código",
-    "Código de promo",
-    "Duración",
-    "Membresia",
-    "% de descuento",
-    "Stock total",
-    "Etiqueta",
-    "Estado",
-    "Acción",
-  ];
-
+const PromoCodesTable = ({ promoCodes = [], isLoading, isError, error, sort, setSort }) => {
   return (
     <div>
       <Table
@@ -30,9 +18,15 @@ const PromoCodesTable = ({ promoCodes = [], isLoading, isError, error }) => {
       >
         <Table.Thead>
           <Table.Tr>
-            {headers.map((header) => (
-              <Table.Th key={header}>{header}</Table.Th>
-            ))}
+            <Table.Th sort={sort} setSort={setSort} sortable={true} name="code_id">ID de código</Table.Th>
+            <Table.Th sort={sort} setSort={setSort} sortable={true} name="promo_code">Código de promo</Table.Th>
+            <Table.Th sort={sort} setSort={setSort} sortable={true} name="start_duration">Duración</Table.Th>
+            <Table.Th sort={sort} setSort={setSort} sortable={true} name="membership">Membresia</Table.Th>
+            <Table.Th sort={sort} setSort={setSort} sortable={true} name="discount">% de descuento</Table.Th>
+            <Table.Th sort={sort} setSort={setSort} sortable={true} name="stocks">Stock total</Table.Th>
+            <Table.Th sort={sort} setSort={setSort} sortable={true} name="Etiquette">Etiqueta</Table.Th>
+            <Table.Th sort={sort} setSort={setSort} sortable={true} name="state">Estado</Table.Th>
+            <Table.Th>Acción</Table.Th>
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>

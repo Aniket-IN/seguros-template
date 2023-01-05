@@ -1,4 +1,4 @@
-import React, { createElement, Fragment, useState } from "react";
+import React, { createElement, Fragment, useEffect, useState } from "react";
 import classNames from "classnames";
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
@@ -8,10 +8,21 @@ const FilterDropDownBtn = ({
   className = "",
   groups = [],
   filters = {},
-  setFilters = () => {},
-  onApply = () => {},
+  setFilters = () => { },
+  onApply = () => { },
   ...props
 }) => {
+
+  const [resetFilters, setResetFilters] = useState(false)
+
+  useEffect(() => {
+    if (resetFilters) {
+      onApply()
+      setResetFilters(false)
+    }
+  }, [resetFilters])
+
+
   const handleChange = (e) => {
     let filtersByKey = filters[e.target.name] ?? [];
 
@@ -31,8 +42,9 @@ const FilterDropDownBtn = ({
     }));
   };
 
-  const resetFilters = ({ close }) => {
-    setFilters([]);
+  const clearFilters = ({ close }) => {
+    setFilters({});
+    setResetFilters(true)
     close();
   };
 
@@ -106,7 +118,7 @@ const FilterDropDownBtn = ({
                   <div className="flex w-full justify-between rounded-b-md bg-gray-50  py-2 px-3">
                     <button
                       onClick={() => {
-                        resetFilters({ close });
+                        clearFilters({ close });
                       }}
                       className="rounded border border-gray-200 bg-white py-0.5 px-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-600"
                     >
