@@ -1,96 +1,37 @@
 import PaymentMembershipsTable from "@/components/payment-memberships/PaymentMembershipsTable";
 import FilterDropDownBtn from "@/components/utility/FilterDropDownBtn";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import React, { useEffect, useMemo, useState } from "react";
 import InputGroup from "@/components/utility/InputGroup";
 import Pagination from "@/components/Pagination";
 import Admin from "@/components/layouts/Admin";
-import useAxios from "@/hooks/useAxios";
-import { useQuery } from "react-query";
-import { toast } from "react-hot-toast";
-import keyify from "@/helpers/keyify";
-import { orderBy } from "lodash";
-import Fuse from "fuse.js";
+import useTableData from "@/hooks/useTableData";
 
-const PageSize = 1
+const pageSize = 1
 
 export default function PaymentMemberships() {
-  const { axios } = useAxios();
-  const [tempFilters, setTempFilters] = useState({});
-  const [filters, setFilters] = useState({});
-  const [search, setSearch] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [sort, setSort] = useState({ field: 'order_id', direction: 'desc' });
 
-  const fetchData = () => {
-    return axios.get("/api/Membership/payments/");
-  };
-
-  const { isLoading, data, isError, isSuccess, error } = useQuery(
-    ["payment-memberships"],
-    fetchData,
-    {
-      refetchOnWindowFocus: false,
-      cacheTime: 0,
-    }
-  );
-
-  useEffect(() => {
-    if (isError) {
-      toast.error(error.message);
-    }
-  }, [isError]);
-
-  const allMembershipsUnsorted = useMemo(() => {
-    setCurrentPage(1)
-    let items = data?.data ?? [];
-    items = items.filter((item) => {
-      let passingFilters = []
-      Object.entries(filters).forEach(([filterKey, filter]) => {
-        if (filter.length > 0) {
-          if (item[filterKey] && filter.map(fltr => fltr.toLowerCase().replace(/_/g, "").replace(/ +/g, '')).includes(item[filterKey].toLowerCase().replace(/_/g, "").replace(/ +/g, ''))) {
-            passingFilters.push(filterKey)
-          }
-        } else {
-          passingFilters.push(filterKey)
-        }
-      });
-
-      return passingFilters.length == Object.keys(filters).length
-    })
-    return items;
-  }, [data?.data, filters])
-
-  const allMemberships = useMemo(() => {
-    let sortedProducts = [...allMembershipsUnsorted];
-    const fieldsNames = Object.keys(allMembershipsUnsorted[0] ?? {});
-
-    if (fieldsNames.length > 0 && fieldsNames.includes(sort.field)) {
-      sortedProducts = orderBy(sortedProducts, sort.field, sort.direction);
-    }
-
-    return sortedProducts;
-  }, [sort, allMembershipsUnsorted]);
-
-  const fuse = useMemo(() => {
-    return new Fuse(allMemberships, {
-      keys: keyify(allMemberships[0] ?? {}),
-    })
-  }, [allMemberships])
-
-  const memberships = useMemo(() => {
-    if (search) {
-      return fuse.search(search).map(membership => membership.item);
-    }
-    return allMemberships ?? [];
-  }, [allMemberships, search, isSuccess, filters])
-
-
-  const currentTableData = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * PageSize;
-    const lastPageIndex = firstPageIndex + PageSize;
-    return memberships.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, memberships]);
+  const {
+    search,
+    setSearch,
+    currentTableData,
+    tempFilters,
+    setTempFilters,
+    applyFilters,
+    isLoading,
+    isError,
+    error,
+    sort,
+    setSort,
+    allData,
+    currentPage,
+    setCurrentPage,
+    isSuccess,
+    resetPage
+  } = useTableData({
+    dataUrl: "/api/Membership/payments/",
+    pageSize: pageSize,
+    queryKeys: ["payment-memberships-table-data"]
+  })
 
   return (
     <Admin pageTitle="Pagos Membresías" headerTitle="Pagos Membresías">
@@ -103,7 +44,7 @@ export default function PaymentMemberships() {
               </div>
               <InputGroup.Input
                 value={search}
-                onChange={e => { setSearch(e.target.value); setCurrentPage(1) }}
+                onChange={e => { setSearch(e.target.value); resetPage() }}
                 id="search"
                 type="search"
                 name="search"
@@ -117,7 +58,7 @@ export default function PaymentMemberships() {
             <FilterDropDownBtn.Primary
               filters={tempFilters}
               setFilters={setTempFilters}
-              onApply={() => setFilters(tempFilters)}
+              onApply={applyFilters}
               groups={[
                 {
                   id: 1,
@@ -175,20 +116,20 @@ export default function PaymentMemberships() {
 
       <div className="container-padding">
         <PaymentMembershipsTable
-          sort={sort}
-          setSort={setSort}
+          memberships={currentTableData}
           isLoading={isLoading}
           isError={isError}
           error={error}
-          memberships={currentTableData}
+          sort={sort}
+          setSort={setSort}
         />
 
         {isSuccess && (
           <Pagination
             className="mt-3.5"
-            totalCount={memberships.length}
+            totalCount={allData.length}
             currentPage={currentPage}
-            pageSize={PageSize}
+            pageSize={pageSize}
             onPageChange={setCurrentPage}
           />
         )}

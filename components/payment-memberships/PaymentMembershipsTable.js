@@ -33,8 +33,7 @@ const PaymentMembershipsTable = ({
         </Table.Tr>
       </Table.Thead>
       <Table.Tbody>
-        {!isLoading &&
-          !isError &&
+        {!isLoading && !isError &&
           memberships?.map((membership) => (
             <Row membership={membership} key={membership.id} />
           ))}
