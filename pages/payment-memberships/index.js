@@ -12,7 +12,7 @@ import keyify from "@/helpers/keyify";
 import { orderBy } from "lodash";
 import Fuse from "fuse.js";
 
-const PageSize = 10
+const PageSize = 1
 
 export default function PaymentMemberships() {
   const { axios } = useAxios();
