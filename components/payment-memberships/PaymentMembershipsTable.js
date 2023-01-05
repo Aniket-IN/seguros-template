@@ -66,7 +66,7 @@ const Row = ({ membership }) => {
       </Table.Td>
       <Table.Td className="font-semibold">
         <Link
-          href="/payment-memberships/1"
+          href={`/payment-memberships/${membership.id}`}
           className="font-semibold text-primary hover:underline"
         >
           Ver detalles

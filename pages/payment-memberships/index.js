@@ -1,19 +1,18 @@
-import React, { useEffect, useMemo, useState } from "react";
-import Admin from "@/components/layouts/Admin";
-import SamplePagination from "@/components/SamplePagination";
 import PaymentMembershipsTable from "@/components/payment-memberships/PaymentMembershipsTable";
+import FilterDropDownBtn from "@/components/utility/FilterDropDownBtn";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import React, { useEffect, useMemo, useState } from "react";
+import InputGroup from "@/components/utility/InputGroup";
+import Pagination from "@/components/Pagination";
+import Admin from "@/components/layouts/Admin";
 import useAxios from "@/hooks/useAxios";
 import { useQuery } from "react-query";
 import { toast } from "react-hot-toast";
-import InputGroup from "@/components/utility/InputGroup";
-import FilterDropDownBtn from "@/components/utility/FilterDropDownBtn";
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import Fuse from "fuse.js";
 import keyify from "@/helpers/keyify";
-import Pagination from "@/components/Pagination";
 import { orderBy } from "lodash";
+import Fuse from "fuse.js";
 
-const PageSize = 1
+const PageSize = 10
 
 export default function PaymentMemberships() {
   const { axios } = useAxios();
