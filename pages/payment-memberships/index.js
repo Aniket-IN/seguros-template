@@ -39,21 +39,45 @@ export default function PaymentMemberships() {
     }
   }, [isError]);
 
+  const allMemberships = useMemo(() => {
+    let items = data?.data ?? [];
+    items = items.filter((item) => {
+      let passingFilters = []
+      Object.entries(filters).forEach(([filterKey, filter]) => {
+        if (filter.length > 0) {
+          if (item[filterKey] && filter.map(fltr => fltr.toLowerCase().replace(/_/g, "")).includes(item[filterKey].toLowerCase().replace(/_/g, ""))) {
+            passingFilters.push(filterKey)
+          }
+        } else {
+          passingFilters.push(filterKey)
+        }
+      });
+
+      return passingFilters.length == Object.keys(filters).length
+    })
+
+    return items;
+  }, [data?.data, filters])
 
 
-  const allMemberships = data?.data;
+  const fuse = useMemo(() => {
+    return new Fuse(allMemberships, {
+      keys: keyify(allMemberships[0] ?? {}),
+    })
+  }, [allMemberships])
 
-  const fuse = new Fuse(allMemberships ?? [], {
-    keys: keyify(allMemberships ? allMemberships[0] : {}),
-  });
-
-  const memberships = (search ? fuse.search(search).map(membership => membership.item) : allMemberships) ?? [];
+  const memberships = useMemo(() => {
+    if (search) {
+      return fuse.search(search).map(membership => membership.item);
+    }
+    return allMemberships ?? [];
+  }, [search, isSuccess, filters])
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
     return memberships.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, isLoading, search]);
+  }, [currentPage, memberships]);
 
   return (
     <Admin pageTitle="Pagos Membresías" headerTitle="Pagos Membresías">
@@ -112,13 +136,13 @@ export default function PaymentMemberships() {
                     {
                       id: 1,
                       label: "Efectuado",
-                      name: "status",
+                      name: "conditions",
                       value: "effected",
                     },
                     {
                       id: 2,
                       label: "Pending",
-                      name: "status",
+                      name: "conditions",
                       value: "pending",
                     },
                   ],
