@@ -7,18 +7,18 @@ import useAxios from "./useAxios";
 import Fuse from "fuse.js";
 
 
-const useTableData = ({ dataUrl = '', queryKeys = [], pageSize = 10 } = {}) => {
+const useTableData = ({ dataUrl = '', queryKeys = [], pageSize = 10, initialSort = { field: 'id', direction: 'desc' } } = {}) => {
   // Custom Axios instance
   const { axios } = useAxios();
-  
+
   // States
   const [tempFilters, setTempFilters] = useState({});
   const [filters, setFilters] = useState({});
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [sort, setSort] = useState({ field: 'order_id', direction: 'desc' });
+  const [sort, setSort] = useState(initialSort);
 
-  console.log(filters);
+
 
   // function to fetch data
   const fetchData = () => {
@@ -42,6 +42,8 @@ const useTableData = ({ dataUrl = '', queryKeys = [], pageSize = 10 } = {}) => {
   }, [isError]);
 
 
+  const stringForCompare = (val) => val.toString().toLowerCase().replace(/_/g, "").replace(/ +/g, '')
+
   // filtering
   const allDataUnsorted = useMemo(() => {
     setCurrentPage(1)
@@ -50,7 +52,8 @@ const useTableData = ({ dataUrl = '', queryKeys = [], pageSize = 10 } = {}) => {
       let passingFilters = []
       Object.entries(filters).forEach(([filterKey, filter]) => {
         if (filter.length > 0) {
-          if (item[filterKey] && filter.map(fltr => fltr.toLowerCase().replace(/_/g, "").replace(/ +/g, '')).includes(item[filterKey].toLowerCase().replace(/_/g, "").replace(/ +/g, ''))) {
+          let condition = filter.map((fltr) => stringForCompare(fltr)).includes(stringForCompare(item[filterKey]));
+          if (!(item[filterKey] === undefined || item[filterKey] === null) && condition) {
             passingFilters.push(filterKey)
           }
         } else {

@@ -25,15 +25,16 @@ const FilterDropDownBtn = ({
 
   const handleChange = (e) => {
     let filtersByKey = filters[e.target.name] ?? [];
+    let value = ["true", "false"].includes(e.target.value) ? JSON.parse(e.target.value) : e.target.value;
 
     // Checked
     if (e.target.checked) {
-      filtersByKey = [...filtersByKey, e.target.value];
+      filtersByKey = [...filtersByKey, value];
     }
 
     // Un-Checked
     if (!e.target.checked) {
-      filtersByKey = filtersByKey.filter((item) => item != e.target.value);
+      filtersByKey = filtersByKey.filter((item) => item != value);
     }
 
     setFilters((vals) => ({
