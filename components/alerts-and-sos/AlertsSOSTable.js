@@ -10,25 +10,19 @@ import { Popover, Transition } from "@headlessui/react";
 import ConfirmationModal from "../utility/ConfirmationModal";
 
 const AlertsSOSTable = () => {
-  const headers = [
-    "ID Alerta",
-    "Usuario",
-    "Ubicación",
-    "Horario",
-    "Estado",
-    "Evidencia",
-    "Comentario",
-    "Historial modif.",
-    "Calificación",
-  ];
-
   return (
     <Table>
       <Table.Thead>
         <Table.Tr>
-          {headers.map((header) => (
-            <Table.Th key={header}>{header}</Table.Th>
-          ))}
+          <Table.Th>ID Alerta</Table.Th>
+          <Table.Th>Usuario</Table.Th>
+          <Table.Th>Ubicación</Table.Th>
+          <Table.Th>Horario</Table.Th>
+          <Table.Th>Estado</Table.Th>
+          <Table.Th>Evidencia</Table.Th>
+          <Table.Th>Comentario</Table.Th>
+          <Table.Th>Historial modif.</Table.Th>
+          <Table.Th>Calificación</Table.Th>
         </Table.Tr>
       </Table.Thead>
       <Table.Tbody>
