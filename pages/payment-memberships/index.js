@@ -48,7 +48,7 @@ export default function PaymentMemberships() {
       let passingFilters = []
       Object.entries(filters).forEach(([filterKey, filter]) => {
         if (filter.length > 0) {
-          if (item[filterKey] && filter.map(fltr => fltr.toLowerCase().replace(/_/g, "")).includes(item[filterKey].toLowerCase().replace(/_/g, ""))) {
+          if (item[filterKey] && filter.map(fltr => fltr.toLowerCase().replace(/_/g, "").replace(/ +/g, '')).includes(item[filterKey].toLowerCase().replace(/_/g, "").replace(/ +/g, ''))) {
             passingFilters.push(filterKey)
           }
         } else {

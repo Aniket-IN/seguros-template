@@ -51,7 +51,11 @@ const Row = ({ membership }) => {
       <Table.Td>{membership.membership}</Table.Td>
       <Table.Td>$ {membership.total_amount}</Table.Td>
       <Table.Td>{membership.userprofile.id}</Table.Td>
-      <Table.Td className={classNames("font-semibold", membership.conditions == 'Effected' && "text-success", membership.conditions == 'Failed' && 'text-danger')}>
+      <Table.Td className={classNames(
+        "font-semibold",
+        membership.conditions?.toLowerCase() == 'effected' && "text-success",
+        membership.conditions?.toLowerCase() == 'failed' && 'text-danger'
+      )}>
         {membership.conditions}
       </Table.Td>
       <Table.Td className="font-semibold">
