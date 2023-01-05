@@ -16,6 +16,7 @@ const PageSize = 1
 
 export default function PaymentMemberships() {
   const { axios } = useAxios();
+  const [tempFilters, setTempFilters] = useState({});
   const [filters, setFilters] = useState({});
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,6 +41,7 @@ export default function PaymentMemberships() {
   }, [isError]);
 
   const allMemberships = useMemo(() => {
+    setCurrentPage(1)
     let items = data?.data ?? [];
     items = items.filter((item) => {
       let passingFilters = []
@@ -102,8 +104,9 @@ export default function PaymentMemberships() {
 
           <div className="flex flex-grow items-center gap-3">
             <FilterDropDownBtn.Primary
-              filters={filters}
-              setFilters={setFilters}
+              filters={tempFilters}
+              setFilters={setTempFilters}
+              onApply={() => setFilters(tempFilters)}
               groups={[
                 {
                   id: 1,
@@ -144,6 +147,12 @@ export default function PaymentMemberships() {
                       label: "Pending",
                       name: "conditions",
                       value: "pending",
+                    },
+                    {
+                      id: 3,
+                      label: "Failed",
+                      name: "conditions",
+                      value: "failed",
                     },
                   ],
                 },
