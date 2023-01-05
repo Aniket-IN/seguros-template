@@ -68,9 +68,6 @@ const MembershipsCountCard = ({ selectedMonth }) => {
   const currentMonthData = currentMonthQuery?.data?.data?.data ?? {};
   const prevMonthData = prevMonthQuery?.data?.data?.data ?? {};
 
-  // console.log(currentMonthData);
-  console.log(prevMonthData);
-
   const data = {
     items: [
       {

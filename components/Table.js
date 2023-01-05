@@ -2,6 +2,7 @@ import classNames from "classnames";
 import { createElement } from "react";
 import { ImSpinner2 } from "react-icons/im";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { ArrowDownIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 
 const Table = ({
   as = "table",
@@ -36,11 +37,35 @@ Table.Thead = ({ as = "thead", className = "", ...props }) =>
     ...props,
   });
 
-Table.Th = ({ as = "th", className = "", ...props }) =>
-  createElement(as, {
-    className: `whitespace-nowrap px-3 py-3.5 text-left text-sm font-semibold text-gray-900 ${className}`,
+Table.Th = ({ as = "th", className = "", children = '', name, sort, setSort, sortable = false, ...props }) => {
+  const toggleSort = () => {
+    if (!sortable) {
+      return;
+    }
+    setSort((sort) => ({
+      field: name,
+      direction: (sort.field == name) ? (sort.direction == 'asc' ? 'desc' : 'asc') : 'desc'
+    }))
+  }
+
+  return createElement(as, {
     ...props,
-  });
+    className: classNames(
+      "whitespace-nowrap  px-3 py-3.5 text-left text-sm font-semibold text-gray-900",
+      className,
+      sortable && "cursor-pointer"
+    ),
+    onClick: toggleSort,
+    children: (
+      <div className="flex gap-2 items-center justify-between">
+        <div>{children}</div>
+        {sortable && (sort.field == name) ? (
+          <ChevronDownIcon className={classNames("w-4 h-4 duration-300", sort.direction == 'asc' ? 'rotate-180' : '')} />
+        ) : ''}
+      </div>
+    )
+  })
+};
 
 Table.Tbody = ({ as = "tbody", className = "", ...props }) =>
   createElement(as, {

@@ -11,6 +11,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Fuse from "fuse.js";
 import keyify from "@/helpers/keyify";
 import Pagination from "@/components/Pagination";
+import { orderBy } from "lodash";
 
 const PageSize = 1
 
@@ -20,6 +21,7 @@ export default function PaymentMemberships() {
   const [filters, setFilters] = useState({});
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [sort, setSort] = useState({ field: 'order_id', direction: 'desc' });
 
   const fetchData = () => {
     return axios.get("/api/Membership/payments/");
@@ -40,7 +42,7 @@ export default function PaymentMemberships() {
     }
   }, [isError]);
 
-  const allMemberships = useMemo(() => {
+  const allMembershipsUnsorted = useMemo(() => {
     setCurrentPage(1)
     let items = data?.data ?? [];
     items = items.filter((item) => {
@@ -57,10 +59,19 @@ export default function PaymentMemberships() {
 
       return passingFilters.length == Object.keys(filters).length
     })
-
     return items;
   }, [data?.data, filters])
 
+  const allMemberships = useMemo(() => {
+    let sortedProducts = [...allMembershipsUnsorted];
+    const fieldsNames = Object.keys(allMembershipsUnsorted[0] ?? {});
+
+    if (fieldsNames.length > 0 && fieldsNames.includes(sort.field)) {
+      sortedProducts = orderBy(sortedProducts, sort.field, sort.direction);
+    }
+
+    return sortedProducts;
+  }, [sort, allMembershipsUnsorted]);
 
   const fuse = useMemo(() => {
     return new Fuse(allMemberships, {
@@ -73,7 +84,8 @@ export default function PaymentMemberships() {
       return fuse.search(search).map(membership => membership.item);
     }
     return allMemberships ?? [];
-  }, [search, isSuccess, filters])
+  }, [allMemberships, search, isSuccess, filters])
+
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
@@ -164,6 +176,8 @@ export default function PaymentMemberships() {
 
       <div className="container-padding">
         <PaymentMembershipsTable
+          sort={sort}
+          setSort={setSort}
           isLoading={isLoading}
           isError={isError}
           error={error}

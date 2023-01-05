@@ -9,6 +9,8 @@ const PaymentMembershipsTable = ({
   isLoading,
   isError,
   error,
+  sort,
+  setSort
 }) => {
   const headers = [
     "ID Orden",
@@ -30,9 +32,14 @@ const PaymentMembershipsTable = ({
     >
       <Table.Thead>
         <Table.Tr>
-          {headers.map((header) => (
-            <Table.Th key={header}>{header}</Table.Th>
-          ))}
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="order_id">ID Orden</Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="date">Fecha</Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="transaction_id">ID transacción</Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="membership">Membresía</Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="total_amount">Monto</Table.Th>
+          <Table.Th>ID usuario</Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="conditions">Estado</Table.Th>
+          <Table.Th>Acción</Table.Th>
         </Table.Tr>
       </Table.Thead>
       <Table.Tbody>
