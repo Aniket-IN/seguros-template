@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Table from "../Table";
 import Link from "next/link";
 import { format } from "date-fns";
@@ -12,16 +12,6 @@ const PaymentMembershipsTable = ({
   sort,
   setSort
 }) => {
-  const headers = [
-    "ID Orden",
-    "Fecha",
-    "ID transacción",
-    "Membresía",
-    "Monto",
-    "ID usuario",
-    "Estado",
-    "Acción",
-  ];
 
   return (
     <Table
