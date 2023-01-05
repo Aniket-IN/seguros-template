@@ -18,7 +18,7 @@ const UserCard = ({ data, isSuccess }) => {
     },
     {
       key: "Correo",
-      value: data.userprofile.email,
+      value: data.userprofile?.user?.email,
     },
     {
       key: "Fecha de creación",
