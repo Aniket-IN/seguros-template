@@ -3,7 +3,7 @@ import InputGroup from "@/components/utility/InputGroup";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import FilterDropDownBtn from "../utility/FilterDropDownBtn";
 
-const TopBar = () => {
+const TopBar = ({ search, setSearch, tempFilters, setTempFilters, applyFilters, resetPage }) => {
   return (
     <div className="bg-neutral">
       <div className="container-padding items-center gap-3 space-y-2 py-2.5 lg:flex lg:space-y-0">
@@ -13,6 +13,8 @@ const TopBar = () => {
               <MagnifyingGlassIcon className="aspect-square w-full" />
             </div>
             <InputGroup.Input
+              value={search}
+              onChange={e => { setSearch(e.target.value); resetPage() }}
               id="search"
               type="search"
               name="search"
@@ -24,6 +26,9 @@ const TopBar = () => {
 
         <div className="flex flex-grow items-center gap-3">
           <FilterDropDownBtn.Primary
+            onApply={applyFilters}
+            filters={tempFilters}
+            setFilters={setTempFilters}
             groups={[
               {
                 id: 1,
@@ -32,12 +37,14 @@ const TopBar = () => {
                   {
                     id: 1,
                     label: "Corporate",
-                    value: "corporate",
+                    name: "user_type",
+                    value: "Corporate",
                   },
                   {
                     id: 2,
                     label: "Individual",
-                    value: "individual",
+                    name: "user_type",
+                    value: "Individual",
                   },
                 ],
               },
@@ -48,17 +55,14 @@ const TopBar = () => {
                   {
                     id: 1,
                     label: "Active",
-                    value: "active",
+                    name: "suspend",
+                    value: false,
                   },
                   {
                     id: 2,
-                    label: "Inactive",
-                    value: "inactive",
-                  },
-                  {
-                    id: 3,
                     label: "Suspended",
-                    value: "suspended",
+                    name: "suspend",
+                    value: true,
                   },
                 ],
               },

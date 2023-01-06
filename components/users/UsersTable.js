@@ -2,61 +2,77 @@ import React, { Fragment } from "react";
 import Table from "../Table";
 import { Menu, Transition } from "@headlessui/react";
 import classNames from "classnames";
-import { ChevronDownIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import Badge from "../Badge";
+import { format } from "date-fns";
 
-const UsersTable = () => {
+const UsersTable = ({
+  users = [],
+  isLoading,
+  isError,
+  error,
+  sort,
+  setSort
+}) => {
   return (
-    <Table>
+    <Table
+      dataCount={users.length}
+      isLoading={isLoading}
+      isError={isError}
+      error={error}
+    >
       <Table.Thead>
         <Table.Tr>
-          <Table.Th>ID Usuario</Table.Th>
-          <Table.Th>Nombre</Table.Th>
-          <Table.Th>Teléfono</Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable name="id">ID Usuario</Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable name="full_name">Nombre</Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable name="phone">Teléfono</Table.Th>
           <Table.Th>Correo</Table.Th>
-          <Table.Th className="flex cursor-pointer items-center justify-between gap-4">
-            <span>Fecha de Creación</span>
-            <ChevronDownIcon className="h-5 w-5" />
-          </Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable name="created_at">Fecha de Creación</Table.Th>
           <Table.Th>Tipo</Table.Th>
           <Table.Th>Estado</Table.Th>
           <Table.Th>Acción</Table.Th>
         </Table.Tr>
       </Table.Thead>
       <Table.Tbody>
-        {[...Array(20)].map((user, index) => {
-          return (
-            <Table.Tr key={index}>
-              <Table.Td>UI123123</Table.Td>
-              <Table.Td>Carlos Pérez</Table.Td>
-              <Table.Td>+593 987 654 321</Table.Td>
-              <Table.Td>ejemplo@gmail.com</Table.Td>
-              <Table.Td>25/05/22</Table.Td>
-              <Table.Td>Corporativo</Table.Td>
-              <Table.Td>
-                <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1.5 text-sm font-semibold text-green-600">
-                  <svg
-                    className="mr-1.5 h-2 w-2 text-green-600"
-                    fill="currentColor"
-                    viewBox="0 0 8 8"
-                  >
-                    <circle cx={5} cy={4} r={3} />
-                  </svg>
-                  Activo
-                </span>
-              </Table.Td>
-              <Table.Td>
-                <ActionBtn />
-              </Table.Td>
-            </Table.Tr>
-          );
-        })}
+        {!isLoading &&
+          !isError &&
+          users?.map((user) => (
+            <Row user={user} key={user.id} />
+          ))}
       </Table.Tbody>
     </Table>
   );
 };
 
-const ActionBtn = () => {
+
+const Row = ({ user }) => {
+  return (
+    <Table.Tr>
+      <Table.Td>{user.id}</Table.Td>
+      <Table.Td className="capitalize">{user.full_name}</Table.Td>
+      <Table.Td>{user.phone}</Table.Td>
+      <Table.Td>{user?.user?.email}</Table.Td>
+      <Table.Td>{format(new Date(user.created_at), 'dd/MM/yy')}</Table.Td>
+      <Table.Td>{user.user_type}</Table.Td>
+      <Table.Td>
+        {
+          user.suspended ? (
+            <Badge.Md text="Suspended" className="bg-red-100 text-danger" />
+          )
+            : (
+              <Badge.Md text="Activo" className="bg-green-100 text-green-600" />
+            )
+        }
+      </Table.Td>
+      <Table.Td>
+        <ActionBtn user={user} />
+      </Table.Td>
+    </Table.Tr>
+  )
+}
+
+const ActionBtn = ({ user }) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -80,7 +96,7 @@ const ActionBtn = () => {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  href="/users/1"
+                  href={`/users/${user.id}`}
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm"
