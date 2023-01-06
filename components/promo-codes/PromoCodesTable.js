@@ -95,16 +95,24 @@ const ActionBtn = ({ promoCode, refetch }) => {
   })
 
   const activate = () => {
-    setActivateOpen(false);
-    setTimeout(() => {
-      setActivateAlertOpen(true);
-    }, 300);
+
+    axios.patch(`/api/admin/promo-cod/${promoCode.id}/`, { state: true, stocks: promoCode.stocks })
+      .then((response) => {
+        toast.success("Promocode activated!")
+        refetch()
+        setActivateOpen(false);
+        setTimeout(() => {
+          setActivateAlertOpen(true);
+        }, 300);
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response?.data?.message ?? `Oops! Internal server error!`
+        );
+      })
   };
 
   const suspend = () => {
-    // setSuspendOpen(false);
-    console.log(promoCode.id);
-
     axios.patch(`/api/admin/promo-cod/${promoCode.id}/`, { state: false, stocks: promoCode.stocks })
       .then((response) => {
         toast.success("Promocode suspended!")
@@ -119,17 +127,13 @@ const ActionBtn = ({ promoCode, refetch }) => {
           error?.response?.data?.message ?? `Oops! Internal server error!`
         );
       })
-
-    // setTimeout(() => {
-    //   setSuspendAlertOpen(true);
-    // }, 300);
   };
 
   const deleteCode = () => {
     setDeleteOpen(false);
     setTimeout(() => {
       setDeleteAlertOpen(true);
-    }, 300);
+    }, 500);
   };
 
   return (
@@ -281,19 +285,21 @@ const ActionBtn = ({ promoCode, refetch }) => {
                   </button>
                 )}
               </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    onClick={() => setSuspendOpen(true)}
-                    className={classNames(
-                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                      "block w-full px-4 py-2 text-left text-sm"
-                    )}
-                  >
-                    Suspender
-                  </button>
-                )}
-              </Menu.Item>
+              {!!promoCode.state && (
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      onClick={() => setSuspendOpen(true)}
+                      className={classNames(
+                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                        "block w-full px-4 py-2 text-left text-sm"
+                      )}
+                    >
+                      Suspender
+                    </button>
+                  )}
+                </Menu.Item>
+              )}
               <Menu.Item>
                 {({ active }) => (
                   <button
