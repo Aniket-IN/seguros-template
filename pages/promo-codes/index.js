@@ -5,7 +5,7 @@ import Admin from "@/components/layouts/Admin";
 import Pagination from "@/components/Pagination";
 
 
-const pageSize = 4;
+const pageSize = 10;
 
 export default function PromoCodes() {
 
