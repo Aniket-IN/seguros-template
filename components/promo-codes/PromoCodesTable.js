@@ -87,10 +87,11 @@ const ActionBtn = ({ promoCode, refetch }) => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleteAlertOpen, setDeleteAlertOpen] = useState(false);
 
-  const { register, formState: { errors }, handleSubmit, reset } = useForm()
+  const { register, formState: { errors }, handleSubmit, reset } = useForm({
+    defaultValues: promoCode,
+  })
 
   const edit = handleSubmit((data) => {
-    console.log(data)
     axios.patch(`/api/admin/promo-cod/${promoCode.id}/`, data)
       .then((response) => {
         toast.success("Promocode edited successfuly!")
