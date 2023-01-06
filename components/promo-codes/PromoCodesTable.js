@@ -7,8 +7,10 @@ import PromoCodeFormModal from "./PromoCodeFormModal";
 import ConfirmationModal from "../utility/ConfirmationModal";
 import Badge from "../Badge";
 import { useForm } from "react-hook-form";
+import useAxios from "@/hooks/useAxios";
+import { toast } from "react-hot-toast";
 
-const PromoCodesTable = ({ promoCodes = [], isLoading, isError, error, sort, setSort }) => {
+const PromoCodesTable = ({ promoCodes = [], isLoading, isError, error, sort, setSort, refetch }) => {
   return (
     <div>
       <Table
@@ -34,7 +36,7 @@ const PromoCodesTable = ({ promoCodes = [], isLoading, isError, error, sort, set
           {!isLoading &&
             !isError &&
             promoCodes?.map((promoCode) => (
-              <Row promoCode={promoCode} key={promoCode.id} />
+              <Row refetch={refetch} promoCode={promoCode} key={promoCode.id} />
             ))}
         </Table.Tbody>
       </Table>
@@ -42,7 +44,7 @@ const PromoCodesTable = ({ promoCodes = [], isLoading, isError, error, sort, set
   );
 };
 
-const Row = ({ promoCode }) => {
+const Row = ({ promoCode, refetch }) => {
   return (
     <Table.Tr>
       <Table.Td>{promoCode.code_id}</Table.Td>
@@ -65,13 +67,15 @@ const Row = ({ promoCode }) => {
         />
       </Table.Td>
       <Table.Td>
-        <ActionBtn />
+        <ActionBtn refetch={refetch} promoCode={promoCode} />
       </Table.Td>
     </Table.Tr>
   );
 };
 
-const ActionBtn = () => {
+const ActionBtn = ({ promoCode, refetch }) => {
+  const { axios } = useAxios()
+
   const [editOpen, setEditOpen] = useState(false);
 
   const [activateOpen, setActivateOpen] = useState(false);
@@ -98,10 +102,27 @@ const ActionBtn = () => {
   };
 
   const suspend = () => {
-    setSuspendOpen(false);
-    setTimeout(() => {
-      setSuspendAlertOpen(true);
-    }, 300);
+    // setSuspendOpen(false);
+    console.log(promoCode.id);
+
+    axios.patch(`/api/admin/promo-cod/${promoCode.id}/`, { state: false, stocks: promoCode.stocks })
+      .then((response) => {
+        toast.success("Promocode suspended!")
+        refetch()
+        setSuspendOpen(false);
+        setTimeout(() => {
+          setSuspendAlertOpen(true);
+        }, 300);
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response?.data?.message ?? `Oops! Internal server error!`
+        );
+      })
+
+    // setTimeout(() => {
+    //   setSuspendAlertOpen(true);
+    // }, 300);
   };
 
   const deleteCode = () => {

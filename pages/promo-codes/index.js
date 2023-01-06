@@ -47,6 +47,7 @@ export default function PromoCodes() {
 
       <div className="container-padding">
         <PromoCodesTable
+          refetch={refetch}
           promoCodes={currentTableData}
           isLoading={isLoading}
           isError={isError}
