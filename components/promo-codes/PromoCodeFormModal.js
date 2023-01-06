@@ -5,8 +5,7 @@ import InputGroup from "../utility/InputGroup";
 const PromoCodeFormModal = ({
   open,
   setOpen,
-  data,
-  setData,
+  register,
   submit,
   mode = "create",
 }) => {
@@ -30,13 +29,13 @@ const PromoCodeFormModal = ({
             <div>
               <InputGroup.Label>Código de promo</InputGroup.Label>
               <InputGroup>
-                <InputGroup.Input />
+                <InputGroup.Input {...register('promo_code')} />
               </InputGroup>
             </div>
             <div className="flex-grow">
               <InputGroup.Label>Etiqueta</InputGroup.Label>
               <InputGroup>
-                <InputGroup.Input />
+                <InputGroup.Input {...register('Etiquette')} />
               </InputGroup>
             </div>
           </div>
@@ -44,15 +43,15 @@ const PromoCodeFormModal = ({
             <InputGroup.Label>Membresía</InputGroup.Label>
             <div className="flex gap-7">
               <label className="space-x-4">
-                <input type="radio" name="member" />
+                <input type="radio" name="member" {...register('membership')} />
                 <span>Nivel 1</span>
               </label>
               <label className="space-x-4">
-                <input type="radio" name="member" />
+                <input type="radio" name="member" {...register('membership')} />
                 <span>Nivel 2</span>
               </label>
               <label className="space-x-4">
-                <input type="radio" name="member" />
+                <input type="radio" name="member" {...register('membership')} />
                 <span>Nivel 3</span>
               </label>
             </div>
@@ -64,13 +63,13 @@ const PromoCodeFormModal = ({
               <div className="flex gap-3">
                 <div className="flex-grow">
                   <InputGroup>
-                    <InputGroup.Input />
+                    <InputGroup.Input {...register('start_duration')} />
                   </InputGroup>
                 </div>
                 <div className="flex  flex-shrink-0 items-center">-</div>
                 <div className="flex-grow">
                   <InputGroup>
-                    <InputGroup.Input />
+                    <InputGroup.Input {...register('end_duration')} />
                   </InputGroup>
                 </div>
               </div>
@@ -81,13 +80,13 @@ const PromoCodeFormModal = ({
                 <div className="flex-grow">
                   <InputGroup.Label>Stock</InputGroup.Label>
                   <InputGroup>
-                    <InputGroup.Input />
+                    <InputGroup.Input {...register('stocks')} />
                   </InputGroup>
                 </div>
                 <div className="flex-grow">
                   <InputGroup.Label>Descuento</InputGroup.Label>
                   <InputGroup>
-                    <InputGroup.Input />
+                    <InputGroup.Input {...register('discount')} />
                   </InputGroup>
                 </div>
               </div>

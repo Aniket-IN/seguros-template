@@ -6,6 +6,7 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import PromoCodeFormModal from "./PromoCodeFormModal";
 import ConfirmationModal from "../utility/ConfirmationModal";
 import Badge from "../Badge";
+import { useForm } from "react-hook-form";
 
 const PromoCodesTable = ({ promoCodes = [], isLoading, isError, error, sort, setSort }) => {
   return (
@@ -82,9 +83,12 @@ const ActionBtn = () => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleteAlertOpen, setDeleteAlertOpen] = useState(false);
 
-  const edit = () => {
-    setEditOpen(false);
-  };
+  const { register, handleSubmit, reset } = useForm()
+
+  const edit = handleSubmit((data) => {
+    console.log(data)
+    // setEditOpen(false);
+  })
 
   const activate = () => {
     setActivateOpen(false);
@@ -199,12 +203,15 @@ const ActionBtn = () => {
         }}
       />
 
+      {/* Edit form modal */}
       <PromoCodeFormModal
+        register={register}
         mode="edit"
         submit={edit}
         open={editOpen}
         setOpen={setEditOpen}
       />
+
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button className="inline-flex w-full items-center justify-center gap-2 rounded-md  bg-accent px-4 py-2 text-sm font-medium text-black hover:bg-gray-50 focus:outline-none focus:ring-2  focus:ring-primary">

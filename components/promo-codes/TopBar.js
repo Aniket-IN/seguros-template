@@ -4,6 +4,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import PromoCodeFormModal from "./PromoCodeFormModal";
 import ConfirmationModal from "../utility/ConfirmationModal";
 import FilterDropDownBtn from "../utility/FilterDropDownBtn";
+import { useForm } from "react-hook-form";
 
 const TopBar = ({ search, setSearch, tempFilters, setTempFilters, applyFilters, resetPage }) => {
   return (
@@ -94,12 +95,15 @@ const CreateBtn = () => {
   const [open, setOpen] = useState(false);
   const [activateAlertOpen, setActivateAlertOpen] = useState(false);
 
-  const create = () => {
-    setOpen(false);
-    setTimeout(() => {
-      setActivateAlertOpen(true);
-    }, 300);
-  };
+  const { register, handleSubmit, reset } = useForm()
+
+  const create = handleSubmit((data) => {
+    console.log(data);
+    // setOpen(false);
+    // setTimeout(() => {
+    //   setActivateAlertOpen(true);
+    // }, 300);
+  })
 
   return (
     <>
@@ -118,6 +122,7 @@ const CreateBtn = () => {
         }}
       />
       <PromoCodeFormModal
+        register={register}
         mode="create"
         submit={create}
         open={open}
