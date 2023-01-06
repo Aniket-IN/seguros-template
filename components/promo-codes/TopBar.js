@@ -95,8 +95,8 @@ const CreateBtn = () => {
   const [open, setOpen] = useState(false);
   const [activateAlertOpen, setActivateAlertOpen] = useState(false);
 
-  const { register, handleSubmit, reset } = useForm()
-
+  const { register, formState: { errors }, reset, handleSubmit } = useForm()
+  console.log(errors);
   const create = handleSubmit((data) => {
     console.log(data);
     // setOpen(false);
@@ -122,7 +122,7 @@ const CreateBtn = () => {
         }}
       />
       <PromoCodeFormModal
-        register={register}
+        {...{ register, errors }}
         mode="create"
         submit={create}
         open={open}
