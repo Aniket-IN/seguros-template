@@ -26,7 +26,7 @@ const TopCardsSection = ({ selectedMonth }) => {
             ]}
             footer={{
               title: "Ver escudos",
-              href: "/dashboard",
+              href: "/shields",
             }}
           />
           <SmallAnalyticsCard
@@ -43,7 +43,7 @@ const TopCardsSection = ({ selectedMonth }) => {
             ]}
             footer={{
               title: "Ver soporte",
-              href: "/dashboard",
+              href: "/support",
             }}
           />
         </div>
@@ -62,7 +62,7 @@ const TopCardsSection = ({ selectedMonth }) => {
             ]}
             footer={{
               title: "Ver Alertas",
-              href: "/dashboard",
+              href: "/alerts-and-sos",
             }}
           />
           <SmallAnalyticsCard
@@ -79,7 +79,7 @@ const TopCardsSection = ({ selectedMonth }) => {
             ]}
             footer={{
               title: "Ver códigos",
-              href: "/dashboard",
+              href: "/promo-codes",
             }}
           />
         </div>
