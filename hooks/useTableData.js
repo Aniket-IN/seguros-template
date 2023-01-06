@@ -44,9 +44,13 @@ const useTableData = ({ dataUrl = '', queryKeys = [], pageSize = 10, initialSort
 
   const stringForCompare = (val) => val.toString().toLowerCase().replace(/_/g, "").replace(/ +/g, '')
 
+  useEffect(() => {
+    resetPage()
+  }, [filters])
+
+
   // filtering
   const allDataUnsorted = useMemo(() => {
-    setCurrentPage(1)
     let items = responseData?.data ?? [];
     items = items.filter((item) => {
       let passingFilters = []
