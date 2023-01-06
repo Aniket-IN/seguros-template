@@ -4,29 +4,36 @@ import { Menu, Transition } from "@headlessui/react";
 import classNames from "classnames";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import { format } from "date-fns";
+import Badge from "../Badge";
 
-const ShieldsTable = () => {
-  const headers = [
-    "Escudo",
-    "Administrador",
-    "Tipo de Escudo",
-    "N° de miembros",
-    "Fecha de Creación",
-    "Estado",
-    "Acción",
-  ];
-
+const ShieldsTable = ({ shields = [], isLoading, isError, error, sort, setSort }) => {
   return (
-    <Table>
+    <Table
+      dataCount={shields.length}
+      isLoading={isLoading}
+      isError={isError}
+      error={error}
+    >
       <Table.Thead>
         <Table.Tr>
-          {headers.map((header) => (
-            <Table.Th key={header}>{header}</Table.Th>
-          ))}
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">Escudo</Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">Administrador</Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">Tipo de Escudo</Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">N° de miembros</Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">Fecha de Creación</Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">Estado</Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">Acción</Table.Th>
         </Table.Tr>
       </Table.Thead>
       <Table.Tbody>
-        {[...Array(6)].map((user, index) => {
+        {!isLoading &&
+          !isError &&
+          shields?.map((shield) => (
+            <Row shield={shield} key={shield.id} />
+          ))}
+
+        {/* {[...Array(6)].map((user, index) => {
           return (
             <Fragment key={index}>
               <Table.Tr>
@@ -148,13 +155,55 @@ const ShieldsTable = () => {
               </Table.Tr>
             </Fragment>
           );
-        })}
+        })} */}
       </Table.Tbody>
     </Table>
   );
 };
 
-const ActionBtn = () => {
+const Row = ({ shield = {} }) => {
+  return (
+    <Table.Tr>
+      <Table.Td>
+        <div className="flex items-center">
+          <div className="h-12 w-12 flex-shrink-0">
+            <img
+              className="h-full w-full rounded-full object-cover"
+              src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${shield.logo}`}
+              alt={shield.shield_name}
+            />
+          </div>
+          <div className="ml-4">
+            <div className="font-semibold text-black capitalize">{shield.shield_name}</div>
+            <div className="text-black">{shield.shield_code}</div>
+          </div>
+        </div>
+      </Table.Td>
+      <Table.Td>
+        <dd className="capitalize">{shield.admin?.full_name}</dd>
+        <dd>{shield.admin?.id}</dd>
+      </Table.Td>
+      <Table.Td>{shield.admin?.user_type}</Table.Td>
+      <Table.Td>{shield.members_count}</Table.Td>
+      <Table.Td>{shield.admin?.created_at ? format(new Date(shield.admin.created_at), 'dd/MM/yy') : ''}</Table.Td>
+      <Table.Td>
+        <Badge.Md
+          text={shield.condition ? "Activo" : "Vencido"}
+          className={
+            shield.condition
+              ? "bg-green-100 text-green-600"
+              : "bg-gray-200 text-black"
+          }
+        />
+      </Table.Td>
+      <Table.Td>
+        <ActionBtn shield={shield} />
+      </Table.Td>
+    </Table.Tr>
+  )
+}
+
+const ActionBtn = ({ shield }) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -178,7 +227,7 @@ const ActionBtn = () => {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  href="/shields/1"
+                  href={`/shields/${shield.id}`}
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm"
