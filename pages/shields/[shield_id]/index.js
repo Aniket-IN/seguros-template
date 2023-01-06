@@ -4,6 +4,8 @@ import PointsOfInterestCard from "@/components/shields/shield/PointsOfInterestCa
 import PointHistoryCard from "@/components/shields/shield/PointHistoryCard";
 
 export default function index() {
+  
+
   return (
     <ShieldLayout pageTitle="Escudos" headerTitle="Escudos">
       <div className="mt-4 grid grid-cols-1 gap-5 lg:grid-cols-2">

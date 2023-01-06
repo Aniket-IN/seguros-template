@@ -10,7 +10,7 @@ const ShieldLayout = ({ children, pageTitle = null, headerTitle = "" }) => {
     <Admin pageTitle={pageTitle} headerTitle={headerTitle}>
       <section className="container-padding space-y-5">
         <Link
-          href="/users"
+          href="/shields"
           className="inline-flex items-center pt-5 hover:text-primary hover:underline"
         >
           <ChevronLeftIcon className="h-8 w-8" />
