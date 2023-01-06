@@ -6,27 +6,27 @@ const UserCard = ({ data, isSuccess }) => {
   const items = [
     {
       key: "ID Usuario",
-      value: `ID-${data.userprofile.id}`,
+      value: `ID-${data?.userprofile?.id ?? 'UI123123'}`,
     },
     {
       key: "Membresía",
-      value: data.membership,
+      value: data?.membership ?? "Nivel 1",
     },
     {
       key: "Teléfono",
-      value: data.userprofile.phone,
+      value: data?.userprofile?.phone ?? "+52 987 654 321",
     },
     {
       key: "Correo",
-      value: data.userprofile?.user?.email,
+      value: data?.userprofile?.user?.email ?? "ejemplo@gmail.com",
     },
     {
       key: "Fecha de creación",
-      value: !!data?.userprofile?.created_at && format(new Date(data.userprofile.created_at), "dd/MM/yy"),
+      value: !!data?.userprofile?.created_at ? format(new Date(data.userprofile.created_at), "dd/MM/yy") : "25/05/22",
     },
     {
       key: "Tipo de Usuario",
-      value: data.userprofile.user_type ?? "User",
+      value: data?.userprofile?.user_type ?? "Corporativo",
     },
   ];
 
@@ -35,13 +35,13 @@ const UserCard = ({ data, isSuccess }) => {
       <div className="text-center">
         <ProfilePicture
           className="mx-auto aspect-square w-24 rounded-full"
-          src={data.userprofile.image}
+          src={data?.userprofile?.image}
           alt="User 2"
         />
         <h4 className="mt-3 text-lg font-semibold">
-          {data.userprofile.full_name}
+          {data?.userprofile?.full_name ?? "Carlos Pérez"}
         </h4>
-        <p className="text-secondary">ID {data.userprofile.id}</p>
+        <p className="text-secondary">ID {data?.userprofile?.id ?? 'UI123123'}</p>
         <span className="mt-1.5 inline-flex items-center rounded-full bg-green-100 px-3 py-1.5 text-sm font-semibold text-green-600">
           <svg
             className="mr-1.5 h-2 w-2 text-green-600"
