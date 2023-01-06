@@ -95,6 +95,7 @@ const ActionBtn = ({ promoCode, refetch }) => {
     axios.patch(`/api/admin/promo-cod/${promoCode.id}/`, data)
       .then((response) => {
         toast.success("Promocode edited successfuly!")
+        refetch()
         setEditOpen(false)
       })
       .catch((error) => {
@@ -140,10 +141,16 @@ const ActionBtn = ({ promoCode, refetch }) => {
   };
 
   const deleteCode = () => {
-    setDeleteOpen(false);
-    setTimeout(() => {
-      setDeleteAlertOpen(true);
-    }, 500);
+
+    axios.delete(`/api/admin/promo-cod/${promoCode.id}/`)
+      .then((response) => {
+        toast.success("Promocode deleted!")
+        refetch()
+        setDeleteOpen(false);
+        setTimeout(() => {
+          setDeleteAlertOpen(true);
+        }, 500);
+      })
   };
 
   return (
