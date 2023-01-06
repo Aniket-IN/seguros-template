@@ -183,9 +183,9 @@ const Row = ({ shield = {} }) => {
         <dd className="capitalize">{shield.admin?.full_name}</dd>
         <dd>{shield.admin?.id}</dd>
       </Table.Td>
-      <Table.Td>{shield.admin?.user_type}</Table.Td>
+      <Table.Td>{shield.shield_type}</Table.Td>
       <Table.Td>{shield.members_count}</Table.Td>
-      <Table.Td>{shield.admin?.created_at ? format(new Date(shield.admin.created_at), 'dd/MM/yy') : ''}</Table.Td>
+      <Table.Td>{shield.created_at ? format(new Date(shield.created_at), 'dd/MM/yy') : ''}</Table.Td>
       <Table.Td>
         <Badge.Md
           text={shield.condition ? "Activo" : "Vencido"}
