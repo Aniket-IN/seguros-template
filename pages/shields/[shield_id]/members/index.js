@@ -3,8 +3,37 @@ import ShieldLayout from "@/components/layouts/ShieldLayout";
 import Table from "@/components/Table";
 import SamplePagination from "@/components/SamplePagination";
 import LocationHistoryBtn from "@/components/shields/shield/LocationHistoryBtn";
+import useAxios from "@/hooks/useAxios";
+import { useRouter } from "next/router";
+import { useQuery } from "react-query";
 
 export default function index() {
+  const { axios } = useAxios()
+  const router = useRouter();
+
+  const { shield_id } = router.query;
+
+  const fetchData = () => {
+    return axios.get("/api/shield/shield-alert-and-sos/", {
+      params: {
+        id: shield_id
+      }
+    });
+  }
+
+  // React-query for data fetching
+  const { isLoading, isError, refetch, isRefetching, isSuccess, data: response, error } = useQuery(
+    `shield-${shield_id}-members`,
+    fetchData,
+    {
+      refetchOnWindowFocus: false,
+      enabled: !!shield_id
+    }
+  );
+
+  const members = response?.data ?? []
+
+
   return (
     <ShieldLayout pageTitle="Escudos" headerTitle="Escudos">
       <div className="mt-5">

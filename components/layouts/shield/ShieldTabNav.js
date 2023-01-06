@@ -9,40 +9,42 @@ import { Menu, Transition } from "@headlessui/react";
 const ShieldTabNav = () => {
   const router = useRouter();
 
+  const { shield_id } = router.query;
+
   const tabs = [
     {
       title: "Puntos de interés",
-      href: "/shields/1",
+      href: `/shields/${shield_id}`,
       activePaths: ["/shields/[shield_id]"],
     },
     {
       title: "Miembros",
-      href: "/shields/1/members",
+      href: `/shields/${shield_id}/members`,
       activePaths: ["/shields/[shield_id]/members"],
     },
     {
       title: "Historial de rutas",
-      href: "/shields/1/route-history",
+      href: `/shields/${shield_id}/route-history`,
       activePaths: ["/shields/[shield_id]/route-history"],
     },
     {
       title: "Alertas y SOS",
-      href: "/shields/1/sos",
+      href: `/shields/${shield_id}/sos`,
       activePaths: ["/shields/[shield_id]/sos"],
     },
     {
       title: "Membresía",
-      href: "/shields/1/membership",
+      href: `/shields/${shield_id}/membership`,
       activePaths: ["/shields/[shield_id]/membership"],
     },
     {
       title: "Chat",
-      href: "/shields/1/chat",
+      href: `/shields/${shield_id}/chat`,
       activePaths: ["/shields/[shield_id]/chat"],
     },
     {
       title: "Biométrico",
-      href: "/shields/1/biometric",
+      href: `/shields/1/biometric`,
       activePaths: ["/shields/[shield_id]/biometric"],
     },
   ];
