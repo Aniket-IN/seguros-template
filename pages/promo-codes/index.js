@@ -25,7 +25,8 @@ export default function PromoCodes() {
     currentPage,
     setCurrentPage,
     isSuccess,
-    resetPage
+    resetPage,
+    refetch
   } = useTableData({
     dataUrl: "/api/admin/promo-code/",
     pageSize: pageSize,
@@ -35,6 +36,7 @@ export default function PromoCodes() {
   return (
     <Admin pageTitle="Códigos de Promo" headerTitle="Códigos de Promo">
       <TopBar
+        refetch={refetch}
         search={search}
         setSearch={setSearch}
         tempFilters={tempFilters}

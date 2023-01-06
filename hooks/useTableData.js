@@ -26,7 +26,7 @@ const useTableData = ({ dataUrl = '', queryKeys = [], pageSize = 10, initialSort
   };
 
   // React-query for data fetching
-  const { isLoading, isError, isRefetching, isSuccess, data: responseData, error } = useQuery(
+  const { isLoading, isError, refetch, isRefetching, isSuccess, data: responseData, error } = useQuery(
     queryKeys,
     fetchData,
     {
@@ -130,6 +130,7 @@ const useTableData = ({ dataUrl = '', queryKeys = [], pageSize = 10, initialSort
     setSort,
 
     isLoading,
+    refetch,
     isRefetching,
     isError,
     isSuccess,

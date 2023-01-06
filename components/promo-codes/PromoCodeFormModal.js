@@ -3,7 +3,7 @@ import Modal from "@/components/utility/Modal";
 import InputGroup from "../utility/InputGroup";
 
 const PromoCodeFormModal = ({ open, setOpen, register, errors = {}, submit, mode = "create" }) => {
-  console.log(errors);
+
   const close = () => {
     setOpen(false);
   };
@@ -48,7 +48,7 @@ const PromoCodeFormModal = ({ open, setOpen, register, errors = {}, submit, mode
             <InputGroup.Label>Membresía</InputGroup.Label>
             <div className="flex gap-7">
               <label className="space-x-4">
-                <input type="radio"
+                <input value="level 1" type="radio"
                   {...register('membership', {
                     required: "This field is required"
                   })}
@@ -56,7 +56,7 @@ const PromoCodeFormModal = ({ open, setOpen, register, errors = {}, submit, mode
                 <span>Nivel 1</span>
               </label>
               <label className="space-x-4">
-                <input type="radio"
+                <input value="level 2" type="radio"
                   {...register('membership', {
                     required: "This field is required"
                   })}
@@ -64,7 +64,7 @@ const PromoCodeFormModal = ({ open, setOpen, register, errors = {}, submit, mode
                 <span>Nivel 2</span>
               </label>
               <label className="space-x-4">
-                <input type="radio"
+                <input value="level 3" type="radio"
                   {...register('membership', {
                     required: "This field is required"
                   })} />
@@ -106,14 +106,22 @@ const PromoCodeFormModal = ({ open, setOpen, register, errors = {}, submit, mode
                 <div className="flex-grow">
                   <InputGroup.Label>Stock</InputGroup.Label>
                   <InputGroup isInvalid={errors?.stocks}>
-                    <InputGroup.Input {...register('stocks', { required: "This field is required." })} />
+                    <InputGroup.Input type="number"
+                      {...register('stocks', {
+                        required: "This field is required."
+                      })}
+                    />
                   </InputGroup>
                   <InputGroup.Error error={errors?.stocks?.message} />
                 </div>
                 <div className="flex-grow">
                   <InputGroup.Label>Descuento</InputGroup.Label>
                   <InputGroup isInvalid={errors?.discount}>
-                    <InputGroup.Input {...register('discount', { required: "This field is required." })} />
+                    <InputGroup.Input type="number"
+                      {...register('discount', {
+                        required: "This field is required."
+                      })}
+                    />
                   </InputGroup>
                   <InputGroup.Error error={errors?.discount?.message} />
                 </div>

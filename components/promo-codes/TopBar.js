@@ -5,8 +5,10 @@ import PromoCodeFormModal from "./PromoCodeFormModal";
 import ConfirmationModal from "../utility/ConfirmationModal";
 import FilterDropDownBtn from "../utility/FilterDropDownBtn";
 import { useForm } from "react-hook-form";
+import useAxios from "@/hooks/useAxios";
+import { toast } from "react-hot-toast";
 
-const TopBar = ({ search, setSearch, tempFilters, setTempFilters, applyFilters, resetPage }) => {
+const TopBar = ({ refetch, search, setSearch, tempFilters, setTempFilters, applyFilters, resetPage }) => {
   return (
     <div className="bg-neutral">
       <div className="container-padding items-center gap-3 space-y-2 py-2.5 lg:flex lg:space-y-0">
@@ -84,21 +86,40 @@ const TopBar = ({ search, setSearch, tempFilters, setTempFilters, applyFilters, 
           />
 
           {/* <div className="text-gray-900 text-sm text-right ml-auto">34 Usuarios</div> */}
-          <CreateBtn />
+          <CreateBtn refetch={refetch} />
         </div>
       </div>
     </div>
   );
 };
 
-const CreateBtn = () => {
+const CreateBtn = ({ refetch }) => {
+  const { axios } = useAxios();
   const [open, setOpen] = useState(false);
-  const [activateAlertOpen, setActivateAlertOpen] = useState(false);
+  // const [activateAlertOpen, setActivateAlertOpen] = useState(false);
 
   const { register, formState: { errors }, reset, handleSubmit } = useForm()
-  console.log(errors);
+
   const create = handleSubmit((data) => {
-    console.log(data);
+    axios.post('/api/admin/promo-code/', {
+      ...data,
+      state: true,
+    })
+      .then((response) => {
+        toast.success("Promocode created successfully.")
+        reset()
+        refetch()
+        setOpen(false)
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response?.data?.message ?? `Oops! Internal server error!`
+        );
+      })
+      .then(() => {
+
+      })
+
     // setOpen(false);
     // setTimeout(() => {
     //   setActivateAlertOpen(true);
@@ -107,7 +128,7 @@ const CreateBtn = () => {
 
   return (
     <>
-      <ConfirmationModal
+      {/* <ConfirmationModal
         open={activateAlertOpen}
         close={() => setActivateAlertOpen(false)}
         type="success"
@@ -120,7 +141,7 @@ const CreateBtn = () => {
         closeBtn={{
           show: false,
         }}
-      />
+      /> */}
       <PromoCodeFormModal
         {...{ register, errors }}
         mode="create"
