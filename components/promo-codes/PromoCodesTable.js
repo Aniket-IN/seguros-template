@@ -87,11 +87,20 @@ const ActionBtn = ({ promoCode, refetch }) => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleteAlertOpen, setDeleteAlertOpen] = useState(false);
 
-  const { register, handleSubmit, reset } = useForm()
+  const { register, formState: { errors }, handleSubmit, reset } = useForm()
 
   const edit = handleSubmit((data) => {
     console.log(data)
-    // setEditOpen(false);
+    axios.patch(`/api/admin/promo-cod/${promoCode.id}/`, data)
+      .then((response) => {
+        toast.success("Promocode edited successfuly!")
+        setEditOpen(false)
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response?.data?.message ?? `Oops! Internal server error!`
+        );
+      })
   })
 
   const activate = () => {
@@ -230,7 +239,7 @@ const ActionBtn = ({ promoCode, refetch }) => {
 
       {/* Edit form modal */}
       <PromoCodeFormModal
-        register={register}
+        {...{ register, errors }}
         mode="edit"
         submit={edit}
         open={editOpen}
