@@ -38,7 +38,7 @@ export default function index() {
     <ShieldLayout pageTitle="Escudos" headerTitle="Escudos">
       <div className="mt-4 grid grid-cols-1 gap-5 lg:grid-cols-2">
         <PointsOfInterestCard items={pois} />
-        <PointHistoryCard />
+        <PointHistoryCard pois={pois} />
       </div>
     </ShieldLayout>
   );

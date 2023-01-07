@@ -1,8 +1,14 @@
 import Table from "@/components/Table";
 import InputGroup from "@/components/utility/InputGroup";
-import React from "react";
+import { format } from "date-fns";
+import React, { useMemo } from "react";
 
-const PointHistoryCard = () => {
+const PointHistoryCard = ({ pois }) => {
+
+  const pohs = useMemo(() => {
+    return pois.map((poi) => poi.admin)
+  }, [pois])
+
   return (
     <div className="flex h-[800px] flex-col space-y-5 bg-white p-5">
       <h2 className="text-lg font-bold">Historial de Punto</h2>
@@ -31,12 +37,12 @@ const PointHistoryCard = () => {
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>
-          {[...Array(30)].map((item, index) => {
+          {pohs?.map((admin, index) => {
             return (
-              <Table.Tr key={index}>
-                <Table.Td>Juan Jesús Ledesma</Table.Td>
-                <Table.Td>25/05/22</Table.Td>
-                <Table.Td>10:30 Hrs.</Table.Td>
+              <Table.Tr key={admin.id}>
+                <Table.Td className="capitalize">{admin.full_name}</Table.Td>
+                <Table.Td>{format(new Date(admin.updated_at), 'dd/MM/yy')}</Table.Td>
+                <Table.Td>{format(new Date(admin.updated_at), 'p')}</Table.Td>
               </Table.Tr>
             );
           })}
