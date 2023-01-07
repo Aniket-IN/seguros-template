@@ -4,11 +4,47 @@ import Table from "@/components/Table";
 import SamplePagination from "@/components/SamplePagination";
 import InputGroup from "@/components/utility/InputGroup";
 import ViewPhotoBtn from "@/components/ViewPhotoBtn";
+import { useRouter } from "next/router";
+import useTableData from "@/hooks/useTableData";
+import Pagination from "@/components/Pagination";
+import { format } from "date-fns";
+import Badge from "@/components/Badge";
+
+const pageSize = 1
 
 export default function index() {
+
+  const router = useRouter();
+  const { shield_id } = router.query;
+
+  const {
+    search,
+    setSearch,
+    currentTableData,
+    tempFilters,
+    setTempFilters,
+    applyFilters,
+    isLoading,
+    isError,
+    error,
+    sort,
+    setSort,
+    allData,
+    currentPage,
+    setCurrentPage,
+    isSuccess,
+    resetPage
+  } = useTableData({
+    dataUrl: `/api/shield/shield-biometrics/?id=${shield_id}`,
+    pageSize: pageSize,
+    queryKeys: [`shield-${shield_id}-biometrics-table-data`],
+    enabled: !!shield_id,
+  })
+
+
   return (
     <ShieldLayout pageTitle="Escudos" headerTitle="Escudos">
-      <div className="mt-5 space-y-6">
+      <div className="mt-5">
         <div className="flex items-center gap-2 text-sm">
           <span>Buscar</span>
           <div>
@@ -24,7 +60,13 @@ export default function index() {
           </button>
         </div>
 
-        <Table>
+        <Table
+          wrapperClassName="mt-6"
+          dataCount={currentTableData.length}
+          isLoading={isLoading}
+          isError={isError}
+          error={error}
+        >
           <Table.Thead>
             <Table.Tr>
               <Table.Th>ID</Table.Th>
@@ -36,9 +78,9 @@ export default function index() {
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
-            {[...Array(9)].map((item, index) => (
-              <Table.Tr key={index}>
-                <Table.Td className="font-semibold">#E12341RF2</Table.Td>
+            {isSuccess && currentTableData?.map((bio) => (
+              <Table.Tr key={bio.id}>
+                <Table.Td className="font-semibold">#{bio.biometric_code}</Table.Td>
                 <Table.Td>
                   <div className="flex min-w-fit items-center gap-4">
                     <img
@@ -47,38 +89,30 @@ export default function index() {
                       alt=""
                     />
                     <div>
-                      <p>Carlos Pérez Guerrero</p>
-                      <p>UI123123</p>
+                      <p className="capitalize">{bio.userprofile.full_name}</p>
+                      <p>{bio.userprofile.id}</p>
                     </div>
                   </div>
                 </Table.Td>
                 <Table.Td>
-                  <dd>10:00 hrs</dd>
-                  <dd>11/03/2022</dd>
+                  <dd>{format(new Date(bio.created_at), 'p')}</dd>
+                  <dd>{format(new Date(bio.created_at), 'dd/MM/yyyy')}</dd>
                 </Table.Td>
                 <Table.Td>
-                  <dd>Av. Navarrete 403</dd>
-                  <dd className="font-semibold">-12.091307, -77.042053</dd>
+                  {/* <dd>Av. Navarrete 403</dd> */}
+                  <dd className="font-semibold">{bio.lat}, {bio.long}</dd>
                 </Table.Td>
                 <Table.Td>
-                  <span className="inline-flex items-center rounded-full bg-gray-200 px-3 py-1.5 text-sm font-semibold text-black">
-                    <svg
-                      className="mr-1.5 h-2 w-2"
-                      fill="currentColor"
-                      viewBox="0 0 8 8"
-                    >
-                      <circle cx={5} cy={4} r={3} />
-                    </svg>
-                    SALIDA
-                  </span>
+                  <Badge.Md className="bg-gray-200 text-black" text={bio.type} />
                 </Table.Td>
                 <Table.Td>
                   <ViewPhotoBtn
-                    headerTitle="Biométrico #E12341RF212"
+                    headerTitle={`Biométrico #${bio.id}`}
                     user={{
-                      id: "UI123123",
-                      name: "Carlos Pérez Guerrero",
-                      avatar: "/assets/img/sample/user-3.png",
+                      id: bio.userprofile.id,
+                      name: bio.userprofile.full_name,
+                      dp: bio.userprofile.image ? process.env.NEXT_PUBLIC_BACKEND_URL + bio.userprofile.image : '',
+                      avatar: bio.image ? process.env.NEXT_PUBLIC_BACKEND_URL + bio.image : ''
                     }}
                     className="font-semibold text-primary hover:underline"
                   >
@@ -89,7 +123,16 @@ export default function index() {
             ))}
           </Table.Tbody>
         </Table>
-        <SamplePagination />
+        {/* <SamplePagination /> */}
+        {isSuccess && (
+          <Pagination
+            className="mt-3.5"
+            totalCount={allData.length}
+            currentPage={currentPage}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+          />
+        )}
       </div>
     </ShieldLayout>
   );

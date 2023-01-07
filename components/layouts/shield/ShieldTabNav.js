@@ -44,7 +44,7 @@ const ShieldTabNav = () => {
     },
     {
       title: "Biométrico",
-      href: `/shields/1/biometric`,
+      href: `/shields/${shield_id}/biometric`,
       activePaths: ["/shields/[shield_id]/biometric"],
     },
   ];

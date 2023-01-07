@@ -1,10 +1,12 @@
 import { createElement, useState } from "react";
+import ProfilePicture from "./ProfilePicture";
 import Modal from "./utility/Modal";
 
 const ViewPhotoBtn = ({
   as = "button",
   headerTitle = "",
   user = {},
+  dp = '',
   ...props
 }) => {
   const [open, setOpen] = useState(false);
@@ -27,8 +29,8 @@ const ViewPhotoBtn = ({
           </Modal.Header>
           <Modal.Body className="space-y-7 py-5">
             <div className="flex gap-3 text-sm">
-              <img
-                src="/assets/img/sample/user-2.png"
+              <ProfilePicture
+                src={dp}
                 className="inline-block h-11 w-11 rounded-full"
               />
               <div>
