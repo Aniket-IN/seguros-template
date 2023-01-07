@@ -60,8 +60,8 @@ const ShieldCard = () => {
       <CardWrapper>
         <div className="text-center">
           <ProfilePicture
-            className="mx-auto aspect-square w-24 rounded-full"
-            src={shield.logo}
+            className="mx-auto aspect-square w-24 rounded-full object-cover"
+            src={shield.logo ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${shield.logo}` : null}
             alt={shield.shield_name}
           />
           <h4 className="mt-3 text-lg font-semibold capitalize">{shield.shield_name}</h4>
