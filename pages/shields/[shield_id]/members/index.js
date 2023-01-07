@@ -45,7 +45,12 @@ export default function index() {
   return (
     <ShieldLayout pageTitle="Escudos" headerTitle="Escudos">
       <div className="mt-5">
-        <Table>
+        <Table
+          dataCount={currentTableData.length}
+          isLoading={isLoading}
+          isError={isError}
+          error={error}
+        >
           <Table.Thead>
             <Table.Tr>
               <Table.Th>Nombre</Table.Th>
