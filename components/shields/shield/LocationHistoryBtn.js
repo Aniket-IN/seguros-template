@@ -2,7 +2,10 @@ import ProfilePicture from "@/components/ProfilePicture";
 import Table from "@/components/Table";
 import InputGroup from "@/components/utility/InputGroup";
 import Modal from "@/components/utility/Modal";
+import useAxios from "@/hooks/useAxios";
+import { format } from "date-fns";
 import React, { createElement, useState } from "react";
+import { useQuery } from "react-query";
 
 const LocationHistoryBtn = ({ as = "button", member, ...props }) => {
   const [open, setOpen] = useState(false);
@@ -10,6 +13,31 @@ const LocationHistoryBtn = ({ as = "button", member, ...props }) => {
   const close = () => {
     setOpen(false);
   };
+
+
+
+  const { axios } = useAxios()
+
+
+  const fetchData = () => {
+    return axios.get(`/api/shield/shield-members-locations/`, {
+      params: {
+        member_id: member.id
+      }
+    });
+  }
+
+  // React-query for data fetching
+  const { isLoading, isError, refetch, isRefetching, isSuccess, data: response, error } = useQuery(
+    `shield-member-${member.id}-location-history`,
+    fetchData,
+    {
+      refetchOnWindowFocus: false,
+      enabled: open
+    }
+  );
+
+  const items = response?.data ?? []
 
   return (
     <>
@@ -50,7 +78,13 @@ const LocationHistoryBtn = ({ as = "button", member, ...props }) => {
             </div>
           </div>
           <Modal.Body className="space-y-7 py-5">
-            <Table wrapperClassName="bg-accent px-4">
+            <Table
+              wrapperClassName="bg-accent px-4"
+              dataCount={items.length}
+              isLoading={isLoading}
+              isError={isError}
+              error={error}
+            >
               <Table.Thead>
                 <Table.Tr>
                   <Table.Th>Horario</Table.Th>
@@ -59,21 +93,21 @@ const LocationHistoryBtn = ({ as = "button", member, ...props }) => {
                 </Table.Tr>
               </Table.Thead>
               <Table.Tbody>
-                {[...Array(20)].map((item, index) => (
-                  <Table.Tr key={index}>
-                    <Table.Td>
-                      <dd>10:00 hrs</dd>
-                      <dd>11/03/2022</dd>
-                    </Table.Td>
-                    <Table.Td className="!whitespace-normal">
-                      P.º de las Jacarandas 375, Col del Gas, Azcapotzalco,
-                      Ciudad de México.
-                    </Table.Td>
-                    <Table.Td className="font-semibold">
-                      -12.091307, -77.042053
-                    </Table.Td>
-                  </Table.Tr>
-                ))}
+                {!isLoading && !isError &&
+                  items?.map((item) => (
+                    <Table.Tr key={item.id}>
+                      <Table.Td>
+                        <dd>{format(new Date(item.created_at), 'p')}</dd>
+                        <dd>{format(new Date(item.created_at), 'dd/MM/yyyy')}</dd>
+                      </Table.Td>
+                      <Table.Td className="!whitespace-normal">
+                        {item.location}
+                      </Table.Td>
+                      <Table.Td className="font-semibold">
+                        {item.lat_long}
+                      </Table.Td>
+                    </Table.Tr>
+                  ))}
               </Table.Tbody>
             </Table>
           </Modal.Body>

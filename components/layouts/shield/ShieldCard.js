@@ -55,7 +55,7 @@ const ShieldCard = () => {
     },
   ];
 
-  if (true) {
+  if (isSuccess) {
     return (
       <CardWrapper>
         <div className="text-center">
