@@ -7,7 +7,7 @@ import useAxios from "./useAxios";
 import Fuse from "fuse.js";
 
 
-const useTableData = ({ dataUrl = '', queryKeys = [], pageSize = 10, initialSort = { field: 'id', direction: 'desc' } } = {}) => {
+const useTableData = ({ enabled = true, dataUrl = '', queryKeys = [], pageSize = 10, initialSort = { field: 'id', direction: 'desc' } } = {}) => {
   // Custom Axios instance
   const { axios } = useAxios();
 
@@ -32,6 +32,7 @@ const useTableData = ({ dataUrl = '', queryKeys = [], pageSize = 10, initialSort
     {
       refetchOnWindowFocus: false,
       cacheTime: 0,
+      enabled: enabled,
     }
   );
 

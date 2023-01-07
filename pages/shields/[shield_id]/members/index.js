@@ -6,32 +6,40 @@ import LocationHistoryBtn from "@/components/shields/shield/LocationHistoryBtn";
 import useAxios from "@/hooks/useAxios";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
+import Pagination from "@/components/Pagination";
+import useTableData from "@/hooks/useTableData";
+import { format } from "date-fns";
+import ProfilePicture from "@/components/ProfilePicture";
+
+const pageSize = 1
 
 export default function index() {
-  const { axios } = useAxios()
   const router = useRouter();
-
   const { shield_id } = router.query;
 
-  const fetchData = () => {
-    return axios.get("/api/shield/shield-alert-and-sos/", {
-      params: {
-        id: shield_id
-      }
-    });
-  }
-
-  // React-query for data fetching
-  const { isLoading, isError, refetch, isRefetching, isSuccess, data: response, error } = useQuery(
-    `shield-${shield_id}-members`,
-    fetchData,
-    {
-      refetchOnWindowFocus: false,
-      enabled: !!shield_id
-    }
-  );
-
-  const members = response?.data ?? []
+  const {
+    search,
+    setSearch,
+    currentTableData,
+    tempFilters,
+    setTempFilters,
+    applyFilters,
+    isLoading,
+    isError,
+    error,
+    sort,
+    setSort,
+    allData,
+    currentPage,
+    setCurrentPage,
+    isSuccess,
+    resetPage
+  } = useTableData({
+    dataUrl: `/api/shield/shield-members/?id=${shield_id}`,
+    pageSize: pageSize,
+    queryKeys: [`shield-${shield_id}-members-table-data`],
+    enabled: !!shield_id,
+  })
 
 
   return (
@@ -48,49 +56,63 @@ export default function index() {
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
-            {[...Array(11)].map((item, index) => (
-              <Table.Tr key={index}>
-                <Table.Td>
-                  <div className="flex min-w-fit items-center gap-4">
-                    <img
-                      src="/assets/img/sample/companies/fanta.png"
-                      className="block aspect-square w-11 rounded-full object-cover"
-                      alt=""
-                    />
-                    <div>
-                      <p>Carlos Pérez Guerrero</p>
-                      <p>UI123123</p>
-                    </div>
-                  </div>
-                </Table.Td>
-                <Table.Td>25/05/22</Table.Td>
-                <Table.Td>Estandar</Table.Td>
-                <Table.Td>
-                  <span className="inline-flex items-center rounded-full bg-warning bg-opacity-20 px-3 py-1.5 text-sm font-semibold text-warning">
-                    <svg
-                      className="mr-1.5 h-2 w-2 text-warning"
-                      fill="currentColor"
-                      viewBox="0 0 8 8"
-                    >
-                      <circle cx={5} cy={4} r={3} />
-                    </svg>
-                    Colaborativo
-                  </span>
-                </Table.Td>
-                <Table.Td>
-                  <LocationHistoryBtn
-                    type="button"
-                    className="font-semibold text-primary hover:underline"
-                  >
-                    Historial de Ubicaciones
-                  </LocationHistoryBtn>
-                </Table.Td>
-              </Table.Tr>
-            ))}
+            {!isLoading && !isError && currentTableData?.map((member) => <Row member={member} key={member.id} />)}
           </Table.Tbody>
         </Table>
-        <SamplePagination />
+        {/* <SamplePagination /> */}
+        {isSuccess && (
+          <Pagination
+            className="mt-3.5"
+            totalCount={allData.length}
+            currentPage={currentPage}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+          />
+        )}
       </div>
     </ShieldLayout>
   );
+}
+
+const Row = ({ member = {} }) => {
+  return (
+    <Table.Tr>
+      <Table.Td>
+        <div className="flex min-w-fit items-center gap-4">
+          <ProfilePicture
+            src={member.image}
+            className="block aspect-square w-11 rounded-full object-cover"
+            alt=""
+          />
+          <div>
+            <p>{member.full_name}</p>
+            <p>{member.id}</p>
+          </div>
+        </div>
+      </Table.Td>
+      <Table.Td>{format(new Date(member.created_at), 'dd/MM/yy')}</Table.Td>
+      <Table.Td>{member.user_type}</Table.Td>
+      <Table.Td>
+        <span className="inline-flex items-center rounded-full bg-warning bg-opacity-20 px-3 py-1.5 text-sm font-semibold text-warning">
+          <svg
+            className="mr-1.5 h-2 w-2 text-warning"
+            fill="currentColor"
+            viewBox="0 0 8 8"
+          >
+            <circle cx={5} cy={4} r={3} />
+          </svg>
+          Colaborativo
+        </span>
+      </Table.Td>
+      <Table.Td>
+        <LocationHistoryBtn
+          member={member}
+          type="button"
+          className="font-semibold text-primary hover:underline"
+        >
+          Historial de Ubicaciones
+        </LocationHistoryBtn>
+      </Table.Td>
+    </Table.Tr>
+  )
 }

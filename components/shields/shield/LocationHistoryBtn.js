@@ -1,9 +1,10 @@
+import ProfilePicture from "@/components/ProfilePicture";
 import Table from "@/components/Table";
 import InputGroup from "@/components/utility/InputGroup";
 import Modal from "@/components/utility/Modal";
 import React, { createElement, useState } from "react";
 
-const LocationHistoryBtn = ({ as = "button", ...props }) => {
+const LocationHistoryBtn = ({ as = "button", member, ...props }) => {
   const [open, setOpen] = useState(false);
 
   const close = () => {
@@ -24,13 +25,13 @@ const LocationHistoryBtn = ({ as = "button", ...props }) => {
           </Modal.Header>
           <div className="flex justify-between gap-3 p-5">
             <div className="flex gap-3 text-sm">
-              <img
-                src="/assets/img/sample/user-2.png"
+              <ProfilePicture
+                src={member.image}
                 className="inline-block h-11 w-11 rounded-full"
               />
               <div>
-                <dd>Carlos Pérez Guerrero</dd>
-                <dd>UI123123</dd>
+                <dd>{member.full_name}</dd>
+                <dd>{member.id}</dd>
               </div>
             </div>
             <div className="flex items-center gap-2 text-sm">
