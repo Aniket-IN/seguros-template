@@ -93,7 +93,7 @@ const Row = ({ member = {} }) => {
       <Table.Td>{format(new Date(member.created_at), 'dd/MM/yy')}</Table.Td>
       <Table.Td>{member.user_type}</Table.Td>
       <Table.Td>
-        <span className="inline-flex items-center rounded-full bg-warning bg-opacity-20 px-3 py-1.5 text-sm font-semibold text-warning">
+        <span className="capitalize inline-flex items-center rounded-full bg-warning bg-opacity-20 px-3 py-1.5 text-sm font-semibold text-warning">
           <svg
             className="mr-1.5 h-2 w-2 text-warning"
             fill="currentColor"
@@ -101,7 +101,7 @@ const Row = ({ member = {} }) => {
           >
             <circle cx={5} cy={4} r={3} />
           </svg>
-          Colaborativo
+          {member.Hierarchy}
         </span>
       </Table.Td>
       <Table.Td>
