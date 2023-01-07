@@ -132,6 +132,7 @@ const TicketEditForm = ({ ticketId, refetch }) => {
           apiKey={apiKey}
           initialValue={ticket.description}
           init={config.minimal}
+          disabled={!isEditing || isProcessing}
           onEditorChange={(content) => setData("description", content)}
         />
       </div>
