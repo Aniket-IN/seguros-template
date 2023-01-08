@@ -3,8 +3,40 @@ import Table from "@/components/Table";
 import SamplePagination from "@/components/SamplePagination";
 import CompanyLayout from "@/components/layouts/CompanyLayout";
 import Link from "next/link";
+import useTableData from "@/hooks/useTableData";
+import { useRouter } from "next/router";
+
+const pageSize = 1
 
 export default function Memberships() {
+  const router = useRouter();
+  const { company_id } = router.query;
+
+  const {
+    search,
+    setSearch,
+    currentTableData,
+    tempFilters,
+    setTempFilters,
+    applyFilters,
+    isLoading,
+    isError,
+    error,
+    sort,
+    setSort,
+    allData,
+    currentPage,
+    setCurrentPage,
+    isSuccess,
+    resetPage
+  } = useTableData({
+    dataUrl: `/api/company/company-members/?id=${company_id}`,
+    pageSize: pageSize,
+    queryKeys: [`company-${company_id}-memberships-table-data`],
+    enabled: !!company_id,
+  })
+
+
   return (
     <CompanyLayout pageTitle="Empresas" headerTitle="Empresas">
       <div className="mt-5">
