@@ -23,10 +23,10 @@ const Table = ({
             ...props,
           })}
         </div>
+        <Table.Loading isLoading={isLoading} />
+        <Table.Error isError={isError} error={error ?? null} />
+        {!isLoading && !isError && dataCount < 1 && <Table.NoData />}
       </div>
-      <Table.Loading isLoading={isLoading} />
-      <Table.Error isError={isError} error={error ?? null} />
-      {!isLoading && !isError && dataCount < 1 && <Table.NoData />}
     </>
   );
 };
