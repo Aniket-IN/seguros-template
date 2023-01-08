@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ShieldLayout from "@/components/layouts/ShieldLayout";
 import Table from "@/components/Table";
 import SectionHeading from "@/components/SectionHeading";
@@ -14,6 +14,7 @@ import Badge from "@/components/Badge";
 export default function index() {
   const { axios } = useAxios()
   const router = useRouter();
+  const [memberId, setMemberId] = useState('')
 
   const { shield_id } = router.query;
 
@@ -32,7 +33,6 @@ export default function index() {
   );
 
   const members = response?.data ?? []
-  console.log(members);
 
   return (
     <ShieldLayout pageTitle="Escudos" headerTitle="Escudos">
@@ -62,7 +62,7 @@ export default function index() {
                   <Table.Td className="pr-5 flex items-center justify-between gap-4">
                     <Badge.Md text={member.Hierarchy} className="bg-warning bg-opacity-20 text-warning" />
                     <label>
-                      <input type="radio" name="radio" className="h-4 w-4" />
+                      <input checked={memberId == member.id} onChange={() => setMemberId(member.id)} type="radio" name="radio" className="h-4 w-4" />
                     </label>
                   </Table.Td>
                 </Table.Tr>
