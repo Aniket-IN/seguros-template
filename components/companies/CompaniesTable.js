@@ -4,157 +4,79 @@ import { Menu, Transition } from "@headlessui/react";
 import classNames from "classnames";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import Badge from "../Badge";
+import { format } from "date-fns";
 
-const CompaniesTable = () => {
-  const headers = [
-    "Empresas",
-    "Usuario Admin",
-    "N° de escudos",
-    "N° de usuarios",
-    "Fecha de Creación",
-    "Estado",
-    "Acción",
-  ];
+const CompaniesTable = ({ companies = [], isLoading, isError, isSuccess, error, sort, setSort, refetch }) => {
 
   return (
-    <Table>
+    <Table
+      dataCount={companies.length}
+      isLoading={isLoading}
+      isError={isError}
+      error={error}
+    >
       <Table.Thead>
         <Table.Tr>
-          {headers.map((header) => (
-            <Table.Th key={header}>{header}</Table.Th>
-          ))}
+          <Table.Th>Empresas</Table.Th>
+          <Table.Th>Usuario Admin</Table.Th>
+          <Table.Th>N° de escudos</Table.Th>
+          <Table.Th>N° de usuarios</Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable name="created_at">Fecha de Creación</Table.Th>
+          <Table.Th>Estado</Table.Th>
+          <Table.Th>Acción</Table.Th>
         </Table.Tr>
       </Table.Thead>
       <Table.Tbody>
-        {[...Array(6)].map((user, index) => {
-          return (
-            <Fragment key={index}>
-              <Table.Tr>
-                <Table.Td>
-                  <div className="flex items-center">
-                    <div className="h-12 w-12 flex-shrink-0">
-                      <img
-                        className="h-full w-full rounded-full"
-                        src="/assets/img/sample/companies/fanta.png"
-                        alt=""
-                      />
-                    </div>
-                    <div className="ml-4">
-                      <div className="font-semibold text-black">Fanta</div>
-                      <div className="text-black">ESC124587</div>
-                    </div>
-                  </div>
-                </Table.Td>
-                <Table.Td>
-                  <dd>Juan Jesús Alvarez</dd>
-                  <dd>U54872256</dd>
-                </Table.Td>
-                <Table.Td>8</Table.Td>
-                <Table.Td>100</Table.Td>
-                <Table.Td>25/05/22</Table.Td>
-                <Table.Td>
-                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1.5 text-sm font-semibold text-green-600">
-                    <svg
-                      className="mr-1.5 h-2 w-2 text-green-600"
-                      fill="currentColor"
-                      viewBox="0 0 8 8"
-                    >
-                      <circle cx={5} cy={4} r={3} />
-                    </svg>
-                    Activo
-                  </span>
-                </Table.Td>
-                <Table.Td>
-                  <ActionBtn />
-                </Table.Td>
-              </Table.Tr>
-              <Table.Tr>
-                <Table.Td>
-                  <div className="flex items-center">
-                    <div className="h-12 w-12 flex-shrink-0">
-                      <img
-                        className="h-full w-full rounded-full"
-                        src="/assets/img/sample/companies/coca-cola.jpg"
-                        alt="Coca Cola"
-                      />
-                    </div>
-                    <div className="ml-4">
-                      <div className="font-semibold text-black">Coca cola</div>
-                      <div className="text-black">ESC123123</div>
-                    </div>
-                  </div>
-                </Table.Td>
-                <Table.Td>
-                  <dd>Juan Jesús Alvarez</dd>
-                  <dd>U54872256</dd>
-                </Table.Td>
-                <Table.Td>8</Table.Td>
-                <Table.Td>100</Table.Td>
-                <Table.Td>25/05/22</Table.Td>
-                <Table.Td>
-                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1.5 text-sm font-semibold text-green-600">
-                    <svg
-                      className="mr-1.5 h-2 w-2 text-green-600"
-                      fill="currentColor"
-                      viewBox="0 0 8 8"
-                    >
-                      <circle cx={5} cy={4} r={3} />
-                    </svg>
-                    Activo
-                  </span>
-                </Table.Td>
-                <Table.Td>
-                  <ActionBtn />
-                </Table.Td>
-              </Table.Tr>
-              <Table.Tr>
-                <Table.Td>
-                  <div className="flex items-center">
-                    <div className="h-12 w-12 flex-shrink-0">
-                      <img
-                        className="h-full w-full rounded-full"
-                        src="/assets/img/sample/companies/hermes.png"
-                        alt="Hermes"
-                      />
-                    </div>
-                    <div className="ml-4">
-                      <div className="font-semibold text-black">Coca cola</div>
-                      <div className="text-black">ESC123123</div>
-                    </div>
-                  </div>
-                </Table.Td>
-                <Table.Td>
-                  <dd>Juan Jesús Alvarez</dd>
-                  <dd>U54872256</dd>
-                </Table.Td>
-                <Table.Td>8</Table.Td>
-                <Table.Td>100</Table.Td>
-                <Table.Td>25/05/22</Table.Td>
-                <Table.Td>
-                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1.5 text-sm font-semibold text-green-600">
-                    <svg
-                      className="mr-1.5 h-2 w-2 text-green-600"
-                      fill="currentColor"
-                      viewBox="0 0 8 8"
-                    >
-                      <circle cx={5} cy={4} r={3} />
-                    </svg>
-                    Activo
-                  </span>
-                </Table.Td>
-                <Table.Td>
-                  <ActionBtn />
-                </Table.Td>
-              </Table.Tr>
-            </Fragment>
-          );
-        })}
+        {isSuccess && companies.map((company) => <Row key={company.id} company={company} />)}
       </Table.Tbody>
     </Table>
   );
 };
 
-const ActionBtn = () => {
+const Row = ({ company }) => {
+  return (
+    <Table.Tr>
+      <Table.Td>
+        <div className="flex items-center">
+          <div className="h-12 w-12 flex-shrink-0">
+            <img
+              className="h-full w-full rounded-full object-cover"
+              src={company.image ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${company.image}` : null}
+              alt={company.name}
+            />
+          </div>
+          <div className="ml-4">
+            <div className="font-semibold text-black capitalize">{company.name}</div>
+            <div className="text-black">{company.company_code}</div>
+          </div>
+        </div>
+      </Table.Td>
+      <Table.Td>
+        <dd className="capitalize">{company.super_admin.userprofile.full_name}</dd>
+        <dd>{company.super_admin.userprofile.id}</dd>
+      </Table.Td>
+      <Table.Td>
+        <dd>{company.shields}</dd>
+      </Table.Td>
+      <Table.Td>{company.users}</Table.Td>
+      <Table.Td>{format(new Date(company.created_at), 'dd/MM/yy')}</Table.Td>
+      <Table.Td>
+        {!!company.suspended ? (
+          <Badge.Md text="Suspended" className="text-warning bg-warning bg-opacity-20" />
+        ) : (
+          <Badge.Md text="Activo" className="text-green-600 bg-green-100" />
+        )}
+
+      </Table.Td>
+      <Table.Td>
+        <ActionBtn company={company} />
+      </Table.Td>
+    </Table.Tr>
+  )
+}
+
+const ActionBtn = ({ company }) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -178,7 +100,7 @@ const ActionBtn = () => {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  href="/companies/1"
+                  href={`/companies/${company.id}`}
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm"

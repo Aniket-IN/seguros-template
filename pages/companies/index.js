@@ -1,13 +1,38 @@
 import React from "react";
 import Admin from "@/components/layouts/Admin";
 import CompaniesTable from "@/components/companies/CompaniesTable";
-import SamplePagination from "@/components/SamplePagination";
 import InputGroup from "@/components/utility/InputGroup";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import FilterDropDownBtn from "../utility/FilterDropDownBtn";
+import useTableData from "@/hooks/useTableData";
+import FilterDropDownBtn from "@/components/utility/FilterDropDownBtn";
+import Pagination from "@/components/Pagination";
 
-
+const pageSize = 1
 const Companies = () => {
+  const {
+    search,
+    setSearch,
+    currentTableData,
+    tempFilters,
+    setTempFilters,
+    applyFilters,
+    isLoading,
+    isError,
+    error,
+    sort,
+    setSort,
+    allData,
+    currentPage,
+    setCurrentPage,
+    isSuccess,
+    resetPage,
+    refetch
+  } = useTableData({
+    dataUrl: "/api/company/all-companies/",
+    pageSize: pageSize,
+    queryKeys: ["companies-table-data"]
+  })
+
   return (
     <Admin pageTitle="Empresas" headerTitle="Empresas">
       <div className="bg-neutral">
@@ -18,6 +43,8 @@ const Companies = () => {
                 <MagnifyingGlassIcon className="aspect-square w-full" />
               </div>
               <InputGroup.Input
+                value={search}
+                onChange={e => { setSearch(e.target.value); resetPage() }}
                 id="search"
                 type="search"
                 name="search"
@@ -29,6 +56,9 @@ const Companies = () => {
 
           <div className="flex flex-grow items-center gap-3">
             <FilterDropDownBtn.Primary
+              onApply={applyFilters}
+              filters={tempFilters}
+              setFilters={setTempFilters}
               groups={[
                 {
                   id: 1,
@@ -36,18 +66,21 @@ const Companies = () => {
                   options: [
                     {
                       id: 1,
+                      name: "suspended",
                       label: "Active",
-                      value: "Active",
+                      value: false,
                     },
-                    {
-                      id: 2,
-                      label: "Inactive",
-                      value: "Inactive",
-                    },
+                    // {
+                    //   id: 2,
+                    //   name: "suspended",
+                    //   label: "Inactive",
+                    //   value: "Inactive",
+                    // },
                     {
                       id: 3,
+                      name: "suspended",
                       label: "Suspended",
-                      value: "Suspended",
+                      value: true,
                     },
                   ],
                 },
@@ -60,8 +93,26 @@ const Companies = () => {
       </div>
 
       <div className="container-padding">
-        <CompaniesTable />
-        <SamplePagination />
+        <CompaniesTable
+          refetch={refetch}
+          companies={currentTableData}
+          isLoading={isLoading}
+          isError={isError}
+          error={error}
+          sort={sort}
+          setSort={setSort}
+          isSuccess={isSuccess}
+        />
+        {/* <SamplePagination /> */}
+        {isSuccess && (
+          <Pagination
+            className="mt-3.5"
+            totalCount={allData.length}
+            currentPage={currentPage}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+          />
+        )}
       </div>
     </Admin>
   );
