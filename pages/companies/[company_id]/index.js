@@ -86,7 +86,7 @@ export default function index() {
                 </Table.Td>
                 <Table.Td>
                   <Link
-                    href="/shields/1"
+                    href={`/shields/${shield.id}`}
                     className="font-semibold text-primary hover:underline"
                   >
                     Ver detalles
