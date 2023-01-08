@@ -12,6 +12,7 @@ import ConfirmationModal from "../utility/ConfirmationModal";
 const AlertsSOSTable = ({ alerts = [], isLoading, isSuccess, isError, error, sort, setSort }) => {
   return (
     <Table
+      wrapperClassName="pb-96 no-scrollbar"
       dataCount={alerts.length}
       isLoading={isLoading}
       isError={isError}

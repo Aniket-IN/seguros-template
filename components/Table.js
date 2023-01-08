@@ -16,7 +16,7 @@ const Table = ({
 }) => {
   return (
     <>
-      <div className={classNames("overflow-x-auto", wrapperClassName)}>
+      <div className={classNames("overflow-x-auto overflow-y-visible", wrapperClassName)}>
         <div className="inline-block min-w-full">
           {createElement(as, {
             className: `min-w-full ${className}`,
