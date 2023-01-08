@@ -1,10 +1,52 @@
+import useAxios from "@/hooks/useAxios";
 import React from "react";
+import { useQuery } from "react-query";
 import SectionHeading from "../SectionHeading";
 import MembershipsCountCard from "./MembershipsCountCard";
 import RegisteredUsersCountCard from "./RegisteredUsersCountCard";
 import SmallAnalyticsCard from "./SmallAnalyticsCard";
 
 const TopCardsSection = ({ selectedMonth }) => {
+  const { axios } = useAxios();
+
+  const now = new Date();
+
+  function padWithZero(num, targetLength) {
+    return String(num).padStart(targetLength, "0");
+  }
+
+  const selectedDate = new Date(
+    `${now.getFullYear()}-${padWithZero(
+      selectedMonth.value,
+      2
+    )}-15T14:10:28.570073Z`
+  );
+
+  const fetchData = ({ url = "", month, year }) => {
+    return axios.get(url, {
+      params: {
+        month,
+        year,
+      },
+    });
+  };
+
+  const alertsQuery = useQuery(
+    [`alerts-count-data-${selectedMonth.value}`],
+    () =>
+      fetchData({
+        url: "/api/dashboard/generated-alerts-with-sos-according-months/",
+        month: selectedDate.getMonth() + 1,
+        year: selectedDate.getFullYear(),
+      }),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  const alertsData = alertsQuery.data?.data?.data ?? {}
+
+
   return (
     <div className="container-padding">
       <SectionHeading className="py-5">Métricas del mes</SectionHeading>
@@ -53,11 +95,11 @@ const TopCardsSection = ({ selectedMonth }) => {
             items={[
               {
                 title: "Alertas",
-                count: 250,
+                count: alertsData.generated_alerts_count,
               },
               {
                 title: "SOS",
-                count: 32,
+                count: alertsData.sos_count,
               },
             ]}
             footer={{
