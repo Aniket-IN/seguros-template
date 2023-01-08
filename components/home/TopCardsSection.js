@@ -70,9 +70,23 @@ const TopCardsSection = ({ selectedMonth }) => {
     }
   );
 
+  const promocodesQuery = useQuery(
+    [`promocodes-count-data-${selectedMonth.value}`],
+    () =>
+      fetchData({
+        url: "/api/dashboard/created-promo-code-according-months/",
+        month: selectedDate.getMonth() + 1,
+        year: selectedDate.getFullYear(),
+      }),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
   const alertsData = alertsQuery.data?.data?.data ?? {}
   const ticketsData = ticketsQuery.data?.data?.data ?? {}
   const shieldsData = shieldsQuery.data?.data?.data ?? {}
+  const promocodesData = promocodesQuery.data?.data?.data ?? {}
 
 
   return (
@@ -140,11 +154,11 @@ const TopCardsSection = ({ selectedMonth }) => {
             items={[
               {
                 title: "Total",
-                count: 250,
+                count: promocodesData.total,
               },
               {
                 title: "Vencidos",
-                count: 32,
+                count: promocodesData.due,
               },
             ]}
             footer={{
