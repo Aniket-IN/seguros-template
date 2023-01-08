@@ -11,6 +11,7 @@ const CompaniesTable = ({ companies = [], isLoading, isError, isSuccess, error, 
 
   return (
     <Table
+      wrapperClassName="pb-28 no-scrollbar"
       dataCount={companies.length}
       isLoading={isLoading}
       isError={isError}
