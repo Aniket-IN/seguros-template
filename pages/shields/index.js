@@ -123,13 +123,14 @@ export default function Shields() {
         />
         {/* <SamplePagination /> */}
         {isSuccess && (
-          <Pagination
-            className="mt-3.5"
-            totalCount={allData.length}
-            currentPage={currentPage}
-            pageSize={pageSize}
-            onPageChange={setCurrentPage}
-          />
+          <div className="mt-3.5 -translate-y-96">
+            <Pagination
+              totalCount={allData.length}
+              currentPage={currentPage}
+              pageSize={pageSize}
+              onPageChange={setCurrentPage}
+            />
+          </div>
         )}
       </div>
     </Admin>
