@@ -54,7 +54,7 @@ const LocationHistoryBtn = ({ as = "button", member, ...props }) => {
           <div className="flex justify-between gap-3 p-5">
             <div className="flex gap-3 text-sm">
               <ProfilePicture
-                src={member.image}
+                src={member.image ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${member.image}` : null}
                 className="inline-block h-11 w-11 rounded-full"
               />
               <div>

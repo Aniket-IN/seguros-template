@@ -85,7 +85,7 @@ const Row = ({ member = {} }) => {
       <Table.Td>
         <div className="flex min-w-fit items-center gap-4">
           <ProfilePicture
-            src={member.image}
+            src={member.image ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${member.image}` : null}
             className="block aspect-square w-11 rounded-full object-cover"
             alt=""
           />

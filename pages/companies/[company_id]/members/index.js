@@ -1,13 +1,51 @@
 import React from "react";
 import Table from "@/components/Table";
-import SamplePagination from "@/components/SamplePagination";
 import CompanyLayout from "@/components/layouts/CompanyLayout";
+import useTableData from "@/hooks/useTableData";
+import { useRouter } from "next/router";
+import Pagination from "@/components/Pagination";
+import ProfilePicture from "@/components/ProfilePicture";
+import { format } from "date-fns";
+
+const pageSize = 1
 
 export default function Members() {
+  const router = useRouter();
+  const { company_id } = router.query;
+
+  const {
+    search,
+    setSearch,
+    currentTableData,
+    tempFilters,
+    setTempFilters,
+    applyFilters,
+    isLoading,
+    isError,
+    error,
+    sort,
+    setSort,
+    allData,
+    currentPage,
+    setCurrentPage,
+    isSuccess,
+    resetPage
+  } = useTableData({
+    dataUrl: `/api/company/company-members/?id=${company_id}`,
+    pageSize: pageSize,
+    queryKeys: [`company-${company_id}-members-table-data`],
+    enabled: !!company_id,
+  })
+
   return (
     <CompanyLayout pageTitle="Empresas" headerTitle="Empresas">
       <div className="mt-5">
-        <Table>
+        <Table
+          dataCount={currentTableData.length}
+          isLoading={isLoading}
+          isError={isError}
+          error={error}
+        >
           <Table.Thead>
             <Table.Tr>
               <Table.Th>Miembro</Table.Th>
@@ -17,29 +55,36 @@ export default function Members() {
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
-            {[...Array(11)].map((item, index) => (
+            {isSuccess && currentTableData?.map((member, index) => (
               <Table.Tr key={index}>
                 <Table.Td>
                   <div className="flex min-w-fit items-center gap-4">
-                    <img
-                      src="/assets/img/sample/user-1.png"
+                    <ProfilePicture
+                      src={member.image ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${member.image}` : null}
                       className="block aspect-square w-11 rounded-full object-cover"
-                      alt=""
                     />
                     <div>
-                      <p className="font-semibold">Carlos Pérez Guerrero</p>
-                      <p>UI123123</p>
+                      <p className="font-semibold">{member.full_name}</p>
+                      <p>{member.id}</p>
                     </div>
                   </div>
                 </Table.Td>
-                <Table.Td>23/09/2022</Table.Td>
+                <Table.Td>{format(new Date(member.created_at), 'dd/MM/yyyy')}</Table.Td>
                 <Table.Td>3</Table.Td>
                 <Table.Td>Nivel 4</Table.Td>
               </Table.Tr>
             ))}
           </Table.Tbody>
         </Table>
-        <SamplePagination />
+        {isSuccess && (
+          <Pagination
+            className="mt-3.5"
+            totalCount={allData.length}
+            currentPage={currentPage}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+          />
+        )}
       </div>
     </CompanyLayout>
   );
