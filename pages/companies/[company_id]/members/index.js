@@ -70,8 +70,10 @@ export default function Members() {
                   </div>
                 </Table.Td>
                 <Table.Td>{format(new Date(member.created_at), 'dd/MM/yyyy')}</Table.Td>
-                <Table.Td>3</Table.Td>
-                <Table.Td>Nivel 4</Table.Td>
+                <Table.Td>{member.number_of_shields}</Table.Td>
+                <Table.Td>
+                  {/* Nivel 4 */}
+                </Table.Td>
               </Table.Tr>
             ))}
           </Table.Tbody>
