@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import useAxios from "@/hooks/useAxios";
 import { useQuery } from "react-query";
 import Badge from "@/components/Badge";
+import { format } from "date-fns";
 
 export default function index() {
   const { axios } = useAxios()
@@ -36,9 +37,6 @@ export default function index() {
 
   return (
     <ShieldLayout pageTitle="Escudos" headerTitle="Escudos">
-      {/* TODO: Design page (shields/1/route-history)
-      XD Link: https://xd.adobe.com/view/258a5967-33a7-4223-b884-a052f322a683-70d9/screen/cf3baed5-8183-4510-8037-d7828fe0d793/specs/
-      */}
       <div className="mt-4 flex flex-col gap-5 xl:flex-row">
         <div className="h-[800px] w-full xl:max-w-md">
           <Table wrapperClassName="h-full no-scrollbar" className="relative">
@@ -91,39 +89,67 @@ export default function index() {
             </DownloadRoutesBtn>
           </div>
           <div className="relative flex-grow bg-accent">
-            <Table
-              wrapperClassName="absolute inset-0 w-full h-full px-4 pb-4 overflow-auto"
-              className="relative"
-            >
-              <Table.Thead className="sticky top-0 bg-accent">
-                <Table.Tr>
-                  <Table.Th>ID Ruta</Table.Th>
-                  <Table.Th>Velocidad</Table.Th>
-                  <Table.Th>Detalles de Ruta</Table.Th>
-                </Table.Tr>
-              </Table.Thead>
-              <Table.Tbody>
-                {[...Array(20)].map((item, index) => (
-                  <Table.Tr key={index}>
-                    <Table.Td className="font-semibold">
-                      Ruta #E12341RF212
-                    </Table.Td>
-                    <Table.Td>
-                      <dd>10:00 hrs - 19:20 hrs</dd>
-                      <dd>11/03/2022</dd>
-                    </Table.Td>
-                    <Table.Td>
-                      <RouteDetailsModalBtn className="font-semibold text-primary hover:underline">
-                        Ver Detalles
-                      </RouteDetailsModalBtn>
-                    </Table.Td>
-                  </Table.Tr>
-                ))}
-              </Table.Tbody>
-            </Table>
+            <RouteHistoryTable memberId={memberId} />
           </div>
         </div>
       </div>
     </ShieldLayout>
   );
+}
+
+const RouteHistoryTable = ({ memberId }) => {
+
+  const { axios } = useAxios()
+  const router = useRouter();
+
+  const { shield_id } = router.query;
+
+  const fetchData = () => {
+    return axios.get(`/api/shield/shield-members-routes/?shield_id=${shield_id}&member_id=${memberId}`);
+  }
+
+  // React-query for data fetching
+  const { isLoading, isError, refetch, isRefetching, isSuccess, data: response, error } = useQuery(
+    `shield-${shield_id}-member-${memberId}-routes`,
+    fetchData,
+    {
+      refetchOnWindowFocus: false,
+      enabled: (!!shield_id) && (!!memberId)
+    }
+  );
+
+  const routes = response?.data ?? []
+
+  return (
+    <Table
+      wrapperClassName="absolute inset-0 w-full h-full px-4 pb-4 overflow-auto"
+      className="relative"
+    >
+      <Table.Thead className="sticky top-0 bg-accent">
+        <Table.Tr>
+          <Table.Th>ID Ruta</Table.Th>
+          <Table.Th>Velocidad</Table.Th>
+          <Table.Th>Detalles de Ruta</Table.Th>
+        </Table.Tr>
+      </Table.Thead>
+      <Table.Tbody>
+        {routes?.map((route) => (
+          <Table.Tr key={route.route_id}>
+            <Table.Td className="font-semibold">
+              Ruta #{route.route_id}
+            </Table.Td>
+            <Table.Td>
+              {/* <dd>10:00 hrs - 19:20 hrs</dd> */}
+              <dd>{format(new Date(route.schedule), 'dd/MM/yy')}</dd>
+            </Table.Td>
+            <Table.Td>
+              <RouteDetailsModalBtn route={route} className="font-semibold text-primary hover:underline">
+                Ver Detalles
+              </RouteDetailsModalBtn>
+            </Table.Td>
+          </Table.Tr>
+        ))}
+      </Table.Tbody>
+    </Table>
+  )
 }

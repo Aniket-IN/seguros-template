@@ -1,9 +1,11 @@
+import ProfilePicture from "@/components/ProfilePicture";
 import SectionHeading from "@/components/SectionHeading";
 import Table from "@/components/Table";
 import Modal from "@/components/utility/Modal";
+import { format } from "date-fns";
 import React, { createElement, useState } from "react";
 
-const RouteDetailsModalBtn = ({ as = "button", ...props }) => {
+const RouteDetailsModalBtn = ({ as = "button", route = {}, ...props }) => {
   const [open, setOpen] = useState(false);
 
   const close = () => {
@@ -19,25 +21,26 @@ const RouteDetailsModalBtn = ({ as = "button", ...props }) => {
       >
         <Modal.Wrapper>
           <Modal.Header className="bg-accent">
-            <h2 className="text-lg font-medium">Ruta #E12341RF212</h2>
+            <h2 className="text-lg font-medium">Ruta #{route.route_id}</h2>
             <Modal.XBtn onClick={close} />
           </Modal.Header>
           <Modal.Body className="grid grid-cols-1 gap-4 py-6 lg:grid-cols-2">
             <div className="space-y-5">
               <div className="flex gap-4 text-sm">
-                <img
-                  src="/assets/img/sample/user-2.png"
-                  className="inline-block h-11 w-11 rounded-full"
+                <ProfilePicture
+                  src={route.member?.image ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${route.member?.image}` : null}
+                  className="inline-block h-11 w-11 rounded-full object-cover"
                 />
                 <div>
-                  <dd>Carlos Pérez Guerrero</dd>
-                  <dd>UI123123</dd>
+                  <dd className="capitalize">{route.member?.full_name}</dd>
+                  <dd>{route.member?.id}</dd>
                 </div>
               </div>
               <div className="aspect-video w-full bg-accent"></div>
               <div>
-                <SectionHeading>10:00 hrs - 19:20 hrs</SectionHeading>
-                <dd className="mt-1">11/03/2022</dd>
+                {/* <SectionHeading>10:00 hrs - 19:20 hrs</SectionHeading> */}
+                {/* <SectionHeading>10:00 hrs - 19:20 hrs</SectionHeading> */}
+                <dd className="mt-1">{format(new Date(route.created_at), 'dd/MM/yy')}</dd>
               </div>
 
               <div>
@@ -67,8 +70,8 @@ const RouteDetailsModalBtn = ({ as = "button", ...props }) => {
               <div className="grid grid-cols-2 gap-x-5 text-sm">
                 <dd className="font-semibold">Velocidad máx</dd>
                 <dd className="font-semibold">Batería mínima</dd>
-                <dd>70 km/h</dd>
-                <dd>34%</dd>
+                <dd>{route.max_speed} km/h</dd>
+                <dd>{route.minimum_phone_battery}%</dd>
               </div>
             </div>
 
@@ -80,15 +83,14 @@ const RouteDetailsModalBtn = ({ as = "button", ...props }) => {
                 </Table.Tr>
               </Table.Thead>
               <Table.Tbody>
-                {[...Array(7)].map((item, index) => (
-                  <Table.Tr key={index}>
+                {route.location?.map((location, index) => (
+                  <Table.Tr key={location.id}>
                     <Table.Td>
-                      <dd>10:00 hrs</dd>
-                      <dd>11/03/2022</dd>
+                      <dd>{format(new Date(location.created_at), 'p')}</dd>
+                      <dd>{format(new Date(location.created_at), 'dd/MM/yyyy')}</dd>
                     </Table.Td>
                     <Table.Td className="!whitespace-normal">
-                      P.º de las Jacarandas 375, Col del Gas, Azcapotzalco,
-                      Ciudad de México.
+                      {location.location}
                     </Table.Td>
                   </Table.Tr>
                 ))}
