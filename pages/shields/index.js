@@ -123,7 +123,7 @@ export default function Shields() {
         />
         {/* <SamplePagination /> */}
         {isSuccess && (
-          <div className="mt-3.5 -translate-y-96">
+          <div className="mt-3.5 -translate-y-24">
             <Pagination
               totalCount={allData.length}
               currentPage={currentPage}

@@ -10,7 +10,7 @@ import Badge from "../Badge";
 const ShieldsTable = ({ shields = [], isLoading, isError, error, sort, setSort }) => {
   return (
     <Table
-      wrapperClassName="pb-96 no-scrollbar"
+      wrapperClassName="pb-24 no-scrollbar"
       dataCount={shields.length}
       isLoading={isLoading}
       isError={isError}
