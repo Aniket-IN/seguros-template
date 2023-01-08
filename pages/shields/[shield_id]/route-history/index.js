@@ -6,8 +6,34 @@ import InputGroup from "@/components/utility/InputGroup";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import DownloadRoutesBtn from "@/components/shields/shield/DownloadRoutesBtn";
 import RouteDetailsModalBtn from "@/components/shields/shield/RouteDetailsModalBtn";
+import { useRouter } from "next/router";
+import useAxios from "@/hooks/useAxios";
+import { useQuery } from "react-query";
+import Badge from "@/components/Badge";
 
 export default function index() {
+  const { axios } = useAxios()
+  const router = useRouter();
+
+  const { shield_id } = router.query;
+
+  const fetchData = () => {
+    return axios.get(`/api/shield/shield-members/?id=${shield_id}`);
+  }
+
+  // React-query for data fetching
+  const { isLoading, isError, refetch, isRefetching, isSuccess, data: response, error } = useQuery(
+    `shield-${shield_id}-members`,
+    fetchData,
+    {
+      refetchOnWindowFocus: false,
+      enabled: !!shield_id
+    }
+  );
+
+  const members = response?.data ?? []
+  console.log(members);
+
   return (
     <ShieldLayout pageTitle="Escudos" headerTitle="Escudos">
       {/* TODO: Design page (shields/1/route-history)
@@ -18,37 +44,26 @@ export default function index() {
           <Table wrapperClassName="h-full no-scrollbar" className="relative">
             <Table.Thead className="sticky top-0 bg-accent">
               <Table.Tr>
-                <Table.Th className="pl-5">Nombre</Table.Th>
-                <Table.Th className="pr-5">Jerarquía</Table.Th>
+                <Table.Th className="w-1/2 pl-5">Nombre</Table.Th>
+                <Table.Th className="w-1/2 pr-5">Jerarquía</Table.Th>
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>
-              {[...Array(20)].map((item, index) => (
-                <Table.Tr key={index}>
+              {members.map((member) => (
+                <Table.Tr key={member.id}>
                   <Table.Td className="pl-5">
                     <div className="flex gap-3">
                       <dl>
-                        <dd>Juan Jesús Ledesma</dd>
-                        <dd>ID-U1231231</dd>
+                        <dd className="capitalize">{member.full_name}</dd>
+                        <dd>ID-{member.id}</dd>
                       </dl>
                     </div>
                   </Table.Td>
-                  <Table.Td className="pr-5">
-                    <div className="flex items-center justify-between gap-4">
-                      <span className="inline-flex items-center rounded-full bg-warning bg-opacity-20 px-3 py-1.5 text-sm font-semibold text-warning">
-                        <svg
-                          className="mr-1.5 h-2 w-2 text-warning"
-                          fill="currentColor"
-                          viewBox="0 0 8 8"
-                        >
-                          <circle cx={5} cy={4} r={3} />
-                        </svg>
-                        Colaborativo
-                      </span>
-                      <label>
-                        <input type="radio" name="radio" className="h-4 w-4" />
-                      </label>
-                    </div>
+                  <Table.Td className="pr-5 flex items-center justify-between gap-4">
+                    <Badge.Md text={member.Hierarchy} className="bg-warning bg-opacity-20 text-warning" />
+                    <label>
+                      <input type="radio" name="radio" className="h-4 w-4" />
+                    </label>
                   </Table.Td>
                 </Table.Tr>
               ))}
