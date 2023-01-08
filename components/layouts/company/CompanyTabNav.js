@@ -9,25 +9,27 @@ import { useRouter } from "next/router";
 const CompanyTabNav = () => {
   const router = useRouter();
 
+  const { company_id } = router.query;
+
   const tabs = [
     {
       title: "Escudos",
-      href: "/companies/1",
+      href: `/companies/${company_id}`,
       activePaths: ["/companies/[company_id]"],
     },
     {
       title: "Miembros",
-      href: "/companies/1/members",
+      href: `/companies/${company_id}/members`,
       activePaths: ["/companies/[company_id]/members"],
     },
     {
       title: "Códigos promo",
-      href: "/companies/1/promo-codes",
+      href: `/companies/${company_id}/promo-codes`,
       activePaths: ["/companies/[company_id]/promo-codes"],
     },
     {
       title: "Membresía",
-      href: "/companies/1/memberships",
+      href: `/companies/${company_id}/memberships`,
       activePaths: ["/companies/[company_id]/memberships"],
     },
   ];
