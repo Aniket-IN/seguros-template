@@ -14,6 +14,7 @@ const PromoCodesTable = ({ promoCodes = [], isLoading, isError, error, sort, set
   return (
     <div>
       <Table
+        wrapperClassName="pb-96 no-scrollbar"
         dataCount={promoCodes.length}
         isLoading={isLoading}
         isError={isError}
