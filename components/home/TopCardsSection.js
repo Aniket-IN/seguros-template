@@ -44,7 +44,21 @@ const TopCardsSection = ({ selectedMonth }) => {
     }
   );
 
+  const ticketsQuery = useQuery(
+    [`tickets-count-data-${selectedMonth.value}`],
+    () =>
+      fetchData({
+        url: "/api/dashboard/created-tickets-according-months/",
+        month: selectedDate.getMonth() + 1,
+        year: selectedDate.getFullYear(),
+      }),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
   const alertsData = alertsQuery.data?.data?.data ?? {}
+  const ticketsData = ticketsQuery.data?.data?.data ?? {}
 
 
   return (
@@ -76,11 +90,11 @@ const TopCardsSection = ({ selectedMonth }) => {
             items={[
               {
                 title: "Total",
-                count: 250,
+                count: ticketsData.support_tickets,
               },
               {
                 title: "Resueltos",
-                count: 32,
+                count: ticketsData.resolved_tickets,
               },
             ]}
             footer={{
