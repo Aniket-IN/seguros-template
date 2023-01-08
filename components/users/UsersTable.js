@@ -17,6 +17,7 @@ const UsersTable = ({
 }) => {
   return (
     <Table
+      wrapperClassName="pb-28 no-scrollbar"
       dataCount={users.length}
       isLoading={isLoading}
       isError={isError}
