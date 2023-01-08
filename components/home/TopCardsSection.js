@@ -57,8 +57,22 @@ const TopCardsSection = ({ selectedMonth }) => {
     }
   );
 
+  const shieldsQuery = useQuery(
+    [`shields-count-data-${selectedMonth.value}`],
+    () =>
+      fetchData({
+        url: "/api/dashboard/created-shields-according-months/",
+        month: selectedDate.getMonth() + 1,
+        year: selectedDate.getFullYear(),
+      }),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
   const alertsData = alertsQuery.data?.data?.data ?? {}
   const ticketsData = ticketsQuery.data?.data?.data ?? {}
+  const shieldsData = shieldsQuery.data?.data?.data ?? {}
 
 
   return (
@@ -73,11 +87,11 @@ const TopCardsSection = ({ selectedMonth }) => {
             items={[
               {
                 title: "Particulares",
-                count: 250,
+                count: shieldsData.individual_count,
               },
               {
                 title: "Empresas",
-                count: 32,
+                count: shieldsData.companies_count,
               },
             ]}
             footer={{
