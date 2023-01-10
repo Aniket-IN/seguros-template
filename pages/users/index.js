@@ -26,11 +26,12 @@ const Users = () => {
     currentPage,
     setCurrentPage,
     isSuccess,
-    resetPage
+    resetPage,
   } = useTableData({
     dataUrl: "/api/dashboard/users/",
     pageSize: pageSize,
-    queryKeys: ["users-table-data"]
+    queryKeys: ["users-table-data"],
+    dataCallback: (data) => data?.data?.data
   })
 
 

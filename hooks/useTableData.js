@@ -62,7 +62,7 @@ const useTableData = ({
 
   // filtering
   const allDataUnsorted = useMemo(() => {
-    let items = [...dataItems];
+    let items = dataItems;
     items = items.filter((item) => {
       let passingFilters = []
       Object.entries(filters).forEach(([filterKey, filter]) => {
