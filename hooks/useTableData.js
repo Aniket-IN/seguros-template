@@ -7,7 +7,16 @@ import useAxios from "./useAxios";
 import Fuse from "fuse.js";
 
 
-const useTableData = ({ enabled = true, dataUrl = '', queryKeys = [], pageSize = 10, initialSort = { field: 'id', direction: 'desc' } } = {}) => {
+const useTableData = ({
+  enabled = true,
+  dataUrl = '',
+  dataCallback = (resp) => {
+    return resp?.data ?? []
+  },
+  queryKeys = [],
+  pageSize = 10,
+  initialSort = { field: 'id', direction: 'desc' }
+}) => {
   // Custom Axios instance
   const { axios } = useAxios();
 
@@ -49,10 +58,11 @@ const useTableData = ({ enabled = true, dataUrl = '', queryKeys = [], pageSize =
     resetPage()
   }, [filters])
 
+  const dataItems = dataCallback(responseData) ?? [];
 
   // filtering
   const allDataUnsorted = useMemo(() => {
-    let items = responseData?.data ?? [];
+    let items = [...dataItems];
     items = items.filter((item) => {
       let passingFilters = []
       Object.entries(filters).forEach(([filterKey, filter]) => {
