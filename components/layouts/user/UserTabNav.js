@@ -8,31 +8,32 @@ import { Menu, Transition } from "@headlessui/react";
 
 const UserTabNav = () => {
   const router = useRouter();
+  const { user_id } = router.query;
 
   const tabs = [
     {
       title: "Historial de ubicaciones",
-      href: "/users/1",
+      href: `/users/${user_id}`,
       activePaths: ["/users/[user_id]"],
     },
     {
       title: "Escudos",
-      href: "/users/1/shields",
+      href: `/users/${user_id}/shields`,
       activePaths: ["/users/[user_id]/shields"],
     },
     {
       title: "Alertas y SOS",
-      href: "/users/1/sos",
+      href: `/users/${user_id}/sos`,
       activePaths: ["/users/[user_id]/sos"],
     },
     {
       title: "Membresía",
-      href: "/users/1/membership",
+      href: `/users/${user_id}/membership`,
       activePaths: ["/users/[user_id]/membership"],
     },
     {
       title: "Biométrico",
-      href: "/users/1/biometric",
+      href: `/users/${user_id}/biometric`,
       activePaths: ["/users/[user_id]/biometric"],
     },
   ];
