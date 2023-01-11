@@ -16,6 +16,8 @@ const DocumentationFAQLayout = ({
   headerTitle = "",
   needsRefetch = false,
   setNeedsRefetch = () => { },
+  categoryQuestionsUpdated = null,
+  setCategoryQuestionsUpdated = () => { },
 }) => {
   const { axios } = useAxios({
     baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
@@ -36,6 +38,7 @@ const DocumentationFAQLayout = ({
 
   useEffect(() => {
     if (needsRefetch) {
+      console.log('refetching...');
       refetch();
       setNeedsRefetch(false)
     }
@@ -66,7 +69,12 @@ const DocumentationFAQLayout = ({
               </div>
               <ul className="no-scrollbar max-h-[750px] space-y-1 overflow-auto">
                 {categories.map((category, index) => (
-                  <Category key={category.id} category={category} />
+                  <Category
+                    key={category.id}
+                    category={category}
+                    categoryQuestionsUpdated={categoryQuestionsUpdated}
+                    setCategoryQuestionsUpdated={setCategoryQuestionsUpdated}
+                  />
                 ))}
               </ul>
             </div>
@@ -80,7 +88,7 @@ const DocumentationFAQLayout = ({
   );
 };
 
-const Category = ({ category }) => {
+const Category = ({ category, categoryQuestionsUpdated, setCategoryQuestionsUpdated }) => {
   const router = useRouter();
   const { category_id, question_id } = router.query
   const [open, setOpen] = useState(false);
@@ -119,13 +127,21 @@ const Category = ({ category }) => {
     });
   };
 
-  const { isLoading, data, isError, error } = useQuery(
+  const { isLoading, data, isError, error, refetch } = useQuery(
     [`documentation-faq-category-${category.id}-questions`],
     getQuestions,
     {
       refetchOnWindowFocus: false,
     }
   );
+
+  useEffect(() => {
+    if (categoryQuestionsUpdated && categoryQuestionsUpdated == category.id) {
+      refetch();
+      setCategoryQuestionsUpdated(null)
+    }
+  }, [categoryQuestionsUpdated])
+
 
   const questions = data?.data?.data ?? []
 
