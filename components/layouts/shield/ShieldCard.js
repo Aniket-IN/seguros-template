@@ -14,28 +14,7 @@ const CardWrapper = ({ as = 'div', className = '', ...props }) => {
   })
 }
 
-const ShieldCard = () => {
-  const { axios } = useAxios()
-  const router = useRouter();
-
-  const { shield_id } = router.query;
-
-  const fetchData = () => {
-    return axios.get(`/api/shield/get-single/${shield_id}`);
-  }
-
-  // React-query for data fetching
-  const { isLoading, isError, refetch, isRefetching, isSuccess, data: response, error } = useQuery(
-    `shield-${shield_id}-details`,
-    fetchData,
-    {
-      refetchOnWindowFocus: false,
-      enabled: !!shield_id
-    }
-  );
-
-  const shield = response?.data?.data ?? {}
-
+const ShieldCard = ({ shield, isSuccess }) => {
   const data = [
     {
       key: "Administradores",

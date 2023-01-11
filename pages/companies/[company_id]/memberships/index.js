@@ -5,6 +5,8 @@ import CompanyLayout from "@/components/layouts/CompanyLayout";
 import Link from "next/link";
 import useTableData from "@/hooks/useTableData";
 import { useRouter } from "next/router";
+import Pagination from "@/components/Pagination";
+import { format } from "date-fns";
 
 const pageSize = 1
 
@@ -31,7 +33,9 @@ export default function Memberships() {
     resetPage
   } = useTableData({
     baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
-    dataUrl: `/api/company/company-members/?id=${company_id}`,
+    noAuth: true,
+    dataCallback: (data) => data?.data?.data,
+    dataUrl: `/api/company/membership-company/?id=${company_id}`,
     pageSize: pageSize,
     queryKeys: [`company-${company_id}-memberships-table-data`],
     enabled: !!company_id,
@@ -41,7 +45,12 @@ export default function Memberships() {
   return (
     <CompanyLayout pageTitle="Empresas" headerTitle="Empresas">
       <div className="mt-5">
-        <Table>
+        <Table
+          dataCount={currentTableData.length}
+          isLoading={isLoading}
+          isError={isError}
+          error={error}
+        >
           <Table.Thead>
             <Table.Tr>
               <Table.Th>Membresía</Table.Th>
@@ -53,16 +62,16 @@ export default function Memberships() {
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
-            {[...Array(2)].map((item, index) => (
-              <Table.Tr key={index}>
-                <Table.Td>Nivel 0</Table.Td>
-                <Table.Td>22/08/2022</Table.Td>
-                <Table.Td>23/09/2022</Table.Td>
-                <Table.Td className="font-semibold">Pago#123123</Table.Td>
-                <Table.Td>T-1231231231</Table.Td>
+            {isSuccess && currentTableData?.map((item, index) => (
+              <Table.Tr key={item.id}>
+                <Table.Td>{item.membership}</Table.Td>
+                <Table.Td>{format(new Date(item.date), 'dd/MM/yyyy')}</Table.Td>
+                <Table.Td>{format(new Date(item.membership_end_date), 'dd/MM/yyyy')}</Table.Td>
+                <Table.Td className="font-semibold">Pago#{item.order_id}</Table.Td>
+                <Table.Td>{item.transaction_id}</Table.Td>
                 <Table.Td>
                   <Link
-                    href="/payment-memberships/1"
+                    href={`/payment-memberships/${item.id}`}
                     className="font-semibold text-primary hover:underline"
                   >
                     Ver detalles
@@ -72,7 +81,15 @@ export default function Memberships() {
             ))}
           </Table.Tbody>
         </Table>
-        <SamplePagination />
+        {isSuccess && (
+          <Pagination
+            className="mt-3.5"
+            totalCount={allData.length}
+            currentPage={currentPage}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+          />
+        )}
       </div>
     </CompanyLayout>
   );

@@ -10,7 +10,10 @@ import { useQuery } from "react-query";
 
 
 const CompanyLayout = ({ children, pageTitle = null, headerTitle = "" }) => {
-  const { axios } = useAxios()
+  const { axios } = useAxios({
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
+    noAuth: true,
+  })
   const router = useRouter();
 
   const { company_id } = router.query;

@@ -32,6 +32,8 @@ export default function Members() {
     resetPage
   } = useTableData({
     baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
+    noAuth: true,
+    dataCallback: (data) => data?.data?.data,
     dataUrl: `/api/company/company-members/?id=${company_id}`,
     pageSize: pageSize,
     queryKeys: [`company-${company_id}-members-table-data`],
@@ -73,7 +75,7 @@ export default function Members() {
                 <Table.Td>{format(new Date(member.created_at), 'dd/MM/yyyy')}</Table.Td>
                 <Table.Td>{member.number_of_shields}</Table.Td>
                 <Table.Td>
-                  {/* Nivel 4 */}
+                  {member.membership_level}
                 </Table.Td>
               </Table.Tr>
             ))}

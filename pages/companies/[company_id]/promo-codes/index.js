@@ -2,8 +2,36 @@ import React from "react";
 import Table from "@/components/Table";
 import SamplePagination from "@/components/SamplePagination";
 import CompanyLayout from "@/components/layouts/CompanyLayout";
+import useTableData from "@/hooks/useTableData";
 
 export default function PromoCodes() {
+  // const {
+  //   search,
+  //   setSearch,
+  //   currentTableData,
+  //   tempFilters,
+  //   setTempFilters,
+  //   applyFilters,
+  //   isLoading,
+  //   isError,
+  //   error,
+  //   sort,
+  //   setSort,
+  //   allData,
+  //   currentPage,
+  //   setCurrentPage,
+  //   isSuccess,
+  //   resetPage
+  // } = useTableData({
+  //   baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
+  //   noAuth: true,
+  //   dataCallback: (data) => data?.data?.data,
+  //   dataUrl: `/api/company/company-members/?id=${company_id}`,
+  //   pageSize: pageSize,
+  //   queryKeys: [`company-${company_id}-members-table-data`],
+  //   enabled: !!company_id,
+  // })
+
   return (
     <CompanyLayout pageTitle="Empresas" headerTitle="Empresas">
       <div className="mt-5">
@@ -44,7 +72,7 @@ export default function PromoCodes() {
             ))}
           </Table.Tbody>
         </Table>
-        <SamplePagination />
+        {/* <SamplePagination /> */}
       </div>
     </CompanyLayout>
   );

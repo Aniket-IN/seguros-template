@@ -32,10 +32,12 @@ export default function index() {
     isSuccess,
     resetPage
   } = useTableData({
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
     dataUrl: `/api/company/company-shields/?id=${company_id}`,
     pageSize: pageSize,
     queryKeys: [`company-${company_id}-shields-table-data`],
     enabled: !!company_id,
+    noAuth: true,
   })
 
 
