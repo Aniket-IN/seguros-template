@@ -38,7 +38,6 @@ const DocumentationFAQLayout = ({
 
   useEffect(() => {
     if (needsRefetch) {
-      console.log('refetching...');
       refetch();
       setNeedsRefetch(false)
     }
