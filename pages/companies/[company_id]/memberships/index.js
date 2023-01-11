@@ -68,7 +68,7 @@ export default function Memberships() {
                 <Table.Td>{format(new Date(item.date), 'dd/MM/yyyy')}</Table.Td>
                 <Table.Td>{format(new Date(item.membership_end_date), 'dd/MM/yyyy')}</Table.Td>
                 <Table.Td className="font-semibold">Pago#{item.order_id}</Table.Td>
-                <Table.Td>{item.transaction_id}</Table.Td>
+                <Table.Td>{item.order_id}</Table.Td>
                 <Table.Td>
                   <Link
                     href={`/payment-memberships/${item.id}`}

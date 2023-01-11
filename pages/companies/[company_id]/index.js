@@ -80,7 +80,7 @@ export default function index() {
                   {format(new Date(shield.created_at), 'dd/MM/yyyy')}
                 </Table.Td>
                 <Table.Td>
-                  {/* Nivel 1 */}
+                  {shield.membership_level}
                 </Table.Td>
                 <Table.Td className="text-secondary">
                   <p className="capitalize">{shield.admin?.full_name}</p>
