@@ -131,6 +131,7 @@ const Category = ({ category, categoryQuestionsUpdated, setCategoryQuestionsUpda
     getQuestions,
     {
       refetchOnWindowFocus: false,
+      enabled: !!category_id
     }
   );
 
