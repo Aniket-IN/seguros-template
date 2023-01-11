@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DocumentationLayout from "@/components/layouts/DocumentationLayout";
 import SectionHeading from "@/components/SectionHeading";
 import InputGroup from "@/components/utility/InputGroup";
@@ -7,12 +7,43 @@ import classNames from "classnames";
 import Link from "next/link";
 import AnimateHeight from "react-animate-height";
 import { useRouter } from "next/router";
+import useAxios from "@/hooks/useAxios";
+import { useQuery } from "react-query";
 
 const DocumentationFAQLayout = ({
   children,
   pageTitle = null,
   headerTitle = "",
+  needsRefetch = false,
+  setNeedsRefetch = () => { },
 }) => {
+  const { axios } = useAxios({
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
+    noAuth: true,
+  });
+
+  const getFAQCategories = () => {
+    return axios.get("/api/faq/getcategories");
+  };
+
+  const { isLoading, data, isError, error, refetch } = useQuery(
+    [`documentation-faq-categories`],
+    getFAQCategories,
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  useEffect(() => {
+    if (needsRefetch) {
+      refetch();
+      setNeedsRefetch(false)
+    }
+  }, [needsRefetch])
+
+
+  const categories = data?.data?.data ?? [];
+
   return (
     <DocumentationLayout pageTitle={pageTitle} headerTitle={headerTitle}>
       <div className="flex flex-col gap-5 xl:flex-row">
@@ -34,8 +65,8 @@ const DocumentationFAQLayout = ({
                 <span className="font-semibold">Contenido</span>
               </div>
               <ul className="no-scrollbar max-h-[750px] space-y-1 overflow-auto">
-                {[...Array(8)].map((item, index) => (
-                  <Category key={index} />
+                {categories.map((category, index) => (
+                  <Category key={category.id} category={category} />
                 ))}
               </ul>
             </div>
@@ -49,21 +80,54 @@ const DocumentationFAQLayout = ({
   );
 };
 
-const Category = () => {
+const Category = ({ category }) => {
   const router = useRouter();
+  const { category_id, question_id } = router.query
   const [open, setOpen] = useState(false);
+
+  const { axios } = useAxios({
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
+    noAuth: true,
+  });
 
   const handleCategoryToggle = (e) => {
     if (e.target.checked) {
-      router.push("/documentation/faqs/categories/1");
+      router.push(`/documentation/faqs/categories/${category.id}`);
     }
   };
 
-  const handleQuestionToggle = (e) => {
+  const handleQuestionToggle = (e, qid) => {
     if (e.target.checked) {
-      router.push("/documentation/faqs/categories/1/questions/1");
+      router.push(`/documentation/faqs/categories/${category.id}/questions/${qid}`);
     }
   };
+
+  useEffect(() => {
+    if (category_id) {
+      setOpen(category_id == category.id)
+    }
+  }, [category_id])
+
+
+
+
+  const getQuestions = () => {
+    return axios.get("/api/faq/questions/", {
+      params: {
+        category_id: category.id,
+      }
+    });
+  };
+
+  const { isLoading, data, isError, error } = useQuery(
+    [`documentation-faq-category-${category.id}-questions`],
+    getQuestions,
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  const questions = data?.data?.data ?? []
 
   return (
     <li>
@@ -87,10 +151,10 @@ const Category = () => {
           </dd>
         </button>
         <label className="flex flex-grow cursor-pointer items-center justify-between gap-2.5 px-4">
-          <dd className="py-5 pr-5">Categoría 1</dd>
+          <dd className="py-5 pr-5">{category.name}</dd>
           <input
             onChange={handleCategoryToggle}
-            readOnly
+            checked={category_id == category.id}
             type="radio"
             name="category"
           />
@@ -105,21 +169,22 @@ const Category = () => {
           <ul className="ml-1 space-y-2.5 bg-accent py-3">
             <li>
               <Link
-                href="/documentation/faqs/categories/1/questions/create"
+                href={`/documentation/faqs/categories/${category.id}/questions/create`}
                 className="flex cursor-pointer items-center justify-between gap-4 bg-accent px-4 py-2 font-semibold"
               >
                 <span>Pregunta</span>
                 <span className="text-primary">+Crear Pregunta</span>
               </Link>
             </li>
-            {[...Array(5)].map((item, index) => (
-              <li key={index}>
+            {questions.map((item, index) => (
+              <li key={item.id}>
                 <label className="flex cursor-pointer items-center justify-between gap-4 bg-white px-4 py-2.5">
                   <p>
-                    ¿Ejemplo de pregunta frecuente de la plataforma más seguros?
+                    {item.question}
                   </p>
                   <input
-                    onChange={handleQuestionToggle}
+                    checked={question_id == item.id}
+                    onChange={(e) => handleQuestionToggle(e, item.id)}
                     name="question_radio"
                     type="radio"
                     className="h-5 w-5 flex-shrink-0 border-gray-300 text-primary focus:ring-primary"
