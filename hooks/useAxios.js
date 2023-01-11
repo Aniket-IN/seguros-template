@@ -5,19 +5,27 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoggedIn, setToken } from "@/redux/userSlice";
 
-const useAxios = ({ baseURL = null } = {}) => {
+const useAxios = ({ baseURL = null, noAuth = false } = {}) => {
   const router = useRouter();
 
   const token = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
 
+  let headers = {
+    "Content-Type": "application/json",
+  }
+
+  if (!noAuth) {
+    headers = {
+      ...headers,
+      Authorization: token ? `token ${token}` : null,
+    }
+  }
+
   // Create axios instance
   const instance = axios.create({
     baseURL: baseURL ? baseURL : process.env.NEXT_PUBLIC_BACKEND_URL,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `token ${token}` : null,
-    },
+    headers: headers,
     withCredentials: true,
   });
 

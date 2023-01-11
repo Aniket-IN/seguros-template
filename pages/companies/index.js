@@ -28,9 +28,11 @@ const Companies = () => {
     resetPage,
     refetch
   } = useTableData({
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
     dataUrl: "/api/company/all-companies/",
     pageSize: pageSize,
-    queryKeys: ["companies-table-data"]
+    queryKeys: ["companies-table-data"],
+    noAuth: true,
   })
 
   return (

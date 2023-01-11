@@ -32,11 +32,11 @@ const ShieldTabNav = () => {
       href: `/shields/${shield_id}/sos`,
       activePaths: ["/shields/[shield_id]/sos"],
     },
-    {
-      title: "Membresía",
-      href: `/shields/${shield_id}/membership`,
-      activePaths: ["/shields/[shield_id]/membership"],
-    },
+    // {
+    //   title: "Membresía",
+    //   href: `/shields/${shield_id}/membership`,
+    //   activePaths: ["/shields/[shield_id]/membership"],
+    // },
     {
       title: "Chat",
       href: `/shields/${shield_id}/chat`,

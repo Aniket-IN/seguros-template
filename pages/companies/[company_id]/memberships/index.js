@@ -30,6 +30,7 @@ export default function Memberships() {
     isSuccess,
     resetPage
   } = useTableData({
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
     dataUrl: `/api/company/company-members/?id=${company_id}`,
     pageSize: pageSize,
     queryKeys: [`company-${company_id}-memberships-table-data`],

@@ -13,12 +13,17 @@ const useTableData = ({
   dataCallback = (resp) => {
     return resp?.data ?? []
   },
+  baseURL = process.env.NEXT_PUBLIC_BACKEND_URL,
   queryKeys = [],
   pageSize = 10,
+  noAuth = false,
   initialSort = { field: 'id', direction: 'desc' }
 }) => {
   // Custom Axios instance
-  const { axios } = useAxios();
+  const { axios } = useAxios({
+    baseURL: baseURL,
+    noAuth: noAuth,
+  });
 
   // States
   const [tempFilters, setTempFilters] = useState({});
