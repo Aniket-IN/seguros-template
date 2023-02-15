@@ -23,7 +23,7 @@ export default function PromoCodes() {
   //   isSuccess,
   //   resetPage
   // } = useTableData({
-  //   baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
+  //   baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
   //   noAuth: true,
   //   dataCallback: (data) => data?.data?.data,
   //   dataUrl: `/api/company/company-members/?id=${company_id}`,

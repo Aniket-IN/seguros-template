@@ -15,14 +15,15 @@ import { toast } from "react-hot-toast";
 
 const EditQuestionForm = () => {
   const { config, apiKey } = useTinyMCE();
-  const [needsRefetch, setNeedsRefetch] = useState(false)
-  const [categoryQuestionsUpdated, setCategoryQuestionsUpdated] = useState(null)
+  const [needsRefetch, setNeedsRefetch] = useState(false);
+  const [categoryQuestionsUpdated, setCategoryQuestionsUpdated] =
+    useState(null);
   const [editMode, setEditMode] = useState(false);
-  const router = useRouter()
-  const { category_id, question_id } = router.query
+  const router = useRouter();
+  const { category_id, question_id } = router.query;
 
   const { axios } = useAxios({
-    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     noAuth: true,
   });
 
@@ -37,7 +38,11 @@ const EditQuestionForm = () => {
   };
 
   const { isLoading, data, isError, error, isSuccess } = useQuery(
-    [`documentation-faq-questions-for-${category_id}-edit-${question_id}`, category_id, question_id],
+    [
+      `documentation-faq-questions-for-${category_id}-edit-${question_id}`,
+      category_id,
+      question_id,
+    ],
     getQuestions,
     {
       refetchOnWindowFocus: false,
@@ -48,21 +53,20 @@ const EditQuestionForm = () => {
   const questions = data?.data?.data ?? [];
 
   const selectedQuestion = useMemo(() => {
-    return questions.find(c => c.id.toString() == question_id?.toString()) ?? {}
-  }, [isSuccess, data, category_id, question_id])
-
-
+    return (
+      questions.find((c) => c.id.toString() == question_id?.toString()) ?? {}
+    );
+  }, [isSuccess, data, category_id, question_id]);
 
   useEffect(() => {
     if (selectedQuestion) {
-
       setFormData({
         question: selectedQuestion.question ?? "",
         answer: selectedQuestion.answer ?? "",
         question_id: question_id,
-      })
+      });
     }
-  }, [selectedQuestion])
+  }, [selectedQuestion]);
 
   const setData = (key, value) => {
     setFormData((val) => ({
@@ -76,35 +80,43 @@ const EditQuestionForm = () => {
   };
 
   const editQuestion = (e) => {
-    e.preventDefault()
-    axios.patchForm(`/api/faq/update-faq/`, formData)
+    e.preventDefault();
+    axios
+      .patchForm(`/api/faq/update-faq/`, formData)
       .then(() => {
-        setCategoryQuestionsUpdated(category_id)
-        setEditMode(false)
-        toast.success("Question modified successfully!")
+        setCategoryQuestionsUpdated(category_id);
+        setEditMode(false);
+        toast.success("Question modified successfully!");
       })
       .catch((error) => {
         toast.error(
           error?.response?.data?.message ?? `Oops! Internal server error!`
         );
-      })
-  }
+      });
+  };
   return (
     <DocumentationFAQLayout
       pageTitle="Documentación"
       headerTitle="Documentación"
       {...{ categoryQuestionsUpdated, setCategoryQuestionsUpdated }}
     >
-      <form onSubmit={editQuestion} className="flex-grow block">
+      <form onSubmit={editQuestion} className="block flex-grow">
         <div className="space-y-6 bg-white p-5">
           <div className="flex flex-col justify-between gap-5 lg:flex-row lg:items-center">
             <SectionHeading>Pregunta</SectionHeading>
             <div className="flex gap-4 text-sm">
-              <button type="button" onClick={() => setEditMode(val => !val)} className="inline-flex items-center justify-center gap-3 rounded bg-accent px-4 py-2 font-medium">
+              <button
+                type="button"
+                onClick={() => setEditMode((val) => !val)}
+                className="inline-flex items-center justify-center gap-3 rounded bg-accent px-4 py-2 font-medium"
+              >
                 <PencilIcon className="h-5 w-5" />
                 <span>Editar</span>
               </button>
-              <button type="submit" className="inline-flex items-center justify-center gap-3 rounded bg-black px-4 py-2 text-white">
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center gap-3 rounded bg-black px-4 py-2 text-white"
+              >
                 <span>Guardar</span>
               </button>
             </div>
@@ -131,7 +143,7 @@ const EditQuestionForm = () => {
               apiKey={apiKey}
               value={formData.answer}
               init={config.minimal}
-              onEditorChange={(content) => setData('answer', content)}
+              onEditorChange={(content) => setData("answer", content)}
               disabled={!editMode}
             />
           </div>

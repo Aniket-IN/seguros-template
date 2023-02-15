@@ -7,7 +7,7 @@ import Pagination from "@/components/Pagination";
 import ProfilePicture from "@/components/ProfilePicture";
 import { format } from "date-fns";
 
-const pageSize = 1
+const pageSize = 1;
 
 export default function Members() {
   const router = useRouter();
@@ -29,16 +29,16 @@ export default function Members() {
     currentPage,
     setCurrentPage,
     isSuccess,
-    resetPage
+    resetPage,
   } = useTableData({
-    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     noAuth: true,
     dataCallback: (data) => data?.data?.data,
     dataUrl: `/api/company/company-members/?id=${company_id}`,
     pageSize: pageSize,
     queryKeys: [`company-${company_id}-members-table-data`],
     enabled: !!company_id,
-  })
+  });
 
   return (
     <CompanyLayout pageTitle="Empresas" headerTitle="Empresas">
@@ -58,27 +58,32 @@ export default function Members() {
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
-            {isSuccess && currentTableData?.map((member, index) => (
-              <Table.Tr key={index}>
-                <Table.Td>
-                  <div className="flex min-w-fit items-center gap-4">
-                    <ProfilePicture
-                      src={member.image ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${member.image}` : null}
-                      className="block aspect-square w-11 rounded-full object-cover"
-                    />
-                    <div>
-                      <p className="font-semibold">{member.full_name}</p>
-                      <p>{member.id}</p>
+            {isSuccess &&
+              currentTableData?.map((member, index) => (
+                <Table.Tr key={index}>
+                  <Table.Td>
+                    <div className="flex min-w-fit items-center gap-4">
+                      <ProfilePicture
+                        src={
+                          member.image
+                            ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${member.image}`
+                            : null
+                        }
+                        className="block aspect-square w-11 rounded-full object-cover"
+                      />
+                      <div>
+                        <p className="font-semibold">{member.full_name}</p>
+                        <p>{member.id}</p>
+                      </div>
                     </div>
-                  </div>
-                </Table.Td>
-                <Table.Td>{format(new Date(member.created_at), 'dd/MM/yyyy')}</Table.Td>
-                <Table.Td>{member.number_of_shields}</Table.Td>
-                <Table.Td>
-                  {member.membership_level}
-                </Table.Td>
-              </Table.Tr>
-            ))}
+                  </Table.Td>
+                  <Table.Td>
+                    {format(new Date(member.created_at), "dd/MM/yyyy")}
+                  </Table.Td>
+                  <Table.Td>{member.number_of_shields}</Table.Td>
+                  <Table.Td>{member.membership_level}</Table.Td>
+                </Table.Tr>
+              ))}
           </Table.Tbody>
         </Table>
         {isSuccess && (

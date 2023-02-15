@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import Pagination from "@/components/Pagination";
 import { format } from "date-fns";
 
-const pageSize = 1
+const pageSize = 1;
 
 export default function Memberships() {
   const router = useRouter();
@@ -30,17 +30,16 @@ export default function Memberships() {
     currentPage,
     setCurrentPage,
     isSuccess,
-    resetPage
+    resetPage,
   } = useTableData({
-    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     noAuth: true,
     dataCallback: (data) => data?.data?.data,
     dataUrl: `/api/company/membership-company/?id=${company_id}`,
     pageSize: pageSize,
     queryKeys: [`company-${company_id}-memberships-table-data`],
     enabled: !!company_id,
-  })
-
+  });
 
   return (
     <CompanyLayout pageTitle="Empresas" headerTitle="Empresas">
@@ -62,23 +61,30 @@ export default function Memberships() {
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
-            {isSuccess && currentTableData?.map((item, index) => (
-              <Table.Tr key={item.id}>
-                <Table.Td>{item.membership}</Table.Td>
-                <Table.Td>{format(new Date(item.date), 'dd/MM/yyyy')}</Table.Td>
-                <Table.Td>{format(new Date(item.membership_end_date), 'dd/MM/yyyy')}</Table.Td>
-                <Table.Td className="font-semibold">Pago#{item.order_id}</Table.Td>
-                <Table.Td>{item.order_id}</Table.Td>
-                <Table.Td>
-                  <Link
-                    href={`/payment-memberships/${item.id}`}
-                    className="font-semibold text-primary hover:underline"
-                  >
-                    Ver detalles
-                  </Link>
-                </Table.Td>
-              </Table.Tr>
-            ))}
+            {isSuccess &&
+              currentTableData?.map((item, index) => (
+                <Table.Tr key={item.id}>
+                  <Table.Td>{item.membership}</Table.Td>
+                  <Table.Td>
+                    {format(new Date(item.date), "dd/MM/yyyy")}
+                  </Table.Td>
+                  <Table.Td>
+                    {format(new Date(item.membership_end_date), "dd/MM/yyyy")}
+                  </Table.Td>
+                  <Table.Td className="font-semibold">
+                    Pago#{item.order_id}
+                  </Table.Td>
+                  <Table.Td>{item.order_id}</Table.Td>
+                  <Table.Td>
+                    <Link
+                      href={`/payment-memberships/${item.id}`}
+                      className="font-semibold text-primary hover:underline"
+                    >
+                      Ver detalles
+                    </Link>
+                  </Table.Td>
+                </Table.Tr>
+              ))}
           </Table.Tbody>
         </Table>
         {isSuccess && (

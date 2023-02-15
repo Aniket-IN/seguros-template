@@ -14,15 +14,16 @@ import { toast } from "react-hot-toast";
 
 const CreateQuestionForm = () => {
   const { config, apiKey } = useTinyMCE();
-  const [needsRefetch, setNeedsRefetch] = useState(false)
-  const [categoryQuestionsUpdated, setCategoryQuestionsUpdated] = useState(null)
+  const [needsRefetch, setNeedsRefetch] = useState(false);
+  const [categoryQuestionsUpdated, setCategoryQuestionsUpdated] =
+    useState(null);
   const [editMode, setEditMode] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
-  const { category_id, question_id } = router.query
+  const { category_id, question_id } = router.query;
 
   const { axios } = useAxios({
-    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     noAuth: true,
   });
 
@@ -44,29 +45,34 @@ const CreateQuestionForm = () => {
 
   const submit = (e) => {
     e.preventDefault();
-    axios.post(`/api/faq/questions/`, { ...formData, category_id: category_id })
+    axios
+      .post(`/api/faq/questions/`, { ...formData, category_id: category_id })
       .then((response) => {
-        setNeedsRefetch(true)
-        setCategoryQuestionsUpdated(category_id)
+        setNeedsRefetch(true);
+        setCategoryQuestionsUpdated(category_id);
         setFormData({
           question: "",
           answer: "",
-        })
-        toast.success("Question created successfully!")
+        });
+        toast.success("Question created successfully!");
       })
       .catch((error) => {
         toast.error(
           error?.response?.data?.message ?? `Oops! Internal server error!`
         );
-      })
-  }
-
+      });
+  };
 
   return (
     <DocumentationFAQLayout
       pageTitle="Documentación"
       headerTitle="Documentación"
-      {...{ categoryQuestionsUpdated, setCategoryQuestionsUpdated, needsRefetch, setNeedsRefetch }}
+      {...{
+        categoryQuestionsUpdated,
+        setCategoryQuestionsUpdated,
+        needsRefetch,
+        setNeedsRefetch,
+      }}
     >
       <form onSubmit={submit} className="flex-grow">
         <div className="space-y-6 bg-white p-5">
@@ -77,7 +83,10 @@ const CreateQuestionForm = () => {
                 <PencilIcon className="w-5 h-5" />
                 <span>Editar</span>
               </button> */}
-              <button type="submit" className="inline-flex items-center justify-center gap-3 rounded bg-black px-4 py-2 text-white">
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center gap-3 rounded bg-black px-4 py-2 text-white"
+              >
                 <span>Guardar</span>
               </button>
             </div>

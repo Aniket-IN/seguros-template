@@ -7,7 +7,7 @@ import useTableData from "@/hooks/useTableData";
 import FilterDropDownBtn from "@/components/utility/FilterDropDownBtn";
 import Pagination from "@/components/Pagination";
 
-const pageSize = 1
+const pageSize = 1;
 const Companies = () => {
   const {
     search,
@@ -26,14 +26,14 @@ const Companies = () => {
     setCurrentPage,
     isSuccess,
     resetPage,
-    refetch
+    refetch,
   } = useTableData({
-    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     dataUrl: "/api/company/all-companies/",
     pageSize: pageSize,
     queryKeys: ["companies-table-data"],
     noAuth: true,
-  })
+  });
 
   return (
     <Admin pageTitle="Empresas" headerTitle="Empresas">
@@ -46,7 +46,10 @@ const Companies = () => {
               </div>
               <InputGroup.Input
                 value={search}
-                onChange={e => { setSearch(e.target.value); resetPage() }}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  resetPage();
+                }}
                 id="search"
                 type="search"
                 name="search"

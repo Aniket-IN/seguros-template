@@ -8,32 +8,34 @@ import useAxios from "@/hooks/useAxios";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 
-
 const CompanyLayout = ({ children, pageTitle = null, headerTitle = "" }) => {
   const { axios } = useAxios({
-    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     noAuth: true,
-  })
+  });
   const router = useRouter();
 
   const { company_id } = router.query;
 
   const fetchData = () => {
     return axios.get(`/api/company/company-single/${company_id}`);
-  }
+  };
 
   // React-query for data fetching
-  const { isLoading, isError, refetch, isRefetching, isSuccess, data: response, error } = useQuery(
-    `company-${company_id}-details`,
-    fetchData,
-    {
-      refetchOnWindowFocus: false,
-      enabled: !!company_id
-    }
-  );
+  const {
+    isLoading,
+    isError,
+    refetch,
+    isRefetching,
+    isSuccess,
+    data: response,
+    error,
+  } = useQuery(`company-${company_id}-details`, fetchData, {
+    refetchOnWindowFocus: false,
+    enabled: !!company_id,
+  });
 
-  const company = response?.data?.data ?? {}
-
+  const company = response?.data?.data ?? {};
 
   return (
     <Admin pageTitle={pageTitle} headerTitle={headerTitle}>

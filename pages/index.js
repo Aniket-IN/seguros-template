@@ -21,7 +21,7 @@ const Login = () => {
   const submit = handleSubmit((data) => {
     setProcessing(true);
     axios
-      .post("/api/account/adminlogin/", data)
+      .post("/api/admin/adminlogin/", data)
       .then((response) => {
         const data = response.data.data;
 
@@ -74,7 +74,7 @@ const Login = () => {
             </InputGroup.Label>
             <InputGroup>
               <InputGroup.Input
-                {...register("email", {
+                {...register("email_address", {
                   required: true,
                 })}
                 className="!py-2"

@@ -15,12 +15,12 @@ const DocumentationFAQLayout = ({
   pageTitle = null,
   headerTitle = "",
   needsRefetch = false,
-  setNeedsRefetch = () => { },
+  setNeedsRefetch = () => {},
   categoryQuestionsUpdated = null,
-  setCategoryQuestionsUpdated = () => { },
+  setCategoryQuestionsUpdated = () => {},
 }) => {
   const { axios } = useAxios({
-    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     noAuth: true,
   });
 
@@ -39,10 +39,9 @@ const DocumentationFAQLayout = ({
   useEffect(() => {
     if (needsRefetch) {
       refetch();
-      setNeedsRefetch(false)
+      setNeedsRefetch(false);
     }
-  }, [needsRefetch])
-
+  }, [needsRefetch]);
 
   const categories = data?.data?.data ?? [];
 
@@ -87,13 +86,17 @@ const DocumentationFAQLayout = ({
   );
 };
 
-const Category = ({ category, categoryQuestionsUpdated, setCategoryQuestionsUpdated }) => {
+const Category = ({
+  category,
+  categoryQuestionsUpdated,
+  setCategoryQuestionsUpdated,
+}) => {
   const router = useRouter();
-  const { category_id, question_id } = router.query
+  const { category_id, question_id } = router.query;
   const [open, setOpen] = useState(false);
 
   const { axios } = useAxios({
-    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL_2,
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     noAuth: true,
   });
 
@@ -105,24 +108,23 @@ const Category = ({ category, categoryQuestionsUpdated, setCategoryQuestionsUpda
 
   const handleQuestionToggle = (e, qid) => {
     if (e.target.checked) {
-      router.push(`/documentation/faqs/categories/${category.id}/questions/${qid}`);
+      router.push(
+        `/documentation/faqs/categories/${category.id}/questions/${qid}`
+      );
     }
   };
 
   useEffect(() => {
     if (category_id) {
-      setOpen(category_id == category.id)
+      setOpen(category_id == category.id);
     }
-  }, [category_id])
-
-
-
+  }, [category_id]);
 
   const getQuestions = () => {
     return axios.get("/api/faq/questions/", {
       params: {
         category_id: category.id,
-      }
+      },
     });
   };
 
@@ -131,19 +133,18 @@ const Category = ({ category, categoryQuestionsUpdated, setCategoryQuestionsUpda
     getQuestions,
     {
       refetchOnWindowFocus: false,
-      enabled: !!category_id
+      enabled: !!category_id,
     }
   );
 
   useEffect(() => {
     if (categoryQuestionsUpdated && categoryQuestionsUpdated == category.id) {
       refetch();
-      setCategoryQuestionsUpdated(null)
+      setCategoryQuestionsUpdated(null);
     }
-  }, [categoryQuestionsUpdated])
+  }, [categoryQuestionsUpdated]);
 
-
-  const questions = data?.data?.data ?? []
+  const questions = data?.data?.data ?? [];
 
   return (
     <li>
@@ -195,9 +196,7 @@ const Category = ({ category, categoryQuestionsUpdated, setCategoryQuestionsUpda
             {questions.map((item, index) => (
               <li key={item.id}>
                 <label className="flex cursor-pointer items-center justify-between gap-4 bg-white px-4 py-2.5">
-                  <p>
-                    {item.question}
-                  </p>
+                  <p>{item.question}</p>
                   <input
                     checked={question_id == item.id}
                     onChange={(e) => handleQuestionToggle(e, item.id)}
