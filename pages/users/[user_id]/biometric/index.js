@@ -2,7 +2,6 @@ import React from "react";
 import UserLayout from "@/components/layouts/UserLayout";
 import InputGroup from "@/components/utility/InputGroup";
 import Table from "@/components/Table";
-import Link from "next/link";
 import ViewPhotoBtn from "@/components/ViewPhotoBtn";
 
 const Biometric = () => {
@@ -19,7 +18,10 @@ const Biometric = () => {
               />
             </InputGroup>
           </div>
-          <button className="self-stretch rounded bg-primary px-3 font-medium text-white ring-offset-2 focus:ring-2">
+          <button
+            type="button"
+            className="self-stretch rounded bg-primary px-3 font-medium text-white ring-offset-2 focus:ring-2"
+          >
             Buscar
           </button>
         </div>

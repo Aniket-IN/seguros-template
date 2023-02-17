@@ -1,23 +1,22 @@
 import keyify from "@/helpers/keyify";
 import { orderBy } from "lodash";
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useQuery } from "react-query";
 import useAxios from "./useAxios";
 import Fuse from "fuse.js";
 
-
 const useTableData = ({
   enabled = true,
-  dataUrl = '',
+  dataUrl = "",
   dataCallback = (resp) => {
-    return resp?.data ?? []
+    return resp?.data ?? [];
   },
   baseURL = process.env.NEXT_PUBLIC_BACKEND_URL,
   queryKeys = [],
   pageSize = 10,
   noAuth = false,
-  initialSort = { field: 'id', direction: 'desc' }
+  initialSort = { field: "id", direction: "desc" },
 }) => {
   // Custom Axios instance
   const { axios } = useAxios({
@@ -28,11 +27,9 @@ const useTableData = ({
   // States
   const [tempFilters, setTempFilters] = useState({});
   const [filters, setFilters] = useState({});
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [sort, setSort] = useState(initialSort);
-
-
 
   // function to fetch data
   const fetchData = () => {
@@ -40,15 +37,19 @@ const useTableData = ({
   };
 
   // React-query for data fetching
-  const { isLoading, isError, refetch, isRefetching, isSuccess, data: responseData, error } = useQuery(
-    queryKeys,
-    fetchData,
-    {
-      refetchOnWindowFocus: false,
-      cacheTime: 0,
-      enabled: enabled,
-    }
-  );
+  const {
+    isLoading,
+    isError,
+    refetch,
+    isRefetching,
+    isSuccess,
+    data: responseData,
+    error,
+  } = useQuery(queryKeys, fetchData, {
+    refetchOnWindowFocus: false,
+    cacheTime: 0,
+    enabled: enabled,
+  });
 
   useEffect(() => {
     if (isError) {
@@ -56,12 +57,12 @@ const useTableData = ({
     }
   }, [isError]);
 
-
-  const stringForCompare = (val) => val.toString().toLowerCase().replace(/_/g, "").replace(/ +/g, '')
+  const stringForCompare = (val) =>
+    val.toString().toLowerCase().replace(/_/g, "").replace(/ +/g, "");
 
   useEffect(() => {
-    resetPage()
-  }, [filters])
+    resetPage();
+  }, [filters]);
 
   const dataItems = dataCallback(responseData) ?? [];
 
@@ -69,23 +70,27 @@ const useTableData = ({
   const allDataUnsorted = useMemo(() => {
     let items = dataItems;
     items = items.filter((item) => {
-      let passingFilters = []
+      let passingFilters = [];
       Object.entries(filters).forEach(([filterKey, filter]) => {
         if (filter.length > 0) {
-          let condition = filter.map((fltr) => stringForCompare(fltr)).includes(stringForCompare(item[filterKey]));
-          if (!(item[filterKey] === undefined || item[filterKey] === null) && condition) {
-            passingFilters.push(filterKey)
+          let condition = filter
+            .map((fltr) => stringForCompare(fltr))
+            .includes(stringForCompare(item[filterKey]));
+          if (
+            !(item[filterKey] === undefined || item[filterKey] === null) &&
+            condition
+          ) {
+            passingFilters.push(filterKey);
           }
         } else {
-          passingFilters.push(filterKey)
+          passingFilters.push(filterKey);
         }
       });
 
-      return passingFilters.length == Object.keys(filters).length
-    })
+      return passingFilters.length == Object.keys(filters).length;
+    });
     return items;
-  }, [responseData?.data, filters])
-
+  }, [responseData?.data, filters]);
 
   // Sorting
   const allData = useMemo(() => {
@@ -99,23 +104,20 @@ const useTableData = ({
     return sortedProducts;
   }, [sort, allDataUnsorted]);
 
-
   // Fuse instance for searching
   const fuse = useMemo(() => {
     return new Fuse(allData, {
       keys: keyify(allData[0] ?? {}),
-    })
-  }, [allData])
-
+    });
+  }, [allData]);
 
   // searching
   const data = useMemo(() => {
     if (search) {
-      return fuse.search(search).map(dataItem => dataItem.item);
+      return fuse.search(search).map((dataItem) => dataItem.item);
     }
     return allData ?? [];
-  }, [allData, search, isSuccess, filters])
-
+  }, [allData, search, isSuccess, filters]);
 
   // current data for the page
   const currentTableData = useMemo(() => {
@@ -125,10 +127,10 @@ const useTableData = ({
   }, [currentPage, data]);
 
   // Apply filters
-  const applyFilters = () => setFilters(tempFilters)
+  const applyFilters = () => setFilters(tempFilters);
 
   // Reset to initial page
-  const resetPage = () => setCurrentPage(1)
+  const resetPage = () => setCurrentPage(1);
 
   return {
     tempFilters,
@@ -158,8 +160,8 @@ const useTableData = ({
     currentPage,
     setCurrentPage,
 
-    resetPage
-  }
-}
+    resetPage,
+  };
+};
 
-export default useTableData
+export default useTableData;

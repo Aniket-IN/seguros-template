@@ -7,7 +7,14 @@ import Link from "next/link";
 import { format } from "date-fns";
 import Badge from "../Badge";
 
-const ShieldsTable = ({ shields = [], isLoading, isError, error, sort, setSort }) => {
+const ShieldsTable = ({
+  shields = [],
+  isLoading,
+  isError,
+  error,
+  sort,
+  setSort,
+}) => {
   return (
     <Table
       wrapperClassName="pb-24 no-scrollbar"
@@ -18,21 +25,33 @@ const ShieldsTable = ({ shields = [], isLoading, isError, error, sort, setSort }
     >
       <Table.Thead>
         <Table.Tr>
-          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">Escudo</Table.Th>
-          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">Administrador</Table.Th>
-          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">Tipo de Escudo</Table.Th>
-          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">N° de miembros</Table.Th>
-          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">Fecha de Creación</Table.Th>
-          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">Estado</Table.Th>
-          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">Acción</Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">
+            Escudo
+          </Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">
+            Administrador
+          </Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">
+            Tipo de Escudo
+          </Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">
+            N° de miembros
+          </Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">
+            Fecha de Creación
+          </Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">
+            Estado
+          </Table.Th>
+          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">
+            Acción
+          </Table.Th>
         </Table.Tr>
       </Table.Thead>
       <Table.Tbody>
         {!isLoading &&
           !isError &&
-          shields?.map((shield) => (
-            <Row shield={shield} key={shield.id} />
-          ))}
+          shields?.map((shield) => <Row shield={shield} key={shield.id} />)}
 
         {/* {[...Array(6)].map((user, index) => {
           return (
@@ -175,7 +194,9 @@ const Row = ({ shield = {} }) => {
             />
           </div>
           <div className="ml-4">
-            <div className="font-semibold text-black capitalize">{shield.shield_name}</div>
+            <div className="font-semibold capitalize text-black">
+              {shield.shield_name}
+            </div>
             <div className="text-black">{shield.shield_code}</div>
           </div>
         </div>
@@ -186,7 +207,11 @@ const Row = ({ shield = {} }) => {
       </Table.Td>
       <Table.Td>{shield.shield_type}</Table.Td>
       <Table.Td>{shield.members_count}</Table.Td>
-      <Table.Td>{shield.created_at ? format(new Date(shield.created_at), 'dd/MM/yy') : ''}</Table.Td>
+      <Table.Td>
+        {shield.created_at
+          ? format(new Date(shield.created_at), "dd/MM/yy")
+          : ""}
+      </Table.Td>
       <Table.Td>
         <Badge.Md
           text={shield.condition ? "Activo" : "Vencido"}
@@ -201,8 +226,8 @@ const Row = ({ shield = {} }) => {
         <ActionBtn shield={shield} />
       </Table.Td>
     </Table.Tr>
-  )
-}
+  );
+};
 
 const ActionBtn = ({ shield }) => {
   return (

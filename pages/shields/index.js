@@ -8,8 +8,7 @@ import InputGroup from "@/components/utility/InputGroup";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Pagination from "@/components/Pagination";
 
-
-const pageSize = 1
+const pageSize = 1;
 
 export default function Shields() {
   const {
@@ -28,12 +27,13 @@ export default function Shields() {
     currentPage,
     setCurrentPage,
     isSuccess,
-    resetPage
+    resetPage,
   } = useTableData({
     dataUrl: "/api/shield/all-shields/",
     pageSize: pageSize,
-    queryKeys: ["shields-table-data"]
-  })
+    queryKeys: ["shields-table-data"],
+    dataCallback: (resp) => resp?.data?.data ?? [],
+  });
 
   return (
     <Admin pageTitle="Escudos" headerTitle="Escudos">
@@ -46,7 +46,10 @@ export default function Shields() {
               </div>
               <InputGroup.Input
                 value={search}
-                onChange={e => { setSearch(e.target.value); resetPage() }}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  resetPage();
+                }}
                 id="search"
                 type="search"
                 name="search"
