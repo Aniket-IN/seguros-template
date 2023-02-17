@@ -11,7 +11,7 @@ import useTableData from "@/hooks/useTableData";
 import { format } from "date-fns";
 import ProfilePicture from "@/components/ProfilePicture";
 
-const pageSize = 1
+const pageSize = 1;
 
 export default function index() {
   const router = useRouter();
@@ -33,14 +33,14 @@ export default function index() {
     currentPage,
     setCurrentPage,
     isSuccess,
-    resetPage
+    resetPage,
   } = useTableData({
     dataUrl: `/api/shield/shield-members/?id=${shield_id}`,
     pageSize: pageSize,
     queryKeys: [`shield-${shield_id}-members-table-data`],
     enabled: !!shield_id,
-  })
-
+    dataCallback: (resp) => resp?.data?.data ?? [],
+  });
 
   return (
     <ShieldLayout pageTitle="Escudos" headerTitle="Escudos">
@@ -61,7 +61,11 @@ export default function index() {
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
-            {!isLoading && !isError && currentTableData?.map((member) => <Row member={member} key={member.id} />)}
+            {!isLoading &&
+              !isError &&
+              currentTableData?.map((member) => (
+                <Row member={member} key={member.member.id} />
+              ))}
           </Table.Tbody>
         </Table>
         {/* <SamplePagination /> */}
@@ -85,20 +89,26 @@ const Row = ({ member = {} }) => {
       <Table.Td>
         <div className="flex min-w-fit items-center gap-4">
           <ProfilePicture
-            src={member.image ? `${process.env.NEXT_PUBLIC_HOSTNAME}${member.image}` : null}
+            src={
+              member.member.image
+                ? `${process.env.NEXT_PUBLIC_HOSTNAME}${member.member.image}`
+                : null
+            }
             className="block aspect-square w-11 rounded-full object-cover"
             alt=""
           />
           <div>
-            <p>{member.full_name}</p>
-            <p>{member.id}</p>
+            <p>{member.member.full_name}</p>
+            <p>{member.member.id}</p>
           </div>
         </div>
       </Table.Td>
-      <Table.Td>{format(new Date(member.created_at), 'dd/MM/yy')}</Table.Td>
-      <Table.Td>{member.user_type}</Table.Td>
       <Table.Td>
-        <span className="capitalize inline-flex items-center rounded-full bg-warning bg-opacity-20 px-3 py-1.5 text-sm font-semibold text-warning">
+        {format(new Date(member.member.created_at), "dd/MM/yy")}
+      </Table.Td>
+      <Table.Td>{member.member.user_type}</Table.Td>
+      <Table.Td>
+        <span className="inline-flex items-center rounded-full bg-warning bg-opacity-20 px-3 py-1.5 text-sm font-semibold capitalize text-warning">
           <svg
             className="mr-1.5 h-2 w-2 text-warning"
             fill="currentColor"
@@ -106,12 +116,12 @@ const Row = ({ member = {} }) => {
           >
             <circle cx={5} cy={4} r={3} />
           </svg>
-          {member.Hierarchy}
+          {member.hierarchy}
         </span>
       </Table.Td>
       <Table.Td>
         <LocationHistoryBtn
-          member={member}
+          member={member.member}
           type="button"
           className="font-semibold text-primary hover:underline"
         >
@@ -119,5 +129,5 @@ const Row = ({ member = {} }) => {
         </LocationHistoryBtn>
       </Table.Td>
     </Table.Tr>
-  )
-}
+  );
+};
