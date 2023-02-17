@@ -182,6 +182,8 @@ const ShieldsTable = ({
 };
 
 const Row = ({ shield = {} }) => {
+  const lastAdmin = shield?.admin[shield.admin.length - 1] ?? {};
+
   return (
     <Table.Tr>
       <Table.Td>
@@ -202,11 +204,11 @@ const Row = ({ shield = {} }) => {
         </div>
       </Table.Td>
       <Table.Td>
-        <dd className="capitalize">{shield.admin?.full_name}</dd>
-        <dd>{shield.admin?.id}</dd>
+        <dd className="capitalize">{lastAdmin.full_name}</dd>
+        <dd>{lastAdmin.id}</dd>
       </Table.Td>
       <Table.Td>{shield.shield_type}</Table.Td>
-      <Table.Td>{shield.members_count}</Table.Td>
+      <Table.Td>{shield.members?.length}</Table.Td>
       <Table.Td>
         {shield.created_at
           ? format(new Date(shield.created_at), "dd/MM/yy")
