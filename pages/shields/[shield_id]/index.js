@@ -6,10 +6,8 @@ import useAxios from "@/hooks/useAxios";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 
-
 export default function index() {
-
-  const { axios } = useAxios()
+  const { axios } = useAxios();
   const router = useRouter();
 
   const { shield_id } = router.query;
@@ -17,22 +15,26 @@ export default function index() {
   const fetchData = () => {
     return axios.get("/api/shield/shield-point-of-interest/", {
       params: {
-        id: shield_id
-      }
+        id: shield_id,
+      },
     });
-  }
+  };
 
   // React-query for data fetching
-  const { isLoading, isError, refetch, isRefetching, isSuccess, data: response, error } = useQuery(
-    `shield-${shield_id}-point-of-interests`,
-    fetchData,
-    {
-      refetchOnWindowFocus: false,
-      enabled: !!shield_id
-    }
-  );
+  const {
+    isLoading,
+    isError,
+    refetch,
+    isRefetching,
+    isSuccess,
+    data: response,
+    error,
+  } = useQuery(`shield-${shield_id}-point-of-interests`, fetchData, {
+    refetchOnWindowFocus: false,
+    enabled: !!shield_id,
+  });
 
-  const pois = response?.data ?? []
+  const pois = response?.data ?? [];
 
   return (
     <ShieldLayout pageTitle="Escudos" headerTitle="Escudos">

@@ -1,36 +1,38 @@
 import Badge from "@/components/Badge";
 import ProfilePicture from "@/components/ProfilePicture";
-import useAxios from "@/hooks/useAxios";
 import classNames from "classnames";
 import { format } from "date-fns";
-import { useRouter } from "next/router";
 import React, { createElement } from "react";
-import { useQuery } from "react-query";
 
-const CardWrapper = ({ as = 'div', className = '', ...props }) => {
+const CardWrapper = ({ as = "div", className = "", ...props }) => {
   return createElement(as, {
     ...props,
-    className: classNames("items-center gap-7 bg-white px-5 py-10 sm:flex 2xl:block", className),
-  })
-}
+    className: classNames(
+      "items-center gap-7 bg-white px-5 py-10 sm:flex 2xl:block",
+      className
+    ),
+  });
+};
 
 const ShieldCard = ({ shield, isSuccess }) => {
   const data = [
     {
       key: "Administradores",
-      value: shield.admin,
+      value: shield?.admin?.full_name,
     },
     {
       key: "N° de Miembros",
-      value: shield.members_count,
+      value: shield?.members_count,
     },
     {
       key: "Fecha de creación",
-      value: shield.created_at ? format(new Date(shield.created_at), 'dd/MM/yy') : '',
+      value: shield?.created_at
+        ? format(new Date(shield.created_at), "dd/MM/yy")
+        : "",
     },
     {
       key: "Tipo de Usuario",
-      value: shield.shield_type,
+      value: shield?.shield_type,
     },
   ];
 
@@ -40,16 +42,25 @@ const ShieldCard = ({ shield, isSuccess }) => {
         <div className="text-center">
           <ProfilePicture
             className="mx-auto aspect-square w-24 rounded-full object-cover"
-            src={shield.logo ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${shield.logo}` : null}
+            src={
+              shield.logo
+                ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${shield.logo}`
+                : null
+            }
             alt={shield.shield_name}
           />
-          <h4 className="mt-3 text-lg font-semibold capitalize">{shield.shield_name}</h4>
+          <h4 className="mt-3 text-lg font-semibold capitalize">
+            {shield.shield_name}
+          </h4>
           <p className="text-secondary">ID {shield.id}</p>
           <div className="mt-1.5">
             {shield.condition ? (
-              <Badge.Md className="text-green-600 bg-green-100" text="Activo" />
+              <Badge.Md className="bg-green-100 text-green-600" text="Activo" />
             ) : (
-              <Badge.Md className="text-green-600 bg-green-100" text="Inactive" />
+              <Badge.Md
+                className="bg-green-100 text-green-600"
+                text="Inactive"
+              />
             )}
           </div>
         </div>
@@ -71,8 +82,7 @@ const ShieldCard = ({ shield, isSuccess }) => {
     );
   }
 
-  return <CardWrapper />
-
+  return <CardWrapper />;
 };
 
 export default ShieldCard;
