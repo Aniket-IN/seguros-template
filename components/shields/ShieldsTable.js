@@ -189,7 +189,7 @@ const Row = ({ shield = {} }) => {
           <div className="h-12 w-12 flex-shrink-0">
             <img
               className="h-full w-full rounded-full object-cover"
-              src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${shield.logo}`}
+              src={`${process.env.NEXT_PUBLIC_HOSTNAME}${shield.logo}`}
               alt={shield.shield_name}
             />
           </div>

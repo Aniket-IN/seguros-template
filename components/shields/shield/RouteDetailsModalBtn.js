@@ -28,7 +28,7 @@ const RouteDetailsModalBtn = ({ as = "button", route = {}, ...props }) => {
             <div className="space-y-5">
               <div className="flex gap-4 text-sm">
                 <ProfilePicture
-                  src={route.member?.image ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${route.member?.image}` : null}
+                  src={route.member?.image ? `${process.env.NEXT_PUBLIC_HOSTNAME}${route.member?.image}` : null}
                   className="inline-block h-11 w-11 rounded-full object-cover"
                 />
                 <div>

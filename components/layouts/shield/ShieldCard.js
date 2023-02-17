@@ -1,8 +1,11 @@
 import Badge from "@/components/Badge";
 import ProfilePicture from "@/components/ProfilePicture";
+import useAxios from "@/hooks/useAxios";
 import classNames from "classnames";
 import { format } from "date-fns";
+import { useRouter } from "next/router";
 import React, { createElement } from "react";
+import { useQuery } from "react-query";
 
 const CardWrapper = ({ as = "div", className = "", ...props }) => {
   return createElement(as, {
@@ -22,17 +25,17 @@ const ShieldCard = ({ shield, isSuccess }) => {
     },
     {
       key: "N° de Miembros",
-      value: shield?.members_count,
+      value: shield.members_count,
     },
     {
       key: "Fecha de creación",
-      value: shield?.created_at
+      value: shield.created_at
         ? format(new Date(shield.created_at), "dd/MM/yy")
         : "",
     },
     {
       key: "Tipo de Usuario",
-      value: shield?.shield_type,
+      value: shield.shield_type,
     },
   ];
 
@@ -44,7 +47,7 @@ const ShieldCard = ({ shield, isSuccess }) => {
             className="mx-auto aspect-square w-24 rounded-full object-cover"
             src={
               shield.logo
-                ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${shield.logo}`
+                ? `${process.env.NEXT_PUBLIC_HOSTNAME}${shield.logo}`
                 : null
             }
             alt={shield.shield_name}

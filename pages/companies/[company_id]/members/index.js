@@ -66,7 +66,7 @@ export default function Members() {
                       <ProfilePicture
                         src={
                           member.image
-                            ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${member.image}`
+                            ? `${process.env.NEXT_PUBLIC_HOSTNAME}${member.image}`
                             : null
                         }
                         className="block aspect-square w-11 rounded-full object-cover"
