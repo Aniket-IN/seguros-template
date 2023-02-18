@@ -3,7 +3,6 @@ import { format } from "date-fns";
 import React from "react";
 
 const CompanyCard = ({ company = {}, isSuccess = false }) => {
-
   const data = [
     {
       key: "Nº de escudos",
@@ -15,7 +14,7 @@ const CompanyCard = ({ company = {}, isSuccess = false }) => {
     },
     {
       key: "ID Asesor",
-      value: company?.super_admin?.userprofile?.id,
+      value: company?.super_admin?.userprofile?.user?.id,
     },
     {
       key: "Teléfono asesor",
@@ -23,7 +22,9 @@ const CompanyCard = ({ company = {}, isSuccess = false }) => {
     },
     {
       key: "Fecha de creación",
-      value: company.created_at ? format(new Date(company.created_at), 'dd/MM/yy') : '',
+      value: company.created_at
+        ? format(new Date(company.created_at), "dd/MM/yy")
+        : "",
     },
     {
       key: "Tipo de usuario",
@@ -39,13 +40,18 @@ const CompanyCard = ({ company = {}, isSuccess = false }) => {
             className="mx-auto aspect-square w-24 rounded-full object-cover"
             src={company.image_url}
           />
-          <h4 className="mt-3 text-lg font-semibold capitalize">{company.name}</h4>
+          <h4 className="mt-3 text-lg font-semibold capitalize">
+            {company.name}
+          </h4>
           <p className="text-secondary">{company.company_code}</p>
           <div className="mt-1.5">
             {!!company.suspended ? (
-              <Badge.Md text="Suspended" className="text-warning bg-warning bg-opacity-20" />
+              <Badge.Md
+                text="Suspended"
+                className="bg-warning bg-opacity-20 text-warning"
+              />
             ) : (
-              <Badge.Md text="Activo" className="text-success bg-green-100" />
+              <Badge.Md text="Activo" className="bg-green-100 text-success" />
             )}
           </div>
         </div>
@@ -67,8 +73,9 @@ const CompanyCard = ({ company = {}, isSuccess = false }) => {
     );
   }
 
-  return <div className="items-center gap-7 bg-white px-5 py-10 sm:flex 2xl:block" />
-
+  return (
+    <div className="items-center gap-7 bg-white px-5 py-10 sm:flex 2xl:block" />
+  );
 };
 
 export default CompanyCard;

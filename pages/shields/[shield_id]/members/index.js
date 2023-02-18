@@ -64,7 +64,7 @@ export default function index() {
             {!isLoading &&
               !isError &&
               currentTableData?.map((member) => (
-                <Row member={member} key={member.member.id} />
+                <Row member={member} key={member.member.user.id} />
               ))}
           </Table.Tbody>
         </Table>
@@ -94,7 +94,7 @@ const Row = ({ member = {} }) => {
           />
           <div>
             <p>{member.member.full_name}</p>
-            <p>{member.member.id}</p>
+            <p>#{member.member.user.id}</p>
           </div>
         </div>
       </Table.Td>

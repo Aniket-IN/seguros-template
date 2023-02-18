@@ -4,13 +4,17 @@ import { format } from "date-fns";
 import React, { useMemo, useState } from "react";
 
 const PointHistoryCard = ({ pois }) => {
-  const [tempDate, setTempDate] = useState('')
-  const [date, setDate] = useState('')
+  const [tempDate, setTempDate] = useState("");
+  const [date, setDate] = useState("");
 
   const pohs = useMemo(() => {
     let unfilteredPohs = pois.map((poi) => poi.admin);
-    return date ? unfilteredPohs.filter(poh => format(new Date(poh.updated_at), 'yyyy-MM-dd') == date) : unfilteredPohs
-  }, [pois, date])
+    return date
+      ? unfilteredPohs.filter(
+          (poh) => format(new Date(poh.updated_at), "yyyy-MM-dd") == date
+        )
+      : unfilteredPohs;
+  }, [pois, date]);
 
   return (
     <div className="flex h-[800px] flex-col space-y-5 bg-white p-5">
@@ -20,20 +24,35 @@ const PointHistoryCard = ({ pois }) => {
         <span>Buscar</span>
         <div>
           <InputGroup>
-            <InputGroup.Input value={tempDate} onChange={e => setTempDate(e.target.value)} type="date" className="bg-accent" />
+            <InputGroup.Input
+              value={tempDate}
+              onChange={(e) => setTempDate(e.target.value)}
+              type="date"
+              className="bg-accent"
+            />
           </InputGroup>
         </div>
-        <button onClick={() => setDate(tempDate)} type="button" className="self-stretch rounded bg-primary px-3 font-medium text-white ring-offset-2 focus:ring-2">
+        <button
+          onClick={() => setDate(tempDate)}
+          type="button"
+          className="self-stretch rounded bg-primary px-3 font-medium text-white ring-offset-2 focus:ring-2"
+        >
           Buscar
         </button>
-
       </div>
       {!!date && (
         <div className="text-right text-sm">
-          <button type="button" onClick={() => { setDate(''); setTempDate('') }}>Reset</button>
+          <button
+            type="button"
+            onClick={() => {
+              setDate("");
+              setTempDate("");
+            }}
+          >
+            Reset
+          </button>
         </div>
-      )
-      }
+      )}
 
       <Table
         wrapperClassName="px-3 bg-accent flex-grow overflow-auto"
@@ -49,16 +68,18 @@ const PointHistoryCard = ({ pois }) => {
         <Table.Tbody>
           {pohs?.map((admin, index) => {
             return (
-              <Table.Tr key={admin.id}>
+              <Table.Tr key={admin.user.id}>
                 <Table.Td className="capitalize">{admin.full_name}</Table.Td>
-                <Table.Td>{format(new Date(admin.updated_at), 'dd/MM/yy')}</Table.Td>
-                <Table.Td>{format(new Date(admin.updated_at), 'p')}</Table.Td>
+                <Table.Td>
+                  {format(new Date(admin.updated_at), "dd/MM/yy")}
+                </Table.Td>
+                <Table.Td>{format(new Date(admin.updated_at), "p")}</Table.Td>
               </Table.Tr>
             );
           })}
         </Table.Tbody>
       </Table>
-    </div >
+    </div>
   );
 };
 

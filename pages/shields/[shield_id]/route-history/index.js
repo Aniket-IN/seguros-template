@@ -52,14 +52,14 @@ export default function index() {
             </Table.Thead>
             <Table.Tbody>
               {members.map((member) => (
-                <Table.Tr key={member.member.id}>
+                <Table.Tr key={member.member.user.id}>
                   <Table.Td className="pl-5">
                     <div className="flex gap-3">
                       <dl>
                         <dd className="capitalize">
                           {member.member.full_name}
                         </dd>
-                        <dd>ID-{member.member.id}</dd>
+                        <dd>ID-{member.member.user.id}</dd>
                       </dl>
                     </div>
                   </Table.Td>
@@ -70,8 +70,8 @@ export default function index() {
                     />
                     <label>
                       <input
-                        checked={memberId == member.member.id}
-                        onChange={() => setMemberId(member.member.id)}
+                        checked={memberId == member.member.user.id}
+                        onChange={() => setMemberId(member.member.user.id)}
                         type="radio"
                         name="radio"
                         className="h-4 w-4"
