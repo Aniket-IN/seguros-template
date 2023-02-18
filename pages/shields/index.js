@@ -99,12 +99,6 @@ export default function Shields() {
                       name: "condition",
                       value: false,
                     },
-                    // {
-                    //   id: 3,
-                    //   label: "Suspended",
-                    //   name: "condition",
-                    //   value: "suspended",
-                    // },
                   ],
                 },
               ]}

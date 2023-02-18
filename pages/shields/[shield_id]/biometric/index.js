@@ -84,11 +84,7 @@ export default function index() {
                   <Table.Td>
                     <div className="flex min-w-fit items-center gap-4">
                       <img
-                        src={
-                          bio.image
-                            ? process.env.NEXT_PUBLIC_HOSTNAME + bio.image
-                            : ""
-                        }
+                        src={bio.image_url}
                         className="block aspect-square w-11 rounded-full object-cover"
                         alt=""
                       />

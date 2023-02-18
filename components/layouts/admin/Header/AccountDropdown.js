@@ -36,7 +36,7 @@ const AccountDropdown = () => {
     <Menu as="div" className="relative inline-block text-left">
       <Menu.Button className="flex items-center gap-2 self-stretch py-3 px-4 hover:bg-secondary-2">
         <ProfilePicture
-          src={user.image}
+          src={user.image_url}
           className="block h-9 w-9 rounded-full"
           alt="user-1"
         />
@@ -59,7 +59,7 @@ const AccountDropdown = () => {
           <div className="flex items-center gap-3 px-4 py-3">
             <div className="w-1/3">
               <ProfilePicture
-                src={user.image}
+                src={user.image_url}
                 className="block aspect-square rounded-full"
                 alt="user-1"
               />

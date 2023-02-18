@@ -30,7 +30,7 @@ const EvidenceModalBtn = ({ as = "button", alert: alertData = {}, className = ""
           <Modal.Body>
             <div className="flex gap-5">
               <img
-                src={alert.evidence}
+                src={alert.evidence_url}
                 className="block aspect-[9/16] w-1/3 object-cover"
                 alt="evidence-1"
               />

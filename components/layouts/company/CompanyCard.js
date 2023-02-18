@@ -37,7 +37,7 @@ const CompanyCard = ({ company = {}, isSuccess = false }) => {
         <div className="text-center">
           <img
             className="mx-auto aspect-square w-24 rounded-full object-cover"
-            src={company.image ? `${process.env.NEXT_PUBLIC_HOSTNAME}${company.image}` : null}
+            src={company.image_url}
           />
           <h4 className="mt-3 text-lg font-semibold capitalize">{company.name}</h4>
           <p className="text-secondary">{company.company_code}</p>

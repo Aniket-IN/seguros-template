@@ -64,11 +64,7 @@ export default function Members() {
                   <Table.Td>
                     <div className="flex min-w-fit items-center gap-4">
                       <ProfilePicture
-                        src={
-                          member.image
-                            ? `${process.env.NEXT_PUBLIC_HOSTNAME}${member.image}`
-                            : null
-                        }
+                        src={member.image_url}
                         className="block aspect-square w-11 rounded-full object-cover"
                       />
                       <div>

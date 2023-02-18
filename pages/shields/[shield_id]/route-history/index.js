@@ -13,27 +13,31 @@ import Badge from "@/components/Badge";
 import { format } from "date-fns";
 
 export default function index() {
-  const { axios } = useAxios()
+  const { axios } = useAxios();
   const router = useRouter();
-  const [memberId, setMemberId] = useState('')
+  const [memberId, setMemberId] = useState("");
 
   const { shield_id } = router.query;
 
   const fetchData = () => {
     return axios.get(`/api/shield/shield-members/?id=${shield_id}`);
-  }
+  };
 
   // React-query for data fetching
-  const { isLoading, isError, refetch, isRefetching, isSuccess, data: response, error } = useQuery(
-    `shield-${shield_id}-members`,
-    fetchData,
-    {
-      refetchOnWindowFocus: false,
-      enabled: !!shield_id
-    }
-  );
+  const {
+    isLoading,
+    isError,
+    refetch,
+    isRefetching,
+    isSuccess,
+    data: response,
+    error,
+  } = useQuery(`shield-${shield_id}-members`, fetchData, {
+    refetchOnWindowFocus: false,
+    enabled: !!shield_id,
+  });
 
-  const members = response?.data ?? []
+  const members = response?.data?.data ?? [];
 
   return (
     <ShieldLayout pageTitle="Escudos" headerTitle="Escudos">
@@ -48,19 +52,30 @@ export default function index() {
             </Table.Thead>
             <Table.Tbody>
               {members.map((member) => (
-                <Table.Tr key={member.id}>
+                <Table.Tr key={member.member.id}>
                   <Table.Td className="pl-5">
                     <div className="flex gap-3">
                       <dl>
-                        <dd className="capitalize">{member.full_name}</dd>
-                        <dd>ID-{member.id}</dd>
+                        <dd className="capitalize">
+                          {member.member.full_name}
+                        </dd>
+                        <dd>ID-{member.member.id}</dd>
                       </dl>
                     </div>
                   </Table.Td>
-                  <Table.Td className="pr-5 flex items-center justify-between gap-4">
-                    <Badge.Md text={member.Hierarchy} className="bg-warning bg-opacity-20 text-warning" />
+                  <Table.Td className="flex items-center justify-between gap-4 pr-5">
+                    <Badge.Md
+                      text={member.hierarchy}
+                      className="bg-warning bg-opacity-20 text-warning"
+                    />
                     <label>
-                      <input checked={memberId == member.id} onChange={() => setMemberId(member.id)} type="radio" name="radio" className="h-4 w-4" />
+                      <input
+                        checked={memberId == member.member.id}
+                        onChange={() => setMemberId(member.member.id)}
+                        type="radio"
+                        name="radio"
+                        className="h-4 w-4"
+                      />
                     </label>
                   </Table.Td>
                 </Table.Tr>
@@ -98,27 +113,32 @@ export default function index() {
 }
 
 const RouteHistoryTable = ({ memberId }) => {
-
-  const { axios } = useAxios()
+  const { axios } = useAxios();
   const router = useRouter();
 
   const { shield_id } = router.query;
 
   const fetchData = () => {
-    return axios.get(`/api/shield/shield-members-routes/?shield_id=${shield_id}&member_id=${memberId}`);
-  }
+    return axios.get(
+      `/api/shield/shield-members-routes/?shield_id=${shield_id}&member_id=${memberId}`
+    );
+  };
 
   // React-query for data fetching
-  const { isLoading, isError, refetch, isRefetching, isSuccess, data: response, error } = useQuery(
-    `shield-${shield_id}-member-${memberId}-routes`,
-    fetchData,
-    {
-      refetchOnWindowFocus: false,
-      enabled: (!!shield_id) && (!!memberId)
-    }
-  );
+  const {
+    isLoading,
+    isError,
+    refetch,
+    isRefetching,
+    isSuccess,
+    data: response,
+    error,
+  } = useQuery(`shield-${shield_id}-member-${memberId}-routes`, fetchData, {
+    refetchOnWindowFocus: false,
+    enabled: !!shield_id && !!memberId,
+  });
 
-  const routes = response?.data ?? []
+  const routes = response?.data ?? [];
 
   return (
     <Table
@@ -140,10 +160,13 @@ const RouteHistoryTable = ({ memberId }) => {
             </Table.Td>
             <Table.Td>
               {/* <dd>10:00 hrs - 19:20 hrs</dd> */}
-              <dd>{format(new Date(route.schedule), 'dd/MM/yy')}</dd>
+              <dd>{format(new Date(route.schedule), "dd/MM/yy")}</dd>
             </Table.Td>
             <Table.Td>
-              <RouteDetailsModalBtn route={route} className="font-semibold text-primary hover:underline">
+              <RouteDetailsModalBtn
+                route={route}
+                className="font-semibold text-primary hover:underline"
+              >
                 Ver Detalles
               </RouteDetailsModalBtn>
             </Table.Td>
@@ -151,5 +174,5 @@ const RouteHistoryTable = ({ memberId }) => {
         ))}
       </Table.Tbody>
     </Table>
-  )
-}
+  );
+};

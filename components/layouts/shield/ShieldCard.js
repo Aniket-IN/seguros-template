@@ -45,11 +45,7 @@ const ShieldCard = ({ shield, isSuccess }) => {
         <div className="text-center">
           <ProfilePicture
             className="mx-auto aspect-square w-24 rounded-full object-cover"
-            src={
-              shield.logo
-                ? `${process.env.NEXT_PUBLIC_HOSTNAME}${shield.logo}`
-                : null
-            }
+            src={shield.logo_url}
             alt={shield.shield_name}
           />
           <h4 className="mt-3 text-lg font-semibold capitalize">

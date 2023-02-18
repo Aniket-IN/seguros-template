@@ -35,7 +35,7 @@ const UserCard = ({ data, isSuccess }) => {
       <div className="text-center">
         <ProfilePicture
           className="mx-auto aspect-square w-24 rounded-full"
-          src={data?.userprofile?.image}
+          src={data?.userprofile?.image_url}
           alt="User 2"
         />
         <h4 className="mt-3 text-lg font-semibold">

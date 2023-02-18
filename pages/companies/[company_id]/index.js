@@ -66,7 +66,7 @@ export default function index() {
                   <Table.Td>
                     <div className="flex min-w-fit items-center gap-4">
                       <img
-                        src={process.env.NEXT_PUBLIC_HOSTNAME + shield.logo}
+                        src={shield.logo_url}
                         className="aspect-square w-11 rounded-full object-cover"
                       />
                       <div>

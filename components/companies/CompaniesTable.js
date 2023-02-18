@@ -43,7 +43,7 @@ const Row = ({ company }) => {
           <div className="h-12 w-12 flex-shrink-0">
             <img
               className="h-full w-full rounded-full object-cover"
-              src={company.image ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${company.image}` : null}
+              src={company.image_url}
               alt={company.name}
             />
           </div>
