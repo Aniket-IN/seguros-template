@@ -21,11 +21,11 @@ const ShieldCard = ({ shield, isSuccess }) => {
   const data = [
     {
       key: "Administradores",
-      value: shield?.admin?.full_name,
+      value: shield?.admin?.length,
     },
     {
       key: "N° de Miembros",
-      value: shield.members_count,
+      value: shield?.members?.length,
     },
     {
       key: "Fecha de creación",
