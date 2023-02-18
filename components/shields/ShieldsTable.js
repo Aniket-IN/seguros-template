@@ -15,6 +15,7 @@ const ShieldsTable = ({
   sort,
   setSort,
 }) => {
+  console.log(shields);
   return (
     <Table
       wrapperClassName="pb-24 no-scrollbar"
@@ -25,25 +26,50 @@ const ShieldsTable = ({
     >
       <Table.Thead>
         <Table.Tr>
-          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">
+          <Table.Th
+            sort={sort}
+            setSort={setSort}
+            sortable={true}
+            name="shield_name"
+          >
             Escudo
           </Table.Th>
-          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">
+          <Table.Th sort={sort} setSort={setSort} sortable={false} name="">
             Administrador
           </Table.Th>
-          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">
+          <Table.Th
+            sort={sort}
+            setSort={setSort}
+            sortable={true}
+            name="shield_type"
+          >
             Tipo de Escudo
           </Table.Th>
-          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">
+          <Table.Th
+            sort={sort}
+            setSort={setSort}
+            sortable={true}
+            name="participent_count"
+          >
             N° de miembros
           </Table.Th>
-          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">
+          <Table.Th
+            sort={sort}
+            setSort={setSort}
+            sortable={true}
+            name="created_at"
+          >
             Fecha de Creación
           </Table.Th>
-          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">
+          <Table.Th
+            sort={sort}
+            setSort={setSort}
+            sortable={true}
+            name="condition"
+          >
             Estado
           </Table.Th>
-          <Table.Th sort={sort} setSort={setSort} sortable={true} name="">
+          <Table.Th sort={sort} setSort={setSort}>
             Acción
           </Table.Th>
         </Table.Tr>
@@ -52,130 +78,6 @@ const ShieldsTable = ({
         {!isLoading &&
           !isError &&
           shields?.map((shield) => <Row shield={shield} key={shield.id} />)}
-
-        {/* {[...Array(6)].map((user, index) => {
-          return (
-            <Fragment key={index}>
-              <Table.Tr>
-                <Table.Td>
-                  <div className="flex items-center">
-                    <div className="h-12 w-12 flex-shrink-0">
-                      <img
-                        className="h-full w-full rounded-full"
-                        src="/assets/img/sample/companies/fanta.png"
-                        alt=""
-                      />
-                    </div>
-                    <div className="ml-4">
-                      <div className="font-semibold text-black">Familia</div>
-                      <div className="text-black">ESC124587</div>
-                    </div>
-                  </div>
-                </Table.Td>
-                <Table.Td>
-                  <dd>Juan Jesús Alvarez</dd>
-                  <dd>U54872256</dd>
-                </Table.Td>
-                <Table.Td>Corporativo</Table.Td>
-                <Table.Td>8</Table.Td>
-                <Table.Td>25/05/22</Table.Td>
-                <Table.Td>
-                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1.5 text-sm font-semibold text-green-600">
-                    <svg
-                      className="mr-1.5 h-2 w-2 text-green-600"
-                      fill="currentColor"
-                      viewBox="0 0 8 8"
-                    >
-                      <circle cx={5} cy={4} r={3} />
-                    </svg>
-                    Activo
-                  </span>
-                </Table.Td>
-                <Table.Td>
-                  <ActionBtn />
-                </Table.Td>
-              </Table.Tr>
-              <Table.Tr>
-                <Table.Td>
-                  <div className="flex items-center">
-                    <div className="h-12 w-12 flex-shrink-0">
-                      <img
-                        className="h-full w-full rounded-full"
-                        src="/assets/img/sample/companies/coca-cola.jpg"
-                        alt="Coca Cola"
-                      />
-                    </div>
-                    <div className="ml-4">
-                      <div className="font-semibold text-black">Coca cola</div>
-                      <div className="text-black">ESC123123</div>
-                    </div>
-                  </div>
-                </Table.Td>
-                <Table.Td>
-                  <dd>Juan Jesús Alvarez</dd>
-                  <dd>U54872256</dd>
-                </Table.Td>
-                <Table.Td>Corporativo</Table.Td>
-                <Table.Td>8</Table.Td>
-                <Table.Td>25/05/22</Table.Td>
-                <Table.Td>
-                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1.5 text-sm font-semibold text-green-600">
-                    <svg
-                      className="mr-1.5 h-2 w-2 text-green-600"
-                      fill="currentColor"
-                      viewBox="0 0 8 8"
-                    >
-                      <circle cx={5} cy={4} r={3} />
-                    </svg>
-                    Activo
-                  </span>
-                </Table.Td>
-                <Table.Td>
-                  <ActionBtn />
-                </Table.Td>
-              </Table.Tr>
-              <Table.Tr>
-                <Table.Td>
-                  <div className="flex items-center">
-                    <div className="h-12 w-12 flex-shrink-0">
-                      <img
-                        className="h-full w-full rounded-full"
-                        src="/assets/img/sample/companies/hermes.png"
-                        alt="Hermes"
-                      />
-                    </div>
-                    <div className="ml-4">
-                      <div className="font-semibold text-black">Coca cola</div>
-                      <div className="text-black">ESC123123</div>
-                    </div>
-                  </div>
-                </Table.Td>
-                <Table.Td>
-                  <dd>Juan Jesús Alvarez</dd>
-                  <dd>U54872256</dd>
-                </Table.Td>
-                <Table.Td>Corporativo</Table.Td>
-                <Table.Td>8</Table.Td>
-                <Table.Td>25/05/22</Table.Td>
-                <Table.Td>
-                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1.5 text-sm font-semibold text-green-600">
-                    <svg
-                      className="mr-1.5 h-2 w-2 text-green-600"
-                      fill="currentColor"
-                      viewBox="0 0 8 8"
-                    >
-                      <circle cx={5} cy={4} r={3} />
-                    </svg>
-                    Activo
-                  </span>
-                </Table.Td>
-                <Table.Td>
-                  <ActionBtn />
-                </Table.Td>
-              </Table.Tr>
-            </Fragment>
-          );
-        })} */}
       </Table.Tbody>
     </Table>
   );
