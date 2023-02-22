@@ -1,6 +1,5 @@
 import React from "react";
 import Admin from "@/components/layouts/Admin";
-import SamplePagination from "@/components/SamplePagination";
 import AlertsSOSTable from "@/components/alerts-and-sos/AlertsSOSTable";
 import FilterDropDownBtn from "@/components/utility/FilterDropDownBtn";
 import InputGroup from "@/components/utility/InputGroup";
@@ -11,7 +10,6 @@ import Pagination from "@/components/Pagination";
 const pageSize = 1;
 
 export default function AlertsAndSOS() {
-
   const {
     search,
     setSearch,
@@ -28,12 +26,13 @@ export default function AlertsAndSOS() {
     currentPage,
     setCurrentPage,
     isSuccess,
-    resetPage
+    resetPage,
   } = useTableData({
-    dataUrl: "/api/alert/get-alert",
+    dataUrl: "/api/alert/alertall/",
+    dataCallback: (resp) => resp?.data?.data ?? [],
     pageSize: pageSize,
-    queryKeys: ["alerts-and-sos-table-data"]
-  })
+    queryKeys: ["alerts-and-sos-list"],
+  });
 
   return (
     <Admin pageTitle="Alertas y SOS" headerTitle="Alertas y SOS">
@@ -46,7 +45,10 @@ export default function AlertsAndSOS() {
               </div>
               <InputGroup.Input
                 value={search}
-                onChange={e => { setSearch(e.target.value); resetPage() }}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  resetPage();
+                }}
                 id="search"
                 type="search"
                 name="search"
@@ -117,7 +119,6 @@ export default function AlertsAndSOS() {
       </div>
 
       <div className="container-padding">
-
         <AlertsSOSTable
           alerts={currentTableData}
           isSuccess={isSuccess}
@@ -137,7 +138,6 @@ export default function AlertsAndSOS() {
             />
           </div>
         )}
-
       </div>
     </Admin>
   );

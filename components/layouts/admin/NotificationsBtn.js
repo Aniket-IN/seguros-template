@@ -11,6 +11,28 @@ const NotificationsBtn = () => {
     setOpen((val) => !val);
   };
 
+  // const fetchData = () => {
+  //   return axios.get("/api/shield/shield-point-of-interest/", {
+  //     params: {
+  //       id: shield_id,
+  //     },
+  //   });
+  // };
+
+  // // React-query for data fetching
+  // const {
+  //   isLoading,
+  //   isError,
+  //   refetch,
+  //   isRefetching,
+  //   isSuccess,
+  //   data: response,
+  //   error,
+  // } = useQuery("notifications", fetchData, {
+  //   refetchOnWindowFocus: false,
+  //   enabled: !!shield_id,
+  // });
+
   return (
     <>
       <Transition.Root show={open} as={Fragment}>
@@ -46,7 +68,8 @@ const NotificationsBtn = () => {
                         </button>
                       </div>
                       <Dialog.Title className="text-lg font-medium ">
-                        Notificaciones (+99)
+                        Notificaciones
+                        {/* (+99) */}
                       </Dialog.Title>
                     </div>
 

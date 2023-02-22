@@ -15,7 +15,6 @@ const ShieldsTable = ({
   sort,
   setSort,
 }) => {
-  console.log(shields);
   return (
     <Table
       wrapperClassName="pb-24 no-scrollbar"
