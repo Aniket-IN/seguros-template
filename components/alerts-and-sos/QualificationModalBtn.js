@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { format } from "date-fns";
 import React, { createElement, useState } from "react";
 
-const QualificationModalBtn = ({ as = "button", alert = {}, className = "", ...props }) => {
+const QualificationModalBtn = ({ as = "button", alert = {}, className = "", type="alert", ...props }) => {
   const [open, setOpen] = useState(false);
 
   const close = () => {
@@ -36,9 +36,10 @@ const QualificationModalBtn = ({ as = "button", alert = {}, className = "", ...p
                   {alert.rating_description}
                 </p>
                 <div className="flex items-center justify-between text-secondary">
-                  <span>{alert.userprofile.full_name}</span>
+                  <span>{type==="alert"?alert.userprofile.full_name:alert.sender.full_name}</span>
                   <span>
-                    {format(new Date(alert.userprofile.updated_at), 'dd/MM/yy, p')}
+                    {/* {format(new Date(alert.updated_at), 'dd/MM/yy, p')} */}
+                    {new Date(alert.updated_at)}
                   </span>
                 </div>
               </div>

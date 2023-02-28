@@ -16,7 +16,8 @@ const useTableData = ({
   queryKeys = [],
   pageSize = 10,
   noAuth = false,
-  initialSort = { field: "id", direction: "desc" },
+  // initialSort = { field: "id", direction: "desc" },
+  initialSort = { field: "alert_datetime", direction: "desc" },
 }) => {
   // Custom Axios instance
   const { axios } = useAxios({
@@ -33,7 +34,9 @@ const useTableData = ({
 
   // function to fetch data
   const fetchData = () => {
-    return axios.get(dataUrl);
+    console.log("dataurl", dataUrl);
+    const data = axios.get(dataUrl);
+    return data;
   };
 
   // React-query for data fetching
@@ -51,14 +54,18 @@ const useTableData = ({
     enabled: enabled,
   });
 
+  console.log("response data", responseData);
+
   useEffect(() => {
     if (isError) {
       toast.error(error.message);
     }
   }, [isError]);
 
-  const stringForCompare = (val) =>
-    val.toString().toLowerCase().replace(/_/g, "").replace(/ +/g, "");
+  const stringForCompare = (val) => {
+    console.log("val", val);
+    return val?.toString().toLowerCase().replace(/_/g, "").replace(/ +/g, "");
+  };
 
   useEffect(() => {
     resetPage();
@@ -68,37 +75,62 @@ const useTableData = ({
 
   // filtering
   const allDataUnsorted = useMemo(() => {
-    let items = dataItems;
-    items = items.filter((item) => {
-      let passingFilters = [];
-      Object.entries(filters).forEach(([filterKey, filter]) => {
-        if (filter.length > 0) {
-          let condition = filter
-            .map((fltr) => stringForCompare(fltr))
-            .includes(stringForCompare(item[filterKey]));
-          if (
-            !(item[filterKey] === undefined || item[filterKey] === null) &&
-            condition
-          ) {
-            passingFilters.push(filterKey);
-          }
-        } else {
-          passingFilters.push(filterKey);
-        }
-      });
+    console.log("dataitems", dataItems);
+    if (typeof dataItems == "object" && responseData != undefined) {
+      let items = dataItems.alerts
+        ? [...dataItems.alerts, ...dataItems.sos]
+        : dataItems;
+      console.log("items", items);
+      items =
+        items.length != 0 &&
+        items.filter((item) => {
+          let passingFilters = [];
+          Object.entries(filters).forEach(([filterKey, filter]) => {
+            if (filter.length > 0) {
+              let condition = filter
+                .map((fltr) => stringForCompare(fltr))
+                .includes(stringForCompare(item[filterKey]));
+              if (
+                !(item[filterKey] === undefined || item[filterKey] === null) &&
+                condition
+              ) {
+                passingFilters.push(filterKey);
+              }
+            } else {
+              passingFilters.push(filterKey);
+            }
+          });
 
-      return passingFilters.length == Object.keys(filters).length;
-    });
-    return items;
+          return passingFilters.length == Object.keys(filters).length;
+         
+        });
+      console.log("items after filtering", items);
+      return items;
+    } else {
+      return [];
+    }
   }, [responseData?.data, filters]);
+
+  // const allDataUnsorted = typeof(unsorted)==Boolean?unsorted:[];
 
   // Sorting
   const allData = useMemo(() => {
+    console.log("alldata unsorted", allDataUnsorted);
     let sortedProducts = [...allDataUnsorted];
     const fieldsNames = Object.keys(allDataUnsorted[0] ?? {});
 
     if (fieldsNames.length > 0 && fieldsNames.includes(sort.field)) {
-      sortedProducts = orderBy(sortedProducts, sort.field, sort.direction);
+      console.log("sort field", sort.field, " sort.direction ", sort.direction);
+      sortedProducts = orderBy(
+        sortedProducts,
+        [
+          sort.field === "alert_datetime"
+            ? (item) => new Date(item.alert_datetime)
+            : sort.field,
+        ],
+        [sort.direction]
+      );
+      console.log("sorted products", sortedProducts);
     }
 
     return sortedProducts;

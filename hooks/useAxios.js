@@ -9,6 +9,7 @@ const useAxios = ({ baseURL = null, noAuth = false } = {}) => {
   const router = useRouter();
 
   const token = useSelector((state) => state.user.token);
+console.log("token", token)
   const dispatch = useDispatch();
 
   let headers = {

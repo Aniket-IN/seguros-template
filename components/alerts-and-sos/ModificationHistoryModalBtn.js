@@ -2,17 +2,59 @@ import Modal from "@/components/utility/Modal";
 import classNames from "classnames";
 import React, { createElement, useState } from "react";
 import Table from "../Table";
+import useAxios from "@/hooks/useAxios"
+import { useQuery } from "react-query";
 
 const ModificationHistoryModalBtn = ({
   as = "button",
   className = "",
+  id=null,
   ...props
 }) => {
-  const [open, setOpen] = useState(false);
+    
+  // const { axios } = useAxios();
+  // const fetchData = () => {
+  //   const data = axios.get(`/api/alert/getalertmodifyhistory/?id=${id?id:77}`);
+  //   return data;
+  // };
 
+  // const {
+  //   isLoading,
+  //   isError,
+  //   refetch,
+  //   isRefetching,
+  //   isSuccess,
+  //   data: responseData,
+  //   error,
+  // } = useQuery(queryKeys, fetchData, {
+  //   refetchOnWindowFocus: false,
+  //   cacheTime: 0,
+  //   enabled: enabled,
+  // });
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  const [open, setOpen] = useState(false);
   const close = () => {
     setOpen(false);
   };
+
+
+
+
 
   return (
     <>

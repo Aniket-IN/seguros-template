@@ -8,117 +8,184 @@ import ModificationHistoryModalBtn from "./ModificationHistoryModalBtn";
 import QualificationModalBtn from "./QualificationModalBtn";
 import { Popover, Transition } from "@headlessui/react";
 import ConfirmationModal from "../utility/ConfirmationModal";
+import useAxios from "@/hooks/useAxios";
 
-const AlertsSOSTable = ({ alerts = [], isLoading, isSuccess, isError, error, sort, setSort }) => {
+const AlertsSOSTable = ({
+  alerts = [],
+  isLoading,
+  isSuccess,
+  isError,
+  error,
+  sort,
+  setSort,
+}) => {
   return (
     <Table
       wrapperClassName="pb-96 no-scrollbar"
       dataCount={alerts.length}
       isLoading={isLoading}
       isError={isError}
-      error={error}>
+      error={error}
+    >
       <Table.Thead>
         <Table.Tr>
-          <Table.Th sortable sort={sort} setSort={setSort} name="id">ID Alerta</Table.Th>
+          <Table.Th sortable sort={sort} setSort={setSort} name="id">
+            ID Alerta
+          </Table.Th>
           <Table.Th>Usuario</Table.Th>
           <Table.Th>Ubicación</Table.Th>
-          <Table.Th sortable sort={sort} setSort={setSort} name="alert_date">Horario</Table.Th>
+          <Table.Th sortable sort={sort} setSort={setSort} name="alert_date">
+            Horario
+          </Table.Th>
           <Table.Th>Estado</Table.Th>
           <Table.Th>Evidencia</Table.Th>
           <Table.Th>Comentario</Table.Th>
           <Table.Th>Historial modif.</Table.Th>
-          <Table.Th sortable sort={sort} setSort={setSort} name="rating">Calificación</Table.Th>
+          <Table.Th sortable sort={sort} setSort={setSort} name="rating">
+            Calificación
+          </Table.Th>
         </Table.Tr>
       </Table.Thead>
       <Table.Tbody>
-        {isSuccess && alerts?.map((alert, index) => <Row alert={alert} key={alert.id} />)}
+        {isSuccess &&
+          alerts?.map((alert, index) => <Row alert={alert} key={alert.id} />)}
       </Table.Tbody>
     </Table>
   );
 };
 
 const Row = ({ alert }) => {
-  const type = alert?.category?.startsWith('alert') ? 'alert' : 'sos'
+  // const type = alert?.category?.startsWith('sos') ? 'alert' : 'sos'
+  // const type = alert?.alert_datetime? 'alert' : 'sos'
+  const type = alert.type === "Alert" ? "alert" : "sos";
+  console.log(type);
 
+  const changeAlertStatus = (status) => {
+    alert.status = status;
+  };
   return (
     <Table.Tr>
       <Table.Td>
-        {!!(type == 'alert') && (
+        {!!(type == "alert") && (
           <div>
             <dd className="font-semibold capitalize">{alert.category}</dd>
             <dd>Alert#{alert.id}</dd>
           </div>
         )}
 
-        {!!(type == 'sos') && (
+        {!!(type == "sos") && (
           <div>
             <dd className="font-semibold text-danger">SOS</dd>
             <dd>SOS#{alert.id}</dd>
           </div>
         )}
-      </Table.Td >
-      <Table.Td>
-        <dd className="capitalize">{alert.userprofile.full_name}</dd>
-        <dd>{alert.userprofile.id}</dd>
       </Table.Td>
-      <Table.Td>{alert.userprofile.lat}, {alert.userprofile.long}</Table.Td>
       <Table.Td>
-        <dd>{alert.alert_date}</dd>
-        <dd>{alert.alert_time}</dd>
+        <dd className="capitalize">
+          {type == "alert"
+            ? alert?.userprofile.full_name
+            : alert?.sender.full_name}
+        </dd>
+        <dd>
+          {type == "alert" ? alert?.userprofile.user.id : alert?.sender.user.id}
+        </dd>
+      </Table.Td>
+      <Table.Td className="font-semibold">
+        {alert?.lat}, {alert?.long}
+      </Table.Td>
+      <Table.Td>
+        <dd>{alert?.alert_date}</dd>
+        <dd>{alert?.alert_time}</dd>
       </Table.Td>
       <Table.Td>
         <StatusToggleBtn
+          id={alert?.id}
           status={alert.status}
-          text="Pendiente"
+          text={alert.status_name}
+          changeAlertStatus={changeAlertStatus}
         />
       </Table.Td>
       <Table.Td className="font-semibold">
-        <EvidenceModalBtn alert={alert} className="hover:text-primary hover:underline">
+        <EvidenceModalBtn
+          alert={alert}
+          className="hover:text-primary hover:underline"
+        >
           Evidencia#{alert.evidence_number}
         </EvidenceModalBtn>
       </Table.Td>
       <Table.Td className="font-semibold">
-        <CommentsModalBtn alert={alert} className="hover:text-primary hover:underline">
+        <CommentsModalBtn
+          alert={alert}
+          className="hover:text-primary hover:underline"
+        >
           Ver comentarios
         </CommentsModalBtn>
       </Table.Td>
       <Table.Td className="font-semibold">
-        <ModificationHistoryModalBtn alert={alert} className="hover:text-primary">
+        <ModificationHistoryModalBtn
+          alert={alert}
+          className="hover:text-primary"
+        >
           Ver historial
         </ModificationHistoryModalBtn>
       </Table.Td>
       <Table.Td className="font-semibold">
-        <QualificationModalBtn alert={alert} className="group flex items-center gap-2 hover:text-primary hover:underline">
+        <QualificationModalBtn
+          alert={alert}
+          type={type}
+          className="group flex items-center gap-2 hover:text-primary hover:underline"
+        >
           <StarIcon className="h-6 w-6 text-warning group-hover:text-primary" />
           <span>{alert.rating}</span>
         </QualificationModalBtn>
       </Table.Td>
-    </Table.Tr >
-  )
-}
+    </Table.Tr>
+  );
+};
 
 const StatusToggleBtn = ({
   as = "button",
   className = "",
   status,
+  text = "",
+  id = null,
+  changeAlertStatus,
   ...props
 }) => {
   const [open, setOpen] = useState(false);
+  const [whichBadgeIsClicked, setwhichBadgeIsClicked] = useState({
+    id: null,
+    status: status,
+  });
+  const [currrentStatus, setCurrrentStatus] = useState(status);
+  const { axios } = useAxios();
 
   const statusesMapping = {
-    "resolve": {
+    // "resolve": {
+    //   text: "Resuelto",
+    //   className: "text-primary bg-primary",
+    // },
+    // "help sent": {
+    //   text: "Ayuda enviada",
+    //   className: "text-warning bg-warning",
+    // },
+    // "earning": {
+    //   text: "Pendiente",
+    //   className: "text-danger bg-danger",
+    // },
+    3: {
       text: "Resuelto",
       className: "text-primary bg-primary",
     },
-    "help sent": {
+    2: {
       text: "Ayuda enviada",
       className: "text-warning bg-warning",
     },
-    "earning": {
+    1: {
       text: "Pendiente",
       className: "text-danger bg-danger",
     },
-  }
+  };
 
   const initChangeStatus = ({ close }) => {
     setOpen(true);
@@ -126,15 +193,29 @@ const StatusToggleBtn = ({
     // close()
   };
 
-  const changeStatus = () => {
-    setOpen(false);
+  const changeStatus = async () => {
+    axios
+      .post("/api/alert/changealertstatus/", whichBadgeIsClicked)
+      .then((response) => {
+        const data = response.data.data;
+        console.log(data);
+        setwhichBadgeIsClicked({id: data.id, status: data.status});
+        setCurrrentStatus(data.status);
+        setOpen(false);
+
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
     <>
       <ConfirmationModal
         open={open}
-        close={() => setOpen(false)}
+        close={(e) => {
+          setOpen(false);
+        }}
         type="warning"
         caption="¿Estás seguro que deseas modificar el estado?"
         confirmBtn={{
@@ -154,21 +235,26 @@ const StatusToggleBtn = ({
         {createElement(Popover.Button, {
           ...props,
           as: as,
-          className: classNames(
-            className,
-            statusesMapping[status]?.className,
-            "inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-opacity-20"
-          ),
+          // className: classNames(
+          //   className,
+          //   statusesMapping[status]?.className,
+          //   "inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-opacity-20"
+          // ),
           children: (
             <>
-              <svg
+              {/* <svg
                 className="mr-1.5 h-2 w-2 "
                 fill="currentColor"
                 viewBox="0 0 8 8"
               >
                 <circle cx={5} cy={4} r={3} />
-              </svg>
-              {statusesMapping[status]?.text ?? status}
+              </svg> */}
+              <StatusBadge
+                as="span"
+                className={statusesMapping[currrentStatus]?.className}
+                text={statusesMapping[currrentStatus]?.text}
+              />
+              {/* {statusesMapping[status]?.text ?? status} */}
             </>
           ),
         })}
@@ -185,7 +271,11 @@ const StatusToggleBtn = ({
             {({ close }) => (
               <div className="min-w-[300px] divide-y whitespace-normal py-1 text-xs">
                 <button
-                  onClick={() => initChangeStatus({ close })}
+                  onClick={() => {
+                    initChangeStatus({ close });
+                    setwhichBadgeIsClicked({ id: id, status: 1 });
+                    console.log(whichBadgeIsClicked);
+                  }}
                   className="space-y-2 px-4 py-2.5 text-left hover:bg-slate-100"
                 >
                   <StatusBadge
@@ -199,7 +289,11 @@ const StatusToggleBtn = ({
                   </p>
                 </button>
                 <button
-                  onClick={() => initChangeStatus({ close })}
+                  onClick={() => {
+                    initChangeStatus({ close });
+                    setwhichBadgeIsClicked({ id: id, status: 2 });
+                    console.log(whichBadgeIsClicked);
+                  }}
                   className="space-y-2 px-4 py-2.5 text-left hover:bg-slate-100"
                 >
                   <StatusBadge
@@ -213,7 +307,11 @@ const StatusToggleBtn = ({
                   </p>
                 </button>
                 <button
-                  onClick={() => initChangeStatus({ close })}
+                  onClick={() => {
+                    initChangeStatus({ close });
+                    setwhichBadgeIsClicked({ id: id, status: 3 });
+                    console.log(whichBadgeIsClicked);
+                  }}
                   className="space-y-2 px-4 py-2.5 text-left hover:bg-slate-100"
                 >
                   <StatusBadge

@@ -7,7 +7,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import useTableData from "@/hooks/useTableData";
 import Pagination from "@/components/Pagination";
 
-const pageSize = 1;
+const pageSize = 10;
 
 export default function AlertsAndSOS() {
   const {
@@ -32,6 +32,7 @@ export default function AlertsAndSOS() {
     dataCallback: (resp) => resp?.data?.data ?? [],
     pageSize: pageSize,
     queryKeys: ["alerts-and-sos-list"],
+    initialSort : { field: "alert_datetime", direction: "desc" },
   });
 
   return (

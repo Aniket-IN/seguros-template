@@ -19,9 +19,11 @@ const Login = () => {
   const [processing, setProcessing] = useState(false);
 
   const submit = handleSubmit((data) => {
+    console.log("data",data);
     setProcessing(true);
     axios
-      .post("/api/admin/adminlogin/", data)
+      // .post("/api/admin/adminlogin/", data)
+        .post("/api/admin/adminlogin/", data)
       .then((response) => {
         const data = response.data.data;
 
