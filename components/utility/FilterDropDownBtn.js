@@ -41,6 +41,7 @@ const FilterDropDownBtn = ({
       ...vals,
       [e.target.name]: filtersByKey,
     }));
+    console.log("filters",filters);
   };
 
   const clearFilters = ({ close }) => {

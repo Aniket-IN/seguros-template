@@ -6,12 +6,118 @@ import TopCardsSection from "@/components/home/TopCardsSection";
 import UserCountLineChart from "@/components/home/charts/UserCountLineChart";
 import UserCountBarChart from "@/components/home/charts/UserCountBarChart";
 import MonthSelector from "@/components/dashboard/MonthSelector";
+import { useEffect } from "react";
+// import { messaging } from "@/public/firebase-messaging-sw";
+import * as firebase from "firebase/app";
+import "firebase/messaging";
+import { firebaseCloudMessaging } from "../firebase";
+import useAxios from "@/hooks/useAxios";
 
 const Home = () => {
+
+  
+
+
+
+
+
+
+  async function setToken() {
+    try {
+      const token = await firebaseCloudMessaging.init();
+      if (token) {
+        console.log("token firebase", token);
+        getMessage();
+        axios
+        .post('/api/account/fcm-device-token/',{"fcm-token": token})
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+      })
+    }
+  }
+ catch (error) {
+      console.log(error);
+    }
+  }
+
+
+
+
+  useEffect(() => {
+
+    setToken();
+
+});
+
+
+//  baseurl api/account/fcm-device/token/ device_id
+  
+
+
+
   const [selectedMonth, setSelectedMonth] = useState({
     month: "enero",
     value: 1,
   });
+
+
+
+  // async function requestPermission() {
+  //   const permission = await Notification.requestPermission();
+  //   if (permission === "granted") {
+  //     // Generate Token
+  //     const token = await getToken(messaging, {
+  //       vapidKey:
+  //         "BAUr3db_FNShfRZbJrKBjfWnhNaQQa_mwwjwzWU3b8OQIrIY6PXiamYkJWF8w3jbFf_n0iXGgAYhqVdJYzr-8LA",
+  //     });
+  //     console.log("Token Gen", token);
+  //     // Send this token  to server ( db)
+  //   } else if (permission === "denied") {
+  //     alert("You denied for the notification");
+  //   }
+  // }
+  // useEffect(() => {
+  //   // Req user for notification permission
+  //   requestPermission();
+  // }, []);
+  // if (typeof window !== 'undefined') {
+  //   messaging.requestPermission().then(() => {
+  //     console.log('Permission granted')
+  //   }).catch(() => {
+  //     console.log('Permission denied')
+  //   })
+  // }
+
+  // if (typeof window !== 'undefined') {
+  //   messaging.getToken().then((token) => {
+  //     console.log(token)
+  //   }).catch(() => {
+  //     console.log('Error getting token')
+  //   })
+  // }
+
+
+  // if (typeof window !== 'undefined') {
+  //   messaging.onMessage((payload) => {
+  //     console.log('Notification received', payload)
+  //   })
+  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <Admin pageTitle="Dashboard" headerTitle="Bienvenido, Lucas">

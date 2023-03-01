@@ -10,6 +10,7 @@ import Pagination from "@/components/Pagination";
 const pageSize = 10;
 
 export default function AlertsAndSOS() {
+  
   const {
     search,
     setSearch,

@@ -40,6 +40,7 @@ const useTableData = ({
   };
 
   // React-query for data fetching
+  
   const {
     isLoading,
     isError,
@@ -75,41 +76,50 @@ const useTableData = ({
 
   // filtering
   const allDataUnsorted = useMemo(() => {
-    console.log("dataitems", dataItems);
-    if (typeof dataItems == "object" && responseData != undefined) {
-      let items = dataItems.alerts
-        ? [...dataItems.alerts, ...dataItems.sos]
-        : dataItems;
-      console.log("items", items);
-      items =
-        items.length != 0 &&
-        items.filter((item) => {
-          let passingFilters = [];
-          Object.entries(filters).forEach(([filterKey, filter]) => {
-            if (filter.length > 0) {
-              let condition = filter
-                .map((fltr) => stringForCompare(fltr))
-                .includes(stringForCompare(item[filterKey]));
-              if (
-                !(item[filterKey] === undefined || item[filterKey] === null) &&
-                condition
-              ) {
-                passingFilters.push(filterKey);
-              }
-            } else {
-              passingFilters.push(filterKey);
-            }
-          });
+    console.log("response data from use memo",dataItems)
+    return dataItems?.alerts?[...dataItems.alerts, ...dataItems.sos]:dataItems;
 
-          return passingFilters.length == Object.keys(filters).length;
+
+    
+    // console.log("dataitems", dataItems);
+    // console.log("useTable data ", filters);
+    // if (typeof dataItems == "object" && responseData != undefined) {
+    //   let items = dataItems.alerts
+    //     ? [...dataItems.alerts, ...dataItems.sos]
+    //     : dataItems;
+    //   console.log("items", items);
+    //   console.log("useTable data ", filters);
+    //   items =
+    //     items.length != 0 &&
+    //     items.filter((item) => {
+    //       let passingFilters = [];
+    //       Object.entries(filters).forEach(([filterKey, filter]) => {
+           
+    //         if (filter.length > 0) {
+    //           let condition = filter
+    //             .map((fltr) => stringForCompare(fltr))
+    //             .includes(stringForCompare(item[filterKey]));
+    //           if (
+    //             !(item[filterKey] === undefined || item[filterKey] === null) &&
+    //             condition
+    //           ) {
+    //             passingFilters.push(filterKey);
+    //           }
+    //         } else {
+    //           passingFilters.push(filterKey);
+    //         }
+    //       });
+
+    //       return passingFilters.length == Object.keys(filters).length;
          
-        });
-      console.log("items after filtering", items);
-      return items;
-    } else {
-      return [];
-    }
+    //     });
+    //   console.log("items after filtering", items);
+    //   return items;
+    // } else {
+    //   return [];
+    // }
   }, [responseData?.data, filters]);
+
 
   // const allDataUnsorted = typeof(unsorted)==Boolean?unsorted:[];
 
@@ -138,9 +148,11 @@ const useTableData = ({
 
   // Fuse instance for searching
   const fuse = useMemo(() => {
-    return new Fuse(allData, {
+    const temp = new Fuse(allData, {
       keys: keyify(allData[0] ?? {}),
     });
+    console.log("searching ",temp);
+    return  temp;
   }, [allData]);
 
   // searching
