@@ -13,6 +13,7 @@ import {
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import { userReducer } from "./userSlice";
 import { pageReducer } from "./pageSlice";
+import { notificationReducer } from "./notificationSlice";
 
 
 const persistConfig = {
@@ -25,6 +26,7 @@ const persistConfig = {
 const reducer = combineReducers({
   user: userReducer,
   page: pageReducer,
+  notificationReducer: notificationReducer
 });
 
 const store = configureStore({

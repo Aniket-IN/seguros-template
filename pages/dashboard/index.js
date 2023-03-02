@@ -12,11 +12,17 @@ import * as firebase from "firebase/app";
 import "firebase/messaging";
 import { firebaseCloudMessaging } from "../firebase";
 import useAxios from "@/hooks/useAxios";
+import { useDispatch } from "react-redux";
+import {setnew_sos_alerts_count} from "../../redux/notificationSlice"
+
+
+
+
 
 const Home = () => {
+const {axios} = useAxios();
 
-  
-
+  const dispatch = useDispatch();
 
 
 
@@ -24,17 +30,25 @@ const Home = () => {
 
   async function setToken() {
     try {
+      
       const token = await firebaseCloudMessaging.init();
       if (token) {
         console.log("token firebase", token);
-        getMessage();
+        
         axios
-        .post('/api/account/fcm-device-token/',{"fcm-token": token})
+        .post('api/admin/fcm-device-token/',{"device_id": token})
       .then((response) => {
         const data = response.data;
-        console.log(data);
-      })
+        console.log("res data",data);
+      }).catch(
+        (error)=>{
+        console.log(error);
+      }
+      )
+      
     }
+
+
   }
  catch (error) {
       console.log(error);
@@ -44,12 +58,33 @@ const Home = () => {
 
 
 
-  useEffect(() => {
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  useEffect(() => {
     setToken();
 
-});
+      if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.addEventListener("message", (event) => {
 
+      console.log(event);
+      console.log(event.data.firebaseMessaging.payload.notification.title);
+      dispatch(setnew_sos_alerts_count(event.data.firebaseMessaging.payload.notification.title));
+    });
+  }
+
+});
 
 //  baseurl api/account/fcm-device/token/ device_id
   
@@ -60,61 +95,6 @@ const Home = () => {
     month: "enero",
     value: 1,
   });
-
-
-
-  // async function requestPermission() {
-  //   const permission = await Notification.requestPermission();
-  //   if (permission === "granted") {
-  //     // Generate Token
-  //     const token = await getToken(messaging, {
-  //       vapidKey:
-  //         "BAUr3db_FNShfRZbJrKBjfWnhNaQQa_mwwjwzWU3b8OQIrIY6PXiamYkJWF8w3jbFf_n0iXGgAYhqVdJYzr-8LA",
-  //     });
-  //     console.log("Token Gen", token);
-  //     // Send this token  to server ( db)
-  //   } else if (permission === "denied") {
-  //     alert("You denied for the notification");
-  //   }
-  // }
-  // useEffect(() => {
-  //   // Req user for notification permission
-  //   requestPermission();
-  // }, []);
-  // if (typeof window !== 'undefined') {
-  //   messaging.requestPermission().then(() => {
-  //     console.log('Permission granted')
-  //   }).catch(() => {
-  //     console.log('Permission denied')
-  //   })
-  // }
-
-  // if (typeof window !== 'undefined') {
-  //   messaging.getToken().then((token) => {
-  //     console.log(token)
-  //   }).catch(() => {
-  //     console.log('Error getting token')
-  //   })
-  // }
-
-
-  // if (typeof window !== 'undefined') {
-  //   messaging.onMessage((payload) => {
-  //     console.log('Notification received', payload)
-  //   })
-  // }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

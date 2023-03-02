@@ -2,8 +2,13 @@ import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import { useSelector, useDispatch } from 'react-redux'
 
 const Nav = () => {
+
+  const notifCount = useSelector((state) => state.notificationReducer.alerts_sos_notifications);
+  console.log("notifs count",notifCount);
+
   const items = [
     {
       id: 1,
@@ -157,7 +162,7 @@ const Nav = () => {
       ),
       title: "Alertas y SOS",
       href: "/alerts-and-sos",
-      unreadCount: 1,
+      unreadCount: notifCount,
       activePaths: ["/alerts-and-sos", "/alerts-and-sos/[alert_id]"],
     },
     {
