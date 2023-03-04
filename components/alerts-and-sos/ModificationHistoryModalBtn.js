@@ -2,21 +2,24 @@ import Modal from "@/components/utility/Modal";
 import classNames from "classnames";
 import React, { createElement, useState } from "react";
 import Table from "../Table";
-import useAxios from "@/hooks/useAxios"
+import useAxios from "@/hooks/useAxios";
 import { useQuery } from "react-query";
-
+import { useEffect } from "react";
 const ModificationHistoryModalBtn = ({
   as = "button",
+  alert,
   className = "",
-  id=null,
+  id = null,
   ...props
 }) => {
-    
+  console.log("alert data", alert);
   const { axios } = useAxios();
-  const fetchData = async () => {
-    const data = axios.get(`/api/alert/getalertmodifyhistory/?id=${23}`);
+  const fetchData = () => {
+    const data = axios.get(`/api/alert/getalertmodifyhistory/?id=${alert.id}`);
     return data;
   };
+
+  
 
   const {
     isLoading,
@@ -27,33 +30,22 @@ const ModificationHistoryModalBtn = ({
     data: responseData,
     error,
   } = useQuery([], fetchData, {
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
     cacheTime: 0,
     enabled: true,
   });
+  console.log("history", responseData?.data);
+  
+  const history = responseData?.data;
 
-const history=responseData?.data;
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   const [open, setOpen] = useState(false);
   const close = () => {
     setOpen(false);
   };
 
-
-
+useEffect(() => {
+ refetch(); 
+},[open])
 
 
   return (
@@ -72,22 +64,32 @@ const history=responseData?.data;
             <div className="grid grid-cols-3 gap-5 p-5 text-sm">
               <div>
                 <dd className="font-semibold">ID Alerta</dd>
-                <dd className = {history?.data[0]?.type? " font-semibold" : "font-semibold text-danger"}>{history?.data[0]?.type? "Alert" : "SOS"}</dd>
-                <dd>{history?.data[0]?.type? `Alert#${history?.data[0]?.alert.id}` : `SOS#${history?.data[0]?.alert.id}`} </dd>
+                {alert.type ? (
+                  <dd className="font-semibold">Alert</dd>
+                ) : (
+                  <dd className="font-semibold text-danger">SOS</dd>
+                )}
+
+                <dd>{alert.type ? `Alert#${alert.id}` : `SOS#${alert.id}`} </dd>
               </div>
               <div>
                 <dd className="font-semibold">Usuario</dd>
-                <dd>{history?.data[0]?.alert.id}</dd>
-                <dd>ID. 7584566</dd>
+                <dd></dd>
+                <dd>ID. {alert.userprofile?.user?.id}</dd>
               </div>
               <div>
                 <dd className="font-semibold">Horario creación</dd>
-                <dd>25/05/22</dd>
-                <dd>12:00 Hrs</dd>
+                <dd>{alert.alert_date?.slice(0, 10)}</dd>
+                <dd>{alert.alert_time}</dd>
               </div>
             </div>
             <div className="bg-accent py-2.5 px-4">
-              <Table>
+              <Table
+                isLoading={isLoading}
+                isError={isError}
+                error={error}
+                dataCount={history?.data?.length}
+              >
                 <Table.Thead>
                   <Table.Tr>
                     <Table.Th>Estado</Table.Th>
@@ -96,72 +98,9 @@ const history=responseData?.data;
                   </Table.Tr>
                 </Table.Thead>
                 <Table.Tbody>
-                  <Table.Tr>
-                    <Table.Td>
-                      <span className="inline-flex items-center rounded-full bg-warning bg-opacity-20 px-3 py-1.5 text-sm font-semibold text-warning">
-                        <svg
-                          className="mr-1.5 h-2 w-2 text-warning"
-                          fill="currentColor"
-                          viewBox="0 0 8 8"
-                        >
-                          <circle cx={5} cy={4} r={3} />
-                        </svg>
-                        Ayuda enviada
-                      </span>
-                    </Table.Td>
-                    <Table.Td>
-                      <div className="inline-flex items-center gap-3.5">
-                        <div className="h-11 w-11">
-                          <img
-                            src="/assets/img/sample/user-2.png"
-                            className="h-11 w-11 rounded-full"
-                            alt=""
-                          />
-                        </div>
-                        <div>
-                          <dd>Mario Lopez</dd>
-                          <dd>ID-UI123123</dd>
-                        </div>
-                      </div>
-                    </Table.Td>
-                    <Table.Td>
-                      <dd>25/05/22</dd>
-                      <dd>12:00 Hrs</dd>
-                    </Table.Td>
-                  </Table.Tr>
-                  <Table.Tr>
-                    <Table.Td>
-                      <span className="inline-flex items-center rounded-full bg-primary bg-opacity-20 px-3 py-1.5 text-sm font-semibold text-primary">
-                        <svg
-                          className="mr-1.5 h-2 w-2 text-primary"
-                          fill="currentColor"
-                          viewBox="0 0 8 8"
-                        >
-                          <circle cx={5} cy={4} r={3} />
-                        </svg>
-                        Resuelto
-                      </span>
-                    </Table.Td>
-                    <Table.Td>
-                      <div className="inline-flex items-center gap-3.5">
-                        <div className="h-11 w-11">
-                          <img
-                            src="/assets/img/sample/user-2.png"
-                            className="h-11 w-11 rounded-full"
-                            alt=""
-                          />
-                        </div>
-                        <div>
-                          <dd>Mario Lopez</dd>
-                          <dd>ID-UI123123</dd>
-                        </div>
-                      </div>
-                    </Table.Td>
-                    <Table.Td>
-                      <dd>25/05/22</dd>
-                      <dd>12:00 Hrs</dd>
-                    </Table.Td>
-                  </Table.Tr>
+                  {history?.data?.map((record, index) => {
+                    return <Row record={record} key={index} />;
+                  }).reverse()}
                 </Table.Tbody>
               </Table>
             </div>
@@ -184,3 +123,73 @@ const history=responseData?.data;
 };
 
 export default ModificationHistoryModalBtn;
+
+const Row = ({ record }) => {
+  return (
+    <>
+      <Table.Tr>
+        <Table.Td>
+          {record.status === "Alerta enviada" ? (
+            <span className="inline-flex items-center rounded-full bg-danger bg-opacity-20 px-3 py-1.5 text-sm font-semibold text-danger">
+              <svg
+                className="mr-1.5 h-2 w-2 text-danger"
+                fill="currentColor"
+                viewBox="0 0 8 8"
+              >
+                <circle cx={5} cy={4} r={3} />
+              </svg>
+              Pendiente
+            </span>
+          ) : record.status === "Ayuda enviada" ? (
+            <span className="inline-flex items-center rounded-full bg-warning bg-opacity-20 px-3 py-1.5 text-sm font-semibold text-warning">
+              <svg
+                className="mr-1.5 h-2 w-2 text-warning"
+                fill="currentColor"
+                viewBox="0 0 8 8"
+              >
+                <circle cx={5} cy={4} r={3} />
+              </svg>
+              Ayuda enviada
+            </span>
+          ) : record.status === "Alerta resuelta" ? (
+            <span className="inline-flex items-center rounded-full bg-primary bg-opacity-20 px-3 py-1.5 text-sm font-semibold text-primary">
+              <svg
+                className="mr-1.5 h-2 w-2 text-primary"
+                fill="currentColor"
+                viewBox="0 0 8 8"
+              >
+                <circle cx={5} cy={4} r={3} />
+              </svg>
+              Resuelto
+            </span>
+          ) : (
+            <>Status not found</>
+          )}
+        </Table.Td>
+        <Table.Td>
+          <div className="inline-flex items-center gap-3.5">
+            <div className="h-11 w-11">
+              <img
+                src={
+                  record.image_url
+                    ? record.image_url
+                    : "/assets/img/sample/user-2.png"
+                }
+                className="h-11 w-11 rounded-full"
+                alt=""
+              />
+            </div>
+            <div>
+              <dd>{record.full_name}</dd>
+              <dd>ID-{record.userprofile.user.id}</dd>
+            </div>
+          </div>
+        </Table.Td>
+        <Table.Td>
+          <dd>{record.updated_at.slice(0, 10)}</dd>
+          <dd>{record.updated_at.slice(11, 19)}</dd>
+        </Table.Td>
+      </Table.Tr>
+    </>
+  );
+};
