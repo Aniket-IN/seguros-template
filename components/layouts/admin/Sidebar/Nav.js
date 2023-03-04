@@ -1,12 +1,17 @@
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { use } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-
+import { useState } from "react";
+import { setnew_sos_alerts_count } from "@/redux/notificationSlice";
 const Nav = () => {
 
-  const notifCount = useSelector((state) => state.notificationReducer.alerts_sos_notifications);
+  const dispatch = useDispatch();
+ 
+
+ 
+ const notifCount= useSelector((state) => state.notificationReducer.alerts_sos_notifications);  
   console.log("notifs count",notifCount);
 
   const items = [

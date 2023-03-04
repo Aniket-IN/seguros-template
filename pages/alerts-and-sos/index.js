@@ -6,10 +6,15 @@ import InputGroup from "@/components/utility/InputGroup";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import useTableData from "@/hooks/useTableData";
 import Pagination from "@/components/Pagination";
+import { useEffect } from "react";
+import { setnew_sos_alerts_count } from "@/redux/notificationSlice";
+import { useDispatch } from "react-redux";
+
 
 const pageSize = 10;
 
 export default function AlertsAndSOS() {
+  const dispatch = useDispatch();
   
   const {
     search,
@@ -36,6 +41,13 @@ export default function AlertsAndSOS() {
     initialSort : { field: "alert_datetime", direction: "desc" },
   });
 
+
+  useEffect(() => {
+  dispatch(setnew_sos_alerts_count(0));
+  
+  
+  }, [])
+  
   return (
     <Admin pageTitle="Alertas y SOS" headerTitle="Alertas y SOS">
       <div className="bg-neutral">

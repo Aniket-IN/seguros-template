@@ -12,27 +12,27 @@ const ModificationHistoryModalBtn = ({
   ...props
 }) => {
     
-  // const { axios } = useAxios();
-  // const fetchData = () => {
-  //   const data = axios.get(`/api/alert/getalertmodifyhistory/?id=${id?id:77}`);
-  //   return data;
-  // };
+  const { axios } = useAxios();
+  const fetchData = async () => {
+    const data = axios.get(`/api/alert/getalertmodifyhistory/?id=${23}`);
+    return data;
+  };
 
-  // const {
-  //   isLoading,
-  //   isError,
-  //   refetch,
-  //   isRefetching,
-  //   isSuccess,
-  //   data: responseData,
-  //   error,
-  // } = useQuery(queryKeys, fetchData, {
-  //   refetchOnWindowFocus: false,
-  //   cacheTime: 0,
-  //   enabled: enabled,
-  // });
+  const {
+    isLoading,
+    isError,
+    refetch,
+    isRefetching,
+    isSuccess,
+    data: responseData,
+    error,
+  } = useQuery([], fetchData, {
+    refetchOnWindowFocus: false,
+    cacheTime: 0,
+    enabled: true,
+  });
 
-
+const history=responseData?.data;
 
   
   
@@ -72,12 +72,12 @@ const ModificationHistoryModalBtn = ({
             <div className="grid grid-cols-3 gap-5 p-5 text-sm">
               <div>
                 <dd className="font-semibold">ID Alerta</dd>
-                <dd className="font-semibold text-danger">SOS</dd>
-                <dd>SOS#1231231</dd>
+                <dd className = {history?.data[0]?.type? " font-semibold" : "font-semibold text-danger"}>{history?.data[0]?.type? "Alert" : "SOS"}</dd>
+                <dd>{history?.data[0]?.type? `Alert#${history?.data[0]?.alert.id}` : `SOS#${history?.data[0]?.alert.id}`} </dd>
               </div>
               <div>
                 <dd className="font-semibold">Usuario</dd>
-                <dd>Juan Jesús Ledesma</dd>
+                <dd>{history?.data[0]?.alert.id}</dd>
                 <dd>ID. 7584566</dd>
               </div>
               <div>

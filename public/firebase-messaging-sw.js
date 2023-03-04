@@ -48,3 +48,29 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
+// messaging.onBackgroundMessage(function(payload) {
+//   console.log('Received background message ', payload);
+
+//   const notificationTitle = payload.notification.title;
+//   const notificationOptions = {
+//     body: payload.notification.body,
+//   };
+
+//   self.registration.showNotification(notificationTitle,
+//     notificationOptions);
+// });
+
+// messaging.setBackgroundMessageHandler(function(payload) {
+//   const notificationData = {
+//     title: payload.notification.title,
+//     body: payload.notification.body,
+  
+//   };
+//   self.clients.matchAll().then(clients => {
+//     clients.forEach(client => {
+//       client.postMessage({
+//         notification: notificationData,
+//       });
+//     });
+//   });
+// });
