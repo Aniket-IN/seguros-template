@@ -1,11 +1,17 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import HeaderBtn from "../HeaderBtn";
 import { BellIcon } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setnew_sos_alerts_count } from "@/redux/notificationSlice";
 
 const NotificationsBtn = () => {
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const notifCount = useSelector(state => state.notificationReducer.alerts_sos_notifications);
+  console.log("notif count",notifCount);
 
   const toggle = () => {
     setOpen((val) => !val);
@@ -32,6 +38,12 @@ const NotificationsBtn = () => {
   //   refetchOnWindowFocus: false,
   //   enabled: !!shield_id,
   // });
+
+  useEffect(() => {
+
+    open && dispatch(setnew_sos_alerts_count(0));
+  }, [open])
+  
 
   return (
     <>
@@ -113,9 +125,9 @@ const NotificationsBtn = () => {
       <HeaderBtn onClick={toggle} className="ml-auto text-sm">
         <BellIcon className="h-7 w-7 text-black text-opacity-80" />
         <span className="hidden xl:inline">Notificaciones</span>
-        <span className="rounded-full bg-primary px-2.5 py-1 pr-3 text-white">
-          +99
-        </span>
+       { notifCount>0 &&  <span className="rounded-full bg-primary px-2.5 py-1 pr-3 text-white">
+          {notifCount}
+        </span>}
       </HeaderBtn>
     </>
   );
