@@ -8,13 +8,15 @@ import useTableData from "@/hooks/useTableData";
 import Pagination from "@/components/Pagination";
 import { useEffect } from "react";
 import { setnew_sos_alerts_count } from "@/redux/notificationSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 
 
 const pageSize = 10;
 
 export default function AlertsAndSOS() {
   const dispatch = useDispatch();
+  const notifCount= useSelector((state) => state.notificationReducer.alerts_sos_notifications);  
   
   const {
     search,
@@ -33,6 +35,7 @@ export default function AlertsAndSOS() {
     setCurrentPage,
     isSuccess,
     resetPage,
+    refetch
   } = useTableData({
     dataUrl: "/api/alert/alertall/",
     dataCallback: (resp) => resp?.data?.data ?? [],
@@ -43,10 +46,10 @@ export default function AlertsAndSOS() {
 
 
   useEffect(() => {
-  dispatch(setnew_sos_alerts_count(0));
+    notifCount===0 && refetch();
   
   
-  }, [])
+  }, [notifCount]);
   
   return (
     <Admin pageTitle="Alertas y SOS" headerTitle="Alertas y SOS">

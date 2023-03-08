@@ -34,7 +34,7 @@ const ModificationHistoryModalBtn = ({
     cacheTime: 0,
     enabled: true,
   });
-  console.log("history", responseData?.data);
+
   
   const history = responseData?.data;
 

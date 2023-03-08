@@ -110,7 +110,7 @@ const Row = ({ alert }) => {
           alert={alert}
           className="hover:text-primary hover:underline"
         >
-          Evidencia#{alert.evidence_number}
+          {alert.evidence_number}
         </EvidenceModalBtn>
       </Table.Td>
       <Table.Td className="font-semibold">

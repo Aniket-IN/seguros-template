@@ -23,7 +23,7 @@ const QualificationModalBtn = ({ as = "button", alert = {}, className = "", type
             <h2 className="text-lg font-medium">Calificacíon</h2>
             <Modal.XBtn onClick={close} />
           </Modal.Header>
-          <Modal.Body>
+     { alert.rating? <Modal.Body>
             <div className="bg-accent p-2.5 text-sm">
               <div className="space-y-2 bg-white p-2.5">
                 <dl className="flex items-center gap-2.5">
@@ -39,12 +39,16 @@ const QualificationModalBtn = ({ as = "button", alert = {}, className = "", type
                   <span>{type==="alert"?alert.userprofile.full_name:alert.sender.full_name}</span>
                   <span>
                     {/* {format(new Date(alert.updated_at), 'dd/MM/yy, p')} */}
-                    {new Date(alert.updated_at)}
+                    {/* {new Date(alert.updated_at)} */}
                   </span>
                 </div>
               </div>
             </div>
           </Modal.Body>
+          :
+          <Modal.Body>
+           La calificación está pendiente 
+            </Modal.Body>}
           <Modal.Footer className="bg-accent">
             <Modal.FooterBtn onClick={close} className="bg-black text-white">
               Cerrar

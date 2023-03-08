@@ -2,17 +2,16 @@ import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { use } from "react";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { setnew_sos_alerts_count } from "@/redux/notificationSlice";
 const Nav = () => {
 
-  const dispatch = useDispatch();
- 
 
- 
- const notifCount= useSelector((state) => state.notificationReducer.alerts_sos_notifications);  
-  console.log("notifs count",notifCount);
+  const notifCount = useSelector(
+    (state) => state.notificationReducer.alerts_sos_notifications
+  );
+  console.log("notifs count", notifCount);
 
   const items = [
     {
@@ -167,7 +166,7 @@ const Nav = () => {
       ),
       title: "Alertas y SOS",
       href: "/alerts-and-sos",
-      unreadCount: notifCount,
+      unreadCount: notifCount/2,
       activePaths: ["/alerts-and-sos", "/alerts-and-sos/[alert_id]"],
     },
     {
@@ -306,6 +305,7 @@ const Nav = () => {
 };
 
 const Item = ({ item, children }) => {
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const isActive = item.activePaths?.includes(router.pathname);
@@ -325,7 +325,13 @@ const Item = ({ item, children }) => {
         <span className="truncate whitespace-nowrap text-sm">{item.title}</span>
 
         {!!item.unreadCount && (
-          <div className="absolute inset-y-0 right-4 flex items-center">
+          <div
+            className="absolute inset-y-0 right-4 flex items-center"
+            onClick={() => {
+              const alertNofis = { title: "New Alert SOS", count: 0 };
+              dispatch(setnew_sos_alerts_count({ alertNofis }));
+            }}
+          >
             <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-danger text-sm text-white  ">
               {item.unreadCount}
             </span>

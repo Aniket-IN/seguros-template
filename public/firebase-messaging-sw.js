@@ -74,3 +74,15 @@ const messaging = firebase.messaging();
 //     });
 //   });
 // });
+
+messaging.setBackgroundMessageHandler(function(payload) {
+  console.log('Received background message:', payload);
+  // Customize notification here
+  const notificationTitle = 'Background Message';
+  const notificationOptions = {
+    body: 'Background Message body.',
+    icon: '/firebase-logo.png'
+  };
+
+  return self.registration.showNotification(notificationTitle,notificationOptions.body);
+});

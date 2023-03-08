@@ -5,13 +5,15 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { setnew_sos_alerts_count } from "@/redux/notificationSlice";
+import { setnew_sos_alerts_count,setNotificationCount } from "@/redux/notificationSlice";
 
 const NotificationsBtn = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const notifCount = useSelector(state => state.notificationReducer.alerts_sos_notifications);
-  console.log("notif count",notifCount);
+  const notifCount = useSelector(state => state.notificationReducer.notifications);
+  const alertnotifCount = useSelector(state => state.notificationReducer.alerts_sos_notifications);
+  const notificationsData = useSelector(state => state.notificationReducer.notifications_list);
+
 
   const toggle = () => {
     setOpen((val) => !val);
@@ -41,8 +43,13 @@ const NotificationsBtn = () => {
 
   useEffect(() => {
 
-    open && dispatch(setnew_sos_alerts_count(0));
-  }, [open])
+    const alertNofis={ title:"New Alert SOS", count:0}
+    open && dispatch(setNotificationCount());
+    alertnotifCount === 0 && dispatch(setnew_sos_alerts_count(alertNofis));
+  },[open])
+  // useEffect(() => {
+  //   dispatch(setNotificationCount());
+  // },[alertnotifCount]);
   
 
   return (
@@ -86,34 +93,9 @@ const NotificationsBtn = () => {
                     </div>
 
                     <div className="flex-grow space-y-3.5 overflow-auto p-5">
-                      {[...Array(20)].map((item, index) => (
-                        <div
-                          key={index}
-                          className="flex text-sm odd:bg-primary even:bg-secondary-3 even:bg-opacity-40"
-                        >
-                          <div className="ml-1 flex gap-5 bg-white px-5 py-5">
-                            <div className="h-14 w-14 flex-shrink-0">
-                              <img
-                                className="h-14 w-14"
-                                src="/assets/img/sample/user-1.png"
-                              />
-                            </div>
-                            <div className="space-y-1.5">
-                              <h3 className="font-bold">
-                                Ejemplo de notificación
-                              </h3>
-                              <p>
-                                Is simply dummy text of the printing and
-                                typesetting industry. Lorem Ipsum has been the
-                                industry's text ever since the 1500s.
-                              </p>
-                              <p className="text-secondary">
-                                08:00 pm, 12/12/12
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
+                      {notificationsData.map((item, index) => (
+                 <Notification key={index} index={index} title={item.title} body={item.body} date={item.date} />
+                      )).reverse()}
                     </div>
                   </div>
                 </div>
@@ -126,7 +108,7 @@ const NotificationsBtn = () => {
         <BellIcon className="h-7 w-7 text-black text-opacity-80" />
         <span className="hidden xl:inline">Notificaciones</span>
        { notifCount>0 &&  <span className="rounded-full bg-primary px-2.5 py-1 pr-3 text-white">
-          {notifCount}
+          {notifCount/2}
         </span>}
       </HeaderBtn>
     </>
@@ -134,3 +116,35 @@ const NotificationsBtn = () => {
 };
 
 export default NotificationsBtn;
+
+
+const Notification =({index, title, body, date})=>{
+
+return(
+  <div
+  key={index}
+  className=" flex text-sm odd:bg-primary even:bg-secondary-3 even:bg-opacity-40"
+>
+  <div className="ml-1 w-full flex gap-5 bg-white px-5 py-5">
+    <div className="h-14 w-14 flex-shrink-0">
+      <img
+        className="h-14 w-14"
+        src="/assets/img/sample/user-1.png"
+      />
+    </div>
+    <div className="space-y-1.5">
+      <h3 className="font-bold">
+       {title}
+      </h3>
+      <p>
+       {body}
+      </p>
+      <p className="text-secondary">
+        {date}
+      </p>
+    </div>
+  </div>
+</div>
+)
+
+}

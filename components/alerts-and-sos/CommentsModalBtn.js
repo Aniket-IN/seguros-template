@@ -2,13 +2,64 @@ import Modal from "@/components/utility/Modal";
 import classNames from "classnames";
 import React, { createElement, useState } from "react";
 import InputGroup from "../utility/InputGroup";
+import useAxios from "@/hooks/useAxios";
+import { useQuery } from "react-query";
+import { useEffect } from "react";
+import axios from "axios";
 
-const CommentsModalBtn = ({ as = "button", className = "", ...props }) => {
+const CommentsModalBtn = ({
+  alert,
+  as = "button",
+  className = "",
+  ...props
+}) => {
   const [open, setOpen] = useState(false);
+
+  const [CommentContent, setCommentContent] = useState("");
+
+  const { axios } = useAxios();
+  const fetchData = () => {
+    const data = axios.get(
+      `/api/alert/getcommentalertsos?id=${alert.id}&type=${alert.type}`
+    );
+    return data;
+  };
+
+  const {
+    isLoading,
+    isError,
+    refetch,
+    isRefetching,
+    isSuccess,
+    data: responseData,
+    error,
+  } = useQuery([], fetchData, {
+    refetchOnWindowFocus: true,
+    cacheTime: 0,
+    enabled: true,
+  });
+  console.log("as comments", responseData?.data);
+
+  const comments =  responseData?.data.data;
+
+  const postComment = () => {
+    const data = {
+
+    }
+  };
+
+  useEffect(() => {
+    // refetch();
+  }, [open]);
 
   const close = () => {
     setOpen(false);
   };
+
+
+
+
+
 
   return (
     <>
@@ -24,27 +75,32 @@ const CommentsModalBtn = ({ as = "button", className = "", ...props }) => {
           </Modal.Header>
           <Modal.Body className="grid grid-cols-1 gap-5 p-5 lg:grid-cols-2">
             <ul className="overflow-auto bg-accent p-2.5 text-sm lg:h-96">
-              <li className="bg-white px-2.5 py-3">
-                <p>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                  aliquyam erat.
-                </p>
-                <div className="mt-3 flex justify-between gap-4 text-secondary">
-                  <span>Juan Jesús Ledesma</span>
-                  <span>25/05/22, 12:00 Hrs</span>
-                </div>
-              </li>
+
+          { !isLoading && comments?.map((item, index)=>{return <CommentsList key={index} comment={item} />})} 
             </ul>
             <div className="text-sm">
-              <InputGroup>
+              {/* <InputGroup>
                 <InputGroup.Textarea
                   className="h-60"
                   placeholder="Escribir..."
+               
                 />
-              </InputGroup>
+              </InputGroup> */}
+              <textarea
+              onChange={(e)=>{setCommentContent(e.target.value); console.log(CommentContent) }}
+                placeholder="Escribir..."
+                className=" focus:border-none  w-full border border-[#e2e8f0] px-4 py-2 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                name=""
+                id=""
+                cols="30"
+                rows="10"
+                value={CommentContent}
+              ></textarea>
               <div className="mt-3 text-right">
-                <button className="rounded bg-black px-4 py-1.5 text-white">
+                <button
+                  className="rounded bg-black px-4 py-1.5 text-white"
+                  // onClick={postComment}
+                >
                   Crear comentario
                 </button>
               </div>
@@ -68,3 +124,20 @@ const CommentsModalBtn = ({ as = "button", className = "", ...props }) => {
 };
 
 export default CommentsModalBtn;
+
+
+const CommentsList =({comment})=>{
+  console.log("comment", comment);
+  return (
+    <li className="bg-white px-2.5 py-3">
+    <p className=" text-secondary">
+      asd
+      {comment.comment}
+    </p>
+    <div className="mt-3 flex justify-between gap-4 text-secondary">
+      <span>{comment.userprofile.full_name}</span>
+      <span>{comment.created_at}</span>
+    </div>
+  </li>
+  )
+}

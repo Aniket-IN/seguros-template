@@ -16,46 +16,48 @@ import { useDispatch } from "react-redux";
 import { setnew_sos_alerts_count } from "../../redux/notificationSlice";
 
 const Home = () => {
-  const { axios } = useAxios();
+  // const { axios } = useAxios();
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  async function setToken() {
-    try {
-      const token = await firebaseCloudMessaging.init();
-      if (token) {
-        console.log("token firebase", token);
+  // async function setToken() {
+  //   try {
+  //     const token = await firebaseCloudMessaging.init();
+  //     if (token) {
+  //       console.log("token firebase", token);
 
-        axios
-          .post("api/admin/fcm-device-token/", { device_id: token })
-          .then((response) => {
-            const data = response.data;
-            console.log("res data", data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  //       axios
+  //         .post("api/admin/fcm-device-token/", { device_id: token })
+  //         .then((response) => {
+  //           const data = response.data;
+  //           console.log("res data", data);
+  //         })
+  //         .catch((error) => {
+  //           console.log(error);
+  //         });
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
-  useEffect(() => {
-    setToken();
+  // useEffect(() => {
+  //   setToken();
 
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.addEventListener("message", (event) => {
-        let title = event.data.firebaseMessaging.payload.notification.title;
-        console.log(event.data.firebaseMessaging.payload.notification.title);
-        if (title === "Mas Seguros") {
-          dispatch(setnew_sos_alerts_count(1));
-          title = "";
-        }
+  //   if ("serviceWorker" in navigator) {
+  //     console.log(navigator);
+  //     navigator.serviceWorker.addEventListener("message", (event) => {
+
+  //       let title = event.data.firebaseMessaging.payload.notification.title;
+  //       console.log(event);
+  //       if (title === "New Alert SOS") {
+  //         dispatch(setnew_sos_alerts_count(1));
+  //         title = "";
+  //       }
         
-      });
-    }
-  });
+  //     });
+  //   }
+  // });
 
 
 
