@@ -2,7 +2,7 @@ import Modal from "@/components/utility/Modal";
 import classNames from "classnames";
 import React, { createElement, useState, useRef, useEffect } from "react";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
-// import GoogleMapReact from "google-map-react";
+// import {GoogleMapReact} from "google-map-react";
 import { useMemo } from "react";
 // import {
 //   withScriptjs,
@@ -193,7 +193,8 @@ const GMap = GoogleApiWrapper({
   const containerStyle = {
     position: 'relative',  
     width: '100%',
-    height: '100%'
+    height: '100%',
+ 
   }
   return (
     <Map
@@ -208,8 +209,21 @@ const GMap = GoogleApiWrapper({
       zoom={16}
       className="h-full w-full"
     >
-      <Marker name={"Current Location"} position={{lat: props.alert?.lat, lng: props.alert?.long}} > </Marker>
-    
+      <Marker style={style} name={"Current Location"} position={{lat: props.alert?.lat, lng: props.alert?.long}} ></Marker>
+    {/* <StyledMark/> */}
     </Map>
   );
 });
+
+
+const StyledMark = (props) => {
+
+  return (
+    <div className="marker"
+      style={{ backgroundColor: "red", cursor: 'pointer'}}
+      title="marker"
+    >
+      sdffg
+    </div>
+  );
+};

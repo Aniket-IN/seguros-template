@@ -37,6 +37,7 @@ const ModificationHistoryModalBtn = ({
 
   
   const history = responseData?.data;
+  console.log("history--",history);
 
   const [open, setOpen] = useState(false);
   const close = () => {

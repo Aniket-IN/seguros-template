@@ -62,13 +62,13 @@ const FirebaseNotifs = () => {
     count <= 1 && setToken();
     if ("serviceWorker" in navigator) {
       console.log(navigator);
-      navigator.serviceWorker.register('/firebase-messaging-sw.js')
-      .then(function(registration) {
-        console.log('Service worker registered:', registration);
-      })
-      .catch(function(error) {
-        console.log('Service worker registration failed:', error);
-      });
+      // navigator.serviceWorker.register('/firebase-messaging-sw.js')
+      // .then(function(registration) {
+      //   console.log('Service worker registered:', registration);
+      // })
+      // .catch(function(error) {
+      //   console.log('Service worker registration failed:', error);
+      // });
 
       navigator.serviceWorker.addEventListener("message", (event) => {
         let title = event.data.firebaseMessaging.payload.notification.title;
