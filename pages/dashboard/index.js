@@ -10,7 +10,7 @@ import { useEffect } from "react";
 // import { messaging } from "@/public/firebase-messaging-sw";
 import * as firebase from "firebase/app";
 import "firebase/messaging";
-import { firebaseCloudMessaging } from "../firebase";
+import { firebaseCloudMessaging } from "../../firebase";
 import useAxios from "@/hooks/useAxios";
 import { useDispatch } from "react-redux";
 import { setnew_sos_alerts_count } from "../../redux/notificationSlice";

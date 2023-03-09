@@ -2,7 +2,7 @@ import Wrapper from "@/components/layouts/Wrapper";
 import "../styles/globals.css";
 import * as firebase from "firebase/app";
 import "firebase/messaging";
-import { firebaseCloudMessaging } from "./firebase";
+import { firebaseCloudMessaging } from "../firebase";
 import useAxios from "@/hooks/useAxios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
