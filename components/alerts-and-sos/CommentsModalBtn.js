@@ -70,7 +70,6 @@ const CommentsModalBtn = ({
     const headers = {
       "Content-Type": "application/json",
       Authorization: token ? `token ${token}` : null,
-      // Authorization:  `token c6fb5675259a6dc956e1ff3721dc79b0c4efa85a`
     };
     try {
       setloading("during");

@@ -5,7 +5,7 @@ const TicketHistoryCard = () => {
   return (
     <ul className="max-h-96 flex-grow divide-y overflow-auto border bg-neutral lg:max-h-full">
       {[...Array(3)].map((item, index) => (
-        <li className={classNames("space-y-2.5 p-4 text-sm", "bg-white")}>
+        <li className={classNames("space-y-2.5 p-4 text-sm", "bg-white")} >
           <div className="flex justify-between gap-2">
             <dd>Ticket #123123</dd>
           </div>

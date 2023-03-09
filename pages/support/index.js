@@ -1,6 +1,7 @@
 import Admin from "@/components/layouts/Admin";
 import SectionHeading from "@/components/SectionHeading";
 import RightCard from "@/components/support/RightCard";
+import TicketHistoryCard from "@/components/support/TicketHistoryCard";
 import DividerText from "@/components/utility/DividerText";
 import InputGroup from "@/components/utility/InputGroup";
 import {
@@ -9,9 +10,46 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/solid";
 import classNames from "classnames";
-import React from "react";
+import React, { useState } from "react";
 
 export default function index() {
+  const [MessageContent, setMessageContent] = useState("");
+  const [AllMessage, setAllMessage] = useState([
+    {
+      time: "10:45 Hrs",
+      content:
+        "Is simply dummy text of the printing and typesetting industry. Is simply dummy text of the printing and typesetting industry. ",
+      owner: "sender",
+    },
+    {
+      time: "10:45 Hrs",
+      content:
+        "Is simply dummy text of the printing and typesetting industry. Is simply dummy text of the printing and typesetting industry. ",
+      owner: "receiver",
+    },
+  ]);
+  const [sendClicked, setSendClicked] = useState(false);
+
+  function handleKeyPress(event) {
+    if (event.key === "Enter") {
+      document.getElementById("sendMessage").click();
+    }
+  }
+
+  const sendMessage = () => {
+    setSendClicked(true);
+    let today = new Date();
+    let time = today.getHours() + ":" + today.getMinutes() +" Hrs";
+    const message = {
+      time: time,
+      content: MessageContent,
+      owner: "sender",
+    };
+    MessageContent !== "" && setAllMessage([...AllMessage, message]);
+    console.log(AllMessage);
+    setMessageContent("");
+  };
+
   return (
     <Admin pageTitle="Soporte" headerTitle="Soporte">
       <div className="h-full lg:h-[calc(100vh-60px)] lg:max-h-full">
@@ -25,6 +63,7 @@ export default function index() {
                 <button className="flex h-5 w-5 items-center justify-center border border-black border-opacity-40 text-black opacity-40">
                   <ChevronLeftIcon className="h-4 w-4" />
                 </button>
+                \shields
                 <button className="flex h-5 w-5 items-center justify-center border border-black border-opacity-60 text-black opacity-60">
                   <ChevronRightIcon className="h-4 w-4" />
                 </button>
@@ -48,36 +87,37 @@ export default function index() {
 
             <ul className="flex-grow divide-y overflow-auto">
               {[...Array(50)].map((item, index) => (
-                <li
-                  className={classNames(
-                    "space-y-2.5 p-4 text-sm",
-                    index == 0 && "bg-neutral"
-                  )}
-                >
-                  <div className="flex justify-between gap-2">
-                    <dd>Ticket #123123</dd>
-                    {!!(index == 0) && (
-                      <dd className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs text-white">
-                        <span>1</span>
-                      </dd>
-                    )}
-                  </div>
-                  <dd className="font-semibold">
-                    Objeto perdido por otros temas
-                  </dd>
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-xs">08:00 pm, 12/12/12</span>
-                    {index == 0 ? (
-                      <span className="font-semibold text-danger">
-                        Pendiente
-                      </span>
-                    ) : (
-                      <span className="font-semibold text-success">
-                        Resuelto
-                      </span>
-                    )}
-                  </div>
-                </li>
+                // <li
+                //   className={classNames(
+                //     "space-y-2.5 p-4 text-sm",
+                //     index == 0 && "bg-neutral"
+                //   )}
+                // >
+                //   <div className="flex justify-between gap-2">
+                //     <dd>Ticket #123123</dd>
+                //     {!!(index == 0) && (
+                //       <dd className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs text-white">
+                //         <span>1</span>
+                //       </dd>
+                //     )}
+                //   </div>
+                //   <dd className="font-semibold">
+                //     Objeto perdido por otros temas
+                //   </dd>
+                //   <div className="flex items-center justify-between text-sm">
+                //     <span className="text-xs">08:00 pm, 12/12/12</span>
+                //     {index == 0 ? (
+                //       <span className="font-semibold text-danger">
+                //         Pendiente
+                //       </span>
+                //     ) : (
+                //       <span className="font-semibold text-success">
+                //         Resuelto
+                //       </span>
+                //     )}
+                //   </div>
+                // </li>
+                <TicketHistoryCard />
               ))}
             </ul>
           </div>
@@ -106,19 +146,33 @@ export default function index() {
                 <div className="px-4 py-3">
                   <DividerText text="25/05/22" textClassName="bg-accent" />
                 </div>
+                <ul>
+                  {AllMessage.map((message, index) => {
+                    return <SendMessage key={index} message={message} />;
+                  })}
+                </ul>
               </div>
               <div className="flex border border-t-2 border-t-black px-5 pt-5">
                 <div className="flex-shrink-0 flex-grow">
                   <textarea
+                    onChange={(e) => {
+                      setMessageContent(e.target.value);
+                    }}
+                    value={MessageContent}
                     className="w-full border-none focus:ring-0"
                     name="message"
                     id="message"
                     rows="6"
+                    onKeyPress={handleKeyPress}
                     placeholder="Escribe tu mensaje"
                   />
                 </div>
                 <div>
-                  <button className="rounded bg-black px-4 py-2.5 text-white">
+                  <button
+                    className="rounded bg-black px-4 py-2.5 text-white"
+                    onClick={sendMessage}
+                    id="sendMessage"
+                  >
                     Enviar
                   </button>
                 </div>
@@ -132,3 +186,38 @@ export default function index() {
     </Admin>
   );
 }
+
+const SendMessage = ({ message }) => {
+  console.log(message.content);
+  return (
+    <li className="my-5">
+      {message.owner === "sender" ? (
+        <div className=" flex flex-row-reverse  text-xs  ">
+          <div className="mx-4 grid  w-[45%]">
+            <p className="justify-self-end rounded-md  bg-black  px-2 py-1  text-sm text-white">
+              {message.content}
+            </p>
+            <div className="flex flex-row-reverse">
+              <div className=" h-2 pt-1 text-xs text-gray-500">
+                {message.time}
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className=" flex text-xs   ">
+          <div className="mx-4 grid  w-[45%]">
+            <p className="justify-self-end rounded-md  bg-white  px-2 py-1  text-sm text-black">
+              {message.content}
+            </p>
+            <div className="flex flex-row-reverse">
+              <div className=" h-2 pt-1 text-xs text-gray-500">
+                {message.time}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </li>
+  );
+};
