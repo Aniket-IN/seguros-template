@@ -2,8 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   alerts_sos_notifications: 0,
+  rating_notifications: false,
   notifications: 0,
-  notifications_list:[{title: 'Notifications', body : 'Notifications', date:''}]
+  notifications_list:[{title: 'Notifications', body : 'Notifications', date:''}],
+
 };
 
 export const notificationSlice = createSlice({
@@ -32,13 +34,18 @@ export const notificationSlice = createSlice({
       state.alerts_sos_notifications=0;
    
     },
+    incrementNotificationCount: (state) => {
+      state.notifications=state.notifications+1;
+      console.log("state.notifications",state.notifications);
+      state.rating_notifications=true;
+    },
     setNotificationData: (state, action)=>{
       state.notifications_list.push(action.payload);
     }
   },
 });
 
-const { setnew_sos_alerts_count,setNotificationCount, setNotificationData } = notificationSlice.actions;
+const { setnew_sos_alerts_count,setNotificationCount, setNotificationData,incrementNotificationCount } = notificationSlice.actions;
 const notificationReducer = notificationSlice.reducer;
 
-export { setnew_sos_alerts_count,setNotificationCount, setNotificationData, notificationReducer };
+export { setnew_sos_alerts_count,setNotificationCount, setNotificationData,incrementNotificationCount, notificationReducer };

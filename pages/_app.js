@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import {
   setnew_sos_alerts_count,
   setNotificationData,
+  incrementNotificationCount
 } from "../redux/notificationSlice";
 import { useState } from "react";
 
@@ -56,10 +57,17 @@ const FirebaseNotifs = () => {
       dispatch(setnew_sos_alerts_count({ alertNofis }));
       dispatch(setNotificationData({ title: title, body: body, date: date }));
     }
+    if (title === "Alert SOS Ratings") {
+      const alertNofis = { title: "Rating", count: 1 };
+      dispatch(incrementNotificationCount());
+      dispatch(setNotificationData({ title: title, body: body, date: date }));
+      
+
+    }
   };
 
   useEffect(() => {
-    count <= 1 && setToken();
+count<=1 && setToken();
     if ("serviceWorker" in navigator) {
       console.log(navigator);
       // navigator.serviceWorker.register('/firebase-messaging-sw.js')
@@ -71,8 +79,10 @@ const FirebaseNotifs = () => {
       // });
 
       navigator.serviceWorker.addEventListener("message", (event) => {
+        console.log("event",event);
         let title = event.data.firebaseMessaging.payload.notification.title;
         let body = event.data.firebaseMessaging.payload.notification.body;
+        console.log('Fcm notification:', title, body);
         let date = new Date();
         var year = date.getFullYear();
         var month = date.getMonth() + 1; // add 1 to get the correct month (0 = January)

@@ -168,7 +168,7 @@ const Nav = () => {
       title: "Alertas y SOS",
       href: "/alerts-and-sos",
       // unreadCount: notifCount/2,
-      unreadCount: Math.floor(notifCount/2),
+      unreadCount: Math.floor(notifCount),
       activePaths: ["/alerts-and-sos", "/alerts-and-sos/[alert_id]"],
     },
     {

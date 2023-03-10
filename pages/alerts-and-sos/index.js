@@ -16,7 +16,8 @@ const pageSize = 10;
 
 export default function AlertsAndSOS() {
   const dispatch = useDispatch();
-  const notifCount= useSelector((state) => state.notificationReducer.alerts_sos_notifications);  
+  const AlertnotifCount= useSelector((state) => state.notificationReducer.alerts_sos_notifications);  
+  const notifCount= useSelector((state) => state.notificationReducer.notifications);  
   
   const {
     search,
@@ -46,7 +47,7 @@ export default function AlertsAndSOS() {
 
 
   useEffect(() => {
-    notifCount===0 && refetch();
+    refetch();
   
   
   }, [notifCount]);

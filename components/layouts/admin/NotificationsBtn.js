@@ -14,7 +14,7 @@ const NotificationsBtn = () => {
   const alertnotifCount = useSelector(state => state.notificationReducer.alerts_sos_notifications);
   const notificationsData = useSelector(state => state.notificationReducer.notifications_list);
 
-
+console.log("notif coount from notification", notifCount);
   const toggle = () => {
     setOpen((val) => !val);
   };
@@ -108,7 +108,7 @@ const NotificationsBtn = () => {
         <BellIcon className="h-7 w-7 text-black text-opacity-80" />
         <span className="hidden xl:inline">Notificaciones</span>
        { notifCount>0 &&  <span className="rounded-full bg-primary px-2.5 py-1 pr-3 text-white">
-          {Math.floor(notifCount/2)}
+          {Math.floor(notifCount)}
         </span>}
       </HeaderBtn>
     </>

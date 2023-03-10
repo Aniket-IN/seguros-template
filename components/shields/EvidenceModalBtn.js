@@ -4,28 +4,9 @@ import React, { createElement, useState, useRef, useEffect } from "react";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 // import {GoogleMapReact} from "google-map-react";
 import { useMemo } from "react";
-// import {
-//   withScriptjs,
-//   withGoogleMap,
-//   GoogleMap,
-//   Marker,
-// } from "react-google-maps";
+
 import { compose, withProps } from "recompose";
 
-// function Map() {
-//   console.log("entered map");
-//   return (
-//     <GoogleMap
-//       defaultZoom={10}
-//       defaultCenter={{ lat: 45.4211, lng: -75.6903 }}
-
-//     />
-//   );
-// }
-
-// const MapWrapped = withScriptjs(withGoogleMap(Map));
-
-// function gmNoop() { console.log('GMap Callback') }
 
 const EvidenceModalBtn = ({
   as = "button",
@@ -34,21 +15,53 @@ const EvidenceModalBtn = ({
   ...props
 }) => {
   const [open, setOpen] = useState(false);
-
+const [blobUrl, setBlobUrl] = useState("");
   const location = { lat: alert.lat, lng: alert.long };
   const close = () => {
     setOpen(false);
   };
+    const [longitude, setLongitude] = useState(null);
+    const [latitude, setLatitude] = useState(null);
+  
 
-  // const { isLoaded } = useLoadScript({
-  //   googleMapsApiKey: ""
-  // });
+    function handleDownloadClick() {
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = alert.evidence_number;
+      document.body.appendChild(link);
+      link.click();
+    }
 
-  // const alert = {
-  //   evidence_number: "1231231",
-  //   ...alertData,
-  //   evidence: alertData.evidence ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${alertData.evidence}` : `/assets/img/sample/evidence-1.png`,
-  // }
+
+
+
+
+
+    useEffect(() => {
+      const url = alert.evidence_url;
+      fetch(url)
+        .then((response) => response.blob())
+        .then((blob) => {
+          setBlobUrl(URL.createObjectURL(blob));
+          
+         
+        });
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            setLatitude(position.coords.latitude);
+            setLongitude(position.coords.longitude);
+          
+          },
+          error => {
+            console.error(error);
+          }
+        );
+      } else {
+        console.error('Geolocation is not supported by this browser.');
+      }
+    }, []);
 
   return (
     <>
@@ -85,7 +98,7 @@ const EvidenceModalBtn = ({
                
                   </div> */}
 
-                  <GMap alert={alert} />
+                  <GMap alert={alert} longitude={parseFloat(longitude)} latitude={parseFloat(latitude)} />
                 </div>
 
                 <div className="grid grid-cols-2 gap-6">
@@ -104,8 +117,10 @@ const EvidenceModalBtn = ({
                   <div>
                     <dd className="font-semibold">Ubicación</dd>
                     <dd>
+                    <a href={`http://maps.google.com/maps?saddr=${latitude},${longitude}&daddr=${alert?.lat},${alert?.long}`} target="_blank" rel="noopener noreferrer" className="cursor-pointer" >
                       {alert.lat.slice(0.12) ?? "lat missing"},{" "}
                       {alert.long.slice(0.12) ?? "long missing"}
+                      </a>
                     </dd>
                   </div>
                   <div>
@@ -135,8 +150,9 @@ const EvidenceModalBtn = ({
             <Modal.FooterBtn onClick={close} className="bg-white">
               Cancelar
             </Modal.FooterBtn>
-            <Modal.FooterBtn onClick={close} className="bg-black text-white">
-              Descargar Evidencia
+            <Modal.FooterBtn className="bg-black text-white">
+
+               <span onClick={handleDownloadClick} >Descargar Evidencia</span>  
             </Modal.FooterBtn>
           </Modal.Footer>
         </Modal.Wrapper>
@@ -197,6 +213,7 @@ const GMap = GoogleApiWrapper({
  
   }
   return (
+   
     <Map
 
     initialCenter={{
@@ -212,6 +229,7 @@ const GMap = GoogleApiWrapper({
       <Marker style={style} name={"Current Location"} position={{lat: props.alert?.lat, lng: props.alert?.long}} ></Marker>
     {/* <StyledMark/> */}
     </Map>
+  
   );
 });
 
