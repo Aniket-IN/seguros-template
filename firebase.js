@@ -1,7 +1,9 @@
 import "@firebase/messaging"
-// import { Messaging } from "firebase/messaging";
 import firebase from "firebase/app";
-import localforage from "localforage";
+// import localforage from "localforage";
+// import { getAuth } from "firebase/auth";
+// import { getStorage } from "firebase/storage";
+// import { getFirestore } from "firebase/firestore";
 
 
 
