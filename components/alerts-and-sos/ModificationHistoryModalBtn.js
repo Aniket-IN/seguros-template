@@ -172,12 +172,12 @@ const Row = ({ record }) => {
             <div className="h-11 w-11">
               <img
                 src={
-                  record.image_url
-                    ? record.image_url
-                    : "/assets/img/sample/user-2.png"
+                  record.userprofile.image_url!=null
+                    ? record.userprofile.image_url
+                    : "/assets/img/default-profile-pic-1.jpg"
                 }
                 className="h-11 w-11 rounded-full"
-                alt=""
+                alt="not found"
               />
             </div>
             <div>
