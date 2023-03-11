@@ -6,6 +6,7 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import { useMemo } from "react";
 
 import { compose, withProps } from "recompose";
+import axios from "axios";
 
 
 const EvidenceModalBtn = ({
@@ -38,15 +39,22 @@ const [blobUrl, setBlobUrl] = useState("");
 
 
     useEffect(() => {
-      const url = alert.evidence_url;
-      fetch(url)
-        .then((response) => response.blob())
-        .then((blob) => {
-          setBlobUrl(URL.createObjectURL(blob));
-          
-         
-        });
 
+      //download video
+        const url = alert.evidence_url;
+        console.log("evidence url: " + url);
+        axios
+        .get(url, {
+          responseType: 'blob',
+        })
+        .then((response) => {
+          setBlobUrl(URL.createObjectURL(response.data));
+        }
+        )
+
+
+
+// loction coordinates
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           position => {
