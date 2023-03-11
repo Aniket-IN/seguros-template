@@ -136,7 +136,7 @@ const [blobUrl, setBlobUrl] = useState("");
                     <dd>
                       {alert.userprofile?.full_name ?? "user name missing"}
                     </dd>
-                    <dd>ID. {alert.userprofile.user?.id ?? "id missing"}</dd>
+                    <dd>ID. {alert.userprofile.ui_id ?? "id missing"}</dd>
                   </div>
                   <div>
                     <dd className="font-semibold">Teléfono</dd>

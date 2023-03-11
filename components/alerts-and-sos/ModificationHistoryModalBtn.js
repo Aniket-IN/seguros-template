@@ -76,7 +76,7 @@ useEffect(() => {
               <div>
                 <dd className="font-semibold">Usuario</dd>
                 <dd></dd>
-                <dd>ID. {alert.userprofile?.user?.id}</dd>
+                <dd>ID. {alert.userprofile.ui_id}</dd>
               </div>
               <div>
                 <dd className="font-semibold">Horario creación</dd>
@@ -182,7 +182,7 @@ const Row = ({ record }) => {
             </div>
             <div>
               <dd>{record.full_name}</dd>
-              <dd>ID-{record.userprofile.user.id}</dd>
+              <dd>ID-{record.userprofile.ui_id}</dd>
             </div>
           </div>
         </Table.Td>

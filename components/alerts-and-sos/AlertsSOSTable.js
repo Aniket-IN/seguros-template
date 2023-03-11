@@ -87,15 +87,15 @@ const Row = ({ alert }) => {
             : alert?.sender.full_name}
         </dd>
         <dd>
-          {type == "alert" ? alert?.userprofile.user.id : alert?.sender.user.id}
+          {type == "alert" ? alert?.userprofile.ui_id : alert?.sender.user.id}
         </dd>
       </Table.Td>
       <Table.Td className="font-semibold">
         {alert?.lat}, {alert?.long}
       </Table.Td>
       <Table.Td>
-        <dd>{alert?.alert_date}</dd>
-        <dd>{alert?.alert_time}</dd>
+        <dd>{alert?.alert_date.slice(0,10)}</dd>
+        <dd className="self-center">{alert?.alert_time}</dd>
       </Table.Td>
       <Table.Td>
         <StatusToggleBtn
