@@ -125,7 +125,7 @@ const [blobUrl, setBlobUrl] = useState("");
                   <div>
                     <dd className="font-semibold">Ubicación</dd>
                     <dd>
-                    <a href={`http://maps.google.com/maps?saddr=${latitude},${longitude}&daddr=${alert?.lat},${alert?.long}`} target="_blank" rel="noopener noreferrer" className="cursor-pointer" >
+                    <a className="hover:text-blue-600" href={`http://maps.google.com/maps?saddr=${latitude},${longitude}&daddr=${alert?.lat},${alert?.long}`} target="_blank" rel="noopener noreferrer"  >
                       {alert.lat.slice(0.12) ?? "lat missing"},{" "}
                       {alert.long.slice(0.12) ?? "long missing"}
                       </a>
