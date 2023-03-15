@@ -5,15 +5,31 @@ import TicketHistoryCard from "@/components/support/TicketHistoryCard";
 import DividerText from "@/components/utility/DividerText";
 import InputGroup from "@/components/utility/InputGroup";
 import {
+  doc,
+  onSnapshot,
+  arrayUnion,
+  serverTimestamp,
+  Timestamp,
+  updateDoc,
+  collection,
+  getDoc,
+  getDocs,
+  query, where,
+} from "firebase/firestore";
+import { db } from "../../firebase";
+import {
   ChevronLeftIcon,
   ChevronRightIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/solid";
 import classNames from "classnames";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 export default function index() {
   const [MessageContent, setMessageContent] = useState("");
+  const [AllTickets,setAllTickets] = useState();
   const [AllMessage, setAllMessage] = useState([
     {
       time: "10:45 Hrs",
@@ -28,6 +44,7 @@ export default function index() {
       owner: "receiver",
     },
   ]);
+
   const [sendClicked, setSendClicked] = useState(false);
 
   function handleKeyPress(event) {
@@ -39,7 +56,7 @@ export default function index() {
   const sendMessage = () => {
     setSendClicked(true);
     let today = new Date();
-    let time = today.getHours() + ":" + today.getMinutes() +" Hrs";
+    let time = today.getHours() + ":" + today.getMinutes() + " Hrs";
     const message = {
       time: time,
       content: MessageContent,
@@ -49,6 +66,58 @@ export default function index() {
     console.log(AllMessage);
     setMessageContent("");
   };
+
+  //...............get and send firebase messages
+//   const getAllmessages =()=>{
+//     const roomsRef =collection(db, 'rooms');
+//     const docRef = collection(roomsRef, '5MkrcSzuJop9XO6thDS0','messages');
+//     // const messageRef = collection(docRef, 'messages');
+
+//     getDocs(docRef)
+//     .then((querySnapshot) => {
+//       querySnapshot.forEach((doc) => {
+//         console.log(doc.id, " => ", doc.data());
+//       });
+//     })
+//     .catch((error) => {
+//       console.log("Error getting documents: ", error);
+//     });
+    
+ 
+    
+ 
+//   }
+// getAllmessages();
+
+
+const getChats = async ()=>{
+  const roomsRef = collection(db, "rooms");
+  const querySnapshot = await getDocs(query(roomsRef, where("type", "==", "ticket")));
+  const data = [];
+
+  querySnapshot.forEach((dot) => {
+    data.push({ id: dot.id, ...dot.data() });
+    console.log("group  ",dot.id, " => ", dot.data());
+  });
+
+  console.log("data array", data);
+  setAllTickets(data);
+  console.log("all tickets", AllTickets)
+
+
+}
+
+useEffect(() => {
+  
+
+ getChats();
+
+  // return () => {
+  //   second
+  // }
+}, [])
+
+
 
   return (
     <Admin pageTitle="Soporte" headerTitle="Soporte">
@@ -63,7 +132,6 @@ export default function index() {
                 <button className="flex h-5 w-5 items-center justify-center border border-black border-opacity-40 text-black opacity-40">
                   <ChevronLeftIcon className="h-4 w-4" />
                 </button>
-                \shields
                 <button className="flex h-5 w-5 items-center justify-center border border-black border-opacity-60 text-black opacity-60">
                   <ChevronRightIcon className="h-4 w-4" />
                 </button>
@@ -86,7 +154,7 @@ export default function index() {
             </div>
 
             <ul className="flex-grow divide-y overflow-auto">
-              {[...Array(50)].map((item, index) => (
+              {AllTickets?.map((item, index) => (
                 // <li
                 //   className={classNames(
                 //     "space-y-2.5 p-4 text-sm",
@@ -117,7 +185,7 @@ export default function index() {
                 //     )}
                 //   </div>
                 // </li>
-                <TicketHistoryCard />
+                <TicketHistoryCard ticket={item} key={item.id} />
               ))}
             </ul>
           </div>

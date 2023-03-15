@@ -12,6 +12,7 @@ import {
   incrementNotificationCount
 } from "../redux/notificationSlice";
 import { useState } from "react";
+// import backgroundNotifsCallback from "@/firebase-messaging-sw";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -67,34 +68,46 @@ const FirebaseNotifs = () => {
   };
 
   useEffect(() => {
+
+
+// backgroundNotifsCallback();
+
 count<=1 && setToken();
     if ("serviceWorker" in navigator) {
       console.log(navigator);
-      // navigator.serviceWorker.register('/firebase-messaging-sw.js')
-      // .then(function(registration) {
-      //   console.log('Service worker registered:', registration);
-      // })
-      // .catch(function(error) {
-      //   console.log('Service worker registration failed:', error);
-      // });
+      navigator.serviceWorker.register('/firebase-messaging-sw.js')
+      .then(function(registration) {
+        console.log('Service worker registered:', registration);
 
-      navigator.serviceWorker.addEventListener("message", (event) => {
-        console.log("event",event);
-        let title = event.data.firebaseMessaging.payload.notification.title;
-        let body = event.data.firebaseMessaging.payload.notification.body;
-        console.log('Fcm notification:', title, body);
-        let date = new Date();
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1; // add 1 to get the correct month (0 = January)
-        var day = date.getDate();
-        var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+        navigator.serviceWorker.addEventListener("message", (event) => {
+          console.log("event",event);
+          let title = event.data.firebaseMessaging.payload.notification.title;
+          let body = event.data.firebaseMessaging.payload.notification.body;
+          console.log('Fcm notification:', title, body);
+          let date = new Date();
+          var year = date.getFullYear();
+          var month = date.getMonth() + 1; // add 1 to get the correct month (0 = January)
+          var day = date.getDate();
+          var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+  
+  
+          console.log(event);
+          pushaNotification(title, body, formattedDate);
+  
+          setCount(count + 1);
+        });
 
 
-        console.log(event);
-        pushaNotification(title, body, formattedDate);
 
-        setCount(count + 1);
+
+
+
+      })
+      .catch(function(error) {
+        console.log('Service worker registration failed:', error);
       });
+
+   
     }
   },[]);
 
