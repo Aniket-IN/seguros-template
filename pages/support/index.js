@@ -14,7 +14,11 @@ import {
   collection,
   getDoc,
   getDocs,
-  query, where,
+  query,
+  addDoc,
+  collectionGroup,
+  getFirestore,
+  where,
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import {
@@ -29,23 +33,12 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 export default function index() {
   const [MessageContent, setMessageContent] = useState("");
-  const [AllTickets,setAllTickets] = useState();
-  const [AllMessage, setAllMessage] = useState([
-    {
-      time: "10:45 Hrs",
-      content:
-        "Is simply dummy text of the printing and typesetting industry. Is simply dummy text of the printing and typesetting industry. ",
-      owner: "sender",
-    },
-    {
-      time: "10:45 Hrs",
-      content:
-        "Is simply dummy text of the printing and typesetting industry. Is simply dummy text of the printing and typesetting industry. ",
-      owner: "receiver",
-    },
-  ]);
+  const [AllMessage, setAllMessage] = useState([]);
 
+  const [AllTickets, setAllTickets] = useState([]);
   const [sendClicked, setSendClicked] = useState(false);
+  const [currentTicketId, setCurrentTicketId] = useState({id:"5HW1ZX2R1V4r6GhYWyht"});
+  const [currentTicketuser, setCurrentTicketuser] = useState({});
 
   function handleKeyPress(event) {
     if (event.key === "Enter") {
@@ -53,69 +46,154 @@ export default function index() {
     }
   }
 
-  const sendMessage = () => {
+
+
+//----------------------------get current Ticket user------------------------------------
+useEffect(() => {
+  const getUsers = async () => {
+    const db = getFirestore();
+    const usersRef = collection(db, "users");
+    const querySnapshot = await getDocs(query(usersRef, where("user id", "==", currentTicketId)));
+    if (!querySnapshot.empty) {
+      // There should be only one matching document, so we can directly access it
+      const userData = querySnapshot.docs[0].data();
+      setCurrentTicketuser(userData);
+    }
+  };
+  getUsers();
+}, [currentTicketId]);
+
+
+  //--------------------send message to firebase
+  const sendMessage = async () => {
     setSendClicked(true);
     let today = new Date();
-    let time = today.getHours() + ":" + today.getMinutes() + " Hrs";
+    today = today.toISOString().replace(/T/g," ");
+    // let time = today.getHours() + ":" + today.getMinutes() + " Hrs";
     const message = {
-      time: time,
-      content: MessageContent,
-      owner: "sender",
+      CreatedAt: today,
+      id: null,
+      message: {
+        content: MessageContent,
+        id: null,
+        messageDelivered: false,
+        messageSeen:true,
+        messageSent:true,
+        receiverId: "6",
+        senderId: "12",
+      },
+      type: "text",
+      updatedAt: today,
     };
-    MessageContent !== "" && setAllMessage([...AllMessage, message]);
+    if (MessageContent !== "") {
+      try {
+        const roomRef = doc(db, "rooms", currentTicketId?.id);
+        const messagesRef = collection(roomRef, "messages");
+        await addDoc(messagesRef, message);
+        console.log("Message sent successfully");
+        const messages = AllMessage;
+        messages.push(message);
+        setAllMessage(messages);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+ 
     console.log(AllMessage);
     setMessageContent("");
   };
 
+
+
   //...............get and send firebase messages
-//   const getAllmessages =()=>{
-//     const roomsRef =collection(db, 'rooms');
-//     const docRef = collection(roomsRef, '5MkrcSzuJop9XO6thDS0','messages');
-//     // const messageRef = collection(docRef, 'messages');
+  const getAllmessages = (ticket) => {
+    setCurrentTicketId(ticket);
+    const roomsRef = collection(db, "rooms");
+    const docRef = collection(roomsRef, ticket.id, "messages");
+    const data = [];
+    getDocs(docRef)
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          console.log(doc.id, " => ", doc.data());
+          data.push({ id: doc.id, ...doc.data() });
+        });
 
-//     getDocs(docRef)
-//     .then((querySnapshot) => {
-//       querySnapshot.forEach((doc) => {
-//         console.log(doc.id, " => ", doc.data());
-//       });
-//     })
-//     .catch((error) => {
-//       console.log("Error getting documents: ", error);
-//     });
+        setAllMessage(data);
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+  };
+
+  // get all chats
+  const getChats = async () => {
+    const roomsRef = collection(db, "rooms");
+    const querySnapshot = await getDocs(
+      query(roomsRef, where("type", "==", "ticket"))
+    );
+    const data = [];
+    querySnapshot.forEach((dot) => {
+      data.push({ id: dot.id, ...dot.data() });
+      console.log("Tickets  ", dot.id, " => ", dot.data());
+    });
+
+    console.log("data array", data);
+    setAllTickets(data);
+  };
+  // const [ticketRooms, setTicketRooms] = useState([]);
+  // AllTickets, setAllTickets
+
+
+  useEffect(() => {
+    getChats();
+
     
- 
-    
- 
-//   }
-// getAllmessages();
+
+    const q = query(collection(db, "rooms"), where("type", "==", "ticket"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const ticketRoomsData = [];
+      querySnapshot.forEach((doc) => {
+        ticketRoomsData.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setAllTickets(ticketRoomsData);
+     
+    });
+    return () => unsubscribe();
+   
+  
+  }, []);
 
 
-const getChats = async ()=>{
-  const roomsRef = collection(db, "rooms");
-  const querySnapshot = await getDocs(query(roomsRef, where("type", "==", "ticket")));
-  const data = [];
-
-  querySnapshot.forEach((dot) => {
-    data.push({ id: dot.id, ...dot.data() });
-    console.log("group  ",dot.id, " => ", dot.data());
-  });
-
-  console.log("data array", data);
-  setAllTickets(data);
-  console.log("all tickets", AllTickets)
 
 
-}
-
-useEffect(() => {
   
 
- getChats();
 
-  // return () => {
-  //   second
-  // }
-}, [])
+
+
+  useEffect(() => {
+    // Get a reference to the messages subcollection of the room document
+    const messagesRef = collection(doc(getFirestore(), "rooms", currentTicketId?.id), "messages");
+
+    // Listen for changes to the messages collection in real-time
+    const unsubscribe = onSnapshot(query(messagesRef), (querySnapshot) => {
+      const messages = [];
+      querySnapshot.forEach((doc) => {
+        // Map each document to a message object with an "id" property
+        messages.push({ id: doc.id, ...doc.data() });
+      });
+      setAllMessage(messages);
+    });
+
+    // Unsubscribe from real-time updates when the component unmounts
+    return unsubscribe;
+  }, [currentTicketId]);
+  
+
+
 
 
 
@@ -185,7 +263,11 @@ useEffect(() => {
                 //     )}
                 //   </div>
                 // </li>
-                <TicketHistoryCard ticket={item} key={item.id} />
+                <TicketHistoryCard
+                  ticket={item}
+                  key={index}
+                  getAllmessages={getAllmessages} setCurrentTicketId={setCurrentTicketId}
+                />
               ))}
             </ul>
           </div>
@@ -202,7 +284,7 @@ useEffect(() => {
                     />
                   </div>
                   <div>
-                    <dd className="font-semibold">Carlos Pérez Guerrero</dd>
+                    <dd className="font-semibold">{currentTicketuser.full_name}</dd>
                     <dd>UI123123</dd>
                   </div>
                 </div>
@@ -215,7 +297,8 @@ useEffect(() => {
                   <DividerText text="25/05/22" textClassName="bg-accent" />
                 </div>
                 <ul>
-                  {AllMessage.map((message, index) => {
+                  {AllMessage.sort(function(a, b) {
+          return a.CreatedAt - b.CreatedAt}).map((message, index) => {
                     return <SendMessage key={index} message={message} />;
                   })}
                 </ul>
@@ -256,18 +339,18 @@ useEffect(() => {
 }
 
 const SendMessage = ({ message }) => {
-  console.log(message.content);
+  console.log("message", message);
   return (
     <li className="my-5">
-      {message.owner === "sender" ? (
+      {message.message.senderId === "12" ? (
         <div className=" flex flex-row-reverse  text-xs  ">
           <div className="mx-4 grid  w-[45%]">
             <p className="justify-self-end rounded-md  bg-black  px-2 py-1  text-sm text-white">
-              {message.content}
+              {message.message.content}
             </p>
             <div className="flex flex-row-reverse">
               <div className=" h-2 pt-1 text-xs text-gray-500">
-                {message.time}
+                {message.updatedAt.slice(11, 16)} Hrs
               </div>
             </div>
           </div>
@@ -276,11 +359,11 @@ const SendMessage = ({ message }) => {
         <div className=" flex text-xs   ">
           <div className="mx-4 grid  w-[45%]">
             <p className="justify-self-end rounded-md  bg-white  px-2 py-1  text-sm text-black">
-              {message.content}
+              {message.message.content}
             </p>
             <div className="flex flex-row-reverse">
               <div className=" h-2 pt-1 text-xs text-gray-500">
-                {message.time}
+                {message.updatedAt.slice(11, 16)} Hrs
               </div>
             </div>
           </div>
@@ -289,3 +372,11 @@ const SendMessage = ({ message }) => {
     </li>
   );
 };
+
+
+
+
+
+// 2023-03-16 20:08:19.867408Z
+// 2023-03-16 20:08:07.347Z
+// 2023-03-16T20:08:07.347Z
