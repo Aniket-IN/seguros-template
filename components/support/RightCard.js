@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import TabSelector from "./TabSelector";
 import TicketHistoryCard from "./TicketHistoryCard";
 import UserCard from "./UserCard";
-import { collection, query, where, onSnapshot } from "firebase/firestore";
+import { collection, query, where, onSnapshot, getDoc, doc } from "firebase/firestore";
 import { db } from "@/firebase";
 
 const RightCard = ({ currentTicketId, currentTicketuser }) => {
   const [tab, setTab] = useState("user");
   const [historyCards, sethistoryCards] = useState([]);
+  const [currentTicket, setcurrentTicket] = useState({});
 
   // useEffect(() => {
   //   const q = query(collection(db, "rooms"), where("userIds[0]", "==", currentTicketId.userIds[0]? currentTicketId.userIds[0] : "-1" ));
@@ -46,13 +47,28 @@ const RightCard = ({ currentTicketId, currentTicketuser }) => {
     return () => unsubscribe();
   },[currentTicketuser]);
 
+
+  useEffect(() => {
+
+    const unsub = onSnapshot(doc(db, "rooms", currentTicketId.id), (doc) => {
+      console.log("Current data: ", doc.data());
+      setcurrentTicket({id:currentTicketId.id, ...doc.data()})
+  })
+      
+    
+ 
+  return () => unsub();
+},[currentTicketId.id, currentTicketId])
+
+
   return (
-    <div className="flex w-full flex-col gap-y-4 lg:max-w-xs">
+    <div className="flex w-full flex-col gap-y-4 lg:max-w-xs overflow-auto">
       <TabSelector tab={tab} setTab={setTab} />
       {!!(tab == "user") && (
-        <ul className="flex-grow divide-y overflow-auto h-full">
+        <ul className="flex-grow divide-y  h-full">
         <UserCard
-          currentTicketId={currentTicketId}
+          currentTicketId={currentTicket}
+          id={currentTicketId.id}
           currentTicketuser={currentTicketuser}
         />
         </ul>

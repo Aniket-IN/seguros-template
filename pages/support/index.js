@@ -28,17 +28,21 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/solid";
 import classNames from "classnames";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 export default function index() {
   const [MessageContent, setMessageContent] = useState("");
   const [AllMessage, setAllMessage] = useState([]);
+  const [search, setSearch] = useState("");
 
   const [AllTickets, setAllTickets] = useState([]);
+  const [currentPageTickets, setcurrentPageTickets] = useState([]);
   const [sendClicked, setSendClicked] = useState(false);
-  const [currentTicketId, setCurrentTicketId] = useState({id:"5HW1ZX2R1V4r6GhYWyh"});
+  const [currentTicketId, setCurrentTicketId] = useState({
+    id: "5HW1ZX2R1V4r6GhYWyh",
+  });
   const [currentTicketuser, setCurrentTicketuser] = useState({});
 
   function handleKeyPress(event) {
@@ -47,30 +51,27 @@ export default function index() {
     }
   }
 
+  //----------------------------get current Ticket user------------------------------------
+  useEffect(() => {
+    const getUsers = async () => {
+      const usersCollectionRef = collection(db, "users");
+      const docId = currentTicketId.userIds ? currentTicketId.userIds[0] : "-1";
+      console.log(" docid", docId);
 
+      const docRef = doc(usersCollectionRef, docId.toString());
+      const docSnap = await getDoc(docRef);
 
-//----------------------------get current Ticket user------------------------------------
-useEffect(() => {
-  const getUsers = async () => {
-    const usersCollectionRef = collection(db, "users");
-const docId = currentTicketId.userIds?currentTicketId.userIds[0]:"-1";
-console.log(" docid", docId);
+      if (docSnap.exists()) {
+        const data = { docId, ...docSnap.data() };
 
-const docRef = doc(usersCollectionRef, docId.toString());
-const docSnap = await getDoc(docRef);
-
-if (docSnap.exists()) {
-  const data = {docId,...docSnap.data()};
-
-  console.log("use data :" , data);
-  setCurrentTicketuser(data);
-} else {
-  console.log("No such document!");
-}
-  };
-  getUsers();
-}, [currentTicketId]);
-
+        console.log("use data :", data);
+        setCurrentTicketuser(data);
+      } else {
+        console.log("No such document!");
+      }
+    };
+    getUsers();
+  }, [currentTicketId]);
 
   //-----------------------------------------------send message to firebase----------------------------------------------------
   const sendMessage = async () => {
@@ -87,8 +88,8 @@ if (docSnap.exists()) {
         content: MessageContent,
         id: null,
         messageDelivered: false,
-        messageSeen:true,
-        messageSent:true,
+        messageSeen: true,
+        messageSent: true,
         receiverId: "6",
         senderId: "12",
       },
@@ -108,12 +109,10 @@ if (docSnap.exists()) {
         console.error(error);
       }
     }
- 
+
     console.log(AllMessage);
     setMessageContent("");
   };
-
-
 
   //......-------------------------------------.........get and send firebase messages-------------------------------------------------
   const getAllmessages = (ticket) => {
@@ -150,22 +149,9 @@ if (docSnap.exists()) {
     console.log("data array", data);
     setAllTickets(data);
   };
- 
-
-
-
-
-console.log("allmessages", AllMessage);
-
- 
-
-
 
   useEffect(() => {
-   
     getChats();
-
-    
 
     const q = query(collection(db, "rooms"), where("type", "==", "ticket"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -177,28 +163,62 @@ console.log("allmessages", AllMessage);
         });
       });
       setAllTickets(ticketRoomsData);
-     
     });
     return () => unsubscribe();
-   
-  
   }, []);
 
+  //----------------------get chats based on search term--------------------------------------
+  useEffect(() => {
+      const matchedTickets = AllTickets.filter((doc) =>
+        Object.values({ticketId:doc.ticketId, topic:doc.topic??"" , active: doc.active?"Pendiente" : "Resuelto", date:doc.createdAt }).some((value) =>
+          value?.toString()?.toLowerCase()?.includes(search.toLowerCase())
+        )
+      );
+      console.log("search",search);
+       setAllTickets(matchedTickets);
+      console.log("searched tickets", AllTickets);
+      search =="" && getChats();
+  }, [search.length]);
 
 
 
 
-  
 
- 
+// resolve the ticket
+  function handleResolveTicket(){
+    
+    const TicketRef = doc(db,'rooms', currentTicketId.id);
+    updateDoc(TicketRef,{
+      active:false,
+    } ).then(response => {
+      console.log("status updated");
+      setCurrentTicketId({active:false,...currentTicketId});
+      console.log("currentTicketId updated",currentTicketId);
+    }).catch(error =>{
+      console.log(error.message)
+    })
+  }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
   useEffect(() => {
-
     // Get a reference to the messages subcollection of the room document
-    const messagesRef = collection(doc(getFirestore(), "rooms", currentTicketId?.id), "messages");
+    const messagesRef = collection(
+      doc(getFirestore(), "rooms", currentTicketId?.id),
+      "messages"
+    );
 
     // Listen for changes to the messages collection in real-time
     const unsubscribe = onSnapshot(query(messagesRef), (querySnapshot) => {
@@ -212,9 +232,53 @@ console.log("allmessages", AllMessage);
 
     // Unsubscribe from real-time updates when the component unmounts
     return unsubscribe;
-  }, [currentTicketId]);
-  
+  }, [currentTicketId.id]);
 
+
+
+
+  //----------------------------rooms count where message is not seen yet! To set the count of BANDEJA ------------------------------------
+  const [BandejaCount, setBandejaCount] = useState(0);
+
+  // useEffect(() => {
+  //   const unsubscribe = getDocs(query(collectionGroup(db, 'messages'), where('message.messageSeen', '==', false)))
+  //     .then((snapshot) => {
+  //       const roomIds = new Set(); // use a Set to avoid duplicates
+  //       snapshot.forEach((doc) => {
+  //         roomIds.add(doc.ref.parent.parent.id); // add the room ID to the Set
+  //       });
+  //       console.log("roomIds", roomIds);
+  //       // get the count of rooms with type == "ticket" and in the Set of room IDs
+  //       getDocs(query(collection(db, 'rooms'), where('type', '==', 'ticket'), where(fieldPath.documentId(), 'in', [...roomIds])))
+  //         .then((querySnapshot) => {
+  //           setBandejaCount(querySnapshot.size); // set the count state
+  //         })
+  //     })
+  //   return ()=>unsubscribe;
+  // }, []);
+
+
+
+  const itemsPerPage = 5;
+
+
+    const [currentPage, setCurrentPage] = useState(1);
+  
+    const handlePrevPage = () => {
+      if (currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+      }
+    };
+  
+    const handleNextPage = () => {
+      if (currentPage < Math.ceil(AllTickets.length / itemsPerPage)) {
+        setCurrentPage(currentPage + 1);
+      }
+    };
+  
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const currentItems = AllTickets.slice(startIndex, endIndex);
 
 
 
@@ -226,13 +290,13 @@ console.log("allmessages", AllMessage);
           {/* Chat sidebar */}
           <div className="flex max-h-96 w-full  flex-col border bg-white lg:max-h-full lg:max-w-xs">
             <div className="flex gap-2 p-4">
-              <h2 className="font-medium">BANDEJA (2)</h2>
+              <h2 className="font-medium">BANDEJA ({BandejaCount})</h2>
               <span className="ml-auto text-sm text-gray-400">20 de 240</span>
               <div className="flex gap-1">
-                <button className="flex h-5 w-5 items-center justify-center border border-black border-opacity-40 text-black opacity-40">
+                <button className="flex h-5 w-5 items-center justify-center border border-black border-opacity-40 text-black opacity-40" disabled={startIndex<=0 ? true: false}   onClick={handlePrevPage}>
                   <ChevronLeftIcon className="h-4 w-4" />
                 </button>
-                <button className="flex h-5 w-5 items-center justify-center border border-black border-opacity-60 text-black opacity-60">
+                <button className="flex h-5 w-5 items-center justify-center border border-black border-opacity-60 text-black opacity-60" disabled={endIndex>=AllTickets.length ? true: false} onClick={handleNextPage}>
                   <ChevronRightIcon className="h-4 w-4" />
                 </button>
               </div>
@@ -244,6 +308,10 @@ console.log("allmessages", AllMessage);
                   <MagnifyingGlassIcon className="aspect-square w-full" />
                 </div>
                 <InputGroup.Input
+                  value={search}
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                  }}
                   id="search"
                   type="search"
                   name="search"
@@ -254,8 +322,9 @@ console.log("allmessages", AllMessage);
             </div>
 
             <ul className="flex-grow divide-y overflow-auto ">
-              {AllTickets.sort(function(a, b) {
-                       return b.CreatedAt - a.CreatedAt})?.map((item, index) => (
+              {currentItems.sort(function (a, b) {
+                return new Date(b.CreatedAt) - new Date(a.CreatedAt);
+              })?.map((item, index) => (
                 // <li
                 //   className={classNames(
                 //     "space-y-2.5 p-4 text-sm",
@@ -287,80 +356,91 @@ console.log("allmessages", AllMessage);
                 //   </div>
                 // </li>
                 <TicketHistoryCard
-                id={item.id}
+                  id={item.id}
                   ticket={item}
                   key={index}
                   Clickable={true}
-                  backgroundColor={currentTicketId.id ===item.id ?  "bg-[#F1F2F3]":"bg-white" }
-                  getAllmessages={getAllmessages} setCurrentTicketId={setCurrentTicketId}
+                  backgroundColor={
+                    currentTicketId.id === item.id ? "bg-[#F1F2F3]" : "bg-white"
+                  }
+                  getAllmessages={getAllmessages}
+                  setCurrentTicketId={setCurrentTicketId}
                 />
               ))}
             </ul>
           </div>
 
-    { currentTicketId.id!=="5HW1ZX2R1V4r6GhYWyh" &&    <div className="mt-7 flex flex-grow flex-col-reverse gap-5 px-4 md:px-5 lg:flex-row">
-            <div className="flex flex-grow flex-col bg-white p-4">
-              <div className="flex flex-col justify-between gap-4 text-sm lg:flex-row lg:items-center">
-                <div className="flex items-center gap-4">
-                  <div className="h-11 w-11 rounded-full">
-                    <img
-                      className="h-11 w-11 rounded-full"
-                      src={currentTicketuser.image?? "/assets/img/default-profile-pic-1.jpg"}
-                      alt="User"
+          {currentTicketId.id !== "5HW1ZX2R1V4r6GhYWyh" && (
+            <div className="mt-7 flex flex-grow flex-col-reverse gap-5 px-4 md:px-5 lg:flex-row">
+              <div className="flex flex-grow flex-col bg-white p-4">
+                <div className="flex flex-col justify-between gap-4 text-sm lg:flex-row lg:items-center">
+                  <div className="flex items-center gap-4">
+                    <div className="h-11 w-11 rounded-full">
+                      <img
+                        className="h-11 w-11 rounded-full"
+                        src={
+                          currentTicketuser.image ??
+                          "/assets/img/default-profile-pic-1.jpg"
+                        }
+                        alt="User"
+                      />
+                    </div>
+                    <div>
+                      <dd className="font-semibold">
+                        {currentTicketuser.full_name}
+                      </dd>
+                      <dd>UI{currentTicketuser.docId}</dd>
+                    </div>
+                  </div>
+                  <button className="rounded bg-primary px-4 py-2.5 text-white" onClick={handleResolveTicket}>
+                    Marcar resuelto
+                  </button>
+                </div>
+                <div className="mt-5 flex-grow space-y-3 overflow-auto bg-accent px-4">
+                  <div className="px-4 py-3">
+                    <DividerText text="25/05/22" textClassName="bg-accent" />
+                  </div>
+                  <ul>
+                    {AllMessage.sort(function (a, b) {
+                      return a.CreatedAt - b.CreatedAt;
+                    }).map((message, index) => {
+                      return <SendMessage key={index} message={message} />;
+                    })}
+                  </ul>
+                </div>
+                <div className="flex border border-t-2 border-t-black px-5 pt-5">
+                  <div className="flex-shrink-0 flex-grow">
+                    <textarea
+                      onChange={(e) => {
+                        setMessageContent(e.target.value);
+                      }}
+                      value={MessageContent}
+                      className="w-full border-none focus:ring-0"
+                      name="message"
+                      id="message"
+                      rows="3"
+                      onKeyPress={handleKeyPress}
+                      placeholder="Escribe tu mensaje"
                     />
                   </div>
                   <div>
-                    <dd className="font-semibold">{currentTicketuser.full_name}</dd>
-                    <dd>UI{currentTicketuser.docId}</dd>
+                    <button
+                      className="rounded bg-black px-4 py-2.5 text-white"
+                      onClick={sendMessage}
+                      id="sendMessage"
+                    >
+                      Enviar
+                    </button>
                   </div>
                 </div>
-                <button className="rounded bg-primary px-4 py-2.5 text-white">
-                  Marcar resuelto
-                </button>
               </div>
-              <div className="mt-5 flex-grow space-y-3 overflow-auto bg-accent px-4">
-                <div className="px-4 py-3">
-                  <DividerText text="25/05/22" textClassName="bg-accent" />
-                </div>
-                <ul>
-                
 
-                  {
-                  AllMessage.sort(function(a, b) {
-                       return a.CreatedAt - b.CreatedAt}).map((message, index) => {
-                    return <SendMessage key={index} message={message} />;
-                  })}
-                </ul>
-              </div>
-              <div className="flex border border-t-2 border-t-black px-5 pt-5">
-                <div className="flex-shrink-0 flex-grow">
-                  <textarea
-                    onChange={(e) => {
-                      setMessageContent(e.target.value);
-                    }}
-                    value={MessageContent}
-                    className="w-full border-none focus:ring-0"
-                    name="message"
-                    id="message"
-                    rows="6"
-                    onKeyPress={handleKeyPress}
-                    placeholder="Escribe tu mensaje"
-                  />
-                </div>
-                <div>
-                  <button
-                    className="rounded bg-black px-4 py-2.5 text-white"
-                    onClick={sendMessage}
-                    id="sendMessage"
-                  >
-                    Enviar
-                  </button>
-                </div>
-              </div>
+              <RightCard
+                currentTicketId={currentTicketId}
+                currentTicketuser={currentTicketuser}
+              />
             </div>
-
-            <RightCard currentTicketId={currentTicketId} currentTicketuser={currentTicketuser} />
-          </div>}
+          )}
         </div>
       </div>
     </Admin>
@@ -401,10 +481,6 @@ const SendMessage = ({ message }) => {
     </li>
   );
 };
-
-
-
-
 
 // 2023-03-16 20:08:19.867408Z
 // 2023-03-16 20:08:07.347Z

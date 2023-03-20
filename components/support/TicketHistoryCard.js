@@ -40,6 +40,9 @@ const TicketHistoryCard = ({ticket, getAllmessages, backgroundColor, Clickable})
 
 
 
+  
+
+
   useEffect(() => {
     const messagesCollectionRef = collection(db, 'rooms', ticket.id, 'messages');
     const unseenMessagesQuery = query(messagesCollectionRef, where('message.massageSeen','==',false));
@@ -75,7 +78,7 @@ const TicketHistoryCard = ({ticket, getAllmessages, backgroundColor, Clickable})
           </div>
           <dd className="font-semibold">{ticket?.topic}</dd>
           <div className="flex items-center justify-between text-sm">
-            <span className="text-xs">{ticket?.createdAt.slice(11,16)}, {ticket?.createdAt.slice(0,10)} </span>
+            <span className="text-xs">{ticket?.createdAt?.slice(11,16)}, {ticket?.createdAt?.slice(0,10)} </span>
             {  ticket?.active == true ? (
               <span className="font-semibold text-danger">Pendiente</span>
             ) : (
